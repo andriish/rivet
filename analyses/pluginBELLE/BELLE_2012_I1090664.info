@@ -1,0 +1,37 @@
+Name: BELLE_2012_I1090664
+Year: 2012
+Summary: Cross sections for $\gamma\gamma\to\omega\phi$, $\phi\phi$ and $\omega\omega$
+Experiment: BELLE
+Collider: KEKB
+InspireID: 1090664
+Status: VALIDATED NOHEPDATA
+Reentrant: false
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 108 (2012) 232001
+RunInfo: gamma gamma to hadrons
+Beams: [gamma,gamma]
+Description:
+  'Measurement of the cross sections for $\gamma\gamma\to\omega\phi$, $\phi\phi$ and $\omega\omega$.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2012qqr
+BibTeX: '@article{Belle:2012qqr,
+    author = "Liu, Z. Q. and others",
+    collaboration = "Belle",
+    title = "{Observation of new resonant structures in $\gamma \gamma \to \omega \phi$, $\phi \phi$ and $\omega \omega$}",
+    eprint = "1202.5632",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BELLE-PREPRINT-2012-5, KEK-PREPRINT-2011-27",
+    doi = "10.1103/PhysRevLett.108.232001",
+    journal = "Phys. Rev. Lett.",
+    volume = "108",
+    pages = "232001",
+    year = "2012"
+}
+'

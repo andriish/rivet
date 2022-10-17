@@ -47,6 +47,10 @@
 
 	* Extend RivetLWTNN.hh to allow use of lwt::LightweightGraph
 
+2022-10-15 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2012_I1090664 gamma gamma -> omega omega, omega phi and phi phi
+
 2022-10-14 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BELLE_2018_I1700174 e+ e- -> gamma chi_c1
