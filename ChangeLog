@@ -47,6 +47,10 @@
 
 	* Extend RivetLWTNN.hh to allow use of lwt::LightweightGraph
 
+2022-10-20 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2012_I1122031 B -> Xs gamma
+
 2022-10-19 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2022_I2166759 J/psi, psi(2S) -> Sigma+ Sigmabar- eta
