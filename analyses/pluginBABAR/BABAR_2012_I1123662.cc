@@ -26,6 +26,23 @@ namespace Rivet {
       book(_nBottom, "TMP/BottomCounter");
     }
 
+    void findDecayProducts(const Particle& mother,
+                           unsigned int& nK0, unsigned int& nKp,
+			   unsigned int& nKm) {
+      for (const Particle & p : mother.children()) {
+        int id = p.pid();
+        if ( id == PID::KPLUS )      ++nKp;
+        else if (id == PID::KMINUS ) ++nKm;
+        else if (id == PID::K0S)     ++nK0;
+        else if (id == PID::PI0 || id == PID::PIPLUS || id == PID::PIMINUS) {
+	  continue;
+        }
+        else if ( !p.children().empty() ) {
+          findDecayProducts(p, nK0, nKp, nKm);
+        }
+      }
+    }
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Loop over bottoms
@@ -44,9 +61,15 @@ namespace Rivet {
           }
 	}
 	if (ngamma != 1) continue;
-	const LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(bottom.momentum().betaVec());
-	double eGamma = boost.transform(pgamma).E();
-	_h_spectrum->fill(eGamma);
+        unsigned int nK0(0),nKp(0),nKm(0);
+        FourMomentum p_tot(0,0,0,0);
+        findDecayProducts(bottom, nK0, nKp, nKm);
+        unsigned int nk = nKp-nKm+nK0;
+        if (nk % 2 == 1) {
+	  const LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(bottom.momentum().betaVec());
+	  double eGamma = boost.transform(pgamma).E();
+	  _h_spectrum->fill(eGamma);
+	}
       }
     }
 
