@@ -13,4 +13,4 @@ RivetHTT.so: EXAMPLE_HTT.cc
 	@+echo && $(RIVETBUILD) $@ $^ -I$(HEPTOPTAGGER_PREFIX)/include
 
 RivetATLAS_2021_I1869040.so: ATLAS_2021_I1869040.cc
-	@+echo && $(RIVETBUILD) $@ $^ -I$(top_builddir)/include -I$(ONNX_PREFIX)/include -L$(ONNX_PREFIX)/lib -llwtnn
+	@+echo && $(RIVETBUILD) $@ $^ -I$(top_builddir)/include -I$(ONNX_PREFIX)/include -L$(ONNX_PREFIX)/lib -lonnxruntime
