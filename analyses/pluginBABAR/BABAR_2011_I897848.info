@@ -12,7 +12,7 @@ References:
  - Phys.Rev.D 83 (2011) 112010
 RunInfo: Any process producing B0 mesons, originally e+e- at Upsilon(4S)
 Description:
-  'easurements of mass distributions in $B^0\to K^+\pi^-\pi^0$ decays. The data were read from the plots in the paper and the backgrounds given subtracted.'
+  'Measurements of mass distributions in $B^0\to K^+\pi^-\pi^0$ decays. The data were read from the plots in the paper and the backgrounds given subtracted.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:
