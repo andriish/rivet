@@ -81,6 +81,7 @@ namespace Rivet {
 	  D0 = Dstar.children()[0];
 	else
 	  continue;
+	// children of the omega
 	unsigned int ncount=0;
 	Particles pip,pim,pi0;
 	findChildren(omega,pim,pip,pi0,ncount);
