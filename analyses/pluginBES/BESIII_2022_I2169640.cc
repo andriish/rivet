@@ -7,11 +7,11 @@ namespace Rivet {
 
 
   /// @brief e+ e- -> phi chi_c(1,2)
-  class BESIII_2017_I1644905 : public Analysis {
+  class BESIII_2022_I2169640 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2017_I1644905);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2022_I2169640);
 
 
     /// @name Analysis methods
@@ -23,7 +23,7 @@ namespace Rivet {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
       for(unsigned int ix=0;ix<2;++ix)
-	book(_h[ix],1,1,1+ix);
+	book(_c[ix],"TMP/nChi_"+toString(ix+1));
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
@@ -68,8 +68,8 @@ namespace Rivet {
 	    }
 	  }
 	  if(!matched) continue;
-	  if     (chi.pid()==20443) _h[0]->fill(4.6);
-	  else if(chi.pid()==  445) _h[1]->fill(4.6);
+	  if     (chi.pid()==20443) _c[0]->fill();
+	  else if(chi.pid()==  445) _c[1]->fill();
 	  break;
 	}
 	if(matched) break;
@@ -79,8 +79,27 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      for(unsigned int ix=0;ix<2;++ix)
-	scale(_h[ix], crossSection()/sumOfWeights()/picobarn);
+      double fact =  crossSection()/ sumOfWeights() /picobarn;
+      for(unsigned int ix=0;ix<2;++ix) {
+	double sigma = _c[ix]->val()*fact;
+	double error = _c[ix]->err()*fact;
+	Scatter2D temphisto(refData(1, 1, 1+ix));
+	Scatter2DPtr  mult;
+	book(mult, 1, 1, 1+ix);
+	for (size_t b = 0; b < temphisto.numPoints(); b++) {
+	  const double x  = temphisto.point(b).x();
+	  pair<double,double> ex = temphisto.point(b).xErrs();
+	  pair<double,double> ex2 = ex;
+	  if(ex2.first ==0.) ex2. first=0.0001;
+	  if(ex2.second==0.) ex2.second=0.0001;
+	  if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	    mult->addPoint(x, sigma, ex, make_pair(error,error));
+	  }
+	  else {
+	    mult->addPoint(x, 0., ex, make_pair(0.,.0));
+	  }
+	}
+      }
     }
 
     /// @}
@@ -88,13 +107,13 @@ namespace Rivet {
 
     /// @name Histograms
     /// @{
-    Histo1DPtr _h[2];
+    CounterPtr _c[2];
     /// @}
 
 
   };
 
 
-  RIVET_DECLARE_PLUGIN(BESIII_2017_I1644905);
+  RIVET_DECLARE_PLUGIN(BESIII_2022_I2169640);
 
 }
