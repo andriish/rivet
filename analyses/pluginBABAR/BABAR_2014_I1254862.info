@@ -1,0 +1,39 @@
+Name: BABAR_2014_I1254862
+Year: 2014
+Summary: Azimuthal asymmetries in inclusive charged $\pi\pi$ pair production at 10.58 GeV
+Experiment: BABAR
+Collider: PEP-II
+InspireID: 1254862
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 90 (2014) 5, 052003
+RunInfo: e+e- to hadrons
+Beams: [e+, e-]
+Energies: [10.58]
+Description:
+  'Measurement of azimuthal asymmetries in inclusive charged $\pi\pi$ pair production at $\sqrt{s}=10.58$ GeV by the BABAR experiment. Only the distributions in $z_{1,2}$ are currently implemented.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BaBar:2013jdt
+BibTeX: '@article{BaBar:2013jdt,
+    author = "Lees, J. P. and others",
+    collaboration = "BaBar",
+    title = "{Measurement of Collins asymmetries in inclusive production of charged pion pairs in $e^+e^-$ annihilation at BABAR}",
+    eprint = "1309.5278",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BABAR-PUB-13-012, SLAC-PUB-15700",
+    doi = "10.1103/PhysRevD.90.052003",
+    journal = "Phys. Rev. D",
+    volume = "90",
+    number = "5",
+    pages = "052003",
+    year = "2014"
+}
+'

@@ -47,6 +47,10 @@
 
 	* Extend RivetLWTNN.hh to allow use of lwt::LightweightGraph
 
+2022-10-25 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2014_I1254862 azimuthal asymmetries in e+e- -> hadrons
+
 2022-10-15 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BELLE_2012_I1090664 gamma gamma -> omega omega, omega phi and phi phi
