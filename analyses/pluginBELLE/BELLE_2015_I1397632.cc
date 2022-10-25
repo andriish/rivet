@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief B -> D semi-leptonic
   class BELLE_2015_I1397632 : public Analysis {
   public:
 
