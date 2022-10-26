@@ -142,6 +142,7 @@ nobase_pkginclude_HEADERS += \
   Tools/ParticleName.hh \
   Tools/Percentile.hh \
   Tools/PrettyPrint.hh \
+  Tools/ProjectionTreePlotter.hh \
   Tools/ReaderCompressedAscii.hh \
   Tools/RHICCommon.hh \
   Tools/RivetFastJet.hh \
@@ -159,9 +160,7 @@ nobase_pkginclude_HEADERS += \
   Tools/ExptSmearingFunctions.hh \
   Tools/TypeTraits.hh \
   Tools/WriterCompressedAscii.hh \
-  Tools/Utils.hh \
-  Tools/ProjectionTreePlotter.hh \
-  Tools/Utils.hh
+  Tools/Utils.hh 
 nobase_dist_noinst_HEADERS += \
   Tools/osdir.hh
 
