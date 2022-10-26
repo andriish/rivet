@@ -7,8 +7,8 @@ namespace Rivet {
 
 
   thread_local Log::LogMap Log::existingLogs;
-  Log::LevelMap Log::defaultLevels;
-  Log::ColorCodes Log::colorCodes;
+  thread_local Log::LevelMap Log::defaultLevels;
+  thread_local Log::ColorCodes Log::colorCodes;
   string Log::endColorCode;
   bool Log::showTimestamp = false;
   bool Log::showLogLevel = true;
