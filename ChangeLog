@@ -1,3 +1,11 @@
+2022-10-26 Tomek Procter <t.procter.1@research.gla.ac.uk>
+
+	* Make logger thread safe(r) by making ColorMap and LevelMap thread_local
+
+2022-10-26 Tomek Procter <t.procter.1@research.gla.ac.uk>
+
+	* Extend RivetLWTNN.hh to allow use of lwt::LightweightGraph
+
 2022-10-13  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Enable Cython autoconversion from C++ strings to the appropriate
