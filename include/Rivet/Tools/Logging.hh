@@ -31,10 +31,10 @@ namespace Rivet {
     thread_local static LogMap existingLogs;
 
     /// A static map of default log levels.
-    static LevelMap defaultLevels;
+    thread_local static LevelMap defaultLevels;
 
     /// A static map of shell color codes for the log levels.
-    static ColorCodes colorCodes;
+    thread_local static ColorCodes colorCodes;
 
     /// Shell color code for the end of the log levels.
     static std::string endColorCode;
