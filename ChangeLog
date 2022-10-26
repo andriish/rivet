@@ -47,6 +47,10 @@
 
 	* Extend RivetLWTNN.hh to allow use of lwt::LightweightGraph
 
+2022-10-26 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2017_I1336340 B+ -> KS0 pi+ pi0
+
 2022-10-25 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BELLE_2022_I2169621 B ->D semi-leptonic

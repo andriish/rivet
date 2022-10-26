@@ -37,17 +37,10 @@ namespace Rivet {
       static const map<PdgId,unsigned int> & modeCC = { { 211,1}, {-211,1}, {-313,1}};
       DecayedParticles B0 = apply<DecayedParticles>(event, "B0");
       for(unsigned int ix=0;ix<B0.decaying().size();++ix) {
-      	int sign = 1, imode = 0;
-      	if (B0.decaying()[ix].pid()>0 && B0.modeMatches(ix,3,mode)) {
-	  imode=0;
-      	  sign=1;
-      	}
-      	else if  (B0.decaying()[ix].pid()<0 && B0.modeMatches(ix,3,modeCC)) {
-	  imode=0;
-      	  sign=-1;
-      	}
-	else
-	  continue;
+      	int sign = 1;
+      	if (B0.decaying()[ix].pid()>0 && B0.modeMatches(ix,3,mode))        sign= 1;
+      	else if (B0.decaying()[ix].pid()<0 && B0.modeMatches(ix,3,modeCC)) sign=-1;
+	else continue;
 	const Particle & pip = B0.decayProducts()[ix].at( sign*211)[0];
 	const Particle & pim = B0.decayProducts()[ix].at(-sign*211)[0];
 	_h->fill((pip.momentum()+pim.momentum()).mass());
