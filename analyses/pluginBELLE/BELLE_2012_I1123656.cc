@@ -51,11 +51,13 @@ namespace Rivet {
 	  continue;
 	if(Dm.children().size()!=2) continue;
 	if(Dm.children()[0].abspid()==PID::PIPLUS &&
-	   Dm.children()[1].abspid()==PID::D0)
+	   Dm.children()[1].abspid()==PID::D0) {
 	  pim = Dm.children()[0];
+	}
 	else if (Dm.children()[1].abspid()==PID::PIPLUS &&
-		 Dm.children()[0].abspid()==PID::D0)
+		 Dm.children()[0].abspid()==PID::D0) {
 	  pim = Dm.children()[1];
+	}
 	else
 	  continue;
 	// boost to rest frame
@@ -70,8 +72,8 @@ namespace Rivet {
 	// ctheta1
 	_h[1]->fill(axisX.dot(ppim.p3().unit()));
 	// y and z axis
-	Vector3 axisY = axisX.cross(ppip.p3()).unit();
-	Vector3 axisZ = axisX.cross(axisY);
+	ppim = boostDp.transform(boostB.transform(pim.momentum()));
+	Vector3 axisZ = axisX.cross(ppim.p3()).unit();
 	// cThetaTr
 	_h[0]->fill(axisZ.dot(ppip.p3().unit()));
       }
