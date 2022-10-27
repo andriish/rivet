@@ -2,7 +2,7 @@ Name: BESIII_2022_I2166668
 Year: 2022
 Summary: $\chi_{cJ}\to \Lambda\bar\Lambda^0\eta$ decays
 Experiment: BESIII
-Collider: 
+Collider: BEPC 
 InspireID: 2166668
 Status: VALIDATED NOHEPDATA
 Reentrant: true

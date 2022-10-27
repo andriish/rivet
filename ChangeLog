@@ -33,6 +33,10 @@
 	build script (thanks to Alexander Puck Neuwirth for the
 	suggestion).
 
+2022-10-27 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2015_I135282 chi_c -> phi K K pi
+
 2022-10-27 Christian Gutschow  <chris.g@cern.ch>
 
 	* Add reentrant marker to MC_DILEPTON.info (thanks to Jens Roggel
@@ -49,7 +53,7 @@
 
 2022-10-26 Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Add BABAR_2017_I1336340 B+ -> KS0 pi+ pi0
+	* Add 8BABAR_2017_I1336340 B+ -> KS0 pi+ pi0
 
 2022-10-25 Peter Richardson <peter.richardson@durham.ac.uk>
 
