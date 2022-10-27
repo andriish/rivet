@@ -36,6 +36,7 @@
 2022-10-27 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2015_I135282 chi_c -> phi K K pi
+	* Add BELLE_2018_I1663447 B+ -> K+ eta gamma
 
 2022-10-27 Christian Gutschow  <chris.g@cern.ch>
 
@@ -53,7 +54,7 @@
 
 2022-10-26 Peter Richardson <peter.richardson@durham.ac.uk>
 
-	* Add 8BABAR_2017_I1336340 B+ -> KS0 pi+ pi0
+	* Add BABAR_2017_I1336340 B+ -> KS0 pi+ pi0
 
 2022-10-25 Peter Richardson <peter.richardson@durham.ac.uk>
 
