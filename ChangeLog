@@ -1,3 +1,7 @@
+2022-10-27 Christian Gutschow  <chris.g@cern.ch>
+
+	* add reentrant marker to MC_DILEPTON.info (thanks to Jens Roggel for spotting)
+
 2022-10-26 Tomek Procter <t.procter.1@research.gla.ac.uk>
 
 	* Make logger thread safe(r) by making ColorMap and LevelMap thread_local
