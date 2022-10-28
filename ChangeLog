@@ -33,6 +33,10 @@
 	build script (thanks to Alexander Puck Neuwirth for the
 	suggestion).
 
+2022-10-28 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2011_I889524 B_s0 -> pi+ pi- J/psi
+
 2022-10-27 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2015_I135282 chi_c -> phi K K pi
