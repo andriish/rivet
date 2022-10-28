@@ -1,0 +1,37 @@
+Name: BELLE_2018_I1678261
+Year: 2018
+Summary: Cross section for $e^+e^-\to\pi^+\pi^-\pi^0\chi_{b(1,2)}$ for $\sqrt{s}=10.96-11.05$ GeV
+Experiment: BELLE
+Collider: KEKB
+InspireID: 1678261
+Status: VALIDATED NOHEPDATA SINGLEWEIGHT
+Reentrant: false
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 98 (2018) 9, 091102
+Description:
+  'Measurement of the cross for $e^+e^-\to\pi^+\pi^-\pi^0\chi_{b(1,2)}$ for $\sqrt{s}=10.96-11.05$ GeV by BELLE.'
+RunInfo: e+ e- -> hadrons, KS0 and pi0 set stable
+Beams: [e+, e-]
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2018izj
+BibTeX: '@article{Belle:2018izj,
+    author = "Yin, J. H. and others",
+    collaboration = "Belle",
+    title = "{Observation of $e^+e^-\to\pi^+\pi^-\pi^0\chi_{b1,2}(1P)$ and search for $e^+e^-\to\phi\chi_{b1,2}(1P)$ at $\sqrt{s}=$ 10.96\textemdash{}11.05  GeV}",
+    eprint = "1806.06203",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevD.98.091102",
+    journal = "Phys. Rev. D",
+    volume = "98",
+    number = "9",
+    pages = "091102",
+    year = "2018"
+}
+'
