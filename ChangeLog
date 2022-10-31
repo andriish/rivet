@@ -33,6 +33,10 @@
 	build script (thanks to Alexander Puck Neuwirth for the
 	suggestion).
 
+2022-10-31 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2014_I1312626 Bbar0 -> J/psi K- pi+
+
 2022-10-29 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BELLE_2018_I1663447 J/psi -> gamma KS0 KS0

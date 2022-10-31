@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief J/psi and psi(2s) -> Xi* and Sigma*
   class BESIII_2017_I1506414 : public Analysis {
   public:
 
@@ -68,7 +68,8 @@ namespace Rivet {
 
 
       const UnstableParticles & ufs = apply<UnstableParticles>(event, "UFS");
-      for (const Particle& p :  ufs.particles(Cuts::abspid==3322 or Cuts::abspid==3214)) {
+      for (const Particle& p :  ufs.particles(Cuts::abspid==3322 or
+					      Cuts::abspid==3214)) {
        	if(p.children().empty()) continue;
        	map<long,int> nRes=nCount;
        	int ncount = ntotal;
@@ -88,7 +89,7 @@ namespace Rivet {
 		break;
 	      }
 	    }
-	    // fond baryon and antibaryon
+	    // found baryon and antibaryon
 	    if(matched) {
 	      // calc cosine
 	      double ctheta;
