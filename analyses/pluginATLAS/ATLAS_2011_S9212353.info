@@ -8,6 +8,7 @@ InspireID: 930005
 Status: OBSOLETE
 Reentrant: true
 References:
+ - ATLAS-SUSY-2011-08
  - Phys. Rev.D85:012006,2012
  - arXiv:1109.6606
 RunInfo:

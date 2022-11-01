@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Michaela Queitsch-Maitland <michaela.queitsch-maitland@cern.ch>
 References:
+ - ATLAS-HIGG-2013-10
  - arXiv:1407.4222
  - JHEP 09 (2014) 112
 RunInfo:

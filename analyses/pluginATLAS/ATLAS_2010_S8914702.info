@@ -10,6 +10,7 @@ Reentrant: true
 Authors:
  - Mike Hance <michael.hance@cern.ch>
 References:
+ - ATLAS-STDM-2010-08
  - arXiv:1012.4389 [hep-ex]
 RunInfo:
   Inclusive photon+X events (primary gamma+jet events) at $\sqrt{s} = 7$~TeV.

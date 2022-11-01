@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
   - Vojtech Pleskot <vojtech.pleskot@cern.ch>
 References:
+ - ATLAS-STDM-2013-11
   - arXiv:1410.8857 [hep-ex]
 RunInfo:
   p p -> jet + X. $\sqrt{s} = 7$~TeV.

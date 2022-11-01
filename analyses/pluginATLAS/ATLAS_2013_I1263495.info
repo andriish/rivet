@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Giovanni Marchiori <giovanni.marchiori@cern.ch>
 References:
+ - ATLAS-STDM-2012-16
  - arXiv:1311.1440 [hep-ex]
  - Phys.Rev. D89 (2014) 052004
 RunInfo:

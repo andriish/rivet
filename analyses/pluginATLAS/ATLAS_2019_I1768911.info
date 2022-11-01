@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Jan Kretzschmar <jan.kretzschmar@cern.ch>
 References:
+ - ATLAS-STDM-2018-14
  - arXiv:1912.02844 [hep-ex]
  - Eur. Phys. J. C 80 (2020) 616 
 RunInfo:

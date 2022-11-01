@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Roman Lysak <roman.lysak@cern.ch>
 References:
+ - ATLAS-STDM-2016-07
  - arXiv:1701.05390
 Keywords:
  - mpi

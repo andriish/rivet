@@ -11,6 +11,7 @@ Authors:
  - Thomas Burgess <thomas.burgess@cern.ch>
  - Andy Buckley <andy.buckley@cern.ch>
 References:
+ - ATLAS-STDM-2010-06
  - arXiv:1012.5104
 RunInfo:
   $pp$ QCD interactions at 0.9, 2.36, and 7 TeV. Diffractive events should

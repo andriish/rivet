@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Holger Schulz <holger.schulz@physik.hu-berlin.de>
 References:
+ - ATLAS-STDM-2010-09
  - arXiv:1111.1297v2 [hep-ex]
  - Phys.Rev. D85 (2012) 012001
 RunInfo:
