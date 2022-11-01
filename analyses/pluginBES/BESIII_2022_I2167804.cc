@@ -7,11 +7,11 @@ namespace Rivet {
 
 
   /// @brief psi(2S) -> Lambda Lambdabar eta
-  class BESIII_2022_I2128095 : public Analysis {
+  class BESIII_2022_I2167804 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2022_I2128095);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2022_I2167804);
 
 
     /// @name Analysis methods
@@ -76,6 +76,6 @@ namespace Rivet {
   };
 
 
-  RIVET_DECLARE_PLUGIN(BESIII_2022_I2128095);
+  RIVET_DECLARE_PLUGIN(BESIII_2022_I2167804);
 
 }
