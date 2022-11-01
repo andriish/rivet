@@ -1,0 +1,39 @@
+Name: BESIII_2020_I1793431
+Year: 2020
+Summary: $e^+e^-\to \pi^0\pi^0 J/\psi$ for $\sqrt{s}=3.808$ to $4.6$ GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1793431
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 102 (2020) 1, 012009
+RunInfo: e+ e- to hadrons, pi0 set stable
+Beams: [e+, e-]
+Options:
+ - PID=*
+Description:
+'Measurement of the cross section for $e^+e^-\to \pi^0\pi^0 J/\psi$ for $\sqrt{s}=3.808$ to $4.6$ GeV by BESIII. The mass distributions are also measured at three energy points together with the cross section for $Z_c(3900)^0\pi^0$. As there is no PDG code for the $Z_c(3900)^0$ we take it to be the first unused exotic $c\bar{c}$ value 9030443, although this can be changed using the PID option.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2020oph
+BibTeX: '@article{BESIII:2020oph,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Study of the process $e^+e^-\to\pi^0\pi^0 J/\psi$ and neutral charmonium-like state $Z_c(3900)^0$}",
+    eprint = "2004.13788",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevD.102.012009",
+    journal = "Phys. Rev. D",
+    volume = "102",
+    number = "1",
+    pages = "012009",
+    year = "2020"
+}
+'

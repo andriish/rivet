@@ -50,7 +50,7 @@ namespace Rivet {
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(p,nRes,ncount);
-	// omega pi+pi-
+	// J/psi pi+pi-
 	if(ncount!=2) continue;
 	bool matched = true;
 	for(auto const & val : nRes) {
