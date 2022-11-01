@@ -1,0 +1,36 @@
+Name: BELLE_2022_I2173361
+Year: 2022
+Summary: $e^+e^-\to\Sigma^0\bar{\Sigma}^0$ and $\Sigma^+\bar{\Sigma}^-$ for $\sqrt{s}=2.379-3$ GeV
+Experiment: BELLE
+Collider: KEKB
+InspireID: 2173361
+Status: VALIDATED NOHEPDATA SINGLEWEIGHT
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - arXiv:2210.16761 [hep-ex]
+RunInfo: e+ e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
+Beams: [e-, e+]
+Options:
+ - ENERGY=*
+Description:
+  'Measurement of the cross section for $e^+e^-\to\Sigma^0\bar{\Sigma}^0$ and $\Sigma^+\bar{\Sigma}^-$ for $\sqrt{s}=2.379-3$ GeV by BELLE using raditive events.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2022dvb
+BibTeX: '@article{Belle:2022dvb,
+    collaboration = "Belle",
+    title = "{Study of $e^+e^- \rightarrow \Sigma^0 \overline{\Sigma}{}^0$ and $\Sigma^+\overline{\Sigma}{}^- $ by Initial State Radiation Method at Belle}",
+    eprint = "2210.16761",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "Belle Preprint 2022-26; KEK Preprint 2022-35",
+    month = "10",
+    year = "2022"
+}
+'
