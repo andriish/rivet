@@ -68,7 +68,7 @@ pyext/rivet/core.cpp
 pyext/rivet/rivetwrap.py
 pyext/rivet/rivetwrap_wrap.cc
 pyext/rivet/fix-out-of-source
-pyext/setup.py
+pyext/build.py
 rivetenv.sh
 rivetenv.csh
 test/testApi

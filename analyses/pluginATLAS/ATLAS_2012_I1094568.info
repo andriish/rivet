@@ -9,6 +9,7 @@ Reentrant: false
 Authors:
  - Kiran Joshi <kiran.joshi@cern.ch>
 References:
+ - ATLAS-TOPQ-2011-21
  - arXiv:1203.5015 [hep-ex]
  - Eur.Phys.J. C72 (2012) 2043
 RunInfo:

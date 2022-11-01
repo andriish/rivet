@@ -11,6 +11,7 @@ Authors:
  - Aldo Saavedra <a.saavedra@physics.usyd.edu.au>
  - Kevin Finelli <kevin.finelli@cern.ch>
 References:
+ - ATLAS-TOPQ-2013-07
  - arXiv:1502.05923 [hep-ex]
 RunInfo:
   top-antitop production, reconstructed from leptons + jets final state

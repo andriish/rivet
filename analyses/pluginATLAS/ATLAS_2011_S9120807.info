@@ -10,6 +10,7 @@ Reentrant: true
 Authors:
  - Giovanni Marchiori <giovanni.marchiori@cern.ch>
 References:
+ - ATLAS-STDM-2011-05
  - arXiv:1107.0581 [hep-ex]
 RunInfo:
   Inclusive diphoton + $X$ events at $\sqrt{s} = 7$~TeV.

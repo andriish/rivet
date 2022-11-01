@@ -11,6 +11,7 @@ Authors:
  - Jonathan Bossio <jonathan.bossio@cern.ch>
  - Zdenek Hubacek  <zdenek.hubacek@cern.ch>
 References:
+ - ATLAS-STDM-2015-01
  - JHEP 09 (2017) 020
  - arXiv:1706.03192
 RunInfo: LHC 8TeV, ATLAS, QCD jet production, anti-kt R=0.4 jets, anti-kt R=0.6 jets

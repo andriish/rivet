@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Gavin Hesketh <gavin.hesketh@cern.ch>
 References:
+ - ATLAS-STDM-2016-01
  - arXiv:1702.05725 [hep-ex]
  - Eur. Phys. J. C77 (2017) 361
 Keywords:

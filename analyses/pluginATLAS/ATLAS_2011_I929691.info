@@ -9,6 +9,7 @@ Reentrant: false
 Authors:
  - Stefan von Buddenbrock <stef.von.b@cern.ch>
 References:
+ - ATLAS-STDM-2011-14
  - "Eur.Phys.J.C 71 (2011) 1795"
  - "doi:10.1140/epjc/s10052-011-1795-y"
  - "arXiv:1109.5816 [hep-ex]"

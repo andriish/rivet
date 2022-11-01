@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Holger Schulz <hschulz@cern.ch>
 #References:
+ - ATLAS-STDM-2014-07
 # - <Example: Phys.Lett.B639:151-158,2006, Erratum-ibid.B658:285-289,2008>
 # - <Example: doi:10.1016/j.physletb.2006.04.048>
 # - <Example: arXiv:hep-ex/0511054 (plus erratum)>

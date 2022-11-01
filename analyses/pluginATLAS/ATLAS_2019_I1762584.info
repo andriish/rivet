@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Felix Kling <fkling@slac.stanford.edu>
 References:
+ - ATLAS-STDM-2018-01
  - arXiv:1911.00453 [hep-ex]
  - JHEP 02 (2020) 042
 RunInfo:

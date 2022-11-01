@@ -12,6 +12,7 @@ Authors:
  - Paul Newman <Paul.Newman@cern.ch>
  - Pavel Ruzicka <ruzicka@fzu.cz>
 References:
+ - ATLAS-STDM-2011-01
  - arXiv:1201.2808 [hep-ex]
 RunInfo:
   'Minimum bias inelastic pp collision at 7 TeV including diffractive component and overall cross section.'

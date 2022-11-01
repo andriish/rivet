@@ -9,6 +9,7 @@ Reentrant: false
 Authors:
  - Bing Li <bing.li@cern.ch>
 References:
+ - ATLAS-STDM-2014-15
  - Phys.Lett. B753 (2016) 552-572
  - doi:10.1016/j.physletb.2015.12.048
  - arXiv:1509.07844 [hep-ex]

@@ -10,6 +10,7 @@ Reentrant: false
 Authors:
  - Graham Jones <grahamj@cern.ch>
 References:
+ - ATLAS-STDM-2011-03
  - arXiv:1107.1641 [hep-ex]
 RunInfo:
   Require QCD interactions at 7TeV. A substantial number of events are required

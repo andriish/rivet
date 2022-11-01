@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Kiran Joshi <kiran.joshi@cern.ch>
 References:
+ - ATLAS-STDM-2013-02
  - "JHEP 1404 (2014) 031"
  - "arXiv:1401.7610 [hep-ex]"
 RunInfo:

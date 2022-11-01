@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Chritian Gutschow <chris.g@cern.ch>
 References:
+ - ATLAS-STDM-2012-07
  - Phys.Rev. D87 (2013) 112003
  - doi:10.1103/PhysRevD.87.112003
  - arXiv:1302.1283 [hep-ex]

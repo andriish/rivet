@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Matthew Mondragon <matthew.craig.mondragon@cern.ch>
 References:
+ - ATLAS-STDM-2012-24
  - Eur.Phys.J. C75 (2015) 82
  - doi:10.1140/epjc/s10052-015-3262-7
  - arXiv:1409.8639 [hep-ex]
