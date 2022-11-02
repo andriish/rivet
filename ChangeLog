@@ -1,6 +1,12 @@
+2022-11-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Add CXXFLAGS and LDFLAGS propagation to the Python-extension
+	build script (thanks to Alexander Puck Neuwirth for the
+	suggestion).
+
 2022-10-27 Christian Gutschow  <chris.g@cern.ch>
 
-	* add reentrant marker to MC_DILEPTON.info (thanks to Jens Roggel for spotting)
+	* Add reentrant marker to MC_DILEPTON.info (thanks to Jens Roggel for spotting)
 
 2022-10-26 Tomek Procter <t.procter.1@research.gla.ac.uk>
 
