@@ -1,0 +1,38 @@
+Name: BELLE_2017_I1590028
+Year: 2017
+Summary: $e^+e^-\to J/\psi D\bar{D}$ at $\sqrt{s}=10.58$GeV
+Experiment: BELLE
+Collider: KEKB
+InspireID: 1590028
+Status: VALIDATED NOHEPDATA
+Reentrant:  true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk?
+References:
+ - Phys.Rev.D 95 (2017) 112003
+RunInfo: e+ e- > hadrons
+Beams: [e+, e-]
+Energies: [10.58]
+Description:
+  'Measurement of mass and angular distributionsa in $e^+e^-\to J/\psi D\bar{D}$ at $\sqrt{s}=10.58$GeV by BELLE'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2017egg
+BibTeX: '@article{Belle:2017egg,
+    author = "Chilikin, K. and others",
+    collaboration = "Belle",
+    title = "{Observation of an alternative $\chi_{c0}(2P)$ candidate in $e^+ e^- \rightarrow J/\psi D \bar{D}$}",
+    eprint = "1704.01872",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BELLE-PREPRINT-2017-07, KEK-PREPRINT-2017-3",
+    doi = "10.1103/PhysRevD.95.112003",
+    journal = "Phys. Rev. D",
+    volume = "95",
+    pages = "112003",
+    year = "2017"
+}
+'
