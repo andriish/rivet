@@ -1,0 +1,40 @@
+Name: BESIII_2017_I1604892
+Year: 2017
+Summary:  $e^+e^-\to \pi^+\pi^- J/\psi$ for $\sqrt{s}=4.23$ and $4.26$ GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1604892
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 119 (2017) 7, 072001
+RunInfo: 
+Beams: [e+,e-]
+Energies: [4.23,4.26]
+Options:
+ - ENERGY=*
+Description:
+  'Measurement of mass distributions in $e^+e^-\to \pi^+\pi^- J/\psi$ for $\sqrt{s}=4.23$ and $4.26$ GeV.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2017bua
+BibTeX: '@article{BESIII:2017bua,
+    author = "Ablikim, Medina and others",
+    collaboration = "BESIII",
+    title = "{Determination of the Spin and Parity of the $Z_c(3900)$}",
+    eprint = "1706.04100",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevLett.119.072001",
+    journal = "Phys. Rev. Lett.",
+    volume = "119",
+    number = "7",
+    pages = "072001",
+    year = "2017"
+}
+'
