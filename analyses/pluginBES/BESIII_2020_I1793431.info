@@ -13,7 +13,8 @@ References:
 RunInfo: e+ e- to hadrons, pi0 set stable
 Beams: [e+, e-]
 Options:
- - PID=*
+- PID=*
+- ENERGY=*
 Description:
 'Measurement of the cross section for $e^+e^-\to \pi^0\pi^0 J/\psi$ for $\sqrt{s}=3.808$ to $4.6$ GeV by BESIII. The mass distributions are also measured at three energy points together with the cross section for $Z_c(3900)^0\pi^0$. As there is no PDG code for the $Z_c(3900)^0$ we take it to be the first unused exotic $c\bar{c}$ value 9030443, although this can be changed using the PID option.'
 ValidationInfo:

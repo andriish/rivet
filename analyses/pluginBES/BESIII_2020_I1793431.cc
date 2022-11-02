@@ -20,9 +20,8 @@ namespace Rivet {
     void init() {
       // set the PDG code
       _pid = getOption<double>("PID", 9030443);
-      // projects
+      // projections
       declare(FinalState(), "FS");
-      declare(UnstableParticles(Cuts::pid==443), "UFS");
       // histos
       unsigned int iloc=0;
       if      (isCompatibleWithSqrtS(4.226)) iloc=1;

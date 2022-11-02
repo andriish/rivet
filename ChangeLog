@@ -28,6 +28,10 @@
 	build script (thanks to Alexander Puck Neuwirth for the
 	suggestion).
 
+2022-11-02 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2019_I1725786 e+e- > DD pi+pi-
+
 2022-11-01 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2020_I1793431 e+ e- > pi0 pi0 J/psi
