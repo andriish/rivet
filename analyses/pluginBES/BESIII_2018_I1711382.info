@@ -1,0 +1,39 @@
+Name: BESIII_2018_I1711382
+Year: 2018
+Summary: $e^+e^-\to D_s^-\bar{D}^{(*)0} K^-$+c.c. at $\sqrt{s}=4.6$ GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1711382
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Chin.Phys.C 43 (2019) 3, 031001
+RunInfo: e+ e- > hadrons 
+Beams: [e+, e-]
+Energies: [4.6]
+Description:
+  'Analysis of the resonant contributions to  $e^+e^-\to D_s^-\bar{D}^{(*)0} K^-$+c.c. at 4.6 GeV by thew BESIII collaboration.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2018fpo
+BibTeX: '@article{BESIII:2018fpo,
+    author = "Ablikim, Medina and others",
+    collaboration = "BESIII",
+    title = "{Observation of $e^+e^- \rightarrow D_s^+ \overline{D}{}^{(*)0} K^-$ and study of the $P$-wave $D_s$ mesons}",
+    eprint = "1812.09800",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1088/1674-1137/43/3/031001",
+    journal = "Chin. Phys. C",
+    volume = "43",
+    number = "3",
+    pages = "031001",
+    year = "2019",
+    note = "[Erratum: Chin.Phys.C 43, 129102 (2019)]"
+}
+'
