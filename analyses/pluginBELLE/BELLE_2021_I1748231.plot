@@ -22,15 +22,15 @@ END PLOT
 
 BEGIN PLOT /BELLE_2021_I1748231/d02-x01
 Title=Asymmetry $A_I$ for muon modes
-YLabel=$R_K^+$
+YLabel=$A_I$
 END PLOT
 BEGIN PLOT /BELLE_2021_I1748231/d02-x02
 Title=Asymmetry $A_I$ for electron modes
-YLabel=$R_K^+$
+YLabel=$A_I$
 END PLOT
 BEGIN PLOT /BELLE_2021_I1748231/d02-x03
 Title=Asymmetry $A_I$ for electron+muon modes
-YLabel=$R_K^+$
+YLabel=$A_I$
 END PLOT
 
 BEGIN PLOT /BELLE_2021_I1748231/d03-x01

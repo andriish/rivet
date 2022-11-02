@@ -51,35 +51,16 @@ namespace Rivet {
       for(unsigned int ix=0;ix<BB.decaying().size();++ix) {
 	if(BB.decaying()[ix].abspid()==521) _c[0]->fill();
 	else                                _c[1]->fill();
-      	int sign = 1;
 	int imode=0;
-      	if (BB.decaying()[ix].pid()>0 && BB.modeMatches(ix,3,mode1)) {
-      	  sign=1;
-	  imode=0;
-      	}
-      	else if  (BB.decaying()[ix].pid()<0 && BB.modeMatches(ix,3,mode1CC)) {
-      	  sign=-1;
-	  imode=1;
-      	}
-      	else if (BB.modeMatches(ix,3,mode2)) {
-	  imode=1;
-      	}
-      	else if (BB.decaying()[ix].pid()>0 && BB.modeMatches(ix,3,mode3)) {
-      	  sign=1;
-	  imode=2;
-      	}
-      	else if  (BB.decaying()[ix].pid()<0 && BB.modeMatches(ix,3,mode3CC)) {
-      	  sign=-1;
-	  imode=2;
-      	}
-      	else if (BB.modeMatches(ix,3,mode4)) {
-	  imode=3;
-      	}
-      	else
-      	  continue;
-	int il = imode<2 ? 13 : 11;
-	const Particle & lp = BB.decayProducts()[ix].at( sign*il)[0];
-	const Particle & lm = BB.decayProducts()[ix].at(      il)[0];
+      	if ((BB.decaying()[ix].pid()>0 && BB.modeMatches(ix,3,mode1)) ||
+	    (BB.decaying()[ix].pid()<0 && BB.modeMatches(ix,3,mode1CC)))      imode=0;
+      	else if (BB.modeMatches(ix,3,mode2))                                  imode=1;
+	else if ((BB.decaying()[ix].pid()>0 && BB.modeMatches(ix,3,mode3)) ||
+		 (BB.decaying()[ix].pid()<0 && BB.modeMatches(ix,3,mode3CC))) imode=2;
+      	else if (BB.modeMatches(ix,3,mode4))                                  imode=3;
+      	else continue;
+	const Particle & lp = BB.decayProducts()[ix].at(-il)[0];
+	const Particle & lm = BB.decayProducts()[ix].at( il)[0];
 	double qq = (lp.momentum()+lm.momentum()).mass2();
 	for(unsigned int iy=0;iy<3;++iy) {
 	  _h_br[imode][iy]->fill(qq);
