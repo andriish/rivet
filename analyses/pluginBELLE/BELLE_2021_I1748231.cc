@@ -59,6 +59,7 @@ namespace Rivet {
 		 (BB.decaying()[ix].pid()<0 && BB.modeMatches(ix,3,mode3CC))) imode=2;
       	else if (BB.modeMatches(ix,3,mode4))                                  imode=3;
       	else continue;
+	int il = imode<2 ? 13 : 11;
 	const Particle & lp = BB.decayProducts()[ix].at(-il)[0];
 	const Particle & lm = BB.decayProducts()[ix].at( il)[0];
 	double qq = (lp.momentum()+lm.momentum()).mass2();
