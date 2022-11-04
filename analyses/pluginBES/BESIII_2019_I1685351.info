@@ -1,0 +1,36 @@
+Name: BESIII_2019_I1685351
+Year: 2019
+Summary: Cross sections for $e^+e^-\to\mu^+\mu^-$, $\pi^+\pi^-\eta$ and $2\pi^+2\pi^-\pi^0$ near the $J/\psi$
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1685351
+Status: VALIDATED NOHEPDATA SINGLEWEIGHT
+Reentrant: false
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Lett.B 791 (2019) 375-384
+RunInfo: e+ e- > mu+ mu- or hadrons, pi0 set stable
+Beams: [e+, e-]
+Description:
+  'Measurement of the cross sections for  $e^+e^-\to\mu^+\mu^-$, $\pi^+\pi^-\eta$ and $2\pi^+2\pi^-\pi^0$ near the $J/\psi$, no corrected for photon ISR which should be included in the simulation. Useful for looking at the simulation of QED ISR at low energies'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2018wid
+BibTeX: '@article{BESIII:2018wid,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Measurement of the phase between strong and electromagnetic amplitudes of $J/\psi$ decays}",
+    eprint = "1808.02166",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1016/j.physletb.2019.03.001",
+    journal = "Phys. Lett. B",
+    volume = "791",
+    pages = "375--384",
+    year = "2019"
+}
+'

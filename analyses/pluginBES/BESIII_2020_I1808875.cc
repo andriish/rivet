@@ -35,7 +35,7 @@ namespace Rivet {
 	++ntotal;
       }
       // mu+mu- + photons
-      if(nCount[-13]==1 and nCount[13]==1 &&
+      if(nCount[-13]==1 && nCount[13]==1 &&
 	 ntotal==2+nCount[22])
 	_c_muons->fill();
     }
