@@ -5,6 +5,7 @@ Experiment: BELLE
 Collider: KEKB
 InspireID: 1777678
 Status: VALIDATED
+Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:

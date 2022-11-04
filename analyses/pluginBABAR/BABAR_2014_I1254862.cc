@@ -31,8 +31,8 @@ namespace Rivet {
       for(unsigned int icharge=0;icharge<3;++icharge) {
 	for(unsigned int ibin1=0;ibin1<6;++ibin1) {
 	  for(unsigned int ibin2=0;ibin2<6;++ibin2) {
-	    book(_h_thrust[icharge][ibin1][ibin2],"/TMP/h_thrust_"+charge[icharge]+"_" +toString(ibin1+1) + "_" + toString(ibin2+1),nbin,0.,M_PI);
-	    book(_h_hadron[icharge][ibin1][ibin2],"/TMP/h_hadron_"+charge[icharge]+"_" +toString(ibin1+1) + "_" + toString(ibin2+1),nbin,0.,M_PI);
+	    book(_h_thrust[icharge][ibin1][ibin2],"TMP/h_thrust_"+charge[icharge]+"_" +toString(ibin1+1) + "_" + toString(ibin2+1),nbin,0.,M_PI);
+	    book(_h_hadron[icharge][ibin1][ibin2],"TMP/h_hadron_"+charge[icharge]+"_" +toString(ibin1+1) + "_" + toString(ibin2+1),nbin,0.,M_PI);
 	  }
 	}
       }
@@ -69,16 +69,14 @@ namespace Rivet {
 	// z and angle cut
 	const double x1=2.*charged[ix].momentum().t()/sqrtS();
 	if(x1<0.15||x1>.9) continue;
-	if(abs(t_z.angle(charged[ix].momentum().p3()))>0.25*M_PI) continue;
-	double dot1 = t_z.dot(charged[ix].p3());
+	double dot1 = t_z.dot(charged[ix].p3().unit());
+	if(abs(dot1)<sqrt(0.5)) continue;
 	for(unsigned int iy=ix+1;iy<charged.size();++iy) {
 	  const double x2=2.*charged[iy].momentum().t()/sqrtS();
 	  // z and angle cut
 	  if(x2<0.15||x2>.9) continue;
-	  if(abs(t_z.angle(charged[ix].momentum().p3()))>0.25*M_PI) continue;
-	  // different hemi
-	  double dot2 = t_z.dot(charged[iy].p3());
-	  if(dot1*dot2>0.) continue;
+	  double dot2 = t_z.dot(charged[iy].p3().unit());
+	  if(abs(dot2)<sqrt(.5) || dot1*dot2>0.) continue;
 	  Particle p1=charged[ix], p2=charged[iy];
 	  double z1(x1),z2(x2);
 	  // randomly order the particles

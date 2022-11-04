@@ -28,6 +28,10 @@
 	build script (thanks to Alexander Puck Neuwirth for the
 	suggestion).
 
+2022-11-04 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2019_I1752523 azimuthal asymmetries
+
 2022-11-02 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2019_I1725786 e+e- > DD pi+pi-

@@ -33,10 +33,10 @@ namespace Rivet {
 	for(unsigned int icharge=0;icharge<3;++icharge) {
 	  for(unsigned int ibin=0;ibin<16;++ibin) {
 	    std::ostringstream title1;
-	    title1 << "/TMP/h_thrust" << type[itype] << "_" << charge[icharge] << "_" << ibin+1;
+	    title1 << "TMP/h_thrust" << type[itype] << "_" << charge[icharge] << "_" << ibin+1;
 	    book(_h_thrust[itype][icharge][ibin],title1.str(),nbin,0.,M_PI);
 	    std::ostringstream title2;
-	    title2 << "/TMP/h_hadron" << type[itype] << "_" << charge[icharge] << "_" << ibin+1;
+	    title2 << "TMP/h_hadron" << type[itype] << "_" << charge[icharge] << "_" << ibin+1;
 	    book(_h_hadron[itype][icharge][ibin],title2.str(),nbin,0.,M_PI);
 	  }
 	}
@@ -73,16 +73,14 @@ namespace Rivet {
 	// z and angle cut
 	const double x1=2.*charged[ix].momentum().t()/sqrtS();
 	if(x1<0.16||x1>.9) continue;
-	if(abs(t_z.angle(charged[ix].momentum().p3()))>0.25*M_PI) continue;
-	double dot1 = t_z.dot(charged[ix].p3());
+	double dot1 = t_z.dot(charged[ix].p3().unit());
+	if(abs(dot1)<sqrt(.5)) continue;
 	for(unsigned int iy=ix+1;iy<charged.size();++iy) {
 	  const double x2=2.*charged[iy].momentum().t()/sqrtS();
 	  // z and angle cut
 	  if(x2<0.16||x2>.9) continue;
-	  if(abs(t_z.angle(charged[ix].momentum().p3()))>0.25*M_PI) continue;
-	  // different hemi
-	  double dot2 = t_z.dot(charged[iy].p3());
-	  if(dot1*dot2>0.) continue;
+	  double dot2 = t_z.dot(charged[iy].p3().unit());
+	  if(abs(dot2)<sqrt(0.5) || dot1*dot2>0.) continue;
 	  Particle p1=charged[ix], p2=charged[iy];
 	  double z1(x1),z2(x2);
 	  // randomly order the particles
@@ -212,7 +210,7 @@ namespace Rivet {
 	  // thrust direction
 	  // opposite/like sign
 	  std::ostringstream title1;
-	  title1 << "/TMP/R_thrust_" << type[itype] << "_UL_" << ibin+1;
+	  title1 << "TMP/R_thrust_" << type[itype] << "_UL_" << ibin+1;
 	  Scatter2DPtr htemp;
 	  book(htemp,title1.str());
 	  divide(_h_thrust[itype][1][ibin],
@@ -223,7 +221,7 @@ namespace Rivet {
 	  h2_thrust_UL->addPoint(p1.y()    ,asym.first,p1.yErrs(),make_pair(asym.second,asym.second) );
 	  // opposite/all sign
 	  std::ostringstream title2;
-	  title2 << "/TMP/R_thrust_" << type[itype] << "_UC_" << ibin+1;
+	  title2 << "TMP/R_thrust_" << type[itype] << "_UC_" << ibin+1;
 	  book(htemp,title2.str());
 	  divide(_h_thrust[itype][1][ibin],
 		 _h_thrust[itype][2][ibin],htemp);
@@ -234,7 +232,7 @@ namespace Rivet {
 	  // hadron dirn
 	  // opposite/like sign
 	  std::ostringstream title3;
-	  title3 << "/TMP/R_hadron_" << type[itype] << "_UL_" << ibin+1;
+	  title3 << "TMP/R_hadron_" << type[itype] << "_UL_" << ibin+1;
 	  book(htemp,title3.str());
 	  divide(_h_hadron[itype][1][ibin],
 		 _h_hadron[itype][0][ibin],htemp);
@@ -244,7 +242,7 @@ namespace Rivet {
 	  h2_hadron_UL->addPoint(p2.y()    ,asym.first,p2.yErrs(),make_pair(asym.second,asym.second) );
 	  // opposite/all sign
 	  std::ostringstream title4;
-	  title4 << "/TMP/R_hadron_" << type[itype] << "_UC_" << ibin+1;
+	  title4 << "TMP/R_hadron_" << type[itype] << "_UC_" << ibin+1;
 	  book(htemp,title4.str());
 	  divide(_h_hadron[itype][1][ibin],
 		 _h_hadron[itype][2][ibin],htemp);
