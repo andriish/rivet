@@ -1,0 +1,38 @@
+Name: BELLE_2015_I1358399
+Year: 2015
+Summary: Cross section for $B_s^{(*)0}\bar{B}_s^{(*)0}$ at $\sqrt{s}=10.86$ GeV
+Experiment: BELLE
+Collider: KEKB
+InspireID: 1358399
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@dur.ac.uk>
+References:
+ - Phys.Rev.D 92 (2015) 7, 072013
+Beams: [e+, e-] 
+Energies: [10.86]
+Description:
+  'Measurement of the cross section for $B_s^{(*)0}\bar{B}_s^{(*)0}$ at $\sqrt{s}=10.86$ GeV.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2015ftp
+BibTeX: '@article{Belle:2015ftp,
+    author = "Oswald, C. and others",
+    collaboration = "Belle",
+    title = "{Semi-inclusive studies of semileptonic $B_s$ decays at Belle}",
+    eprint = "1504.02004",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BELLE-PREPRINT-2015-4, KEK-PREPRINT-2015-1",
+    doi = "10.1103/PhysRevD.92.072013",
+    journal = "Phys. Rev. D",
+    volume = "92",
+    number = "7",
+    pages = "072013",
+    year = "2015"
+}
+'
