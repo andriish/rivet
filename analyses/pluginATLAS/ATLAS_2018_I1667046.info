@@ -11,9 +11,9 @@ Authors:
  - Andy Buckley <andy.buckley@cern.ch>
 References:
  - ATLAS-SUSY-2016-22
-- 'Phys. Lett. B 785 (2018) 136'
-- 'arXiv:1804.03568'
-- 'DOI:10.1016/j.physletb.2018.08.021'
+ - 'Phys. Lett. B 785 (2018) 136'
+ - 'arXiv:1804.03568'
+ - 'DOI:10.1016/j.physletb.2018.08.021'
 RunInfo: BSM signal events
 NeedCrossSection: yes
 Beams: [p+, p+]

@@ -12,8 +12,8 @@ Authors:
  - Roger Naranjo
 References:
  - ATLAS-HIGG-2018-29
-- 'arXiv:2004.03969'
-- submitted to EPJC
+ - 'arXiv:2004.03969'
+ - submitted to EPJC
 RunInfo: routine expects Higgs to 4l processes including ggH, VBF, VH and ttH. The total production cross section including tau decays should be passed and the routine applies branching ratios.
 Beams: [p+, p+]
 Energies: [13000]

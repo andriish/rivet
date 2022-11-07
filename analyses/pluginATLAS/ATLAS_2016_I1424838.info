@@ -8,11 +8,10 @@ Status: VALIDATED
 Reentrant: true
 Authors:
  - Holger Schulz <hschulz@cern.ch>
-#References:
+References:
  - ATLAS-STDM-2014-07
-# - <Example: Phys.Lett.B639:151-158,2006, Erratum-ibid.B658:285-289,2008>
-# - <Example: doi:10.1016/j.physletb.2006.04.048>
-# - <Example: arXiv:hep-ex/0511054 (plus erratum)>
+ - arXiv:1602.08980 [hep-ex]
+ - Eur. Phys. J. C 76(7), 1-40, (2016)
 RunInfo:
    $Z \to \ell\ell$ with $p_\perp(\ell)>20$~GeV
 NumEvents: 1000000
