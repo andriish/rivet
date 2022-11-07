@@ -1,0 +1,38 @@
+Name: BELLE_2016_I1444981
+Year: 2016
+Summary: Cross section for $\gamma\gamma\to p\bar{p} K^+K^-$
+Experiment: BELLE
+Collider: KEKB
+InspireID: 1444981
+Status: VALIDATED NOHEPDATA
+Reentrant: false
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 93 (2016) 11, 112017
+RunInfo:  gamma gamma -> hadrons
+Beams: [gamma,gamma]
+Description:
+  'Measurement of the cross section for $\gamma\gamma\to p\bar{p} K^+K^-$, including the resonant $\Lambda(1520)^0\bar{p}K^+$ component.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2016mjo
+BibTeX: '@article{Belle:2016mjo,
+    author = "Shen, C. P. and others",
+    collaboration = "Belle",
+    title = "{First observation of $\gamma \gamma \to p \bar{p} K^+ K^-$ and search for exotic baryons in $pK$ systems}",
+    eprint = "1604.02525",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BELLE-PREPRINT-2016-02, KEK-PREPRINT-2016-1",
+    doi = "10.1103/PhysRevD.93.112017",
+    journal = "Phys. Rev. D",
+    volume = "93",
+    number = "11",
+    pages = "112017",
+    year = "2016"
+}
+'
