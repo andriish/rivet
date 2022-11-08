@@ -24,6 +24,10 @@
 	wrong decay chain was checked for weak decays (thanks to Max
 	Knobbe for spotting).
 
+2022-11-08 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESIII_2012_I1084539 j/psi -> gamma eta(1405)
+
 2022-11-07 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2022_I2135117 J/psi -> gamma eta eta'
