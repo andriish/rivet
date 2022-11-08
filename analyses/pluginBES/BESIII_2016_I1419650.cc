@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief J/psi -> gamma phi phi
   class BESIII_2016_I1419650 : public Analysis {
   public:
 
