@@ -5,6 +5,7 @@
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/DirectFinalState.hh"
+#include "Rivet/Projections/Smearing.hh"
 #include "Rivet/Tools/RivetLWTNN.hh"
 
 namespace Rivet {
@@ -36,7 +37,9 @@ namespace Rivet {
       // muons and neutrinos are excluded from the clustering
       // TODO: Smear jets
       FastJets jetfs(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
-      declare(jetfs, "jets");
+      //n.b. 70% jet b-tagging point
+      SmearedJets recoJets(jetfs, JET_SMEAR_ATLAS_RUN2, JET_BTAG_EFFS(0.70, 1/9., 1/300.));
+      declare(recoJets, "jets");
 
       // FinalState of direct photons and bare muons and electrons in the event
       DirectFinalState photons(Cuts::abspid == PID::PHOTON);
@@ -44,12 +47,28 @@ namespace Rivet {
 
       // Dress the bare direct leptons with direct photons within dR < 0.1,
       // and apply some fiducial cuts on the dressed leptons
-      Cut lepton_cuts = Cuts::abseta < 2.5 && Cuts::pT > 20*GeV;
+      Cut lepton_cuts = Cuts::abseta < 2.5 && Cuts::pT > 8*GeV;
       DressedLeptons dressed_leps(photons, bare_leps, 0.1, lepton_cuts);
       declare(dressed_leps, "leptons");
 
+
+      //"medium" category Electrons are "candidates" and are used in overlap removal only
+      SmearedParticles smeared_elec_candidates = SmearedParticles(dressed_leps, ELECTRON_EFF_ATLAS_RUN2_MEDIUM,
+                                                                   ELECTRON_SMEAR_ATLAS_RUN2, Cuts::abspid == PID::ELECTRON);
+      SmearedParticles smeared_elec_signal = SmearedParticles(dressed_leps, ELECTRON_EFF_ATLAS_RUN2_TIGHT,
+                                                                   ELECTRON_SMEAR_ATLAS_RUN2, Cuts::abspid == PID::ELECTRON);
+      //TODO: do we have muon medium?
+      SmearedParticles smeared_muon_signal =  SmearedParticles(dressed_leps, MUON_EFF_ATLAS_RUN2,
+                                                                   MUON_SMEAR_ATLAS_RUN2, Cuts::abspid == PID::MUON);
+      declare(smeared_elec_candidates, "smeared_elec_cands");
+      declare(smeared_elec_signal, "smeared_elecs");
+      declare(smeared_muon_signal, "smeared_mu");
+
+
       // Missing momentum
-      declare(MissingMomentum(fs), "MET");
+      MissingMomentum met(fs);
+      declare(SmearedMET(met,MET_SMEAR_ATLAS_RUN2), "MET");
+
 
       // Initialise the LWTNN graphs (one for each numJets 4-8)
       // Doing this in init saves loading it separately for each event.
@@ -106,26 +125,27 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
+
       /////////////////////////////////////////////////////////////////////////////
       //OBJECT RETRIEVAL
       // Retrieve clustered jets, sorted by pT, with a minimum pT cut
-      Jets jets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 4.5);
+      Jets jets = apply<SmearedJets>(event, "jets").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 4.5);
       // Retrieve dressed leptons, sorted by pT
-      Particles unfiltered_leptons = sortByPt(apply<FinalState>(event, "leptons").particles());
-      //Extract electrons from leptons:
-      Particles electrons = filter_select(unfiltered_leptons, Cuts::abspid == PID::ELECTRON && Cuts::abseta < 2.47 && Cuts::pt > 15*GeV);
-      //Extract muons from leptons:
-      Particles muons = filter_select(unfiltered_leptons, Cuts::abspid == PID::MUON && Cuts::abseta < 2.5 && Cuts::pt > 15*GeV);
-      ThreeMomentum met = apply<MissingMomentum>(event, "MET").vectorEtMiss();//TODO -> double check MET definitions
+      
+      Particles electrons = apply<ParticleFinder>(event, "smeared_elecs").particlesByPt(Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pt > 15*GeV);
+      Particles electron_candidates = apply<ParticleFinder>(event, "smeared_elec_cands").particlesByPt(Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pt > 15*GeV);
+      Particles muons = apply<ParticleFinder>(event, "smeared_mu").particlesByPt(Cuts::abseta < 2.5 && Cuts::pt > 10*GeV);
+      ThreeMomentum met = apply<SmearedMET>(event, "MET").vectorEt();//TODO -> double check MET definitions
 
       /////////////////////////////////////////////////////////////////////////////
-      //OVERLAP REMOVAL (based purely on SimpleAnalaysis script)
-      
-      //electrons within deltaR 0.01 of a muon
-      idiscardIfAnyDeltaRLess(electrons, muons, 0.01);
+      //OVERLAP REMOVAL (note there exist discrepancies with simple analysis script)
 
-      //non- btagged jets within 0.2 of an eletron
-      idiscardIfAny(jets, electrons,
+      // //electrons and electron_candidates within deltaR 0.01 of a muon
+      idiscardIfAnyDeltaRLess(electrons, muons, 0.01);
+      idiscardIfAnyDeltaRLess(electron_candidates, muons, 0.01);
+
+      //non- btagged jets within 0.2 of an electron candidate
+      idiscardIfAny(jets, electron_candidates,
                       [](const Jet& j, const Particle& e){return ((deltaR(j, e) < 0.4) && !j.bTagged());});
       //TODO -> different b tag criteria here?
 
