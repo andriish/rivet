@@ -18,6 +18,10 @@
 	* Replace regex_match with reg_search to pick up substring
 	matches, too.
 
+2022-11-10 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add KLOE_2013_I1186739 eta -> pi+ pi- gamma
+
 2022-11-08 Christian Gutschow  <chris.g@cern.ch>
 
 	* Fix bug in DELPHI_2011_I890503 and OPAL_2003_I599181, where the
