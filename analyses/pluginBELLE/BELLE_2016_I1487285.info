@@ -11,7 +11,7 @@ Authors:
 References:
  - Phys.Rev.D 94 (2016) 9, 092006
 RunInfo:
-  Events with eta prime decays, either particle guns or collisions.
+  Events with eta decays, either particle guns or collisions.
 NumEvents: 10000
 NeedCrossSection: no
 Description:
