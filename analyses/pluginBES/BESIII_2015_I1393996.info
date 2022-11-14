@@ -1,0 +1,40 @@
+Name: BESIII_2015_I1393996
+Year: 2015
+Summary:  $e^+e^-\to (DD^*)^0\pi^0$ for $\sqrt{s}=4.226$ and 4.257 GeV
+Experiment: BESIII
+Collider: <Insert the collider name>
+InspireID: 1393996
+Status: VALIDATED NOHEPDATA SINGLEWEIGHT
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 115 (2015) 22, 222002
+RunInfo: e+ e- to hadrons, pi0 set stable
+Beams: [e+, e-]
+Options:
+- PID=*
+- ENERGY=*
+Description:
+  'Measurement of mass distributions for $e^+e^-\to (DD^*)^0\pi^0$ for $\sqrt{s}=4.226$ and 4.257 GeV by BES. The cross section for  $e^+e^-\to Z_c(3885)^0\pi^0\to (DD^*)^0\pi^0$ is also measured. As there is no PDG code for the $Z_c(3885)^0$ we take it to be the first unused exotic $c\bar{c}$ value 9030443, although this can be changed using the PID option.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2015ntl
+BibTeX: '@article{BESIII:2015ntl,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Observation of a Neutral Structure near the $D\bar{D}^{*}$ Mass Threshold in $e^{+}e^{-}\to (D \bar{D}^*)^0\pi^0$ at $\sqrt{s}$ = 4.226 and 4.257 GeV}",
+    eprint = "1509.05620",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevLett.115.222002",
+    journal = "Phys. Rev. Lett.",
+    volume = "115",
+    number = "22",
+    pages = "222002",
+    year = "2015"
+}
+'
