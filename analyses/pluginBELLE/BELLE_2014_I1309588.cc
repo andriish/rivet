@@ -59,6 +59,7 @@ namespace Rivet {
 	// first check for 3 pi chi_b
 	bool matched3Pi = false;
 	if(ncount==3) {
+	  matched3Pi = true;
 	  for(auto const & val : nRes) {
 	    if(abs(val.first)==PID::PIPLUS || val.first==PID::PI0) {
 	      if (val.second!=1) {
@@ -75,6 +76,13 @@ namespace Rivet {
 	// then for omega chi_b
 	bool matchedOmega = false;
       	for(const Particle & omega : ufs.particles(Cuts::pid==223)) {
+	  Particle parent = omega;
+	  while(!parent.parents().empty()) {
+	    parent = parent.parents()[0];
+	    if(parent.pid()==555 || parent.pid()==20553) break;
+	  }
+	  if( (parent.pid()==555 || parent.pid()==20553) &&
+	      fuzzyEquals(parent.momentum(),chi.momentum())) continue;
        	  map<long,int> nRes2 = nRes;
        	  int ncount2 = ncount;
        	  findChildren(omega,nRes2,ncount2);
@@ -88,7 +96,7 @@ namespace Rivet {
 	  if (matchedOmega) break;
 	}
 	if(!matched3Pi && !matchedOmega) continue;
-	unsigned int iloc= chi.pid()==20443 ? 0 : 1;
+	unsigned int iloc= chi.pid()==20553 ? 0 : 1;
 	if(matched3Pi)
 	  _h[0][iloc]->fill(10.867);
 	if(matchedOmega)

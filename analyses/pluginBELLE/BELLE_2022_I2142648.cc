@@ -60,6 +60,13 @@ namespace Rivet {
 	findChildren(chi,nRes,ncount);
 	// loop over omega mesons
 	for(const Particle & omega : ufs.particles(Cuts::pid==223)) {
+	  Particle parent = omega;
+	  while(!parent.parents().empty()) {
+	    parent = parent.parents()[0];
+	    if(parent.pid()==555 || parent.pid()==20553|| parent.pid()==10551) break;
+	  }
+	  if( (parent.pid()==555 || parent.pid()==20553|| parent.pid()==10551) &&
+	      fuzzyEquals(parent.momentum(),chi.momentum())) continue;
 	  map<long,int> nRes2 = nRes;
 	  int ncount2 = ncount;
 	  findChildren(omega,nRes2,ncount2);
@@ -71,9 +78,9 @@ namespace Rivet {
 	    }
 	  }
 	  if(!matched) continue;
-	  if (chi.pid()==10441)     _c[0]->fill();
-	  else if(chi.pid()==20443) _c[1]->fill();
-	  else if(chi.pid()==445)   _c[2]->fill();
+	  if (chi.pid()==10551)     _c[0]->fill();
+	  else if(chi.pid()==20553) _c[1]->fill();
+	  else if(chi.pid()==555)   _c[2]->fill();
 	  break;
 	}
 	if (matched) break;
