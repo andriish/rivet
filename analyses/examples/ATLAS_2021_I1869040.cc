@@ -147,7 +147,6 @@ namespace Rivet {
       //non- btagged jets within 0.2 of an electron candidate
       idiscardIfAny(jets, electron_candidates,
                       [](const Jet& j, const Particle& e){return ((deltaR(j, e) < 0.4) && !j.bTagged());});
-      //TODO -> different b tag criteria here?
 
       //Remove non b-tagged jets of <3 tracks.
       //The additional check in the SimpleAnalysis for muon.pt > 0.5*jet.pt() is NOT explicitly in the paper.
@@ -191,6 +190,7 @@ namespace Rivet {
       //DECIDE LEPTON CATEGORY
 
       //TODO - this is as thorough as SimpleAnalysis but not as thorough as the paper.
+      // The paper has some extra CR's in 2lsc which don't meet this criteria
       if (leptons.size() == 2 && leptons[0].charge()*leptons[1].charge() > 0){
         _is2lsc = true;
       }
