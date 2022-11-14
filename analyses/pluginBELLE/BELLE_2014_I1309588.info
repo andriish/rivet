@@ -1,0 +1,40 @@
+Name: BELLE_2014_I1309588
+Year: 2014
+Summary:  Cross section for $e^+e^-\to\pi^+\pi^-\pi^0\chi_{b(1,2)}$ for $\sqrt{s}=10.867$ GeV
+Experiment: BELLE
+Collider: KEKB
+InspireID: 1309588
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 113 (2014) 14, 142001
+RunInfo: e+ e- -> hadrons, KS0 and pi0 set stable
+Beams: [e+, e-]
+Energies: [10.867]
+Description:
+'Measurement ofr the ross section for $e^+e^-\to\pi^+\pi^-\pi^0\chi_{b(1,2)}$
+for $\sqrt{s}=10.867$ GeV. The $\omega$ and non-$\omega$ contributions are also measured.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2014sys
+BibTeX: '@article{Belle:2014sys,
+    author = "He, X. H. and others",
+    collaboration = "Belle",
+    title = "{Observation of $e^+e^- \to \pi^+ \pi^- \pi^0 \chi_{bJ}$ and Search for $X_b \to \omega \Upsilon(1S)$ at $\sqrt{s}=10.867$  GeV}",
+    eprint = "1408.0504",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BELLE-PREPRINT-2014-11, KEK-PREPRINT-2014-18, BELLE-PREPRINT-\#-2014-11, KEK-PREPRINT-\#-2014-18",
+    doi = "10.1103/PhysRevLett.113.142001",
+    journal = "Phys. Rev. Lett.",
+    volume = "113",
+    number = "14",
+    pages = "142001",
+    year = "2014"
+}
+'

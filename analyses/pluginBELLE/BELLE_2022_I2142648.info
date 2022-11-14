@@ -1,0 +1,35 @@
+Name: BELLE_2022_I2142648
+Year: 2022
+Summary: Cross section for $e^+e^-\to\omega\chi_{b(0,1,2)}$ for $\sqrt{s}$ near 10,75 GeV
+Experiment: BELLE
+Collider: KEKB
+InspireID: 2142648
+Status: VALIDATED NOHEPDATA SINGLEWEIGHT
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - 2208.13189 [hep-ex]
+RunInfo: e+ e- > hadrons
+Beams: [e+, e-]
+Energies: [10.701,10.745,10.805]
+Description:
+  'Measurement of the cross section for $e^+e^-\to\omega\chi_{b(0,1,2)}$ for $\sqrt{s}$ near 10,75 GeV by BELLE'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle-II:2022xdi
+BibTeX: '@article{Belle-II:2022xdi,
+    author = "Adachi, I. and others",
+    collaboration = "Belle-II",
+    title = "{Observation of $e^+e^-\to\omega\chi_{bJ}(1P)$ and search for $X_b \to \omega\Upsilon(1S)$ at $\sqrt{s}$ near 10.75 GeV}",
+    eprint = "2208.13189",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "Belle II Preprint 2022-004; KEK Preprint 2022-24",
+    month = "8",
+    year = "2022"
+}
+'
