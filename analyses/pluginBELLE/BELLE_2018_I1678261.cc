@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief e+e- -> pi+ pi- pi0 chi_b1,2
   class BELLE_2018_I1678261 : public Analysis {
   public:
 
@@ -54,22 +54,24 @@ namespace Rivet {
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
 	findChildren(chi,nRes,ncount);
-	matched = true;
-	for(auto const & val : nRes) {
-	  if(abs(val.first)==PID::PIPLUS || val.first==PID::PI0) {
-	    if (val.second!=1) {
+	if(ncount==3) {
+	  matched = true;
+	  for(auto const & val : nRes) {
+	    if(abs(val.first)==PID::PIPLUS || val.first==PID::PI0) {
+	      if (val.second!=1) {
+		matched = false;
+		break;
+	      }
+	    }
+	    else if (val.second!=0) {
 	      matched = false;
 	      break;
 	    }
 	  }
-	  else if (val.second!=0) {
-	    matched = false;
-	    break;
-	  }
-	}
-	if(!matched) continue;
+	  if(!matched) continue;
 	_c->fill();
 	break;
+	}
       }
     }
 
