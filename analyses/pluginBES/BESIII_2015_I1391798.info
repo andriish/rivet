@@ -1,0 +1,44 @@
+Name: BESIII_2015_I1391798
+Year: 2015
+Summary: $e^+e^-\to (D\bar{D}^*)^\pm\pi^\mp$ for $\sqrt{s}=4.23$ and 4.26 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1391798
+Status: VALIDATED NOHEPDATA SINGLEWEIGHT
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 92 (2015) 9, 092006
+RunInfo: e+ e- to hadrons, pi0 set stable
+Beams: [e+, e-]
+Energies: [4.23,4.26]
+Options:
+- PID=*
+- ENERGY=*
+Description:
+  'Measurement of mass distributions for $e^+e^-\to (D\bar{D}^*)^\pm\pi^\mp$ for $\sqrt{s}=4.23$ and 4.26 GeV by BES.
+  The cross section for  $e^+e^-\to Z_c(3885)^\pm\pi^\mp\to (D\bar{D}^*)^\pm\pi^\mp$ is also measured.
+  As there is no PDG code for the $Z_c(3885)^+ we take it to be  9044213,
+  although this can be changed using the PID option.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2015pqw
+BibTeX: '@article{BESIII:2015pqw,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Confirmation of a charged charmoniumlike state $Z_c(3885)^{\mp}$ in $e^+e^-\to\pi^{\pm}(D\bar{D}^*)^\mp$ with double $D$ tag}",
+    eprint = "1509.01398",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevD.92.092006",
+    journal = "Phys. Rev. D",
+    volume = "92",
+    number = "9",
+    pages = "092006",
+    year = "2015"
+}
+'
