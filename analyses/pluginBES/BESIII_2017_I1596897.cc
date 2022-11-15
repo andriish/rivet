@@ -45,24 +45,29 @@ namespace Rivet {
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      for (const Particle& p : ufs.particles()) {
-	if(p.children().empty()) continue;
-	// find the h_c
-	if(p.pid()==10443) {
-	  map<long,int> nRes = nCount;
-	  int ncount = ntotal;
-	  findChildren(p,nRes,ncount);
-	  // omega pi+pi-
-	  if(ncount!=2) continue;
-	  bool matched = true;
-	  for(auto const & val : nRes) {
-	    if(abs(val.first)==221) {
-	      if(val.second !=1) {
-		matched = false;
-		break;
-	      }
-	    }
-	    else if(val.second!=0) {
+      // loop over h_c
+      for (const Particle& hc : ufs.particles(Cuts::pid==10443)) {
+	if(hc.children().empty()) continue;
+	map<long,int> nRes = nCount;
+	int ncount = ntotal;
+	findChildren(hc,nRes,ncount);
+	bool matched = false;
+	// loop over eta
+	for(const Particle & eta : ufs.particles(Cuts::pid==221)) {
+	  // check eta not child of h_c
+	  Particle parent=eta;
+	  while(!parent.parents().empty()) {
+	    parent=parent.parents()[0];
+	    if(parent.abspid()==10443) break;
+	  }
+	  if(fuzzyEquals(parent.momentum(),hc.momentum())) continue;
+	  map<long,int> nRes2 = nRes;
+	  int ncount2 = ncount;
+	  findChildren(eta,nRes2,ncount2);
+	  if(ncount2!=0) continue;
+	  matched=true;
+	  for(auto const & val : nRes2) {
+	    if(val.second!=0) {
 	      matched = false;
 	      break;
 	    }
@@ -72,6 +77,7 @@ namespace Rivet {
 	    break;
 	  }
 	}
+	if(matched) break;
       }
     }
 
@@ -91,7 +97,7 @@ namespace Rivet {
 	pair<double,double> ex2 = ex;
 	if(ex2.first ==0.) ex2. first=0.0001;
 	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
+	if (inRange(sqrtS()/MeV, x-ex2.first, x+ex2.second)) {
 	  mult->addPoint(x, sigma, ex, make_pair(error,error));
 	}
 	else {
