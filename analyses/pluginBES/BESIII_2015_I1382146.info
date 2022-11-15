@@ -1,0 +1,44 @@
+Name: BESIII_2015_I1382146
+Year: 2015
+Summary: $e^+e^-\to (D^*\bar{D}^*)^0\pi^0$ for $\sqrt{s}=4.23$ and 4.26 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1382146
+Status: VALIDATED NOHEPDATA SINGLEWEIGHT
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 115 (2015) 18, 182002
+RunInfo: e+ e- to hadrons, pi0 set stable
+Beams: [e+, e-]
+Energies: [4.23,4.26]
+Options:
+- PID=*
+- ENERGY=*
+Description:
+  'Measurement of mass distributions for $e^+e^-\to (D^*\bar{D}^*)^0\pi^0$ for $\sqrt{s}=4.23$ and 4.26 GeV by BES.
+  The cross section for  $e^+e^-\to Z_c(4025)^0\pi^0\to (D^*\bar{D}^*)^0\pi^0$ is also measured.
+  As there is no PDG code for the $Z_c(4025)^0$ we take it to be the first unused exotic $c\bar{c}$ value 9030443,
+  although this can be changed using the PID option.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2015tix
+BibTeX: '@article{BESIII:2015tix,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Observation of a neutral charmoniumlike state $Z_c(4025)^0$ in $e^{+} e^{-} \to (D^{*} \bar{D}^{*})^{0} \pi^0$}",
+    eprint = "1507.02404",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevLett.115.182002",
+    journal = "Phys. Rev. Lett.",
+    volume = "115",
+    number = "18",
+    pages = "182002",
+    year = "2015"
+}
+'

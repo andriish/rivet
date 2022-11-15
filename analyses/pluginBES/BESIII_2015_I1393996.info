@@ -2,7 +2,7 @@ Name: BESIII_2015_I1393996
 Year: 2015
 Summary:  $e^+e^-\to (DD^*)^0\pi^0$ for $\sqrt{s}=4.226$ and 4.257 GeV
 Experiment: BESIII
-Collider: <Insert the collider name>
+Collider: BEPC
 InspireID: 1393996
 Status: VALIDATED NOHEPDATA SINGLEWEIGHT
 Reentrant: true
@@ -12,6 +12,7 @@ References:
  - Phys.Rev.Lett. 115 (2015) 22, 222002
 RunInfo: e+ e- to hadrons, pi0 set stable
 Beams: [e+, e-]
+Energies: [4.226,4.257]
 Options:
 - PID=*
 - ENERGY=*
