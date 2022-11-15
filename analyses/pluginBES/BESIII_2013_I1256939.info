@@ -16,7 +16,7 @@ Energies: [4.26]
 Options:
 - PID=*
 Description:
-  'easurement of mass distributions for $e^+e^-\to (D\bar{D}^*)^\pm\pi^\mp$ for $\sqrt{s}=4.26$ GeV by BES.
+  'Measurement of mass distributions for $e^+e^-\to (D\bar{D}^*)^\pm\pi^\mp$ for $\sqrt{s}=4.26$ GeV by BES.
   The cross section for  $e^+e^-\to Z_c(3885)^\pm\pi^\mp\to (D\bar{D}^*)^\pm\pi^\mp$ is also measured.
   As there is no PDG code for the $Z_c(3885)^+ we take it to be  9044213,
   although this can be changed using the PID option.'
