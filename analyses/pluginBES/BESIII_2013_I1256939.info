@@ -1,0 +1,43 @@
+Name: BESIII_2013_I1256939
+Year: 2013
+Summary:  $e^+e^-\to (D\bar{D}^*)^\pm\pi^\mp$ for $\sqrt{s}=4.26$ GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1256939
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 112 (2014) 2, 022001
+RunInfo: e+ e- to hadrons, pi0 set stable
+Beams: [e+, e-]
+Energies: [4.26]
+Options:
+- PID=*
+Description:
+  'easurement of mass distributions for $e^+e^-\to (D\bar{D}^*)^\pm\pi^\mp$ for $\sqrt{s}=4.26$ GeV by BES.
+  The cross section for  $e^+e^-\to Z_c(3885)^\pm\pi^\mp\to (D\bar{D}^*)^\pm\pi^\mp$ is also measured.
+  As there is no PDG code for the $Z_c(3885)^+ we take it to be  9044213,
+  although this can be changed using the PID option.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2013qmu
+BibTeX: '@article{BESIII:2013qmu,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Observation of a charged $(D\bar{D}^{*})^\pm$ mass peak in $e^{+}e^{-} \to \pi D\bar{D}^{*}$ at $\sqrt{s} =$ 4.26 GeV}",
+    eprint = "1310.1163",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevLett.112.022001",
+    journal = "Phys. Rev. Lett.",
+    volume = "112",
+    number = "2",
+    pages = "022001",
+    year = "2014"
+}
+'
