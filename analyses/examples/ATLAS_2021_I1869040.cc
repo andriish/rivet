@@ -129,7 +129,7 @@ namespace Rivet {
       /////////////////////////////////////////////////////////////////////////////
       //OBJECT RETRIEVAL
       // Retrieve clustered jets, sorted by pT, with a minimum pT cut
-      Jets jets = apply<SmearedJets>(event, "jets").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 4.5);
+      Jets jets = apply<SmearedJets>(event, "jets").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 2.5);
       // Retrieve dressed leptons, sorted by pT
       
       Particles electrons = apply<ParticleFinder>(event, "smeared_elecs").particlesByPt(Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pt > 15*GeV);
@@ -148,7 +148,7 @@ namespace Rivet {
       idiscardIfAny(jets, electron_candidates,
                       [](const Jet& j, const Particle& e){return ((deltaR(j, e) < 0.4) && !j.bTagged());});
 
-      //Remove non b-tagged jets of <3 tracks.
+      //Remove non b-tagged jets of <3 tracks within .4 of jet
       //The additional check in the SimpleAnalysis for muon.pt > 0.5*jet.pt() is NOT explicitly in the paper.
       //Possible approximation for some extra BDT stuff? Who knows.
       idiscardIfAny(jets, muons, [](const Jet& j,  const Particle &m)
@@ -198,29 +198,32 @@ namespace Rivet {
         _is2lsc = false;
       }
 
-      //std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      ////////////////////////////////////////////////////////////////////////////
+      //Count Jets -> needed in both categories
+
+      const size_t njets40 = std::count_if(jets.begin(), jets.end(),
+                                  [](const Jet& j){return (j.pt() >= 40*GeV);});
+      const size_t njets60 = std::count_if(jets.begin(), jets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 60*GeV);});
+      const size_t njets80 = std::count_if(jets.begin(), jets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 80*GeV);});
+      const size_t njets100 = std::count_if(jets.begin(), jets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 100*GeV);});
+      const size_t nbjets40 = std::count_if(bjets.begin(), bjets.end(),
+                                  [](const Jet& j){return (j.pt() >= 40*GeV);});
+      const size_t nbjets60 = std::count_if(bjets.begin(), bjets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 60*GeV);});
+      const size_t nbjets80 = std::count_if(bjets.begin(), bjets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 80*GeV);});
+      const size_t nbjets100 = std::count_if(bjets.begin(), bjets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 100*GeV);});        
 
       ////////////////////////////////////////////////////////////////////////////
       //2lsc channel regions:
       if (_is2lsc){
         ////////////////////////////////////////////////////////////////////////////
-        //2lsc Jet counting
-        const size_t njets40 = std::count_if(jets.begin(), jets.end(),
-                                    [](const Jet& j){return (j.pt() >= 40*GeV);});
-        const size_t njets60 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 60*GeV);});
-        const size_t njets80 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 80*GeV);});
-        const size_t njets100 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 100*GeV);});
-        const size_t nbjets40 = std::count_if(bjets.begin(), bjets.end(),
-                                    [](const Jet& j){return (j.pt() >= 40*GeV);});
-        const size_t nbjets60 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 60*GeV);});
-        const size_t nbjets80 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 80*GeV);});
-        const size_t nbjets100 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 100*GeV);});                                    
+        //2lsc Jet counting analysis
+                                    
 
         if (jets.size() >= 10){
           if (bjets.size() == 0){
@@ -260,7 +263,7 @@ namespace Rivet {
         ////////////////////////////////////////////////////////////////////////////
         //2lsc shape analysis
         if (jets.size() == 6 && bjets.size() > 2){
-          if (calc_mlj_pair(leptons[0], leptons[1], jets, 4) < 155){
+          if (calc_mlj_pair(leptons[0], leptons[1], jets, 4) < 155*GeV){
             _c["ss_shape_6j_3b"]->fill();
           }
         }
@@ -270,22 +273,6 @@ namespace Rivet {
       else {
         ////////////////////////////////////////////////////////////////////////////
         //1l JET COUNTING ANALYSIS
-        const size_t njets40 = std::count_if(jets.begin(), jets.end(),
-                                    [](const Jet& j){return (j.pt() >= 40*GeV);});
-        const size_t njets60 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 60*GeV);});
-        const size_t njets80 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 80*GeV);});
-        const size_t njets100 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 100*GeV);});
-        const size_t nbjets40 = std::count_if(bjets.begin(), bjets.end(),
-                                    [](const Jet& j){return (j.pt() >= 40*GeV);});
-        const size_t nbjets60 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 60*GeV);});
-        const size_t nbjets80 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 80*GeV);});
-        const size_t nbjets100 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 100*GeV);});
         if (jets.size() >= 15){
           if (bjets.size() == 0){
             _c["1l_15j20_0b"]->fill();
@@ -420,8 +407,7 @@ namespace Rivet {
           //Fill appropriate histo:
           _h["1l_nn_"+std::to_string(jets.size())+"j_4b"] -> fill(nn_output["out_0"]);
   
-          //If >= 4 bjets, and NN cut achieved, fill appropriate sigregion also:
-          //If >= 4 bjets, and NN cut achieved, fill appropriate sigregion also:
+          //If NN cut achieved, fill appropriate sigregion also:
           if(nn_output["out_0"] > _nnCuts[jets.size()])
             _c["1l_shape_"+std::to_string(jets.size())+"j_4b"]->fill();
 
@@ -470,7 +456,7 @@ namespace Rivet {
     ///@name utility functions for this analysis
     /// @{
     //Get the mass of the system of the three jets with highest combined pt
-    double calc_threejet_max_pt_mass(const Jets& jets){
+    static double calc_threejet_max_pt_mass(const Jets& jets){
       double max_pt = 0;
       FourMomentum max4mom;
       for (size_t i = 0; i < jets.size(); ++i){
@@ -488,7 +474,7 @@ namespace Rivet {
 
     //Get the mass of the system of the three jets with highest combined pt
     //TODO: WORK OUT WTF is going on with MET -> ignored for now.
-    double calc_threejet_lepmet_max_pt_mass(const Jets& jets, const Particle &lep,
+    static double calc_threejet_lepmet_max_pt_mass(const Jets& jets, const Particle &lep,
                                             const ThreeMomentum met){
       double max_pt = 0;
       FourMomentum max4mom;
@@ -507,8 +493,8 @@ namespace Rivet {
       return max4mom.mass();
     }
 
-    //Calculate the minium deltaR
-    double min_dr_lep_jet(const Jets& jets, const Particles& leptons){
+    //Calculate the minium deltaR between a lepton and a jet
+    static double min_dr_lep_jet(const Jets& jets, const Particles& leptons){
       double min_dr = DBL_MAX;
       for (const Particle &l : leptons){
         for (const Jet &j: jets){
@@ -521,7 +507,7 @@ namespace Rivet {
     }
 
     //Helper function for the below, copied from SA for same reason.
-    int countSetBits( int n)
+    static int countSetBits( int n)
     {
       int count = 0;
       while (n) {
@@ -532,8 +518,8 @@ namespace Rivet {
     }
 
     //TODO (or at least nb) Copied almost wholesale from simpleanalysis as 
-    //I cannot understand thi
-    double calc_minmax_mass(const Jets& jets, int jetdiff=10)
+    //I cannot understand this clearly
+    static double calc_minmax_mass(const Jets& jets, int jetdiff=10)
     {
       const int nJets = jets.size();
 
@@ -566,7 +552,7 @@ namespace Rivet {
     }
 
 
-    //Copied wholesale from SimpleAnalysis with some logic tweaks
+    //Copied wholesale from SimpleAnalysis with some slight logic tweaks
     static double calc_mlj_pair(const Particle& l1, const Particle& l2,
                             const Jets& jets, const size_t max_njets)
     {
