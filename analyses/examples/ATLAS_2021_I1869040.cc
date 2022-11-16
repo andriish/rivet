@@ -5,6 +5,7 @@
 #include "Rivet/Projections/DressedLeptons.hh"
 #include "Rivet/Projections/MissingMomentum.hh"
 #include "Rivet/Projections/DirectFinalState.hh"
+#include "Rivet/Projections/Smearing.hh"
 #include "Rivet/Tools/RivetORT.hh"
 
 namespace Rivet {
@@ -36,7 +37,9 @@ namespace Rivet {
       // muons and neutrinos are excluded from the clustering
       // TODO: Smear jets
       FastJets jetfs(fs, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE, JetAlg::Invisibles::NONE);
-      declare(jetfs, "jets");
+      //n.b. 70% jet b-tagging point
+      SmearedJets recoJets(jetfs, JET_SMEAR_ATLAS_RUN2, JET_BTAG_EFFS(0.70, 1/9., 1/300.));
+      declare(recoJets, "jets");
 
       // FinalState of direct photons and bare muons and electrons in the event
       DirectFinalState photons(Cuts::abspid == PID::PHOTON);
@@ -44,14 +47,29 @@ namespace Rivet {
 
       // Dress the bare direct leptons with direct photons within dR < 0.1,
       // and apply some fiducial cuts on the dressed leptons
-      Cut lepton_cuts = Cuts::abseta < 2.5 && Cuts::pT > 20*GeV;
+      Cut lepton_cuts = Cuts::abseta < 2.5 && Cuts::pT > 8*GeV;
       DressedLeptons dressed_leps(photons, bare_leps, 0.1, lepton_cuts);
       declare(dressed_leps, "leptons");
 
-      // Missing momentum
-      declare(MissingMomentum(fs), "MET");
 
-      // Initialise the LWTNN graphs (one for each numJets 4-8)
+      //"medium" category Electrons are "candidates" and are used in overlap removal only
+      SmearedParticles smeared_elec_candidates = SmearedParticles(dressed_leps, ELECTRON_EFF_ATLAS_RUN2_MEDIUM,
+                                                                   ELECTRON_SMEAR_ATLAS_RUN2, Cuts::abspid == PID::ELECTRON);
+      SmearedParticles smeared_elec_signal = SmearedParticles(dressed_leps, ELECTRON_EFF_ATLAS_RUN2_TIGHT,
+                                                                   ELECTRON_SMEAR_ATLAS_RUN2, Cuts::abspid == PID::ELECTRON);
+      //TODO: do we have muon medium?
+      SmearedParticles smeared_muon_signal =  SmearedParticles(dressed_leps, MUON_EFF_ATLAS_RUN2,
+                                                                   MUON_SMEAR_ATLAS_RUN2, Cuts::abspid == PID::MUON);
+      declare(smeared_elec_candidates, "smeared_elec_cands");
+      declare(smeared_elec_signal, "smeared_elecs");
+      declare(smeared_muon_signal, "smeared_mu");
+
+
+      // Missing momentum
+      MissingMomentum met(fs);
+      declare(SmearedMET(met,MET_SMEAR_ATLAS_RUN2), "MET");
+
+      // Initialise the ORT Networks (one for each numJets 4-8)
       // Doing this in init saves loading it separately for each event.
       for (size_t i = 4; i < 9; ++i){
         _ORTs[i] = make_unique<RivetORT>(RivetORT(analysisDataPath(std::to_string(i)+"jets.onnx")));
@@ -106,30 +124,30 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
 
+
       /////////////////////////////////////////////////////////////////////////////
       //OBJECT RETRIEVAL
       // Retrieve clustered jets, sorted by pT, with a minimum pT cut
-      Jets jets = apply<FastJets>(event, "jets").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 4.5);
+      Jets jets = apply<SmearedJets>(event, "jets").jetsByPt(Cuts::pT > 20*GeV && Cuts::abseta < 2.5);
       // Retrieve dressed leptons, sorted by pT
-      Particles unfiltered_leptons = sortByPt(apply<FinalState>(event, "leptons").particles());
-      //Extract electrons from leptons:
-      Particles electrons = filter_select(unfiltered_leptons, Cuts::abspid == PID::ELECTRON && Cuts::abseta < 2.47 && Cuts::pt > 15*GeV);
-      //Extract muons from leptons:
-      Particles muons = filter_select(unfiltered_leptons, Cuts::abspid == PID::MUON && Cuts::abseta < 2.5 && Cuts::pt > 15*GeV);
-      ThreeMomentum met = apply<MissingMomentum>(event, "MET").vectorEtMiss();//TODO -> double check MET definitions
+      
+      Particles electrons = apply<ParticleFinder>(event, "smeared_elecs").particlesByPt(Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pt > 15*GeV);
+      Particles electron_candidates = apply<ParticleFinder>(event, "smeared_elec_cands").particlesByPt(Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pt > 15*GeV);
+      Particles muons = apply<ParticleFinder>(event, "smeared_mu").particlesByPt(Cuts::abseta < 2.5 && Cuts::pt > 10*GeV);
+      ThreeMomentum met = apply<SmearedMET>(event, "MET").vectorEt();//TODO -> double check MET definitions
 
       /////////////////////////////////////////////////////////////////////////////
-      //OVERLAP REMOVAL (based purely on SimpleAnalaysis script)
-      
-      //electrons within deltaR 0.01 of a muon
+      //OVERLAP REMOVAL (note there exist discrepancies with simple analysis script)
+
+      // //electrons and electron_candidates within deltaR 0.01 of a muon
       idiscardIfAnyDeltaRLess(electrons, muons, 0.01);
+      idiscardIfAnyDeltaRLess(electron_candidates, muons, 0.01);
 
-      //non- btagged jets within 0.2 of an eletron
-      idiscardIfAny(jets, electrons,
+      //non- btagged jets within 0.2 of an electron candidate
+      idiscardIfAny(jets, electron_candidates,
                       [](const Jet& j, const Particle& e){return ((deltaR(j, e) < 0.4) && !j.bTagged());});
-      //TODO -> different b tag criteria here?
 
-      //Remove non b-tagged jets of <3 tracks.
+      //Remove non b-tagged jets of <3 tracks within .4 of jet
       //The additional check in the SimpleAnalysis for muon.pt > 0.5*jet.pt() is NOT explicitly in the paper.
       //Possible approximation for some extra BDT stuff? Who knows.
       idiscardIfAny(jets, muons, [](const Jet& j,  const Particle &m)
@@ -171,6 +189,7 @@ namespace Rivet {
       //DECIDE LEPTON CATEGORY
 
       //TODO - this is as thorough as SimpleAnalysis but not as thorough as the paper.
+      // The paper has some extra CR's in 2lsc which don't meet this criteria
       if (leptons.size() == 2 && leptons[0].charge()*leptons[1].charge() > 0){
         _is2lsc = true;
       }
@@ -178,29 +197,32 @@ namespace Rivet {
         _is2lsc = false;
       }
 
-      //std::cout << __FILE__ << ": " << __LINE__ << std::endl;
+      ////////////////////////////////////////////////////////////////////////////
+      //Count Jets -> needed in both categories
+
+      const size_t njets40 = std::count_if(jets.begin(), jets.end(),
+                                  [](const Jet& j){return (j.pt() >= 40*GeV);});
+      const size_t njets60 = std::count_if(jets.begin(), jets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 60*GeV);});
+      const size_t njets80 = std::count_if(jets.begin(), jets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 80*GeV);});
+      const size_t njets100 = std::count_if(jets.begin(), jets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 100*GeV);});
+      const size_t nbjets40 = std::count_if(bjets.begin(), bjets.end(),
+                                  [](const Jet& j){return (j.pt() >= 40*GeV);});
+      const size_t nbjets60 = std::count_if(bjets.begin(), bjets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 60*GeV);});
+      const size_t nbjets80 = std::count_if(bjets.begin(), bjets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 80*GeV);});
+      const size_t nbjets100 = std::count_if(bjets.begin(), bjets.end(), 
+                                  [](const Jet& j){return (j.pt() >= 100*GeV);});        
 
       ////////////////////////////////////////////////////////////////////////////
       //2lsc channel regions:
       if (_is2lsc){
         ////////////////////////////////////////////////////////////////////////////
-        //2lsc Jet counting
-        const size_t njets40 = std::count_if(jets.begin(), jets.end(),
-                                    [](const Jet& j){return (j.pt() >= 40*GeV);});
-        const size_t njets60 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 60*GeV);});
-        const size_t njets80 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 80*GeV);});
-        const size_t njets100 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 100*GeV);});
-        const size_t nbjets40 = std::count_if(bjets.begin(), bjets.end(),
-                                    [](const Jet& j){return (j.pt() >= 40*GeV);});
-        const size_t nbjets60 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 60*GeV);});
-        const size_t nbjets80 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 80*GeV);});
-        const size_t nbjets100 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 100*GeV);});                                    
+        //2lsc Jet counting analysis
+                                    
 
         if (jets.size() >= 10){
           if (bjets.size() == 0){
@@ -240,7 +262,7 @@ namespace Rivet {
         ////////////////////////////////////////////////////////////////////////////
         //2lsc shape analysis
         if (jets.size() == 6 && bjets.size() > 2){
-          if (calc_mlj_pair(leptons[0], leptons[1], jets, 4) < 155){
+          if (calc_mlj_pair(leptons[0], leptons[1], jets, 4) < 155*GeV){
             _c["ss_shape_6j_3b"]->fill();
           }
         }
@@ -250,22 +272,6 @@ namespace Rivet {
       else {
         ////////////////////////////////////////////////////////////////////////////
         //1l JET COUNTING ANALYSIS
-        const size_t njets40 = std::count_if(jets.begin(), jets.end(),
-                                    [](const Jet& j){return (j.pt() >= 40*GeV);});
-        const size_t njets60 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 60*GeV);});
-        const size_t njets80 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 80*GeV);});
-        const size_t njets100 = std::count_if(jets.begin(), jets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 100*GeV);});
-        const size_t nbjets40 = std::count_if(bjets.begin(), bjets.end(),
-                                    [](const Jet& j){return (j.pt() >= 40*GeV);});
-        const size_t nbjets60 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 60*GeV);});
-        const size_t nbjets80 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 80*GeV);});
-        const size_t nbjets100 = std::count_if(bjets.begin(), bjets.end(), 
-                                    [](const Jet& j){return (j.pt() >= 100*GeV);});
         if (jets.size() >= 15){
           if (bjets.size() == 0){
             _c["1l_15j20_0b"]->fill();
@@ -444,10 +450,10 @@ namespace Rivet {
     map<size_t, double> _nnCuts = {{4, 0.73}, {5, 0.76}, {6, 0.77}, {7, 0.72}, {8, 0.73}};
     
 
-    ///@name utility functions for this analysis
+ ///@name utility functions for this analysis
     /// @{
     //Get the mass of the system of the three jets with highest combined pt
-    double calc_threejet_max_pt_mass(const Jets& jets){
+    static double calc_threejet_max_pt_mass(const Jets& jets){
       double max_pt = 0;
       FourMomentum max4mom;
       for (size_t i = 0; i < jets.size(); ++i){
@@ -465,7 +471,7 @@ namespace Rivet {
 
     //Get the mass of the system of the three jets with highest combined pt
     //TODO: WORK OUT WTF is going on with MET -> ignored for now.
-    double calc_threejet_lepmet_max_pt_mass(const Jets& jets, const Particle &lep,
+    static double calc_threejet_lepmet_max_pt_mass(const Jets& jets, const Particle &lep,
                                             const ThreeMomentum met){
       double max_pt = 0;
       FourMomentum max4mom;
@@ -484,8 +490,8 @@ namespace Rivet {
       return max4mom.mass();
     }
 
-    //Calculate the minium deltaR
-    double min_dr_lep_jet(const Jets& jets, const Particles& leptons){
+    //Calculate the minium deltaR between a lepton and a jet
+    static double min_dr_lep_jet(const Jets& jets, const Particles& leptons){
       double min_dr = DBL_MAX;
       for (const Particle &l : leptons){
         for (const Jet &j: jets){
@@ -498,7 +504,7 @@ namespace Rivet {
     }
 
     //Helper function for the below, copied from SA for same reason.
-    int countSetBits( int n)
+    static int countSetBits( int n)
     {
       int count = 0;
       while (n) {
@@ -509,8 +515,8 @@ namespace Rivet {
     }
 
     //TODO (or at least nb) Copied almost wholesale from simpleanalysis as 
-    //I cannot understand thi
-    double calc_minmax_mass(const Jets& jets, int jetdiff=10)
+    //I cannot understand this clearly
+    static double calc_minmax_mass(const Jets& jets, int jetdiff=10)
     {
       const int nJets = jets.size();
 
@@ -543,7 +549,7 @@ namespace Rivet {
     }
 
 
-    //Copied wholesale from SimpleAnalysis with some logic tweaks
+    //Copied wholesale from SimpleAnalysis with some slight logic tweaks
     static double calc_mlj_pair(const Particle& l1, const Particle& l2,
                             const Jets& jets, const size_t max_njets)
     {
