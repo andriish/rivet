@@ -1,0 +1,43 @@
+Name: BESIII_2015_I1356733
+Year: 2015
+Summary: Cross section for $e^+e^-\to\pi^+\pi^-X(3823)(\to\gamma\chi_{c1})$ and $\pi^+\pi^-\psi(2S)$ for $\sqrt{s}=4.23$ to $4.6$ GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1356733
+Status: VALIDATED NOHEPDATA SINGLEWEIGHT
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 115 (2015) 1, 011803
+RunInfo: e+ e- to hadrons, pi0 set stable
+Beams: [e+, e-]
+Options:
+- PID=*
+- ENERGY=*
+Description:
+'Measurement of the cross section for $e^+e^-\to\pi^+\pi^-X(3823)(\to\gamma\chi_{c1})$
+and $\pi^+\pi^-\psi(2S)$ for $\sqrt{s}=4.23$ to $4.6$ GeV.
+The $X(3823)$ is consistent with the $\psi(1^3D_2)$ state and therefore we use the PDG code 20445,
+although this can be changed using the PID option.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2015iqd
+BibTeX: '@article{BESIII:2015iqd,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Observation of the $\psi(1^3D_2)$ state in $e^+e^-\to\pi^+\pi^-\gamma\chi_{c1}$ at BESIII}",
+    eprint = "1503.08203",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevLett.115.011803",
+    journal = "Phys. Rev. Lett.",
+    volume = "115",
+    number = "1",
+    pages = "011803",
+    year = "2015"
+}
+'

@@ -6,12 +6,12 @@
 namespace Rivet {
 
 
-  /// @brief e+ e- > pi0 pi0 hc 
-  class BESIII_2014_I1318650 : public Analysis {
+  /// @brief 
+  class BESIII_2015_I1356733 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2014_I1318650);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2015_I1356733);
 
 
     /// @name Analysis methods
@@ -20,10 +20,11 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // set the PDG code
-      _pid = getOption<double>("PID", 9030443);
+      _pid = getOption<double>("PID", 20445);
       // projections
       declare(FinalState(), "FS");
-      declare(UnstableParticles(), "UFS");
+      declare(UnstableParticles(Cuts::pid== 20443 ||
+				Cuts::pid==100443), "UFS");
       // histograms
       for(unsigned int ix=0;ix<2;++ix)
 	book(_c[ix],"TMP/c_"+toString(ix));
@@ -49,20 +50,23 @@ namespace Rivet {
 	nCount[p.pid()] += 1;
 	++ntotal;
       }
-      const UnstableParticles & ufs = apply<UnstableParticles>(event, "UFS");
-      // loop over any h_c
-      for (const Particle& hc : ufs.particles(Cuts::pid==10443)) {
-	if(hc.children().empty()) continue;
-	// find the h_c
+      for(const Particle & psi : apply<UnstableParticles>(event, "UFS").particles()) {
+	if(psi.children().empty()) continue;
 	map<long,int> nRes = nCount;
 	int ncount = ntotal;
-	findChildren(hc,nRes,ncount);
-	// h_c pi0 pi0
-	if(ncount!=2) continue;
+	findChildren(psi,nRes,ncount);
+	int nphoton = psi.pid()==100443 ? 0 : 1;
+	if(ncount!=2+nphoton) continue;
 	bool matched = true;
 	for(auto const & val : nRes) {
-	  if(abs(val.first)==111) {
-	    if(val.second !=2) {
+	  if(abs(val.first)==211) {
+	    if(val.second !=1) {
+	      matched = false;
+	      break;
+	    }
+	  }
+	  else if(val.first==22) {
+	    if(val.second!=nphoton) {
 	      matched = false;
 	      break;
 	    }
@@ -73,13 +77,19 @@ namespace Rivet {
 	  }
 	}
 	if(matched) {
-	  _c[0]->fill();
-	  if(hc.parents().empty()) break;
-	  Particle Zc = hc.parents()[0];
-	  if(Zc.pid()==_pid && Zc.children().size()==2 &&
-	     (Zc.children()[0].pid()==PID::PI0 ||
-	      Zc.children()[1].pid()==PID::PI0)) _c[1]->fill();
-	  break;
+	  if(nphoton==0) {
+	    _c[1]->fill();
+	    break;
+	  }
+	  else {
+	    Particle parent = psi.parents()[0];
+	    if(parent.pid()==_pid && parent.children().size()==2 &&
+	       (parent.children()[0].pid()==22 ||
+		parent.children()[1].pid()==22 )) {
+	      _c[0]->fill();
+	      break;
+	    }
+	  }
 	}
       }
     }
@@ -123,6 +133,6 @@ namespace Rivet {
   };
 
 
-  RIVET_DECLARE_PLUGIN(BESIII_2014_I1318650);
+  RIVET_DECLARE_PLUGIN(BESIII_2015_I1356733);
 
 }

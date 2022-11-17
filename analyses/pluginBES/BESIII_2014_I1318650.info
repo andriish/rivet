@@ -1,6 +1,6 @@
 Name: BESIII_2014_I1318650
 Year: 2014
-Summary: Cross section for $e^+e^-\to\pi^0\pi^0 h_c$ for $\sqrt{s}=4.23$, $4.26$ and $4.30$
+Summary: Cross section for $e^+e^-\to\pi^0\pi^0 h_c$ for $\sqrt{s}=4.23$, $4.26$ and $4.30$ GeV
 Experiment: BESIII
 Collider: BEPC
 InspireID: 1318650
@@ -17,7 +17,7 @@ Options:
 - PID=*
 - ENERGY=*
 Description:
-'Measurement of the cross section for $e^+e^-\to\pi^0\pi^0 h_c$ for $\sqrt{s}=4.23$, $4.26$ and $4.30$.
+'Measurement of the cross section for $e^+e^-\to\pi^0\pi^0 h_c$ for $\sqrt{s}=4.23$, $4.26$ and $4.30$ GeV.
 The cross section for $e^+e^-\to Z_xc(4020)^0\pi^0\to \pi^0\pi^0 h_c$ is also measured.
 As there is no PDG code for the $Z_c(4020)^0$ we take it to be the first unused exotic $c\bar{c}$ value 9030443,
 although this can be changed using the PID option.'
