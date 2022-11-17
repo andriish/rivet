@@ -1,0 +1,37 @@
+Name: BESIII_2013_I1225275
+Year: 2013
+Summary: $e^+e^-\to\pi^+\pi^-J/\psi$ at $\sqrt{s}=4.26\,$GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 1225275
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 110 (2013) 252001
+RunInfo: e+ e- to hadrons
+Beams: [e+, e-]
+Energies: [4.26]
+Description:
+  'Cross section and measurement of mass distributions for $e^+e^-\to\pi^+\pi^-J/\psi$ at $\sqrt{s}=4.26\,$GeV.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2013ris
+BibTeX: '@article{BESIII:2013ris,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Observation of a Charged Charmoniumlike Structure in $e^+e^- \to \pi^+\pi^- J/\psi$ at $\sqrt{s}$ =4.26 GeV}",
+    eprint = "1303.5949",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    doi = "10.1103/PhysRevLett.110.252001",
+    journal = "Phys. Rev. Lett.",
+    volume = "110",
+    pages = "252001",
+    year = "2013"
+}
+'
