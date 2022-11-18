@@ -1,0 +1,39 @@
+Name: BELLE_2015_I1283743
+Year: 2015
+Summary: Mass distributions in $\Upsilon(5S)\to\pi^+\pi^-\Upsilon(1,2,3S)$
+Experiment: BELLE
+Collider: KEKB
+InspireID: 1283743
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 91 (2015) 7, 072003
+RunInfo: e+ e- to hadrons, pi0 set stable
+Beams: [e+, e-]
+Energies: [10.866]
+Description:
+  'Measurement of the cross section for  $\Upsilon(5S)\to\pi^+\pi^-\Upsilon(1,2,3S)$ in $e^=e^-$ collisions. In addition to the cross sections in the HEPDATa entry the mass distributions are implemented using values read from the plots in the paper. Currently only the mass distributions are implemented, although the data for the angular distributions is available in the YODA file.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2014vzn
+BibTeX: '@article{Belle:2014vzn,
+    author = "Garmash, A. and others",
+    collaboration = "Belle",
+    title = "{Amplitude analysis of $e^+e^- \to \Upsilon(nS) \pi^+\pi^-$ at $\sqrt{s}=10.865$\textasciitilde{}GeV}",
+    eprint = "1403.0992",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BELLE-PREPRINT-2014-4, KEK-PREPRINT-2013-63",
+    doi = "10.1103/PhysRevD.91.072003",
+    journal = "Phys. Rev. D",
+    volume = "91",
+    number = "7",
+    pages = "072003",
+    year = "2015"
+}
+'
