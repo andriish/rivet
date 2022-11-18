@@ -18,6 +18,10 @@
 	* Replace regex_match with reg_search to pick up substring
 	matches, too.
 
+2022-11-18 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2013_I1239347 B0 -> psi(2S) K+ pi-
+
 2022-11-12 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2012_I1125567 tau -> pi- KS0 KS0 nu
