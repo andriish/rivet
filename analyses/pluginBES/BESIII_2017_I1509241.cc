@@ -33,7 +33,7 @@ namespace Rivet {
       const FinalState& fs = apply<FinalState>(event, "FS");
       if(fs.particles().size()!=3) vetoEvent;
       for (const Particle& p :  fs.particles()) {
-	if(abs(p.pid())!=PID::PROTON&& p.pid()==PID::PI0) vetoEvent;
+	if(p.abspid()!=PID::PROTON&& p.pid()!=PID::PI0) vetoEvent;
       }
       _nproton->fill();
     }
@@ -41,10 +41,9 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      double sigma = _nproton->val();
-      double error = _nproton->err();
-      sigma *= crossSection()/ sumOfWeights() /picobarn;
-      error *= crossSection()/ sumOfWeights() /picobarn; 
+      double fact = crossSection()/ sumOfWeights() /picobarn; 
+      double sigma = _nproton->val()*fact;
+      double error = _nproton->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
       Scatter2DPtr  mult;
       book(mult, 1, 1, 1);

@@ -3,4 +3,5 @@ Title=$\sigma(e^+e^-\to \phi\Lambda\bar{\Lambda})$
 XLabel=$\sqrt{s}$/GeV
 YLabel=$\sigma(e^+e^-\to \phi\Lambda\bar{\Lambda})$/pb
 ConnectGaps=1
+LogY=0
 END PLOT

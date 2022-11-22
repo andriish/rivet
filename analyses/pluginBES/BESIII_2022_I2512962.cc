@@ -6,16 +6,16 @@
 namespace Rivet {
 
 
-  /// @brief e+e- -> phi lambda lambda bar
-  class BESIII_2021_I1859248 : public Analysis {
+  /// @brief e+e- -> eta lambda lambda bar
+  class BESIII_2022_I2512962 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2021_I1859248);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BESIII_2022_I2512962);
 
 
     /// @name Analysis methods
-    ///@{
+    /// @{
 
     /// Book histograms and initialise projections before the run
     void init() {
@@ -24,7 +24,7 @@ namespace Rivet {
       declare(FinalState(), "FS");
       declare(UnstableParticles(), "UFS");
       // counter
-      book(_c_phiLL, "TMP/c_phiLL");
+      book(_c, "TMP/c_etaLL");
     }
 
     void findChildren(const Particle & p,map<long,int> & nRes, int &ncount) {
@@ -49,12 +49,12 @@ namespace Rivet {
 	++ntotal;
       }
       const FinalState& ufs = apply<FinalState>(event, "UFS");
-      // loop over phi mesons
-      for (const Particle& phi : ufs.particles(Cuts::pid==333)) {
+      // loop over eta mesons
+      for (const Particle& eta : ufs.particles(Cuts::pid==221)) {
 	bool matched = false;
 	map<long,int> nRes=nCount;
 	int ncount = ntotal;
-	findChildren(phi,nRes,ncount);
+	findChildren(eta,nRes,ncount);
 	// then Lambda baryons
 	for (const Particle& lambda : ufs.particles(Cuts::pid==3122)) {
 	  map<long,int> nResB = nRes;
@@ -72,7 +72,7 @@ namespace Rivet {
 	      }
 	    }
 	    if(matched) {
-	      _c_phiLL->fill();
+	      _c->fill();
 	      break;
 	    }
 	  }
@@ -86,8 +86,8 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       double fact = crossSection()/ sumOfWeights() /picobarn;
-      double sigma = _c_phiLL->val()*fact;
-      double error = _c_phiLL->err()*fact;
+      double sigma = _c->val()*fact;
+      double error = _c->err()*fact;
       Scatter2D temphisto(refData(1, 1, 1));
       Scatter2DPtr  mult;
       book(mult, 1, 1, 1);
@@ -97,7 +97,7 @@ namespace Rivet {
 	pair<double,double> ex2 = ex;
 	if(ex2.first ==0.) ex2. first=0.0001;
 	if(ex2.second==0.) ex2.second=0.0001;
-	if (inRange(sqrtS()/MeV, x-ex2.first, x+ex2.second)) {
+	if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
 	  mult->addPoint(x, sigma, ex, make_pair(error,error));
 	}
 	else {
@@ -106,18 +106,18 @@ namespace Rivet {
       }
     }
 
-    ///@}
+    /// @}
 
 
     /// @name Histograms
-    ///@{
-    CounterPtr _c_phiLL;
-    ///@}
+    /// @{
+    CounterPtr _c;
+    /// @}
 
 
   };
 
 
-  RIVET_DECLARE_PLUGIN(BESIII_2021_I1859248);
+  RIVET_DECLARE_PLUGIN(BESIII_2022_I2512962);
 
 }

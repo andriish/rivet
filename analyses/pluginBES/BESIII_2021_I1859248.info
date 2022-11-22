@@ -7,7 +7,7 @@ InspireID: 1859248
 Status: VALIDATED
 Reentrant: true
 Authors:
- - Peter Richardson
+ - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev.D 104 (2021) 5, 052006
 RunInfo: e+ e- to hadrons
