@@ -18,6 +18,10 @@
 	* Replace regex_match with reg_search to pick up substring
 	matches, too.
 
+2022-11-23 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2012_I1079912 B -> Xu ell nu
+
 2022-11-22 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BELLE_2022_I2512112 B -> D pi ell nu
