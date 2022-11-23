@@ -20,7 +20,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       declare(Beam(), "Beams");
-      declare(UnstableParticles(), "UFS");
+      declare(UnstableParticles(Cuts::pid==PID::K0S), "UFS");
       
       if (isCompatibleWithSqrtS(3.63)) {
         book(_h_spectrum, 2, 1, 1);
@@ -44,8 +44,7 @@ namespace Rivet {
                                    beams.second.p3().mod() ) / 2.0;
       MSG_DEBUG("Avg beam momentum = " << meanBeamMom);
       // unstable particles
-      for (const Particle& p : apply<UnstableParticles>(event, "UFS").
-	       particles(Cuts::pid==PID::K0S)) {
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles()) {
 	double xp = p.E()/meanBeamMom;
 	double beta = p.p3().mod()/p.E();
 	_h_spectrum->fill(xp,1./beta);

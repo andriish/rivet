@@ -1,0 +1,37 @@
+Name: BESIII_2022_I2513076
+Year: 2022
+Summary: $\pi^0$ and $K^0_S$ momentum distributions for energies between 2.23 and 3.67 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 2513076
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - arXiv:1605.2211.11253 [hep-ex]
+RunInfo: e+e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
+Beams: [e+,e-]
+Energies: [2.2324,2.4,2.8,3.05,3.4,3.671]
+Options:
+ - ENERGY=2.2324,2.4,2.8,3.05,3.4,3.671
+Description:
+  '$\pi^0$ and $K^0_S$ momentum distributions for energies between 2.23 and 3.67 GeV.
+   Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2022zit
+BibTeX: '@article{BESIII:2022zit,
+    author = "Ablikim, M. and others",
+    collaboration = "BESIII",
+    title = "{Measurements of Differential Cross Sections of Inclusive $\pi^0$ and $K^0_S$ Production in $e^{+}e^{-}$ Annihilation at Energies from 2.2324 to 3.6710 GeV}",
+    eprint = "2211.11253",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    month = "11",
+    year = "2022"
+}
+'
