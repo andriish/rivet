@@ -19,7 +19,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // projections
-      declare(UnstableParticles(),"UFS");
+      declare(UnstableParticles(Cuts::pid==300553),"UFS");
       // Book histograms
       // specify custom binning
       book(_h_light, 1,1,1);
@@ -59,8 +59,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // find and loop over Upslion(4S)
-      const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      for (const Particle& p : ufs.particles(Cuts::pid==300553)) {
+      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles()) {
       	// boost to rest frame
       	LorentzTransform cms_boost;
       	if (p.p3().mod() > 1*MeV)

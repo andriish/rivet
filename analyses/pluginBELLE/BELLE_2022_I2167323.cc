@@ -19,7 +19,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
+      declare(UnstableParticles(Cuts::abspid==521 || Cuts::abspid==511), "UFS");
       // Book histograms
       book(_h_spectrum, 1, 1, 1);
       book(_nBottom, "TMP/BottomCounter");
@@ -45,11 +45,9 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Loop over bottoms
-      for (const Particle& bottom : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid==521 ||
-										     Cuts::abspid==511)) {
+      for (const Particle& bottom : apply<UnstableParticles>(event, "UFS").particles()) {
 	// remove mixing entries etc
-	for (const Particle & child : bottom.children())
-          if (child.abspid() == 511 || child.pid()==bottom.pid() ) continue;
+	if(bottom.children()[0].abspid()==bottom.abspid()) continue;
         _nBottom->fill();
 	FourMomentum pgamma(0.,0.,0.,0.);
 	unsigned int ngamma = 0;
