@@ -31,6 +31,7 @@ namespace Rivet {
       BB.addStable(-313);
       BB.addStable(-323);
       declare(BB, "BB");
+      // book histograms
       for(unsigned int ix=0;ix<4;++ix)
       	for(unsigned int iy=0;iy<3;++iy) {
       	  book(_h_br[ix][iy],"TMP/h_br_"+toString(ix+1)+"_"+toString(iy+1),refData(1,1+iy,1));

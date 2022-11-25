@@ -29,6 +29,7 @@ from . import BABAR_2001_I558091
 from . import BABAR_2005_S6181155
 from . import BABAR_2006_I731865
 from . import BABAR_2007_S6895344
+from . import BABAR_2016_I1391152
 from . import BELLE_2001_S4598261
 from . import BELLE_2007_I749358
 from . import BELLE_2009_I823878
