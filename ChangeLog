@@ -18,7 +18,11 @@
 	* Replace regex_match with reg_search to pick up substring
 	matches, too.
 
-2022-11-24 Peter Richardson <peter.richardson@durham.ac.uk>
+2022-11-28 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add KEDR_2022_I2593308 J/psi -> rho pi
+
+2022-11-25 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2016_I1391152 B -> X l+l-
 
