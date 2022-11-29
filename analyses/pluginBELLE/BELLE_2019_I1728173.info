@@ -10,6 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev.Lett. 126 (2021) 16, 161801
+RunInfo: Any process producing B0 and B+, originally Upsilon(4S) decays
 Description:
   'Measurement of the flavour separated differential branching ratio in $B\to K^*\ell^+\ell^-$ decays.'
 ValidationInfo:

@@ -83,7 +83,8 @@ namespace Rivet {
 	  }
 	  else {
 	     scale(_h_br [ix][iy],1e7      / *_c[1]);
-	     scale(_h_brB[ix][iy],1e7*rLife/ *_c[1]);
+	     // KL0 modes 2x needed for isospin stuff
+	     scale(_h_brB[ix][iy],2e7*rLife/ *_c[1]);
 	  }
 	}
       }
