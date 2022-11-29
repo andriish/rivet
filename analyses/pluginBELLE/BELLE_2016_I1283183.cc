@@ -58,6 +58,7 @@ namespace Rivet {
         unsigned int nk = nKp-nKm+nK0;
 	if( nk % 2 == 0) continue;
 	if (lp.size()!=1 || lm.size()!=1 || lp[0].pid()!=-lm[0].pid()) continue;
+	if(bottom.pid()>0) swap(lp,lm);
 	double q2 = (lp[0].momentum()+lm[0].momentum()).mass2();
 	// veto region valid for muons but not electrons
 	if(lm[0].pid()==PID::ELECTRON && ( (q2>7.3 && q2<8.1) || (q2>11.8 && q2<12.5) )) continue;

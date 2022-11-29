@@ -10,6 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev.D 93 (2016) 5, 052015
+RunInfo: Any process producing B+ and B0, originally Upsilon(4S) decay
 Description:
   'Measurement of angular asymmetries in the decays $B\to K^*\ell^+\ell^-$'
 ValidationInfo:

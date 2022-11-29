@@ -6,12 +6,12 @@
 namespace Rivet {
 
 
-  /// @brief B -> K* l+l-
-  class BABAR_2016_I1391152 : public Analysis {
+  /// @brief  B -> K* l+l-
+  class BELLE_2016_I1504055 : public Analysis {
   public:
 
     /// Constructor
-    RIVET_DEFAULT_ANALYSIS_CTOR(BABAR_2016_I1391152);
+    RIVET_DEFAULT_ANALYSIS_CTOR(BELLE_2016_I1504055);
 
 
     /// @name Analysis methods
@@ -31,15 +31,15 @@ namespace Rivet {
       BB.addStable(-313);
       BB.addStable(-323);
       declare(BB, "BB");
-      // book histograms
       for(unsigned int ix=0;ix<2;++ix) {
-	for(unsigned int iy=0;iy<3;++iy) {
-	  book(_p_FL[ix][iy],1,1+ix,1+iy);
-	  book(_p_FB[ix][iy],2,1+ix,1+iy);
-	  book(_p_P2_num[ix][iy],"TMP/P2_num_"+toString(ix+1)+"_"+toString(iy+1),refData(3,1+ix,1+iy));
-	  book(_p_P2_den[ix][iy],"TMP/P2_den_"+toString(ix+1)+"_"+toString(iy+1),refData(3,1+ix,1+iy));
+	for(unsigned int iy=0;iy<6;++iy) {
+	  book(_p_P[ix][iy],1,1+ix,1+iy);
+	  if(iy>1) continue;
+	  book(_p_Q[ix][iy],2,1+ix,1+iy);
 	}
       }
+      book(_FL,"TMP/FL");
+      book(_norm,"TMP/norm");
     }
 
 
@@ -99,10 +99,10 @@ namespace Rivet {
 		  Kstar.children()[0].abspid()==211)
 	    KK = Kstar.children()[1];
 	  else if(Kstar.children()[0].abspid()==321 &&
-		  Kstar.children()[1].abspid()==111 && il==11)
+		  Kstar.children()[1].abspid()==111 )
 	    KK = Kstar.children()[0];
 	  else if(Kstar.children()[1].abspid()==321 &&
-		  Kstar.children()[0].abspid()==111 && il==11)
+		  Kstar.children()[0].abspid()==111 )
 	    KK = Kstar.children()[1];
 	  else continue;
 	  if(KK.abspid()==311) {
@@ -122,22 +122,37 @@ namespace Rivet {
 	// lepton stuff
 	const LorentzTransform boost2 = LorentzTransform::mkFrameTransformFromBeta((plp+plm).betaVec());
 	plp = boost2.transform(plp);
-	double cTheta = plp.p3().unit().dot(boost .transform(pB ).p3().unit());
-	double AFB = cTheta>0 ? 1 : -1;
+	Vector3 axis1 = boost .transform(pB ).p3().unit();
+	double cThetaL = plp.p3().unit().dot(axis1);
+	Vector3 Trans1 = plp.p3() - cThetaL*plp.p3().mod()*axis1;
 	// kaon stuff
 	const LorentzTransform boost3 = LorentzTransform::mkFrameTransformFromBeta(pKstar.betaVec());
 	pK = boost3.transform(pK);
-	cTheta = pK.p3().unit().dot(boost .transform(pB ).p3().unit());
-	double FL = .5*(5.*sqr(cTheta)-1.);
-	// fill histograms
-	for(unsigned int iz=0;iz<2;++iz) {
-	  for(unsigned int iy=0;iy<3;++iy) {
-	    if( (BB.decaying()[ix].abspid()==511&&iy==0) ||
-		(BB.decaying()[ix].abspid()==521&&iy==1) ) continue;
-	    _p_FB    [iz][iy]->fill(qq, AFB);
-	    _p_FL    [iz][iy]->fill(qq,FL);
-	    _p_P2_num[iz][iy]->fill(qq, -2./3.*AFB);
-	    _p_P2_den[iz][iy]->fill(qq, 1.-FL);
+	Vector3 axis2 = boost .transform(pB ).p3().unit();
+	double cThetaK = pK.p3().unit().dot(axis2);
+	double FL = .5*(5.*sqr(cThetaK)-1.);
+	Vector3 Trans2 = pK.p3() - cThetaK*pK.p3().mod()*axis2;
+	double phi = atan2(Trans1.cross(Trans2).dot(axis2),Trans1.dot(Trans2));
+	double sThetaL = sqrt(1.-sqr(cThetaL));
+	double sThetaK = sqrt(1.-sqr(cThetaK));
+	double S4 = 12.5*cThetaL*sThetaL*cThetaK*sThetaK*cos(phi);
+	double S5 = 5.*cThetaK*sThetaK*sThetaL*sin(phi);
+	_FL->fill(FL);
+	_norm->fill();
+	for(unsigned int ix=0;ix<2;++ix) {
+	  _p_P[ix][0]->fill(qq,S4);
+	  _p_P[ix][3]->fill(qq,S5);
+	  if(il==11) {
+	    _p_P[ix][1]->fill(qq,S4);
+	    _p_P[ix][4]->fill(qq,S5);
+	    _p_Q[ix][0]->fill(qq,-S4);
+	    _p_Q[ix][1]->fill(qq,-S5);
+	  }
+	  else {
+	    _p_P[ix][2]->fill(qq,S4);
+	    _p_P[ix][5]->fill(qq,S5);
+	    _p_Q[ix][0]->fill(qq,S4);
+	    _p_Q[ix][1]->fill(qq,S5);
 	  }
 	}
       }
@@ -146,11 +161,14 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
+      Scatter1D R = *_FL/ *_norm;
+      double fl = R.point(0).x();
+      double fact = 1./sqrt(fl*(1.-fl));
       for(unsigned int ix=0;ix<2;++ix) {
-	for(unsigned int iy=0;iy<3;++iy) {
-	  Scatter2DPtr tmp;
-	  book(tmp,3,1+ix,1+iy);
-	  divide(_p_P2_num[ix][iy],_p_P2_den[ix][iy],tmp);
+	for(unsigned int iy=0;iy<6;++iy) {
+	  _p_P[ix][iy]->scaleY(fact);
+	  if(iy>1) continue;
+	  _p_Q[ix][iy]->scaleY(fact);
 	}
       }
     }
@@ -160,13 +178,30 @@ namespace Rivet {
 
     /// @name Histograms
     /// @{
-    Profile1DPtr _p_FL[2][3],_p_FB[2][3],_p_P2_num[2][3],_p_P2_den[2][3];
+    Profile1DPtr _p_P[2][6],_p_Q[2][2];
+    CounterPtr _FL,_norm;
     /// @}
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x01-y01
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x01-y02
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x01-y03
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x01-y04
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x01-y05
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x01-y06
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x02-y01
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x02-y02
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x02-y03
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x02-y04
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x02-y05
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d01-x02-y06
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d02-x01-y01
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d02-x01-y02
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d02-x02-y01
+// BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2016_I1504055/d02-x02-y02
 
 
   };
 
 
-  RIVET_DECLARE_PLUGIN(BABAR_2016_I1391152);
+  RIVET_DECLARE_PLUGIN(BELLE_2016_I1504055);
 
 }
