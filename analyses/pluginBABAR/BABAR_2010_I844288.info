@@ -1,0 +1,40 @@
+Name: BABAR_2010_I844288
+Year: 2010
+Summary: Mass distribution in $e^+e^-\to e^+e^-D\bar{D}$ via $\gamma\gamma\to D\bar{D}$
+Experiment: BABAR
+Collider: PEP-II
+InspireID: 844288
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 81 (2010) 092003
+RunInfo:  e+ e- > e+e-  D Dbar via photon photon -> D Dbar
+Beams: [e+, e-]
+Energies: [[3.5, 8.0]]
+Options:
+ - PID=*
+Description:
+  'Measurement of the $D\bar{D}$ mass distribution in  $e^+e^-\to e^+e^-D\bar{D}$ via $\gamma\gamma\to D\bar{D}$. the data were read from the plots in the paper, but have been corrected for efficiency. The angluar distribution for the resonance is also measured. We assume the PDG code for the resonant particle is 100445, i.e. $\chi_{c2}(2P)$, although this can be chaged using the PID option.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BaBar:2010jfn
+BibTeX: '@article{BaBar:2010jfn,
+    author = "Aubert, B. and others",
+    collaboration = "BaBar",
+    title = "{Observation of the $\chi_{c2}(2p)$ Meson in the Reaction $\gamma \gamma \to D \bar{D}$ at {BaBar}}",
+    eprint = "1002.0281",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BABAR-PUB-09-031, SLAC-PUB-13939",
+    doi = "10.1103/PhysRevD.81.092003",
+    journal = "Phys. Rev. D",
+    volume = "81",
+    pages = "092003",
+    year = "2010"
+}
+'
