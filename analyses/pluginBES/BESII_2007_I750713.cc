@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief e+e- > light hadrons
   class BESII_2007_I750713 : public Analysis {
   public:
 

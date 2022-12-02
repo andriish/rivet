@@ -5,6 +5,10 @@
 	power laws, and a generic _fnspace() function for any
 	transform/inverse function-pair.
 
+2022-12-02 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESII_2009_I835937 e+ e- > light hadrons with KS0
+
 2022-11-28 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2022_I2593281 e+e- > p p pbar nbar pi- +cc

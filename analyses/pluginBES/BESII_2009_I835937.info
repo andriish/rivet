@@ -1,0 +1,36 @@
+Name: BESII_2009_I835937
+Year: 2009
+Summary: Cross sections for $e^+e^-\to K^0_SK^-K^-K^+\pi^+$, $K^0_SK^-\pi^+\eta$, $K^0_S K^- \rho^+$, $K^0_SK^-\pi^+\rho^0$ at 3.65 and 3.773 GeV
+Experiment: BESII
+Collider: BEPC
+InspireID: 835937
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Eur.Phys.J.C 64 (2009) 243-250
+RunInfo: e+ e- > hadrons, pi0 qand KS0 set stable
+Beams: [e+, e-]
+Energies: [3.65,3.773]
+Options:
+ - ENERGY=3.65,3.773
+Description:
+  'Measurement of the cross sections for $e^+e^-\to K^0_SK^-K^-K^+\pi^+$, $K^0_SK^-\pi^+\eta$, $K^0_S K^- \rho^+$, $K^0_SK^-\pi^+\rho^0$ at 3.65 and 3.773 GeV.'
+ValidationInfo:
+  'Herwig 7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BES:2009gtd
+BibTeX: '@article{BES:2009gtd,
+    author = "Ablikim, M. and others",
+    collaboration = "BES",
+    title = "{Experimental studies of e+ e- ---\ensuremath{>} some charmless processes containing K0(S) at s**(1/2) = 3.773-GeV and 3.65-GeV}",
+    doi = "10.1140/epjc/s10052-009-1157-1",
+    journal = "Eur. Phys. J. C",
+    volume = "64",
+    pages = "243--250",
+    year = "2009"
+}
+'
