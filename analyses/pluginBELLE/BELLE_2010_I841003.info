@@ -1,0 +1,38 @@
+Name: BELLE_2010_I841003
+Year: 2010
+Summary:  Mass distribution in $e^+e^-\to e^+e^- \omega J/\psi$ via $\gamma\gamma\to \omega J\psi$
+Experiment: BELLE
+Collider: KEKB
+InspireID: 841003
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 104 (2010) 092001
+RunInfo:  e+ e- > e+e-  omega J/psi via photon photon -> omega J/psi
+Beams: [e+, e-]
+Energies: [[3.5, 8.0]]
+Description:
+  'Measurement of the $\omega J/\psi$ mass distribution in  $e^+e^-\to e^+e^-\omega J/\psi$ via $\gamma\gamma\to \omega J/\psi$. the data were read from the plots in the paper and may not be corrected for efficiency, although the background givne in the paper has been subtracted.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Belle:2009and
+BibTeX: '@article{Belle:2009and,
+    author = "Uehara, S. and others",
+    collaboration = "Belle",
+    title = "{Observation of a charmonium-like enhancement in the gamma gamma ---\ensuremath{>} omega J/psi process}",
+    eprint = "0912.4451",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "BELLE-PREPRINT-2009-29, KEK-PREPRINT-2009-38",
+    doi = "10.1103/PhysRevLett.104.092001",
+    journal = "Phys. Rev. Lett.",
+    volume = "104",
+    pages = "092001",
+    year = "2010"
+}
+'
