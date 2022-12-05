@@ -36,7 +36,7 @@ namespace Rivet {
     // Print out MCnet boilerplate
     if (!printed && getLog().getLevel() <= 20) {
       cout << endl
-           << "The MCnet usage guidelines apply to Rivet: see http://www.montecarlonet.org/GUIDELINES" << endl
+           << "The MCnet usage guidelines apply to Rivet: see https://www.montecarlonet.org/publications_guidelines/" << endl
            << "Please acknowledge Rivet in results made using it, and cite https://arxiv.org/abs/1912.05451" << endl;
            // << "https://arxiv.org/abs/1003.0694" << endl;
       printed = true;
