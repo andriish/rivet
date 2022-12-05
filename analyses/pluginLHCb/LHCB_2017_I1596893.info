@@ -12,7 +12,7 @@ References:
  - Phys.Rev.Lett. 119 (2017) 4, 041802
 RunInfo: Any process producing B0 and B_s0 mesons, original pp
 Description:
-  'Mass distributions in $B^0\to p\bar\Lambda\pi^-$ and $B^0_s\to p\bar\Lambda K^-$. Data read from plots in paper but background sub tracted and corrected for efficiency.'
+  'Mass distributions in $B^0\to p\bar\Lambda\pi^-$ and $B^0_s\to p\bar\Lambda K^-$. Data read from plots in paper but background subtracted and corrected for efficiency.'
 ValidationInfo:
   'Herwig 7 event using EvtGen for decays'
 #ReleaseTests:

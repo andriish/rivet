@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief B0 ->  p Lambdabar pi- and B0s -> p Lambdabar K-
+  /// @brief B0 -> p Lambdabar0 pi- and Bs0 -> p Lambdabar0 K-
   class LHCB_2017_I1596893 : public Analysis {
   public:
 

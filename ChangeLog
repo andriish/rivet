@@ -1,4 +1,4 @@
-2023-01-02 Peter Richardson <peter.richardson@durham.ac.uk>
+2023-01-02 Peter Richardson <peter.richardson@durham.ac.uk>0
 
 	* Add A2_2014_I1297221 eta -> pi0 gamma gamma
 
@@ -17,6 +17,10 @@
 
 	* Replace regex_match with reg_search to pick up substring
 	matches, too.
+
+2022-12-05 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2009_I819092 B0 -> Lambdabar p+ pi-
 
 2022-12-01 Peter Richardson <peter.richardson@durham.ac.uk>
 
