@@ -13,6 +13,9 @@ namespace Rivet {
 
   /// @brief Add a short analysis description here
   class ATLAS_2021_I1869040 : public Analysis {
+  private:
+    const double ZMASS=91.1876*GeV;
+
   public:
 
     /// Constructor
@@ -111,6 +114,10 @@ namespace Rivet {
       book(_h["1l_nn_7j_4b"], "1l_nn_7j_4b", 4, 0, 1);
       book(_h["1l_nn_8j_4b"], "1l_nn_8j_4b", 4, 0, 1);
 
+      //Neural Network paper comparison
+      book(_h["fig_2_validation"], "fig_2_validation", 4, 0, 1);
+      book(_h["fig_2_validation_alt"], "fig_2_validation_alt", 4, 0, 1);
+
       //NeuralNetwork sig regions:
       book(_c["1l_shape_4j_4b"], "1l_shape_4j_4b");
       book(_c["1l_shape_5j_4b"], "1l_shape_5j_4b");
@@ -133,6 +140,8 @@ namespace Rivet {
       
       Particles electrons = apply<ParticleFinder>(event, "smeared_elecs").particlesByPt(Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pt > 15*GeV);
       Particles electron_candidates = apply<ParticleFinder>(event, "smeared_elec_cands").particlesByPt(Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pt > 15*GeV);
+      // Particles electrons = apply<ParticleFinder>(event, "leptons").particlesByPt(Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pt > 15*GeV && Cuts::abspid == PID::ELECTRON);
+      // Particles electron_candidates = apply<ParticleFinder>(event, "leptons").particlesByPt(Cuts::abseta < 2.47 && !Cuts::absetaIn(1.37, 1.52) && Cuts::pt > 15*GeV && Cuts::abspid == PID::ELECTRON);
       Particles muons = apply<ParticleFinder>(event, "smeared_mu").particlesByPt(Cuts::abseta < 2.5 && Cuts::pt > 10*GeV);
       ThreeMomentum met = apply<SmearedMET>(event, "MET").vectorEt();//TODO -> double check MET definitions
 
@@ -192,6 +201,11 @@ namespace Rivet {
       // The paper has some extra CR's in 2lsc which don't meet this criteria
       if (leptons.size() == 2 && leptons[0].charge()*leptons[1].charge() > 0){
         _is2lsc = true;
+        //if 2lsc, exclude events were the the mass of the two lepton system is close
+        // to the Z mass.
+        if ( fabs((leptons[0].momentum()+leptons[1].momentum()).mass() - ZMASS) < 10*GeV){
+          vetoEvent;
+        }
       }
       else {
         _is2lsc = false;
@@ -403,9 +417,15 @@ namespace Rivet {
 
           //Fill appropriate histo:
           _h["1l_nn_"+std::to_string(jets.size())+"j_4b"] -> fill(nn_output[0]);
+          //If 6 jets, fill the validation plot
+          if (jets.size() == 6l){
+            _h["fig_2_validation"]->fill(nn_output[0]);
+          }
+          //An extra val plot containing everything
+          _h["fig_2_validation_alt"]->fill(nn_output[0]);
   
           //If >= 4 bjets, and NN cut achieved, fill appropriate sigregion also:
-          if(nn_output[0] > _nnCuts[jets.size()])
+          if(nn_output[0] > _nnCuts[jets.size()] && bjets.size() >= 4)
             _c["1l_shape_"+std::to_string(jets.size())+"j_4b"]->fill();
 
         }
@@ -420,7 +440,8 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-
+      _h["fig_2_validation"]->normalize();
+      _h["fig_2_validation_alt"]->normalize();
     }
 
     /// @}
