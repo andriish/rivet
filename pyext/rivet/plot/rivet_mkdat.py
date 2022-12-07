@@ -360,10 +360,8 @@ def rivet_mkdat(args, path_pwd=True, reftitle='Data',
     ## Take reference data from the Rivet search paths, if there is not already
     if rivetrefs:
         refhistos2 = _get_rivet_ref_data(anas, path_patterns, path_unpatterns)
-        #print(refhistos2)
         refhistos2.update(refhistos)
         refhistos = refhistos2
-        # print(refhistos)
     ## Purge unmatched ref data entries to save memory
     keylist = list(refhistos.keys())
     for refhpath in keylist:
@@ -381,8 +379,8 @@ def rivet_mkdat(args, path_pwd=True, reftitle='Data',
             nRatioTicks
         )
         plot_info_dicts[plot_id] = outputdict
-        if writefiles:
+        #if writefiles:
             # Make the output and write to file
-            yamlio.write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)
-    
+        #    yamlio.write_output(outputdict, plot_id, hier_output=hier_output, outdir=outdir)
+
     return plot_info_dicts

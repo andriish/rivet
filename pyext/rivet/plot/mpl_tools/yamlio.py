@@ -1,33 +1,32 @@
 from __future__ import print_function
 import os, re, io, logging
-from ruamel import yaml
 import rivet
 import yoda
 from rivet.plot.mpl_tools.old_plotfile_converter import parse_old_plotfile
 
 
-def literal_presenter(dumper, data):
-    """Function that tells the yaml writer how to output yoda histograms into a yaml file.
-    Currently uses yoda.writeYODA
-
-    Parameters
-    ----------
-    dumper : yaml.YAML
-        The file writer
-    data : yoda histogram
-        The histogram that will be written to the file.
-
-    Returns
-    -------
-    str (?)
-        The str that will be written to the file
-    """
-    with io.StringIO() as filelike_str:
-        yoda.writeYODA(data, filelike_str)
-        output_str = filelike_str.getvalue()
-    return dumper.represent_scalar('tag:yaml.org,2002:str', output_str, style='|')
-
-yaml.add_multi_representer(yoda.AnalysisObject, literal_presenter)
+#def literal_presenter(dumper, data):
+#    """Function that tells the yaml writer how to output yoda histograms into a yaml file.
+#    Currently uses yoda.writeYODA
+#
+#    Parameters
+#    ----------
+#    dumper : yaml.YAML
+#        The file writer
+#    data : yoda histogram
+#        The histogram that will be written to the file.
+#
+#    Returns
+#    -------
+#    str (?)
+#        The str that will be written to the file
+#    """
+#    with io.StringIO() as filelike_str:
+#        yoda.writeYODA(data, filelike_str)
+#        output_str = filelike_str.getvalue()
+#    return dumper.represent_scalar('tag:yaml.org,2002:str', output_str, style='|')
+#
+#yaml.add_multi_representer(yoda.AnalysisObject, literal_presenter)
 
 
 def _parse_yaml_plotfile(filename, hpath):
