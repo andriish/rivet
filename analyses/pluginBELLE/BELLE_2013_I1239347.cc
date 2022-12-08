@@ -110,8 +110,6 @@ namespace Rivet {
 	normalize(_h_mass[ix],1.,false);
       normalize(_h_angle[0],1.,false);
       normalize(_h_angle[1],1.,false);
-      // BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2013_I1239347/d03-x01-y01
-      // BEGIN YODA_SCATTER2D_V2 /REF/BELLE_2013_I1239347/d03-x01-y02
     }
 
     /// @}
