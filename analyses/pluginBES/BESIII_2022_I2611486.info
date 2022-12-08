@@ -1,0 +1,36 @@
+Name: BESIII_2022_I2611486
+Year: 2022
+Summary: $e^+e^-\to \Omega^-\bar{\Omega}^+$ for $\sqrt{s}=3.49$ to 3.67 GeV
+Experiment: BESIII
+Collider: BEPC
+InspireID: 2611486
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - arXiv:2212.03693 [hep-ex]
+RunInfo: e+ e- to hadrons. Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.
+Beams: [e-, e+]
+Options:
+ - ENERGY=*
+Description:
+  'Measurement of the cross section for $e^+e^-\to\Omega^-\bar{\Omega}^+$ for $\sqrt{s}=3.49-3.67$ GeV by BESIII.
+  Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2022kzc
+BibTeX: '@article{BESIII:2022kzc,
+    author = "Ablikim, Medina and others",
+    collaboration = "BESIII",
+    title = "{Study of $e^+e^-\rightarrow\Omega^{-}\bar\Omega^{+}$ at center-of-mass energies from 3.49 to 3.67 GeV}",
+    eprint = "2212.03693",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    month = "12",
+    year = "2022"
+}
+'
