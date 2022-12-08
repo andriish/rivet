@@ -1,9 +1,9 @@
-Name: BESIII_2018_I1674528
-Year: 2018
+Name: BESIII_2022_I2611489
+Year: 2022
 Summary: Positron momentum spectrum in semileptonic $\Lambda_c^+$ decay
 Experiment: BESIII
-Collider: BEPC
-InspireID: 1674528
+Collider: <Insert the collider name>
+InspireID: 2611489
 Status: VALIDATED NOHEPDATA
 Reentrant: true
 Authors:
