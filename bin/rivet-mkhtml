@@ -503,7 +503,7 @@ if __name__ == '__main__':
         pass
   except ImportError:
     for i, _ in enumerate(p.imap_unordered(ex.execute, pyScripts), 1):
-      sys.stderr.write('\rdone {0:%}'.format(i/len(pyScripts)))
+      sys.stderr.write(f'\rdone {i/len(pyScripts):.2f}%')
   
   sys.stdout.write('\r')
   sys.stdout.write('Plotting... done!\n')
