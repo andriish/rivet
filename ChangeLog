@@ -1,6 +1,11 @@
+2022-12-06 Christian Gutschow  <chris.g@cern.ch>
+
+	* Fix couting of raw vs tmp histos when checking self-consistency of output file
+	* replace regex_match with reg_search to pick up substring matches, too
+
 2022-11-08 Christian Gutschow  <chris.g@cern.ch>
 
-	* Fix bug in DELPHI_2011_I890503 and OPAL_2003_I599181 where the 
+	* Fix bug in DELPHI_2011_I890503 and OPAL_2003_I599181 where the
 	wrong decay chain was check for weak decays (thanks to Max Knobbe for spotting)
 
 2022-11-02  Andy Buckley  <andy.buckley@cern.ch>
