@@ -473,6 +473,7 @@ if not args.DRY_RUN:
                 summary = htmlify("%s (%s)" % (ana.summary(), analysis))
             references = ana.references()
             description = htmlify(ana.description())
+            inspireid = ana.inspireId()
             spiresid = ana.spiresId()
             if args.IGNORE_UNVALIDATED and ana.status().upper() != "VALIDATED":
                 continue
