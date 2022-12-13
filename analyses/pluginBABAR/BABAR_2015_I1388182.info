@@ -1,0 +1,40 @@
+Name: BABAR_2015_I1388182
+Year: 2015
+Summary: Charged particle asymmetries in $e^+e^-\to\mu^+\mu^-\gamma$ and $e^+e^-\to\pi^+\pi^-\gamma$
+Experiment: BABAR
+Collider: PEP-II
+InspireID: 1388182
+Status: UNVALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.D 92 (2015) 7, 072015
+RunInfo: e+e-> mu+ mu- gamma or pi+pi-gamma
+Beams: [e+, e-]
+Energies: [[3.5, 8.0]]
+Description:
+'Measurement of Charged particle asymmetries in $e^+e^-\to\mu^+\mu^-\gamma$ and $e^+e^-\to\pi^+\pi^-\gamma$ which are
+senistive to interference between the initial- and final-state QED radiation'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BaBar:2015onb
+BibTeX: '@article{BaBar:2015onb,
+    author = "Lees, J. P. and others",
+    collaboration = "BaBar",
+    title = "{Measurement of initial-state\textendash{}final-state radiation interference in the processes $e^+e^- → μ^+μ^-γ$ and $e^+e^- → π^+π^-γ$}",
+    eprint = "1508.04008",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    reportNumber = "SLAC-PUB-16361",
+    doi = "10.1103/PhysRevD.92.072015",
+    journal = "Phys. Rev. D",
+    volume = "92",
+    number = "7",
+    pages = "072015",
+    year = "2015"
+}
+'
