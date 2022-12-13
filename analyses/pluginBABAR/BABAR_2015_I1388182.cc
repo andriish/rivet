@@ -23,16 +23,21 @@ namespace Rivet {
       declare(Beam(), "Beams");
       declare(FinalState(),"FS");
       // histograms
+      Profile1DPtr tmp;
+      book(tmp,"TMP/pi0",refData(3,1,1));
+      _h_pipi.push_back(tmp);
       for(unsigned int ix=0;ix<15;++ix) {
-	Profile1DPtr tmp;
 	book(tmp,3,1,1+ix);
 	_h_pipi.push_back(tmp);
 	if(ix>13) continue;
 	book(tmp,1,1,1+ix);
 	_h_mumu.push_back(tmp);
       }
-      book(_A_mumu,2,1,1);
-      book(_A_pipi,4,1,1);
+      book(tmp,"TMP/pi16",refData(3,1,15));
+      _h_pipi.push_back(tmp);
+      book(tmp,"TMP/pi17",refData(3,1,15));
+      _h_pipi.push_back(tmp);
+      book(_h_nopsi,"TMP/nopsi",refData(1,1,7));
     }
 
 
@@ -108,34 +113,60 @@ namespace Rivet {
       if(mum.pid()==PID::MUON) {
 	if(mass>0.2 && mass<7.) {
 	  unsigned int imass = int(mass/.5);
-	  if(phiM<M_PI) {
-	    _h_mumu[imass]->fill(cos(phiM), 1.);
-	    _A_mumu->fill(mass, 1.5*cos(phiM));
-	  }
-	  else {
-	    _h_mumu[imass]->fill(cos(phiP),-1.);
-	    _A_mumu->fill(mass,-1.5*cos(phiP));
+	  if(phiM<M_PI) _h_mumu[imass]->fill(cos(phiM), 1.);
+	  else          _h_mumu[imass]->fill(cos(phiP),-1.);
+	  if(imass==6 && mass>3.2) {
+	    if(phiM<M_PI) _h_nopsi->fill(cos(phiM), 1.);
+	    else          _h_nopsi->fill(cos(phiP),-1.);
 	  }
 	}
       }
       else if(pip.pid()==PID::PIPLUS) {
-	if(mass>0.3 && mass<1.8) {
-	  unsigned int imass = int((mass-0.3)/.1);
-	  if(phiM<M_PI) {
-	    _h_pipi[imass]->fill(cos(phiM), 1.);
-	    _A_pipi->fill(mass, 1.5*cos(phiM));
-	  }
-	  else {
-	    _h_pipi[imass]->fill(cos(phiP),-1.);
-	    _A_pipi->fill(mass,-1.5*cos(phiP));
-	  }
+	if(mass>0.2 && mass<2.0) {
+	  unsigned int imass = int((mass-0.2)/.1);
+	  if(phiM<M_PI) _h_pipi[imass]->fill(cos(phiM), 1.);
+	  else          _h_pipi[imass]->fill(cos(phiP),-1.);
 	}
       }
     }
 
-
+    pair<double,double> calcA0(Profile1DPtr hist) {
+      if(hist->numEntries()==0.) return make_pair(0.,0.);
+      double sum1(0.),sum2(0.);
+      for (auto bin : hist->bins() ) {
+	if(bin.numEntries()<2) continue;
+	double Oi = bin.mean();
+	double Ei = bin.stdErr();
+	if(Ei==0.) continue;
+	double xi = 0.5*(bin.xMin()+bin.xMax());
+	sum1 += sqr(xi/Ei);
+	sum2 += Oi*xi/sqr(Ei);
+      }
+      return make_pair(sum2/sum1,sqrt(1./sum1));
+    }
+    
     /// Normalise histograms etc., after the run
     void finalize() {
+      // muon assymetries
+      Scatter2DPtr _A_mumu;
+      book(_A_mumu,2,1,1);
+      for(unsigned int ix=0;ix<14;++ix) {
+	double xmin = 0.5*double(ix);
+	double xmax = xmin+0.5;
+	if(ix==6) xmin=3.2;
+	double  x = 0.5*(xmax+xmin);
+	double dx = 0.5*(xmax-xmin);
+	pair<double,double> A0 = calcA0(ix!=6 ? _h_mumu[ix] : _h_nopsi);
+	_A_mumu->addPoint(x,A0.first,make_pair(dx,dx),make_pair(A0.second,A0.second) );
+      }
+      // pion assymetries
+      Scatter2DPtr _A_pipi;
+      book(_A_pipi,4,1,1);
+      for(unsigned int ix=0;ix<_h_pipi.size();++ix) {
+	double  x = 0.25+0.1*double(ix);
+	pair<double,double> A0 = calcA0(_h_pipi[ix]);
+	_A_pipi->addPoint(x,A0.first,make_pair(0.05,0.05),make_pair(A0.second,A0.second) );
+      }
     }
 
     /// @}
@@ -144,7 +175,7 @@ namespace Rivet {
     /// @name Histograms
     /// @{
     vector<Profile1DPtr> _h_mumu,_h_pipi;
-    Profile1DPtr _A_mumu,_A_pipi;
+    Profile1DPtr _h_nopsi;
     /// @}
 
 

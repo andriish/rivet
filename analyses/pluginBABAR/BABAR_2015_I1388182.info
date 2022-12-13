@@ -4,7 +4,7 @@ Summary: Charged particle asymmetries in $e^+e^-\to\mu^+\mu^-\gamma$ and $e^+e^-
 Experiment: BABAR
 Collider: PEP-II
 InspireID: 1388182
-Status: UNVALIDATED NOHEPDATA
+Status: UNVALIDATED NOHEPDATA SINGLEWEIGHT
 Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
