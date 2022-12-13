@@ -10,6 +10,10 @@
 	power laws, and a generic _fnspace() function for any
 	transform/inverse function-pair.
 
+2022-12-13 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BELLE_2009_I816632 B+ -> D_s(*) K pi
+
 2022-12-09 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2009_I813140 B+ -> pi+ pi+ pi-
