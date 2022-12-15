@@ -325,8 +325,7 @@ namespace Rivet {
   ///
   /// @todo Move to HEPUtils
   inline vector<double> aspace(double step, double start, double end, bool include_end=true, double tol=1e-2) {
-    assert(end >= start);
-    assert(step > 0);
+    assert( (end-start)*step > 0); //< ensure the step is going in the direction from start to end
     vector<double> rtn;
     double next = start;
     while (true) {
@@ -344,10 +343,10 @@ namespace Rivet {
   /// Produce a vector of x values which are equally spaced in fn(x)
   ///
   /// @todo Move to HEPUtils
-  inline vector<double> _fnspace(size_t nbins, double start, double end,
-                                 const std::function<double(double)>& fn, const std::function<double(double)>& invfn,
-                                 bool include_end=true) {
-    assert(end >= start);
+  inline vector<double> fnspace(size_t nbins, double start, double end,
+                                const std::function<double(double)>& fn, const std::function<double(double)>& invfn,
+                                bool include_end=true) {
+    // assert(end >= start);
     assert(nbins > 0);
     const double pmin = fn(start);
     const double pmax = fn(end);
@@ -374,10 +373,10 @@ namespace Rivet {
   ///
   /// @todo Move to HEPUtils
   inline vector<double> logspace(size_t nbins, double start, double end, bool include_end=true) {
-    return _fnspace(nbins, start, end,
-                    [](double x){ return std::log(x); },
-                    [](double x){ return std::exp(x); },
-                    include_end);
+    return fnspace(nbins, start, end,
+                   [](double x){ return std::log(x); },
+                   [](double x){ return std::exp(x); },
+                   include_end);
   }
 
 
@@ -392,10 +391,10 @@ namespace Rivet {
   /// @todo Move to HEPUtils
   inline vector<double> powspace(size_t nbins, double start, double end, double npow, bool include_end=true) {
     assert(start >= 0); //< non-integer powers are complex for negative numbers... don't go there
-    return _fnspace(nbins, start, end,
-                    [&](double x){ return std::pow(x, npow); },
-                    [&](double x){ return std::pow(x, 1/npow); },
-                    include_end);
+    return fnspace(nbins, start, end,
+                   [&](double x){ return std::pow(x, npow); },
+                   [&](double x){ return std::pow(x, 1/npow); },
+                   include_end);
   }
 
   /// @brief Make a list of @a nbins + 1 values equally spaced in the CDF of x^n between @a start and @a end inclusive.
@@ -411,10 +410,10 @@ namespace Rivet {
   /// @todo Move to HEPUtils
   inline vector<double> powdbnspace(size_t nbins, double start, double end, double npow, bool include_end=true) {
     assert(start >= 0); //< non-integer powers are complex for negative numbers... don't go there
-    return _fnspace(nbins, start, end,
-                    [&](double x){ return std::pow(x, npow+1) / (npow+1); },
-                    [&](double x){ return std::pow((npow+1) * x, 1/(npow+1)); },
-                    include_end);
+    return fnspace(nbins, start, end,
+                   [&](double x){ return std::pow(x, npow+1) / (npow+1); },
+                   [&](double x){ return std::pow((npow+1) * x, 1/(npow+1)); },
+                   include_end);
   }
 
 
@@ -426,10 +425,10 @@ namespace Rivet {
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in terms of x rather than its transform.
   inline vector<double> bwdbnspace(size_t nbins, double start, double end, double mu, double gamma, bool include_end=true) {
-    return _fnspace(nbins, start, end,
-                    [&](double x){ return cdfBW(x, mu, gamma); },
-                    [&](double x){ return invcdfBW(x, mu, gamma); },
-                    include_end);
+    return fnspace(nbins, start, end,
+                   [&](double x){ return cdfBW(x, mu, gamma); },
+                   [&](double x){ return invcdfBW(x, mu, gamma); },
+                   include_end);
   }
 
 

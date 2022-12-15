@@ -1,6 +1,6 @@
 2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
-	* Allow linspace() to make reversed edge-sets with start > end.
+	* Allow linspace() and aspace() to make reversed edge-sets with start > end.
 
 	* Add powspace() and powdbnspace() uniform-spacing functions for
 	power laws, and a generic _fnspace() function for any
