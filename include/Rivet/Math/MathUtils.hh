@@ -299,9 +299,8 @@ namespace Rivet {
   /// @note The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version.
   ///
-  /// @todo Import the YODA version rather than maintain this parallel version?
+  /// @todo Move to HEPUtils
   inline vector<double> linspace(size_t nbins, double start, double end, bool include_end=true) {
-    assert(end >= start); ///< @todo Relax this, as it restricts the usable functions to those with positive Jacobian
     assert(nbins > 0);
     vector<double> rtn;
     const double interval = (end-start)/static_cast<double>(nbins);
@@ -323,6 +322,8 @@ namespace Rivet {
   /// @note The arg ordering is "Rivet-like", cf. linspace() and logspace(),
   /// as opposed to the Numpy/Matlab arange() function (whose name inspired this,
   /// but we preferred to keep the "space" nomenclature for consistence.)
+  ///
+  /// @todo Move to HEPUtils
   inline vector<double> aspace(double step, double start, double end, bool include_end=true, double tol=1e-2) {
     assert(end >= start);
     assert(step > 0);
@@ -341,6 +342,8 @@ namespace Rivet {
 
 
   /// Produce a vector of x values which are equally spaced in fn(x)
+  ///
+  /// @todo Move to HEPUtils
   inline vector<double> _fnspace(size_t nbins, double start, double end,
                                  const std::function<double(double)>& fn, const std::function<double(double)>& invfn,
                                  bool include_end=true) {
@@ -369,29 +372,12 @@ namespace Rivet {
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in "normal" space, rather than as the logarithms of the start/end values as in Numpy/Matlab.
   ///
-  /// @todo Import the YODA version rather than maintain this parallel version?
+  /// @todo Move to HEPUtils
   inline vector<double> logspace(size_t nbins, double start, double end, bool include_end=true) {
-    assert(end >= start);
-    assert(start > 0);
-    assert(nbins > 0);
-    const double logstart = std::log(start);
-    const double logend = std::log(end);
-    const vector<double> logvals = linspace(nbins, logstart, logend, false);
-    assert(logvals.size() == nbins);
-    vector<double> rtn; rtn.reserve(nbins+1);
-    rtn.push_back(start); //< exact start, not round-tripped
-    for (size_t i = 1; i < logvals.size(); ++i) {
-      rtn.push_back(std::exp(logvals[i]));
-    }
-    assert(rtn.size() == nbins);
-    if (include_end) rtn.push_back(end); //< exact end
-    return rtn;
-  }
-  /// Prototype version with generic function stuff
-  ///
-  /// @todo Replace the manual version with this
-  inline vector<double> _logspace(size_t nbins, double start, double end, bool include_end=true) {
-    return _fnspace(nbins, start, end, [](double x){ return std::log(x); }, [](double x){ return std::exp(x); }, include_end);
+    return _fnspace(nbins, start, end,
+                    [](double x){ return std::log(x); },
+                    [](double x){ return std::exp(x); },
+                    include_end);
   }
 
 
@@ -403,28 +389,9 @@ namespace Rivet {
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in terms of x rather than its transform.
   ///
-  /// @todo Import the YODA version rather than maintain this parallel version?
+  /// @todo Move to HEPUtils
   inline vector<double> powspace(size_t nbins, double start, double end, double npow, bool include_end=true) {
     assert(start >= 0); //< non-integer powers are complex for negative numbers... don't go there
-    assert(end >= start);
-    assert(nbins > 0);
-    const double pmin = pow(start, npow);
-    const double pmax = pow(end, npow);
-    const vector<double> edges = linspace(nbins, pmin, pmax, false);
-    assert(edges.size() == nbins);
-    vector<double> rtn; rtn.reserve(nbins+1);
-    rtn.push_back(start); //< exact start, not round-tripped
-    for (size_t i = 1; i < edges.size(); ++i) {
-      rtn.push_back(std::pow(edges[i], 1/npow));
-    }
-    assert(rtn.size() == nbins);
-    if (include_end) rtn.push_back(end); //< exact end
-    return rtn;
-  }
-  /// Prototype version with generic function stuff
-  ///
-  /// @todo Replace the manual version with this
-  inline vector<double> _powspace(size_t nbins, double start, double end, double npow, bool include_end=true) {
     return _fnspace(nbins, start, end,
                     [&](double x){ return std::pow(x, npow); },
                     [&](double x){ return std::pow(x, 1/npow); },
@@ -441,28 +408,9 @@ namespace Rivet {
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in terms of x rather than its transform.
   ///
-  /// @todo Import the YODA version rather than maintain this parallel version?
+  /// @todo Move to HEPUtils
   inline vector<double> powdbnspace(size_t nbins, double start, double end, double npow, bool include_end=true) {
     assert(start >= 0); //< non-integer powers are complex for negative numbers... don't go there
-    assert(end >= start);
-    assert(nbins > 0);
-    const double pmin = pow(start, npow+1) / (npow+1);
-    const double pmax = pow(end, npow+1) / (npow+1);
-    const vector<double> edges = linspace(nbins, pmin, pmax, false);
-    assert(edges.size() == nbins);
-    vector<double> rtn; rtn.reserve(nbins+1);
-    rtn.push_back(start); //< exact start, not round-tripped
-    for (size_t i = 1; i < edges.size(); ++i) {
-      rtn.push_back(std::pow((npow+1) * edges[i], 1/(npow+1)));
-    }
-    assert(rtn.size() == nbins);
-    if (include_end) rtn.push_back(end); //< exact end
-    return rtn;
-  }
-  /// Prototype version with generic function stuff
-  ///
-  /// @todo Replace the manual version with this
-  inline vector<double> _powdbnspace(size_t nbins, double start, double end, double npow, bool include_end=true) {
     return _fnspace(nbins, start, end,
                     [&](double x){ return std::pow(x, npow+1) / (npow+1); },
                     [&](double x){ return std::pow((npow+1) * x, 1/(npow+1)); },
@@ -477,6 +425,8 @@ namespace Rivet {
   /// @note The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
   /// in "normal" space.
+  ///
+  /// @todo Replace with generic version when tested
   inline vector<double> bwspace(size_t nbins, double start, double end, double mu, double gamma) {
     assert(end >= start);
     assert(nbins > 0);
@@ -494,7 +444,7 @@ namespace Rivet {
   /// Prototype version with generic function stuff
   ///
   /// @todo Replace the manual version with this
-  inline vector<double> bwspace(size_t nbins, double start, double end, double mu, double gamma, bool include_end=true) {
+  inline vector<double> _bwspace(size_t nbins, double start, double end, double mu, double gamma, bool include_end=true) {
     return _fnspace(nbins, start, end,
                     [&](double x){ return cdfBW(x, mu, gamma); },
                     [&](double x){ return invcdfBW(x, mu, gamma); },
