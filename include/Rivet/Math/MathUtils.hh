@@ -424,27 +424,8 @@ namespace Rivet {
   ///
   /// @note The arg ordering and the meaning of the nbins variable is "histogram-like",
   /// as opposed to the Numpy/Matlab version, and the start and end arguments are expressed
-  /// in "normal" space.
-  ///
-  /// @todo Replace with generic version when tested
-  inline vector<double> bwspace(size_t nbins, double start, double end, double mu, double gamma) {
-    assert(end >= start);
-    assert(nbins > 0);
-    const double pmin = cdfBW(start, mu, gamma);
-    const double pmax = cdfBW(end,   mu, gamma);
-    const vector<double> edges = linspace(nbins, pmin, pmax);
-    assert(edges.size() == nbins+1);
-    vector<double> rtn;
-    for (double edge : edges) {
-      rtn.push_back(invcdfBW(edge, mu, gamma));
-    }
-    assert(rtn.size() == nbins+1);
-    return rtn;
-  }
-  /// Prototype version with generic function stuff
-  ///
-  /// @todo Replace the manual version with this
-  inline vector<double> _bwspace(size_t nbins, double start, double end, double mu, double gamma, bool include_end=true) {
+  /// in terms of x rather than its transform.
+  inline vector<double> bwdbnspace(size_t nbins, double start, double end, double mu, double gamma, bool include_end=true) {
     return _fnspace(nbins, start, end,
                     [&](double x){ return cdfBW(x, mu, gamma); },
                     [&](double x){ return invcdfBW(x, mu, gamma); },
