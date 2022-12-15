@@ -1,0 +1,37 @@
+Name: BESIII_2022_I2614215
+Year: 2022
+Summary: Cross section for $e^+e^-\to\omega X(3872)$ for $\sqrt{s}=4.661$ to 4.951 GeV
+Experiment: BESIII
+Collider: <Insert the collider name>
+InspireID: 2614215
+Status: VALIDATED NOHEPDATA SINGLEWEIGHT
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - arXiv:2212.07291 [hep-ex]
+RunInfo: e+e- > hadrons
+Beams: [e+, e-]
+Options:
+ - PID=*
+ - ENERGY=*
+Description:
+  'Measurement of the cross section for $e^+e^-\to\omega X(3872)$ for $\sqrt{s}=4.661$ to 4.951 GeV by the BESIII collaboration.  There is no consensus as to the nature of the $X(3872)$ $c\bar{c}$ state and therefore we taken its PDG code to be 9030443, i.e. the first unused code for an undetermined
+   spin one $c\bar{c}$ state. This can be changed using the PID option if a different code is used by the event generator performing the simulation.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: BESIII:2022bse
+BibTeX: '@article{BESIII:2022bse,
+    author = "Ablikim, Medina and others",
+    collaboration = "BESIII",
+    title = "{Observation of a new $X(3872)$ production process $e^+e^-\to\omega X(3872)$}",
+    eprint = "2212.07291",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-ex",
+    month = "12",
+    year = "2022"
+}
+'

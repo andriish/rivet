@@ -10,7 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev.Lett. 112 (2014) 9, 092001
-RunInfo: e+ e- 
+RunInfo: e+ e- to hadrons
 Beams: [e+, e-]
 Options:
  - PID=*
