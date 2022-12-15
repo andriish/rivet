@@ -5,9 +5,21 @@
 	power laws, and a generic _fnspace() function for any
 	transform/inverse function-pair.
 
-2022-12-08 Peter Richardson <peter.richardson@durham.ac.uk>
+2022-12-15 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2015_I1388182 e+ e- > mu+ mu- gamma
+
+2022-12-14 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2022_I2611486 e+ e- -> Omega- Omegabar+
+
+2022-12-06 Christian Gutschow  <chris.g@cern.ch>
+
+	* Fix couting of raw vs tmp histos when checking self-consistency
+	of output file.
+
+	* Replace regex_match with reg_search to pick up substring
+	matches, too.
 
 2022-12-03 Peter Richardson <peter.richardson@durham.ac.uk>
 
@@ -17,14 +29,6 @@
 
 	* Add BESII_2009_I835937 e+ e- > light hadrons with KS0
 	* Add BABAR_2010_I844288 gamma gamma -> D Dbar
-
-2022-12-06 Christian Gutschow  <chris.g@cern.ch>
-
-	* Fix couting of raw vs tmp histos when checking self-consistency
-	of output file.
-
-	* Replace regex_match with reg_search to pick up substring
-	matches, too.
 
 2022-11-28 Peter Richardson <peter.richardson@durham.ac.uk>
 

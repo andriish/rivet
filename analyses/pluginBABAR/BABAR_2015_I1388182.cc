@@ -45,6 +45,7 @@ namespace Rivet {
     void analyze(const Event& event) {
       // get the axis, direction of incoming positron
       const ParticlePair& beams = apply<Beam>(event, "Beams").beams();
+      bool CMF = fuzzyEquals(-beams.first .momentum().z()/beams.second.momentum().z(),1);
       Vector3 axis1 = beams.first .momentum().p3().unit();
       Vector3 axis2 = beams.second.momentum().p3().unit();
       if(beams.first.pid()<0) swap(axis1,axis2);
@@ -52,14 +53,31 @@ namespace Rivet {
       Particle mup,mum,pip,pim,gamma;
       Particles fs = apply<FinalState>(event,"FS").particles();
       // boost to CMF frame
-      LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta((beams.first .momentum()+
-									   beams.second.momentum()).betaVec());
+      LorentzTransform boost;
+      if(!CMF) {
+	boost = LorentzTransform::mkFrameTransformFromBeta((beams.first .momentum()+
+							    beams.second.momentum()).betaVec());
+      }
+      else {
+	double E1=3.5,E2 = 0.25*sqr(sqrtS())/E1;
+	FourMomentum pnew(E1+E2,0,0,E1-E2);
+	boost = LorentzTransform::mkFrameTransformFromBeta(-pnew.betaVec());
+      }
       FourMomentum pGamma;
       for(const Particle & p : fs) {
-	double theta = acos(p.p3().unit().dot(axis1));
+	FourMomentum pLab,pCMF;
+	if(CMF) {
+	  pCMF = p.momentum();
+	  pLab = boost.transform(p.momentum());
+	}
+	else {
+	  pCMF = boost.transform(p.momentum());
+	  pLab = p.momentum();
+	}
+	double theta  = acos(pLab.p3().unit().dot(axis1));
 	if(p.isCharged()) {
 	  if(theta<.4 || theta>2.45) continue;
-	  if(p.p3().mod()<1.) continue;
+	  if(pLab.p3().mod()<1.) continue;
 	  if(p.pid()==PID::MUON && mum.pid()!=PID::MUON)
 	    mum = p;
 	  else if(p.pid()==PID::ANTIMUON && mup.pid()!=PID::ANTIMUON)
@@ -74,13 +92,12 @@ namespace Rivet {
 	  if(theta<.35 || theta>2.4) continue;
 	  if(gamma.pid()!=PID::GAMMA) {
 	    gamma = p;
-	    pGamma = boost.transform(gamma.momentum());
+	    pGamma = pCMF;
 	  }
 	  else {
-	    FourMomentum pNew = boost.transform(p.momentum());
-	    if(pNew.E()>pGamma.E()) {
+	    if(pCMF.E()>pGamma.E()) {
 	      gamma = p;
-	      pGamma = pNew;
+	      pGamma = pCMF;
 	    }
 	  }
 	}
@@ -97,13 +114,25 @@ namespace Rivet {
       Vector3 axisX = (axis2-axisZ.dot(axis2)*axisZ).unit();
       Vector3 axisY = axisZ.cross(axisX);
       FourMomentum pMinus,pPlus;
-      if(mum.pid()==PID::MUON) {
-	pMinus = boost.transform(mum.momentum());
-	pPlus  = boost.transform(mup.momentum());
+      if(CMF) {
+	if(mum.pid()==PID::MUON) {
+	  pMinus = mum.momentum();
+	  pPlus  = mup.momentum();
+	}
+	else {
+	  pMinus = pim.momentum();
+	  pPlus  = pip.momentum();
+	}
       }
       else {
-	pMinus = boost.transform(pim.momentum());
-	pPlus  = boost.transform(pip.momentum());
+	if(mum.pid()==PID::MUON) {
+	  pMinus = boost.transform(mum.momentum());
+	  pPlus  = boost.transform(mup.momentum());
+	}
+	else {
+	  pMinus = boost.transform(pim.momentum());
+	  pPlus  = boost.transform(pip.momentum());
+	}
       }
       double phiM = atan2(pMinus.p3().dot(axisY),pMinus.p3().dot(axisX));
       if (phiM<0.) phiM+=2.*M_PI;
@@ -113,19 +142,19 @@ namespace Rivet {
       if(mum.pid()==PID::MUON) {
 	if(mass>0.2 && mass<7.) {
 	  unsigned int imass = int(mass/.5);
-	  if(phiM<M_PI) _h_mumu[imass]->fill(cos(phiM), 1.);
-	  else          _h_mumu[imass]->fill(cos(phiP),-1.);
+	  if(phiM<M_PI) _h_mumu[imass]->fill(cos(phiM),-1.);
+	  else          _h_mumu[imass]->fill(cos(phiP), 1.);
 	  if(imass==6 && mass>3.2) {
-	    if(phiM<M_PI) _h_nopsi->fill(cos(phiM), 1.);
-	    else          _h_nopsi->fill(cos(phiP),-1.);
+	    if(phiM<M_PI) _h_nopsi->fill(cos(phiM),-1.);
+	    else          _h_nopsi->fill(cos(phiP), 1.);
 	  }
 	}
       }
       else if(pip.pid()==PID::PIPLUS) {
 	if(mass>0.2 && mass<2.0) {
 	  unsigned int imass = int((mass-0.2)/.1);
-	  if(phiM<M_PI) _h_pipi[imass]->fill(cos(phiM), 1.);
-	  else          _h_pipi[imass]->fill(cos(phiP),-1.);
+	  if(phiM<M_PI) _h_pipi[imass]->fill(cos(phiM),-1.);
+	  else          _h_pipi[imass]->fill(cos(phiP), 1.);
 	}
       }
     }

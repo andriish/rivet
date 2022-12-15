@@ -12,7 +12,7 @@ References:
  - Phys.Rev.D 92 (2015) 7, 072015
 RunInfo: e+e-> mu+ mu- gamma or pi+pi-gamma
 Beams: [e+, e-]
-Energies: [[3.5, 8.0]]
+Energies: [[3.5, 8.0],10.58]
 Description:
 'Measurement of Charged particle asymmetries in $e^+e^-\to\mu^+\mu^-\gamma$ and $e^+e^-\to\pi^+\pi^-\gamma$ which are
 senistive to interference between the initial- and final-state QED radiation'
