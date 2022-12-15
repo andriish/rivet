@@ -1,3 +1,11 @@
+2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow linspace() and aspace() to make reversed edge-sets with start > end.
+
+	* Add powspace() and powdbnspace() uniform-spacing functions for
+	power laws, and a generic _fnspace() function for any
+	transform/inverse function-pair.
+
 2022-12-06 Christian Gutschow  <chris.g@cern.ch>
 
 	* Fix couting of raw vs tmp histos when checking self-consistency
