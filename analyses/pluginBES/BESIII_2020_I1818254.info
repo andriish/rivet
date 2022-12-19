@@ -2,7 +2,7 @@ Name: BESIII_2020_I1818254
 Year: 2020
 Summary: $\chi_{c(0,1,2)}\to \Sigma^0 \bar{p} K^+$ + c.c
 Experiment: BESIII
-Collider: <Insert the collider name>
+Collider: BEPC
 InspireID: 1818254
 Status: VALIDATED NOHEPDATA
 Reentrant: true

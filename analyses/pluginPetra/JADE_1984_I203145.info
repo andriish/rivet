@@ -2,7 +2,7 @@ Name: JADE_1984_I203145
 Year: 1984
 Summary: Spectra of $\rho^0$ and $K^{*\pm}$ in $e^+e^-$ collisions at 35 GeV
 Experiment: JADE
-Collider: <Insert the collider name>
+Collider: PETRA
 InspireID: 203145
 Status: VALIDATED
 Authors:

@@ -2,7 +2,7 @@ Name: CLEOII_1996_I397787
 Year: 1996
 Summary: Mass distributions in $\Xi_c^+\to\Sigma^+K^-\pi^+$
 Experiment: CLEOII
-Collider: <Insert the collider name>
+Collider: CESR
 InspireID: 397787
 Status: VALIDATED NOHEPDATA
 Reentrant: true
