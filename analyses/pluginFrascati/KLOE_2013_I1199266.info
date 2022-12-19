@@ -2,7 +2,7 @@ Name: KLOE_2013_I1199266
 Year: 2013
 Summary:  $e^+e^-\to e^+e^-\eta$ at 1 GeV
 Experiment: KLOE
-Collider: <Insert the collider name>
+Collider: DAPHNE
 InspireID: 1199266
 Status: VALIDATED NOHEPDATA
 Reentrant: true

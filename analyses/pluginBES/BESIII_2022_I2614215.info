@@ -2,7 +2,7 @@ Name: BESIII_2022_I2614215
 Year: 2022
 Summary: Cross section for $e^+e^-\to\omega X(3872)$ for $\sqrt{s}=4.661$ to 4.951 GeV
 Experiment: BESIII
-Collider: <Insert the collider name>
+Collider: BEPC
 InspireID: 2614215
 Status: VALIDATED NOHEPDATA SINGLEWEIGHT
 Reentrant: true
