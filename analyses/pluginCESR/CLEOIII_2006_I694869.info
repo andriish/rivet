@@ -1,0 +1,37 @@
+Name: CLEOIII_2006_I694869
+Year: 2006
+Summary: Cross section for $B_s^{(*)0}\bar{B}_s^{(*)0}$ at $\sqrt{s}=10.859$ GeV
+Experiment: CLEOIII
+Collider: CESR
+InspireID: 694869
+Status: VALIDATED NOHEPDATA
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@dur.ac.uk>
+References:
+ - Phys.Rev.Lett. 96 (2006) 022002
+RunInfo: e+e- > hadrons
+Beams: [e+, e-]
+Energies: [10.859]
+Description:
+  'Measurement of the cross section for $B_s^{(*)0}\bar{B}_s^{(*)0}$ at $\sqrt{s}=10.859$ GeV.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: CLEO:2005utd
+BibTeX: '@article{CLEO:2005utd,
+    author = "Bonvicini, G. and others",
+    collaboration = "CLEO",
+    title = "{Observation of B*(s) anti-B*(s) production at the upsilon(5S) resonance}",
+    eprint = "hep-ex/0510034",
+    archivePrefix = "arXiv",
+    reportNumber = "CLNS-05-1934, CLEO-05-22",
+    doi = "10.1103/PhysRevLett.96.022002",
+    journal = "Phys. Rev. Lett.",
+    volume = "96",
+    pages = "022002",
+    year = "2006"
+}
+'
