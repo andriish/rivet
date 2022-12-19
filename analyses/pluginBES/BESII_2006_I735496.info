@@ -1,0 +1,36 @@
+Name: BESII_2006_I735496
+Year: 2006
+Summary: Measurement of $R$ for energies between 3.65 and 3.872 GeV
+Experiment: BESII
+Collider: BEPC
+InspireID: 735496
+Status: VALIDATED NOHEPDATA SINGLEWEIGHT
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 97 (2006) 262001
+RunInfo: e+ e- to hadrons and e+ e- to mu+ mu- (for normalization)
+Beams: [e+, e-]
+Options:
+ - ENERGY=*
+Description:
+  'Measurement of $R$ and the hadronic cross section in $e^+e^-$ collisions by BESII for energies between 3.65 and 3.872, in the vicinity of the $\psi(3770)$.'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Ablikim:2006mb
+BibTeX: '@article{Ablikim:2006mb,
+    author = "Ablikim, M. and others",
+    title = "{Measurements of the continuum R(uds) and R values in e+e- annihilation in the energy region between 3.650 and 3.872-GeV}",
+    eprint = "hep-ex/0612054",
+    archivePrefix = "arXiv",
+    doi = "10.1103/PhysRevLett.97.262001",
+    journal = "Phys. Rev. Lett.",
+    volume = "97",
+    pages = "262001",
+    year = "2006"
+}
+'

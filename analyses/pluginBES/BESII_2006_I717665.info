@@ -4,7 +4,7 @@ Summary: Measurement of $R$ for energies between 3.65 and 3.773 GeV
 Experiment: BESII
 Collider: BEPC
 InspireID: 717665
-Status: VALIDATED
+Status: VALIDATED SINGLEWEIGHT
 Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
@@ -13,6 +13,8 @@ References:
 RunInfo: e+ e- to hadrons and e+ e- to mu+ mu- (for normalization)
 NeedCrossSection: yes
 Beams: [e-, e+]
+Options:
+ - ENERGY=*
 Description:
   'Measurement of $R$ and the hadronic cross section in $e^+e^-$ collisions by BESII for energies between 3.65 and 3.773, in the vicinity of the $\psi(3770)$.
    The muonic cross section is also outputted to the yoda file
