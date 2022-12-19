@@ -1,3 +1,7 @@
+2022-12-15 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BESII_2008_I802372 e+e- > D Dbar near psi(3770)
+
 2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow linspace() and aspace() to make reversed edge-sets with start > end.
