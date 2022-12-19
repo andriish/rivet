@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief e+ e- -> D Dbar0
   class BELLE_2008_I757220 : public Analysis {
   public:
 
