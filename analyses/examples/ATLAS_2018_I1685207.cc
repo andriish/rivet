@@ -137,6 +137,22 @@ namespace Rivet {
         book(_h["VH_discriminant"], "VH_discriminant", 30, -1.5, 1.5);
         book(_h["Ht_discriminant"], "Ht_discriminant", 30, -1.5, 1.5);
         book(_h["TripleDiscriminant"], "TripleDiscriminant", 30, -1.5, 1.5); 
+
+        //Jet Mass histograms.
+        book(_h["mVRC"], "mVRC", 60, 40, 250);
+        book(_h["mVRC_trueHiggs"], "mVRC_trueHiggs", 60, 40, 250);
+        book(_h["mVRC_trueVector"], "mVRC_trueVector", 60, 40, 250);
+        book(_h["mVRC_trueTop"], "mVRC_trueTop", 60, 40, 250);
+        book(_h["mVRC_truebkg"], "mVRC_truebkg", 60, 40, 250);
+
+        book(_h["mVRC_trueHiggsTaggedHiggs"], "mVRC_trueHiggsTaggedHiggs", 60, 40, 250);
+        book(_h["mVRC_trueVectorTaggedVector"], "mVRC_trueVectorTaggedVector", 60, 40, 250);
+        book(_h["mVRC_trueTopTaggedTop"], "mVRC_trueTopTaggedTop", 60, 40, 250);
+
+        book(_h["mVRC_truebkgTaggedHiggs"], "mVRC_truebkgTaggedHiggs", 60, 40, 250);
+        book(_h["mVRC_truebkgTaggedVector"], "mVRC_truebkgTaggedVector", 60, 40, 250);
+        book(_h["mVRC_truebkgTaggedTop"], "mVRC_truebkgTaggedTop", 60, 40, 250);
+        book(_h["mVRC_truebkgTaggedbkg"], "mVRC_truebkgTaggedbkg", 60, 40, 250);
       }
 
     }
@@ -315,9 +331,12 @@ namespace Rivet {
           };
 
           const std::map<string, double> outputs = _nn->compute(NN_Input);
+          JetTags.push_back(getTag(outputs));
           
           //If we're not in a validation mode, do validation stuff.
           if (_mode > 0){
+            const MCBot_TagType tag =  getTag(outputs);
+
             //distriminant function P for V, H, and top tagger
             const double PV=log10(outputs.at("dnnOutput_V")/
               (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_top")+0.05*outputs.at("dnnOutput_H")));
@@ -355,9 +374,43 @@ namespace Rivet {
               }
             }
 
+            //Variable-R Reclustered Jet Masses:
+            _h["mVRC"]->fill(j.m());
+            if (_mode == 3){
+              _h["mVRC_trueHiggs"]->fill(j.m());
+              if (tag == MCBot_TagType::Higgs){
+                _h["mVRC_trueHiggsTaggedHiggs"]->fill(j.m());
+              }
+            } else if (_mode == 2){
+              _h["mVRC_trueVector"]->fill(j.m());
+              if (tag == MCBot_TagType::Vec){
+                _h["mVRC_trueVectorTaggedVector"]->fill(j.m());
+              }
+            }
+            else if (_mode == 4){
+              _h["mVRC_trueTop"]->fill(j.m());
+              if (tag == MCBot_TagType::top){
+                _h["mVRC_trueTopTaggedTop"]->fill(j.m());
+              }
+            }
+            else if (_mode == 1){
+              _h["mVRC_truebkg"]->fill(j.m());
+              if (tag == MCBot_TagType::Higgs){
+                _h["mVRC_truebkgTaggedHiggs"]->fill(j.m());
+              }
+              else if (tag == MCBot_TagType::Vec){
+                _h["mVRC_truebkgTaggedVector"]->fill(j.m());
+              }
+              else if (tag == MCBot_TagType::top){
+                _h["mVRC_truebkgTaggedTop"]->fill(j.m());
+              }
+              else {
+                _h["mVRC_truebkgTaggedbkg"]->fill(j.m());
+              }
+            }
+
           }
 
-          JetTags.push_back(getTag(outputs));
         }
 
         //Now let's get on with the actual analysis
