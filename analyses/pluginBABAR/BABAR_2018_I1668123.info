@@ -10,9 +10,10 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev.D 98 (2018) 11, 112012
+RunInfo: Any process producing D0 mesons
 Description:
   'Measurement of Kinematic distributions in the decay $D^0\to K^0_S\pi^+\pi^-$ by BABAR and BELLE. The data were read from the plots in the paper.
-   Resolution/acceptance effects have been not unfolded.'
+   Resolution/acceptance effects have not been unfolded.'
 ValidationInfo:
   'Compared Herwig events using the same model for the decay as in the paper.'
 #ReleaseTests:
