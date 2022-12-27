@@ -1,0 +1,35 @@
+Name: MARKIII_1987_I244856
+Year: 1987
+Summary: $e^+e^-\to D^\pm_sD^{*\mp}_s$ cross section at $\sqrt{s}=4.14\,$GeV
+Experiment: MARKIII
+Collider: SPEAR
+InspireID: 244856
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 58 (1987) 2171
+RunInfo: e+e- > hadrons
+Beams: [e+, e-]
+Energies: [4.14]
+Description:
+  '$e^+e^-\to D^\pm_sD^{*\mp}_s$ cross section at $\sqrt{s}=4.14\,$GeV'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: MARK-III:1987hge
+BibTeX: '@article{MARK-III:1987hge,
+    author = "Blaylock, G. and others",
+    collaboration = "MARK-III",
+    title = "{Observation of $e^+ e^- \to D(s$)+- $D^*(s$)-+ at $\sqrt{s}=4$.14-{GeV}}",
+    reportNumber = "SLAC-PUB-4158",
+    doi = "10.1103/PhysRevLett.58.2171",
+    journal = "Phys. Rev. Lett.",
+    volume = "58",
+    pages = "2171",
+    year = "1987"
+}
+'

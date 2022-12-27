@@ -113,6 +113,7 @@ from . import MARKII_1987_I247900
 from . import MARKII_1988_I246184
 from . import MARKII_1988_I261194
 from . import MARKII_1991_I295286
+from . import MARKIII_1987_I244856
 from . import MARKI_1975_I100733
 from . import MARKJ_1979_I141976
 from . import NA22_1986_I18431

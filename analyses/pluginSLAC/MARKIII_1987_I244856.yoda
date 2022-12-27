@@ -1,0 +1,12 @@
+BEGIN YODA_SCATTER2D_V2 /REF/MARKIII_1987_I244856/d01-x01-y01
+ErrorBreakdown: {0: {stat: {dn: -6.0, up: 6.0}, sys: {dn: -11.0, up: 11.0}}}
+IsRef: 1
+Path: /REF/MARKIII_1987_I244856/d01-x01-y01
+Title: doi:10.17182/hepdata.20170.v1/t1
+Type: Scatter2D
+---
+# xval	 xerr-	 xerr+	 yval	 yerr-	 yerr+	
+4.140000e+00	5.000000e-01	5.000000e-01	3.000000e+01	1.252996e+01	1.252996e+01
+END YODA_SCATTER2D_V2
+
+
