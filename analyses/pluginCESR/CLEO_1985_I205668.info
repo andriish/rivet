@@ -1,6 +1,6 @@
 Name: CLEO_1985_I205668
 Year: 1985
-Summary: Identified Particle Spectra and rates in $\Upsilon(1S)$ decays and continumm at 10.49 GeV
+Summary: Identified Particle Spectra and rates in $\Upsilon(1S)$ decays and continuum at 10.49 GeV
 Experiment: CLEO
 Collider: CESR
 InspireID: 205668
@@ -14,7 +14,7 @@ Beams: [e+, e-]
 Energies: [9.46,10.49]
 Description:
 'Spectra and rates for $\pi^\pm$, $K^\pm$, $\pi^0$, $K^0$, $\Lambda$, $\Xi^-$, $\rho^0$, $K^{*\pm}$, $K^{*0}$ and $\phi$
-production in $\Upsilon(1S)$ decays and continumm at 10.49 GeV.'
+production in $\Upsilon(1S)$ decays and continuum at 10.49 GeV.'
 ValidationInfo:
   'Herwig 7 events'
 #ReleaseTests:
