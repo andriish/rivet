@@ -9,9 +9,9 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Lett.B 199 (1987) 291-296
-RunInfo: any process producing Upsilon mesons, original e+e- collisions
+RunInfo: Any process producing Upsilon mesons, originally e+e- collisions
 Description:
-  'Measurement of the direct photon spectrum in $\Upsilon(1S)$ decays by the ARGUS experiment. While there is a more recent CLEO result that is not corrected for efficiency and resolution. The spectrum was read from the figures in the paper as it was not included in the original HEPDATA entry.'
+  'Measurement of the direct photon spectrum in $\Upsilon(1S)$ decays by the ARGUS experiment. While there is a more recent CLEO result that is not corrected for efficiency and resolution. The spectrum was read from the figures in the paper as it was not included in the original HEPDATA entry. The spectrum is not corrected for resolution and therefore the photon energies are smeared using the resolution given in the paper.'
 ValidationInfo:
   'Herwig7 events'
 #ReleaseTests:

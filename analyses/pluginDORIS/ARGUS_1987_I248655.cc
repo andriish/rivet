@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Tools/Random.hh"
 
 namespace Rivet {
 
@@ -19,7 +20,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // projections
-      declare(UnstableParticles(), "UFS");
+      declare(UnstableParticles(Cuts::pid==553), "UFS");
       book(_h_gamma,2,1,1);
       book(_n_Ups,"TMP/nUps");
     }
@@ -28,7 +29,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // Find the Upsilons among the unstables
-      for (const Particle& ups : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==553)) {
+      for (const Particle& ups : apply<UnstableParticles>(event, "UFS").particles()) {
 	unsigned int nhadron(0);
 	Particles photons;
 	for(const Particle & child : ups.children()) {
@@ -44,8 +45,11 @@ namespace Rivet {
 	  LorentzTransform boost;
 	  if (ups.p3().mod() > 1*MeV)
 	    boost = LorentzTransform::mkFrameTransformFromBeta(ups.momentum().betaVec());
-	  for(const Particle & gamma:photons)
-	    _h_gamma->fill(2.*boost.transform(gamma.momentum()).E()/ups.mass());
+	  for(const Particle & gamma:photons) {
+	    double E = boost.transform(gamma.momentum()).E();
+	    E = randnorm(E,sqrt(sqr(0.072)+sqr(0.065)/E)*E);
+	    _h_gamma->fill(2.*E/ups.mass());
+	  }
 	}
       }
     }
