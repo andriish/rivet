@@ -7,15 +7,17 @@ InspireID: 1685207
 Status: UNVALIDATED NOHEPDATA SINGLEWEIGHT UNPHYSICAL
 Reentrant: false
 Authors:
- - Your Name <your@email.address>
+ - Tomek Procter (tomasz.procter@cern.ch)
 References:
- - 'Example: Eur.Phys.J. C76 (2016) no.7, 392'
- - 'Example: DOI:10.1140/epjc/s10052-016-4184-8'
- - 'Example: arXiv:1605.03814'
+ - 'EXOT-2017-14'
+ - 'DOI:10.1103/PhysRevD.98.092005'
+ - 'arXiv:1808.01771'
 #RunInfo: <Describe event types, cuts, and other general generator config tips.>
-#Beams: [p+, p+]
-#Energies: [[6500,6500]]
-#Luminosity_fb: 139.0
+Beams: [p+, p+]
+Energies: [[6500,6500]]
+Luminosity_fb: 36.1
+Options:
+  - MODE=VAL-BKG,VAL-VECTOR,VAL-HIGGS,VAL-TOP,EFF-VAL-BKG,EFF-VAL-VECTOR,EFF-VAL-HIGGS,EFF-VAL-TOP,EFF-STD
 Description:
   'A brief description of what is measured and what it is useful for.
    Use LaTeX for maths, e.g. $\pT > 50\;\GeV$.'
