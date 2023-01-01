@@ -44,7 +44,11 @@ namespace Rivet {
       //VAL-VECTOR - 2 -> produce VECTOR signal neural network validation plots.
       //VAL-HIGGS - 3 -> produce higgs signal neural network validation plots.
       //VAL-TOP - 4 -> produce top signal neural network validation plots.
-      
+      //EFF-VAL-BKG - -1 -> Use efficiencies not NN's and produce background neural network validation plots.
+      //EFF-VAL-VECTOR - -2 -> Use efficiencies not NN's and produce VECTOR signal neural network validation plots.
+      //EFF-VAL-HIGGS - -3 -> Use efficiencies not NN's and produce higgs signal neural network validation plots.
+      //EFF-VAL-TOP - -4 -> Use efficiencies not NN's and produce top signal neural network validation plots.
+      //EFF-STD - -5 -> Use efficiencies not NN's, but otherwise run analysis normally
       _mode = 0;
       const std::string mode = getOption("MODE");
       if (mode == "VAL-BKG"){
@@ -63,10 +67,27 @@ namespace Rivet {
         _mode = 4;
         MSG_DEBUG("Analysis ATLAS_2018_I1685207 running in VAL-TOP mode");
       }
-      
+      else if (mode == "EFF-VAL-BKG"){
+        _mode = -1;
+        MSG_DEBUG("Analysis ATLAS_2018_I1685207 running in EFF-VAL-BKG mode");
+      }
+      else if (mode == "EFF-VAL-VECTOR"){
+        _mode = -2;
+        MSG_DEBUG("Analysis ATLAS_2018_I1685207 running in EFF-VAL-VECTOR mode");
+      }
+      else if (mode == "EFF-VAL-HIGGS"){
+        _mode = -3;
+        MSG_DEBUG("Analysis ATLAS_2018_I1685207 running in EFF-VAL-HIGGS mode");
+      }
+      else if (mode == "EFF-VAL-TOP"){
+        _mode = -4;
+        MSG_DEBUG("Analysis ATLAS_2018_I1685207 running in EFF-VAL-TOP mode");
+      }
+
       //Load the neural net json file.
       //Use hardcode hack for now.
-      _nn = mkLWTNN("/home/tomek/PHYSICS_INSTALLS/rivet_seven/rivet/analyses/examples/ATLAS_2018_I1685207.nn.json");
+      if (_mode >= 0)
+        _nn = mkLWTNN("/home/tomek/PHYSICS_INSTALLS/rivet_seven/rivet/analyses/examples/ATLAS_2018_I1685207.nn.json");
 
       //Declare projections
       // electrons
@@ -125,9 +146,9 @@ namespace Rivet {
       book(_valBins["HH_0t_1b"], "HH_0t_1b");
       book(_valBins["HH_1t_1b"], "HH_1t_1b");
       book(_valBins["XX_2t_1b"], "XX_2t_1b");
-
-      //Validation region histograms
+      
       if (_mode > 0){
+        //Validation mode NN histograms
         book(_h["PV"], "PV", 45,-3,1.5);
         book(_h["PH"], "PH", 55,-3,2.5);
         book(_h["Ptop"], "Ptop", 55,-3,2.5);
@@ -135,23 +156,7 @@ namespace Rivet {
         book(_h["Vt_discriminant"], "Vt_discriminant", 30, -1.5, 1.5);
         book(_h["VH_discriminant"], "VH_discriminant", 30, -1.5, 1.5);
         book(_h["Ht_discriminant"], "Ht_discriminant", 30, -1.5, 1.5);
-        book(_h["TripleDiscriminant"], "TripleDiscriminant", 30, -1.5, 1.5); 
-
-        //Jet Mass histograms.
-        book(_h["mVRC"], "mVRC", 100, 40, 240);
-        book(_h["mVRC_trueHiggs"], "mVRC_trueHiggs", 100, 40, 240);
-        book(_h["mVRC_trueVector"], "mVRC_trueVector", 100, 40, 240);
-        book(_h["mVRC_trueTop"], "mVRC_trueTop", 100, 40, 240);
-        book(_h["mVRC_truebkg"], "mVRC_truebkg", 100, 40, 240);
-
-        book(_h["mVRC_trueHiggsTaggedHiggs"], "mVRC_trueHiggsTaggedHiggs", 100, 40, 240);
-        book(_h["mVRC_trueVectorTaggedVector"], "mVRC_trueVectorTaggedVector", 100, 40, 240);
-        book(_h["mVRC_trueTopTaggedTop"], "mVRC_trueTopTaggedTop", 100, 40, 240);
-
-        book(_h["mVRC_truebkgTaggedHiggs"], "mVRC_truebkgTaggedHiggs", 100, 40, 240);
-        book(_h["mVRC_truebkgTaggedVector"], "mVRC_truebkgTaggedVector", 100, 40, 240);
-        book(_h["mVRC_truebkgTaggedTop"], "mVRC_truebkgTaggedTop", 100, 40, 240);
-        book(_h["mVRC_truebkgTaggedbkg"], "mVRC_truebkgTaggedbkg", 100, 40, 240);
+        book(_h["TripleDiscriminant"], "TripleDiscriminant", 30, -1.5, 1.5);
 
         //Efficiencies And Rejections;
         //Working versions, filled in loops:
@@ -175,6 +180,24 @@ namespace Rivet {
         book(_s["bkgRejection_Vector"], "bkgRejection_Vector");
         book(_s["bkgRejection_Higgs"], "bkgRejection_Higgs");
         book(_s["bkgRejection_Top"], "bkgRejection_Top");
+      }
+
+      // Validation mode Jet Mass histograms.
+      if (_mode != 0 && _mode != -5){
+        book(_h["mVRC"], "mVRC", 100, 40, 240);
+        book(_h["mVRC_trueHiggs"], "mVRC_trueHiggs", 100, 40, 240);
+        book(_h["mVRC_trueVector"], "mVRC_trueVector", 100, 40, 240);
+        book(_h["mVRC_trueTop"], "mVRC_trueTop", 100, 40, 240);
+        book(_h["mVRC_truebkg"], "mVRC_truebkg", 100, 40, 240);
+
+        book(_h["mVRC_trueHiggsTaggedHiggs"], "mVRC_trueHiggsTaggedHiggs", 100, 40, 240);
+        book(_h["mVRC_trueVectorTaggedVector"], "mVRC_trueVectorTaggedVector", 100, 40, 240);
+        book(_h["mVRC_trueTopTaggedTop"], "mVRC_trueTopTaggedTop", 100, 40, 240);
+
+        book(_h["mVRC_truebkgTaggedHiggs"], "mVRC_truebkgTaggedHiggs", 100, 40, 240);
+        book(_h["mVRC_truebkgTaggedVector"], "mVRC_truebkgTaggedVector", 100, 40, 240);
+        book(_h["mVRC_truebkgTaggedTop"], "mVRC_truebkgTaggedTop", 100, 40, 240);
+        book(_h["mVRC_truebkgTaggedbkg"], "mVRC_truebkgTaggedbkg", 100, 40, 240); 
       }
 
     }
@@ -232,7 +255,7 @@ namespace Rivet {
       PseudoJets signal; 
       vector<PseudoJets> SignalConstits;
       //STandard or background validation mode: everything is signal.
-      if (_mode < 2){
+      if (abs(_mode) < 2 || abs(_mode) == -5){
         signal = FilteredVRCjets;
         SignalConstits = FilteredNewConstits;
       }
@@ -243,17 +266,17 @@ namespace Rivet {
         std::vector<Particle> signalParticles;
         std::vector<Particle> rejectParticles;
         //Higgs
-        if (_mode == 3){
+        if (abs(_mode) == 3){
           getVHandtop_fromEvent(signalParticles, event, {25}); 
           getVHandtop_fromEvent(rejectParticles, event, {6, 23, 24}); 
         }
         //Vector
-        else if (_mode == 2){
+        else if (abs(_mode) == 2){
           getVHandtop_fromEvent(signalParticles, event, {23, 24}); 
           getVHandtop_fromEvent(rejectParticles, event, {6, 25}); 
         }
         //Top
-        else if (_mode == 4){
+        else if (abs(_mode) == 4){
           getVHandtop_fromEvent(signalParticles, event, {6});
           //getVHandtop_fromEvent(rejectParticles, event, {23, 24, 25}); 
         }
@@ -291,7 +314,6 @@ namespace Rivet {
             }
           }
         }
-
       }
 
       if (signal.size() == 0){
@@ -316,139 +338,158 @@ namespace Rivet {
           }
         }
 
-
         //We need to make sure that the tagged constituents are still pT ordered
         isortByPt(tagged_constituents);
 
         const size_t nConstits = tagged_constituents.size();
 
+        //Define the MCBot TagType (to be done either by the NN or by efficiencies.
+        MCBot_TagType tag;
+        std::map<string, double> outputs;
+
         //Evaluate the Neural Net and the P-scores.
-        const std::map<string, double> NN_Input = {
-          {"rcjet_pt", j.pt()/MeV},
-          {"rcjet_numConstituents", static_cast<double>(tagged_constituents.size())},
-          {"rcjet_m", j.m()/MeV},
-          
-          //Lead Jet
-          {"sjet_1_mv2c10_binned", static_cast<double>(tagged_constituents[0].bTagged())},
-          {"sjet_1_e", tagged_constituents[0].E()/MeV},
-          {"sjet_1_phi", tagged_constituents[0].phi()},
-          {"sjet_1_eta", tagged_constituents[0].eta()},
-          {"sjet_1_pt", tagged_constituents[0].pt()/MeV},
+        if (_mode >= 0){
+          const std::map<string, double> NN_Input = {
+            {"rcjet_pt", j.pt()/MeV},
+            {"rcjet_numConstituents", static_cast<double>(tagged_constituents.size())},
+            {"rcjet_m", j.m()/MeV},
+            
+            //Lead Jet
+            {"sjet_1_mv2c10_binned", static_cast<double>(tagged_constituents[0].bTagged())},
+            {"sjet_1_e", tagged_constituents[0].E()/MeV},
+            {"sjet_1_phi", tagged_constituents[0].phi()},
+            {"sjet_1_eta", tagged_constituents[0].eta()},
+            {"sjet_1_pt", tagged_constituents[0].pt()/MeV},
 
-          //Second Jet
-          {"sjet_2_mv2c10_binned", (nConstits > 1) ? static_cast<double>(tagged_constituents[1].bTagged()) : -1. },
-          {"sjet_2_e", (nConstits > 1) ? tagged_constituents[1].E()/MeV : 0. },
-          {"sjet_2_phi", (nConstits > 1) ? tagged_constituents[1].phi() : j.phi() },
-          {"sjet_2_eta", (nConstits > 1) ? tagged_constituents[1].eta() : j.eta() },
-          {"sjet_2_pt", (nConstits > 1) ? tagged_constituents[1].pt()/MeV : 0. },
+            //Second Jet
+            {"sjet_2_mv2c10_binned", (nConstits > 1) ? static_cast<double>(tagged_constituents[1].bTagged()) : -1. },
+            {"sjet_2_e", (nConstits > 1) ? tagged_constituents[1].E()/MeV : 0. },
+            {"sjet_2_phi", (nConstits > 1) ? tagged_constituents[1].phi() : j.phi() },
+            {"sjet_2_eta", (nConstits > 1) ? tagged_constituents[1].eta() : j.eta() },
+            {"sjet_2_pt", (nConstits > 1) ? tagged_constituents[1].pt()/MeV : 0. },
 
-          //Third Jet
-          {"sjet_3_mv2c10_binned", (nConstits > 2) ? static_cast<double>(tagged_constituents[2].bTagged()) : -1. },
-          {"sjet_3_e", (nConstits > 2) ? tagged_constituents[2].E()/MeV : 0. },
-          {"sjet_3_phi", (nConstits > 2) ? tagged_constituents[2].phi() : j.phi() },
-          {"sjet_3_eta", (nConstits > 2) ? tagged_constituents[2].eta() : j.eta() },
-          {"sjet_3_pt", (nConstits > 2) ? tagged_constituents[2].pt()/MeV : 0. }
-        };
+            //Third Jet
+            {"sjet_3_mv2c10_binned", (nConstits > 2) ? static_cast<double>(tagged_constituents[2].bTagged()) : -1. },
+            {"sjet_3_e", (nConstits > 2) ? tagged_constituents[2].E()/MeV : 0. },
+            {"sjet_3_phi", (nConstits > 2) ? tagged_constituents[2].phi() : j.phi() },
+            {"sjet_3_eta", (nConstits > 2) ? tagged_constituents[2].eta() : j.eta() },
+            {"sjet_3_pt", (nConstits > 2) ? tagged_constituents[2].pt()/MeV : 0. }
+          };
 
-        const std::map<string, double> outputs = _nn->compute(NN_Input);
-        JetTags.push_back(getTag(outputs));
+          outputs = _nn->compute(NN_Input);
+          JetTags.push_back(getTag(outputs));
+          tag =  getTag(outputs);
+        }
+        // Alternatively, the NN case
+        else {
+          //TODO: this is inefficient, but 
+          //  - a) The analysis will not be run like this typically
+          //  - b) I'll come back and improve it if I really have to
+          Particles Vectors, Higgses, Tops;
+          getVHandtop_fromEvent(Vectors, event, {23, 24});
+          getVHandtop_fromEvent(Higgses, event, {25});
+          getVHandtop_fromEvent(Tops, event, {6});
+
+          tag = get_efficiency_tag(j,Vectors,Higgses,Tops);
+        }
         
-        //If we're not in a validation mode, do validation stuff.
-        if (_mode > 0){
-          const MCBot_TagType tag =  getTag(outputs);
+        
+        //If we're in a validation mode, do validation stuff.
+        if (abs(_mode) > 0 && _mode != -5){
+          if (_mode > 0){
+            //distriminant function P for V, H, and top tagger
+            const double PV=log10(outputs.at("dnnOutput_V")/
+              (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_top")+0.05*outputs.at("dnnOutput_H")));
+            const double PH=log10(outputs.at("dnnOutput_H")/
+              (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_top")+0.05*outputs.at("dnnOutput_V")));
+            const double Ptop=log10(outputs.at("dnnOutput_top")/
+              (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_V")+0.05*outputs.at("dnnOutput_H")));
 
-          //distriminant function P for V, H, and top tagger
-          const double PV=log10(outputs.at("dnnOutput_V")/
-            (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_top")+0.05*outputs.at("dnnOutput_H")));
-          const double PH=log10(outputs.at("dnnOutput_H")/
-            (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_top")+0.05*outputs.at("dnnOutput_V")));
-          const double Ptop=log10(outputs.at("dnnOutput_top")/
-            (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_V")+0.05*outputs.at("dnnOutput_H")));
+            _h["PV"]->fill(PV);
+            _h["PH"]->fill(PH);
+            _h["Ptop"]->fill(Ptop);
 
-          _h["PV"]->fill(PV);
-          _h["PH"]->fill(PH);
-          _h["Ptop"]->fill(Ptop);
+            //If we're in backgraound validation mode, fill background rejection plots
+            if (_mode == 1){
+              if (tag == MCBot_TagType::Vec)
+                _h["bkgRejection_Vector_in"]->fill(j.pt());
+              else  
+                _h["bkgRejection_Vector_out"]->fill(j.pt());
+              
+              if (tag == MCBot_TagType::Higgs)
+                _h["bkgRejection_Higgs_in"]->fill(j.pt());
+              else  
+                _h["bkgRejection_Higgs_out"]->fill(j.pt());
 
-          //If we're in backgraound validation mode, fill background rejection plots
-          if (_mode == 1){
-            if (tag == MCBot_TagType::Vec)
-              _h["bkgRejection_Vector_in"]->fill(j.pt());
-            else  
-              _h["bkgRejection_Vector_out"]->fill(j.pt());
-            
-            if (tag == MCBot_TagType::Higgs)
-              _h["bkgRejection_Higgs_in"]->fill(j.pt());
-            else  
-              _h["bkgRejection_Higgs_out"]->fill(j.pt());
-
-            if (tag == MCBot_TagType::top)
-              _h["bkgRejection_Top_in"]->fill(j.pt());
-            else  
-              _h["bkgRejection_Top_out"]->fill(j.pt());
-          }
-
-
-          //Tag Efficiencies & MultiTag discriminant functions (see fig 2 & 4 of paper)
-          // Does not apply to bkg jets
-          if ( _mode > 1 ){
-            //Tag efficiencies
-            if (_mode == 2 && tag == MCBot_TagType::Vec)
-              _h["tagEfficiency_Vector_in"]->fill(j.pt());
-            else if (_mode == 2)
-              _h["tagEfficiency_Vector_out"]->fill(j.pt());
-            if (_mode == 3 && tag == MCBot_TagType::Higgs)
-              _h["tagEfficiency_Higgs_in"]->fill(j.pt());
-            else if (_mode == 3)
-              _h["tagEfficiency_Higgs_out"]->fill(j.pt());
-            if (_mode == 4 && tag == MCBot_TagType::top)
-              _h["tagEfficiency_Top_in"]->fill(j.pt());
-            else if (_mode == 4)
-              _h["tagEfficiency_Top_out"]->fill(j.pt());
-            
-
-
-            // discriminant functions
-            //Case 1: The PV function
-            if (PV > _threshold.at("PV") && PH > _threshold.at("PH") && Ptop < _threshold.at("Pt")
-              && (_mode == 2 || _mode == 3)){
-                _h["VH_discriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_H")));
+              if (tag == MCBot_TagType::top)
+                _h["bkgRejection_Top_in"]->fill(j.pt());
+              else  
+                _h["bkgRejection_Top_out"]->fill(j.pt());
             }
-            //Case 2: The Vt function.
-            if (PV > _threshold.at("PV") && PH < _threshold.at("PH") && Ptop > _threshold.at("Pt")
-              && (_mode == 2 || _mode == 4 )){
-              _h["Vt_discriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_top")));
-            }
-            //Case 3: The Ht function.
-            if (PV < _threshold.at("PV") && PH > _threshold.at("PH") && Ptop > _threshold.at("Pt")
-              && ( _mode == 3 || _mode == 4 )){
-                _h["Ht_discriminant"]->fill(log10(outputs.at("dnnOutput_H")/outputs.at("dnnOutput_top")));
-            }
-            //Case 4: The triple-tag plot.
-            if (PV > _threshold.at("PV") && PH > _threshold.at("PH") && Ptop > _threshold.at("Pt")){
-              _h["TripleDiscriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_top")));
+
+
+            //Tag Efficiencies & MultiTag discriminant functions (see fig 2 & 4 of paper)
+            // Does not apply to bkg jets
+            if ( _mode > 1 ){
+              //Tag efficiencies
+              if (_mode == 2 && tag == MCBot_TagType::Vec)
+                _h["tagEfficiency_Vector_in"]->fill(j.pt());
+              else if (_mode == 2)
+                _h["tagEfficiency_Vector_out"]->fill(j.pt());
+              if (_mode == 3 && tag == MCBot_TagType::Higgs)
+                _h["tagEfficiency_Higgs_in"]->fill(j.pt());
+              else if (_mode == 3)
+                _h["tagEfficiency_Higgs_out"]->fill(j.pt());
+              if (_mode == 4 && tag == MCBot_TagType::top)
+                _h["tagEfficiency_Top_in"]->fill(j.pt());
+              else if (_mode == 4)
+                _h["tagEfficiency_Top_out"]->fill(j.pt());
+              
+
+
+              // discriminant functions
+              //Case 1: The PV function
+              if (PV > _threshold.at("PV") && PH > _threshold.at("PH") && Ptop < _threshold.at("Pt")
+                && (_mode == 2 || _mode == 3)){
+                  _h["VH_discriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_H")));
+              }
+              //Case 2: The Vt function.
+              if (PV > _threshold.at("PV") && PH < _threshold.at("PH") && Ptop > _threshold.at("Pt")
+                && (_mode == 2 || _mode == 4 )){
+                _h["Vt_discriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_top")));
+              }
+              //Case 3: The Ht function.
+              if (PV < _threshold.at("PV") && PH > _threshold.at("PH") && Ptop > _threshold.at("Pt")
+                && ( _mode == 3 || _mode == 4 )){
+                  _h["Ht_discriminant"]->fill(log10(outputs.at("dnnOutput_H")/outputs.at("dnnOutput_top")));
+              }
+              //Case 4: The triple-tag plot.
+              if (PV > _threshold.at("PV") && PH > _threshold.at("PH") && Ptop > _threshold.at("Pt")){
+                _h["TripleDiscriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_top")));
+              }
             }
           }
 
           //Variable-R Reclustered Jet Masses:
           _h["mVRC"]->fill(j.m());
-          if (_mode == 3){
+          if (abs(_mode) == 3){
             _h["mVRC_trueHiggs"]->fill(j.m());
             if (tag == MCBot_TagType::Higgs){
               _h["mVRC_trueHiggsTaggedHiggs"]->fill(j.m());
             }
-          } else if (_mode == 2){
+          } else if(abs(_mode) == 2){
             _h["mVRC_trueVector"]->fill(j.m());
             if (tag == MCBot_TagType::Vec){
               _h["mVRC_trueVectorTaggedVector"]->fill(j.m());
             }
           }
-          else if (_mode == 4){
+          else if (abs(_mode) == 4){
             _h["mVRC_trueTop"]->fill(j.m());
             if (tag == MCBot_TagType::top){
               _h["mVRC_trueTopTaggedTop"]->fill(j.m());
             }
           }
-          else if (_mode == 1){
+          else if (abs(_mode) == 1){
             _h["mVRC_truebkg"]->fill(j.m());
             if (tag == MCBot_TagType::Higgs){
               _h["mVRC_truebkgTaggedHiggs"]->fill(j.m());
@@ -467,7 +508,7 @@ namespace Rivet {
         }
 
       }
-
+      
 
       
 
@@ -736,7 +777,8 @@ namespace Rivet {
     //Very rough and hacky
     //Find all Vector bosons, higgs, and tops that are not children of themselves.
     //TODO: implement as a projection?
-    static void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge, std::vector<int> wanted_pids = {6,23,24,25}){
+    static void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge, 
+                                      std::vector<int> wanted_pids = {6,23,24,25}){
       for (const auto& p : ge.allParticles()){
         const int pid = p.pid();
         //TODO: Should there also be a status code check?
@@ -752,7 +794,6 @@ namespace Rivet {
           }
         }
       }
-
     }
 
     MCBot_TagType getTag(const map<string, double> &outputs){
@@ -800,8 +841,199 @@ namespace Rivet {
       throw Error("MCBot tagging not succesful -- debugging required");
     }
 
+    /// @}
+
+    /// @name Efficiency based taggers (using fig 2)
+    static MCBot_TagType get_efficiency_bkg_tag(const double jetpt){
+      //TODO: How to interpret the background "rejection" to me is a
+      // little ambigious, particularly in the context of double or triple tagging
+      double cut_off_pby_vec, cut_off_pby_higgs, cut_off_pby_top;
+      if (jetpt < 150){
+        cut_off_pby_vec = 0;
+        cut_off_pby_higgs = 0;
+        cut_off_pby_top = 0;
+      } else if (jetpt < 300){
+        cut_off_pby_vec = 1/6.3;
+        cut_off_pby_higgs = 1/33.;
+        cut_off_pby_top = 1/16.5;
+      } else if (jetpt < 500){
+        cut_off_pby_vec = 1/6.9;
+        cut_off_pby_higgs = 1/39.;
+        cut_off_pby_top = 1/17.;
+      } else if (jetpt < 700){
+        cut_off_pby_vec = 1/6.2;
+        cut_off_pby_higgs = 1/45.;
+        cut_off_pby_top = 1/18.1;
+      } else if (jetpt < 1000){
+        cut_off_pby_vec = 1/4.8;
+        cut_off_pby_higgs = 1/46.;
+        cut_off_pby_top = 1/18.75;
+      } else if (jetpt < 1500){
+        cut_off_pby_vec = 1/4.5;
+        cut_off_pby_higgs = 1/43.;
+        cut_off_pby_top = 1/18.2;
+      } else {
+        cut_off_pby_vec = 1/4.9;
+        cut_off_pby_higgs = 1/38.;
+        cut_off_pby_top = 1/12.8;
+      }
+      const double vecrndm = rand01();
+      const double higgsrndm = rand01();
+      const double toprndm = rand01();
+
+      const bool vectag = cut_off_pby_vec < vecrndm;
+      const bool higgstag = cut_off_pby_higgs < higgsrndm;
+      const bool toptag = cut_off_pby_top < toprndm;
+
+      if (!vectag && !higgstag && !toptag){
+         return MCBot_TagType::Bkg;
+      }
+      else if (vectag && !higgstag && !toptag){
+        return MCBot_TagType::Vec;
+      }
+      else if (!vectag && higgstag && !toptag){
+        return MCBot_TagType::Higgs;
+      }
+      else if (!vectag && !higgstag && toptag){
+        return MCBot_TagType::top;
+      }
+      else if (vectag && higgstag && !toptag){
+        return (rand01() > 0.5 ? MCBot_TagType::Vec : MCBot_TagType::Higgs);
+      }
+      else if (vectag && !higgstag && toptag){
+        return (rand01() > 0.5 ? MCBot_TagType::Vec : MCBot_TagType::top);
+      }
+      else if (!vectag && higgstag && toptag){
+        return (rand01() > 0.5 ? MCBot_TagType::Higgs : MCBot_TagType::top);
+      }
+      else {
+        const double score = rand01();
+        if (score <  0.333)
+          return MCBot_TagType::Vec;
+        else if (score < 0.667)
+          return MCBot_TagType::Higgs;
+        else
+          return MCBot_TagType::top;
+      }
+    }
+    //Tag a jet that is "truly" a vector with either a vec or bkg tag
+    static MCBot_TagType get_efficiency_vec_tag(const double jetpt){
+      double cut_off_pby;
+      if (jetpt < 150){
+        cut_off_pby = 0;
+      } else if (jetpt < 300){
+        cut_off_pby = 0.58;
+      } else if (jetpt < 500){
+        cut_off_pby = 0.7;
+      } else if (jetpt < 700){
+        cut_off_pby = 0.75;
+      } else if (jetpt < 1000){
+        cut_off_pby = 0.74;
+      } else if (jetpt < 1500){
+        cut_off_pby = 0.7;
+      } else {
+        cut_off_pby = 0.62;
+      }
+
+      if (rand01() < cut_off_pby)
+        return MCBot_TagType::Vec;
+      else return MCBot_TagType::Bkg;
+    }
+    //Tag a jet that is "truly" a higgs with either a higgs or bkg tag
+    static MCBot_TagType get_efficiency_higgs_tag(const double jetpt){
+      double cut_off_pby;
+      if (jetpt < 150){
+        cut_off_pby = 0;
+      } else if (jetpt < 300){
+        cut_off_pby = 0.68;
+      } else if (jetpt < 500){
+        cut_off_pby = 0.73;
+      } else if (jetpt < 700){
+        cut_off_pby = 0.69;
+      } else if (jetpt < 1000){
+        cut_off_pby = 0.62;
+      } else if (jetpt < 1500){
+        cut_off_pby = 0.58;
+      } else {
+        cut_off_pby = 0.65;
+      }
+
+      if (rand01() < cut_off_pby)
+        return MCBot_TagType::Higgs;
+      else return MCBot_TagType::Bkg;
+    }
+    //Tag a jet that is "truly" a top with either a top or bkg tag
+    static MCBot_TagType get_efficiency_top_tag(const double jetpt){
+      double cut_off_pby;
+      if (jetpt < 150){
+        cut_off_pby = 0;
+      } else if (jetpt < 300){
+        cut_off_pby = 0.53;
+      } else if (jetpt < 500){
+        cut_off_pby = 0.62;
+      } else if (jetpt < 700){
+        cut_off_pby = 0.63;
+      } else if (jetpt < 1000){
+        cut_off_pby = 0.59;
+      } else if (jetpt < 1500){
+        cut_off_pby = 0.57;
+      } else {
+        cut_off_pby = 0.56;
+      }
+
+      if (rand01() < cut_off_pby)
+        return MCBot_TagType::top;
+      else return MCBot_TagType::Bkg;
+    }
+
+
+    MCBot_TagType get_efficiency_tag(const Jet &j, const Particles& Vectors, const Particles& Higgses, const Particles& Tops){
+      auto vec_iterator = std::find_if(Vectors.begin(), Vectors.end(),
+          //TODO: is there a preferred syntax for writing long ugly lambdas?
+                          [&j](const Particle& VHTop){
+                            return (deltaR(momentum3(VHTop.pseudojet()), momentum3(j)) < 0.75*315*GeV/(j.pt()));
+                          });
+      auto higgs_iterator = std::find_if(Higgses.begin(), Higgses.end(),
+          //TODO: is there a preferred syntax for writing long ugly lambdas?
+                          [&j](const Particle& VHTop){
+                            return (deltaR(momentum3(VHTop.pseudojet()), momentum3(j)) < 0.75*315*GeV/(j.pt()));
+                          });
+      auto top_iterator = std::find_if(Tops.begin(), Tops.end(),
+          //TODO: is there a preferred syntax for writing long ugly lambdas?
+                          [&j](const Particle& VHTop){
+                            return (deltaR(momentum3(VHTop.pseudojet()), momentum3(j)) < 0.75*315*GeV/(j.pt()));
+                          });
+
+      const bool isVecJet = (vec_iterator != Vectors.end());
+      const bool isHiggsJet = (higgs_iterator != Higgses.end());
+      const bool isTopJet = (top_iterator != Tops.end());
+
+      if (!isVecJet && !isHiggsJet && !isTopJet)
+        return get_efficiency_bkg_tag(j.pt());
+      else if (isVecJet && !isHiggsJet && !isTopJet)
+        return get_efficiency_vec_tag(j.pt());
+      else if (!isVecJet && isHiggsJet && !isTopJet)
+        return get_efficiency_higgs_tag(j.pt());
+      else if (!isVecJet && !isHiggsJet && isTopJet)
+        return get_efficiency_top_tag(j.pt());
+      
+      //The efficiencies almost certainly break down in these cases
+      // But I gotta do something
+      // note to self: this is a great demonstration of why giving us 
+      // the network is better - remember to put in the presentation.
+      else if (isVecJet && isHiggsJet && !isTopJet)
+        return (rand01() > 0.5 ? get_efficiency_vec_tag(j.pt()) : get_efficiency_higgs_tag(j.pt()));
+      else if (isVecJet && !isHiggsJet && isTopJet)
+        return (rand01() > 0.5 ? get_efficiency_vec_tag(j.pt()) : get_efficiency_top_tag(j.pt()));
+      else if (!isVecJet && isHiggsJet && isTopJet)
+        return (rand01() > 0.5 ? get_efficiency_higgs_tag(j.pt()) : get_efficiency_top_tag(j.pt()));
+
+      //Triple case is a weird jet indeed.
+      else return (rand01() > 0.333 ? get_efficiency_vec_tag(j.pt()) : rand01() > 0.5 ? get_efficiency_higgs_tag(j.pt()) : get_efficiency_top_tag(j.pt()));
+
 
       
+    }
     /// @}
 
     /// @name Member variables
@@ -811,7 +1043,7 @@ namespace Rivet {
     map<string, Scatter2DPtr> _s;
     map<string, Histo2DPtr> _h2;
 
-    size_t _mode;
+    int _mode;
     std::unique_ptr<lwt::LightweightNeuralNetwork> _nn;  
     const std::map<string, double> _threshold = {{"PV", -0.2}, {"PH", 0.35}, {"Pt", 0.1}};
     const std::map<string, double> _tiebreak_thresholds = {{"t_V", -0.3}, {"H_V", -0.55}, {"t_H", 0.2}};
