@@ -707,6 +707,8 @@ namespace Rivet {
         } if (_h["TripleDiscriminant"]->integral() > 0){
           _h["TripleDiscriminant"]->normalize(1);
         }
+      }
+      if (_mode != 0 && _mode !=-5)
         if (_h["mVRC"]->integral() > 0){
           _h["mVRC"]->normalize(1);
         } if (_h["mVRC_trueHiggs"]->integral() > 0){
