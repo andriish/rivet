@@ -64,10 +64,9 @@ namespace Rivet {
         MSG_DEBUG("Analysis ATLAS_2018_I1685207 running in VAL-TOP mode");
       }
       
-
       //Load the neural net json file.
-      _nn = mkLWTNN(analysisDataPath("json"));
-
+      //Use hardcode hack for now.
+      _nn = mkLWTNN("/home/tomek/PHYSICS_INSTALLS/rivet_seven/rivet/analyses/examples/ATLAS_2018_I1685207.nn.json");
 
       //Declare projections
       // electrons
@@ -131,7 +130,7 @@ namespace Rivet {
       if (_mode > 0){
         book(_h["PV"], "PV", 45,-3,1.5);
         book(_h["PH"], "PH", 55,-3,2.5);
-        book(_h["Pt"], "Pt", 55,-3,2.5);
+        book(_h["Ptop"], "Ptop", 55,-3,2.5);
 
         book(_h["Vt_discriminant"], "Vt_discriminant", 30, -1.5, 1.5);
         book(_h["VH_discriminant"], "VH_discriminant", 30, -1.5, 1.5);
@@ -139,20 +138,43 @@ namespace Rivet {
         book(_h["TripleDiscriminant"], "TripleDiscriminant", 30, -1.5, 1.5); 
 
         //Jet Mass histograms.
-        book(_h["mVRC"], "mVRC", 60, 40, 250);
-        book(_h["mVRC_trueHiggs"], "mVRC_trueHiggs", 60, 40, 250);
-        book(_h["mVRC_trueVector"], "mVRC_trueVector", 60, 40, 250);
-        book(_h["mVRC_trueTop"], "mVRC_trueTop", 60, 40, 250);
-        book(_h["mVRC_truebkg"], "mVRC_truebkg", 60, 40, 250);
+        book(_h["mVRC"], "mVRC", 100, 40, 240);
+        book(_h["mVRC_trueHiggs"], "mVRC_trueHiggs", 100, 40, 240);
+        book(_h["mVRC_trueVector"], "mVRC_trueVector", 100, 40, 240);
+        book(_h["mVRC_trueTop"], "mVRC_trueTop", 100, 40, 240);
+        book(_h["mVRC_truebkg"], "mVRC_truebkg", 100, 40, 240);
 
-        book(_h["mVRC_trueHiggsTaggedHiggs"], "mVRC_trueHiggsTaggedHiggs", 60, 40, 250);
-        book(_h["mVRC_trueVectorTaggedVector"], "mVRC_trueVectorTaggedVector", 60, 40, 250);
-        book(_h["mVRC_trueTopTaggedTop"], "mVRC_trueTopTaggedTop", 60, 40, 250);
+        book(_h["mVRC_trueHiggsTaggedHiggs"], "mVRC_trueHiggsTaggedHiggs", 100, 40, 240);
+        book(_h["mVRC_trueVectorTaggedVector"], "mVRC_trueVectorTaggedVector", 100, 40, 240);
+        book(_h["mVRC_trueTopTaggedTop"], "mVRC_trueTopTaggedTop", 100, 40, 240);
 
-        book(_h["mVRC_truebkgTaggedHiggs"], "mVRC_truebkgTaggedHiggs", 60, 40, 250);
-        book(_h["mVRC_truebkgTaggedVector"], "mVRC_truebkgTaggedVector", 60, 40, 250);
-        book(_h["mVRC_truebkgTaggedTop"], "mVRC_truebkgTaggedTop", 60, 40, 250);
-        book(_h["mVRC_truebkgTaggedbkg"], "mVRC_truebkgTaggedbkg", 60, 40, 250);
+        book(_h["mVRC_truebkgTaggedHiggs"], "mVRC_truebkgTaggedHiggs", 100, 40, 240);
+        book(_h["mVRC_truebkgTaggedVector"], "mVRC_truebkgTaggedVector", 100, 40, 240);
+        book(_h["mVRC_truebkgTaggedTop"], "mVRC_truebkgTaggedTop", 100, 40, 240);
+        book(_h["mVRC_truebkgTaggedbkg"], "mVRC_truebkgTaggedbkg", 100, 40, 240);
+
+        //Efficiencies And Rejections;
+        //Working versions, filled in loops:
+        book(_h["tagEfficiency_Vector_in"], "tagEfficiency_Vector_in", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["tagEfficiency_Higgs_in"], "tagEfficiency_Higgs_in", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["tagEfficiency_Top_in"], "tagEfficiency_Top_in", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["bkgRejection_Vector_in"], "bkgRejection_Vector_in", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["bkgRejection_Higgs_in"], "bkgRejection_Higgs_in", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["bkgRejection_Top_in"], "bkgRejection_Top_in", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["tagEfficiency_Vector_out"], "tagEfficiency_Vector_out", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["tagEfficiency_Higgs_out"], "tagEfficiency_Higgs_out", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["tagEfficiency_Top_out"], "tagEfficiency_Top_out", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["bkgRejection_Vector_out"], "bkgRejection_Vector_out", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["bkgRejection_Higgs_out"], "bkgRejection_Higgs_out", {150, 300, 500, 700, 1000, 1500, 2000});
+        book(_h["bkgRejection_Top_out"], "bkgRejection_Top_out", {150, 300, 500, 700, 1000, 1500, 2000});
+
+        //Final versions, filled during finalise
+        book(_s["tagEfficiency_Vector"], "tagEfficiency_Vector");
+        book(_s["tagEfficiency_Higgs"], "tagEfficiency_Higgs");
+        book(_s["tagEfficiency_Top"], "tagEfficiency_Top");
+        book(_s["bkgRejection_Vector"], "bkgRejection_Vector");
+        book(_s["bkgRejection_Higgs"], "bkgRejection_Higgs");
+        book(_s["bkgRejection_Top"], "bkgRejection_Top");
       }
 
     }
@@ -163,13 +185,8 @@ namespace Rivet {
 
       //Enforce 0-lepton veto.
       Particles smeared_electrons = apply<ParticleFinder>(event, "SmearedElec").particles();
-      if (smeared_electrons.size() != 0){
-        vetoEvent;
-      }
       Particles smeared_muons = apply<ParticleFinder>(event, "SmearedMuon").particles();
-      if (smeared_muons.size() != 0){
-        vetoEvent;
-      }
+      
 
       //Get Jets et al
       Jets smeared_small_jets = apply<JetAlg>(event, "smearedSjet").jetsByPt();
@@ -264,8 +281,10 @@ namespace Rivet {
                             return (deltaR(momentum3(VHTop.pseudojet()), momentum3(FilteredVRCjets[i])) < 0.75*315/(FilteredVRCjets[i].pt()));
                             });
             
-            //Also only consider events where the jet pT in the 40GeV < pt < 2TeV range.
-            if (FilteredVRCjets[i].pt() > 40*GeV && FilteredVRCjets[i].pt() < 2000*GeV &&
+            //Also only consider events where the jet pT in the 150GeV < pt < 2TeV range.
+            // And of mass > 40 GeV, abseta < 2.5
+            if (FilteredVRCjets[i].pt() > 150*GeV && FilteredVRCjets[i].pt() < 2000*GeV &&
+                 FilteredVRCjets[i].m() > 40*GeV && fabs(FilteredVRCjets[i].eta()) < 2.5 &&
                  iterator2 == signalParticles.end() && iterator3 == rejectParticles.end()){
               signal.push_back(FilteredVRCjets[i]);
               SignalConstits.push_back(FilteredNewConstits[i]);
@@ -273,153 +292,312 @@ namespace Rivet {
           }
         }
 
-        if (signal.size() == 0){
-          vetoEvent;
+      }
+
+      if (signal.size() == 0){
+        vetoEvent;
+      }
+
+      vector<MCBot_TagType> JetTags;
+
+      for (size_t counter = 0; counter < signal.size(); ++counter){
+        auto& j = signal[counter];
+
+        //First we need a vector of all the constituents, that has b-tagging info. 
+        Jets tagged_constituents;
+        for (const PseudoJet& pj : SignalConstits[counter]){
+          auto it = std::find_if(smeared_small_jets.begin(), smeared_small_jets.end(),
+                                  [&pj](Jet& j){return (deltaR(momentum3(pj), j) < 0.1);});
+          if (it != smeared_small_jets.end()){
+            tagged_constituents.push_back(*it);
+          }
+          else {
+            MSG_WARNING("FAILED TO FIND CONSTITUENT");
+          }
         }
 
-        vector<MCBot_TagType> JetTags;
 
-        //TODO: In this for loop
-        for (size_t counter = 0; counter < signal.size(); ++counter){
-          auto& j = signal[counter];
+        //We need to make sure that the tagged constituents are still pT ordered
+        isortByPt(tagged_constituents);
 
-          //First we need a vector of all the constituents, that has b-tagging info. 
-          Jets tagged_constituents;
-          for (const PseudoJet& pj : SignalConstits[counter]){
-            auto it = std::find_if(smeared_small_jets.begin(), smeared_small_jets.end(),
-                                    [&pj](Jet& j){return (deltaR(momentum3(pj), j) < 0.1);});
-            if (it != smeared_small_jets.end()){
-              tagged_constituents.push_back(*it);
+        const size_t nConstits = tagged_constituents.size();
+
+        //Evaluate the Neural Net and the P-scores.
+        const std::map<string, double> NN_Input = {
+          {"rcjet_pt", j.pt()/MeV},
+          {"rcjet_numConstituents", static_cast<double>(tagged_constituents.size())},
+          {"rcjet_m", j.m()/MeV},
+          
+          //Lead Jet
+          {"sjet_1_mv2c10_binned", static_cast<double>(tagged_constituents[0].bTagged())},
+          {"sjet_1_e", tagged_constituents[0].E()/MeV},
+          {"sjet_1_phi", tagged_constituents[0].phi()},
+          {"sjet_1_eta", tagged_constituents[0].eta()},
+          {"sjet_1_pt", tagged_constituents[0].pt()/MeV},
+
+          //Second Jet
+          {"sjet_2_mv2c10_binned", (nConstits > 1) ? static_cast<double>(tagged_constituents[1].bTagged()) : -1. },
+          {"sjet_2_e", (nConstits > 1) ? tagged_constituents[1].E()/MeV : 0. },
+          {"sjet_2_phi", (nConstits > 1) ? tagged_constituents[1].phi() : j.phi() },
+          {"sjet_2_eta", (nConstits > 1) ? tagged_constituents[1].eta() : j.eta() },
+          {"sjet_2_pt", (nConstits > 1) ? tagged_constituents[1].pt()/MeV : 0. },
+
+          //Third Jet
+          {"sjet_3_mv2c10_binned", (nConstits > 2) ? static_cast<double>(tagged_constituents[2].bTagged()) : -1. },
+          {"sjet_3_e", (nConstits > 2) ? tagged_constituents[2].E()/MeV : 0. },
+          {"sjet_3_phi", (nConstits > 2) ? tagged_constituents[2].phi() : j.phi() },
+          {"sjet_3_eta", (nConstits > 2) ? tagged_constituents[2].eta() : j.eta() },
+          {"sjet_3_pt", (nConstits > 2) ? tagged_constituents[2].pt()/MeV : 0. }
+        };
+
+        const std::map<string, double> outputs = _nn->compute(NN_Input);
+        JetTags.push_back(getTag(outputs));
+        
+        //If we're not in a validation mode, do validation stuff.
+        if (_mode > 0){
+          const MCBot_TagType tag =  getTag(outputs);
+
+          //distriminant function P for V, H, and top tagger
+          const double PV=log10(outputs.at("dnnOutput_V")/
+            (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_top")+0.05*outputs.at("dnnOutput_H")));
+          const double PH=log10(outputs.at("dnnOutput_H")/
+            (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_top")+0.05*outputs.at("dnnOutput_V")));
+          const double Ptop=log10(outputs.at("dnnOutput_top")/
+            (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_V")+0.05*outputs.at("dnnOutput_H")));
+
+          _h["PV"]->fill(PV);
+          _h["PH"]->fill(PH);
+          _h["Ptop"]->fill(Ptop);
+
+          //If we're in backgraound validation mode, fill background rejection plots
+          if (_mode == 1){
+            if (tag == MCBot_TagType::Vec)
+              _h["bkgRejection_Vector_in"]->fill(j.pt());
+            else  
+              _h["bkgRejection_Vector_out"]->fill(j.pt());
+            
+            if (tag == MCBot_TagType::Higgs)
+              _h["bkgRejection_Higgs_in"]->fill(j.pt());
+            else  
+              _h["bkgRejection_Higgs_out"]->fill(j.pt());
+
+            if (tag == MCBot_TagType::top)
+              _h["bkgRejection_Top_in"]->fill(j.pt());
+            else  
+              _h["bkgRejection_Top_out"]->fill(j.pt());
+          }
+
+
+          //Tag Efficiencies & MultiTag discriminant functions (see fig 2 & 4 of paper)
+          // Does not apply to bkg jets
+          if ( _mode > 1 ){
+            //Tag efficiencies
+            if (_mode == 2 && tag == MCBot_TagType::Vec)
+              _h["tagEfficiency_Vector_in"]->fill(j.pt());
+            else if (_mode == 2)
+              _h["tagEfficiency_Vector_out"]->fill(j.pt());
+            if (_mode == 3 && tag == MCBot_TagType::Higgs)
+              _h["tagEfficiency_Higgs_in"]->fill(j.pt());
+            else if (_mode == 3)
+              _h["tagEfficiency_Higgs_out"]->fill(j.pt());
+            if (_mode == 4 && tag == MCBot_TagType::top)
+              _h["tagEfficiency_Top_in"]->fill(j.pt());
+            else if (_mode == 4)
+              _h["tagEfficiency_Top_out"]->fill(j.pt());
+            
+
+
+            // discriminant functions
+            //Case 1: The PV function
+            if (PV > _threshold.at("PV") && PH > _threshold.at("PH") && Ptop < _threshold.at("Pt")
+              && (_mode == 2 || _mode == 3)){
+                _h["VH_discriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_H")));
+            }
+            //Case 2: The Vt function.
+            if (PV > _threshold.at("PV") && PH < _threshold.at("PH") && Ptop > _threshold.at("Pt")
+              && (_mode == 2 || _mode == 4 )){
+              _h["Vt_discriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_top")));
+            }
+            //Case 3: The Ht function.
+            if (PV < _threshold.at("PV") && PH > _threshold.at("PH") && Ptop > _threshold.at("Pt")
+              && ( _mode == 3 || _mode == 4 )){
+                _h["Ht_discriminant"]->fill(log10(outputs.at("dnnOutput_H")/outputs.at("dnnOutput_top")));
+            }
+            //Case 4: The triple-tag plot.
+            if (PV > _threshold.at("PV") && PH > _threshold.at("PH") && Ptop > _threshold.at("Pt")){
+              _h["TripleDiscriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_top")));
+            }
+          }
+
+          //Variable-R Reclustered Jet Masses:
+          _h["mVRC"]->fill(j.m());
+          if (_mode == 3){
+            _h["mVRC_trueHiggs"]->fill(j.m());
+            if (tag == MCBot_TagType::Higgs){
+              _h["mVRC_trueHiggsTaggedHiggs"]->fill(j.m());
+            }
+          } else if (_mode == 2){
+            _h["mVRC_trueVector"]->fill(j.m());
+            if (tag == MCBot_TagType::Vec){
+              _h["mVRC_trueVectorTaggedVector"]->fill(j.m());
+            }
+          }
+          else if (_mode == 4){
+            _h["mVRC_trueTop"]->fill(j.m());
+            if (tag == MCBot_TagType::top){
+              _h["mVRC_trueTopTaggedTop"]->fill(j.m());
+            }
+          }
+          else if (_mode == 1){
+            _h["mVRC_truebkg"]->fill(j.m());
+            if (tag == MCBot_TagType::Higgs){
+              _h["mVRC_truebkgTaggedHiggs"]->fill(j.m());
+            }
+            else if (tag == MCBot_TagType::Vec){
+              _h["mVRC_truebkgTaggedVector"]->fill(j.m());
+            }
+            else if (tag == MCBot_TagType::top){
+              _h["mVRC_truebkgTaggedTop"]->fill(j.m());
             }
             else {
-              MSG_WARNING("FAILED TO FIND CONSTITUENT");
+              _h["mVRC_truebkgTaggedbkg"]->fill(j.m());
             }
-          }
-
-
-          //We need to make sure that the tagged constituents are still pT ordered
-          isortByPt(tagged_constituents);
-
-          const size_t nConstits = tagged_constituents.size();
-
-          //Evaluate the Neural Net and the P-scores.
-          const std::map<string, double> NN_Input = {
-            {"rcjet_pt", j.pt()/MeV},
-            {"rcjet_numConstituents", static_cast<double>(tagged_constituents.size())},
-            {"rcjet_m", j.m()/MeV},
-            
-            //Lead Jet
-            {"sjet_1_mv2c10_binned", static_cast<double>(hasBTag()(tagged_constituents[0]))},
-            {"sjet_1_e", tagged_constituents[0].E()/MeV},
-            {"sjet_1_phi", tagged_constituents[0].phi()},
-            {"sjet_1_eta", tagged_constituents[0].eta()},
-            {"sjet_1_pt", tagged_constituents[0].pt()/MeV},
-
-            //Second Jet
-            {"sjet_2_mv2c10_binned", (nConstits > 1) ? static_cast<double>(hasBTag()(tagged_constituents[1])) : -1. },
-            {"sjet_2_e", (nConstits > 1) ? tagged_constituents[1].E()/MeV : 0. },
-            {"sjet_2_phi", (nConstits > 1) ? tagged_constituents[1].phi() : j.phi() },
-            {"sjet_2_eta", (nConstits > 1) ? tagged_constituents[1].eta() : j.eta() },
-            {"sjet_2_pt", (nConstits > 1) ? tagged_constituents[1].pt()/MeV : 0. },
-
-            //Second Jet
-            {"sjet_2_mv2c10_binned", (nConstits > 2) ? static_cast<double>(hasBTag()(tagged_constituents[2])) : -1. },
-            {"sjet_2_e", (nConstits > 2) ? tagged_constituents[2].E()/MeV : 0. },
-            {"sjet_2_phi", (nConstits > 2) ? tagged_constituents[2].phi() : j.phi() },
-            {"sjet_2_eta", (nConstits > 2) ? tagged_constituents[2].eta() : j.eta() },
-            {"sjet_2_pt", (nConstits > 2) ? tagged_constituents[2].pt()/MeV : 0. }
-          };
-
-          const std::map<string, double> outputs = _nn->compute(NN_Input);
-          JetTags.push_back(getTag(outputs));
-          
-          //If we're not in a validation mode, do validation stuff.
-          if (_mode > 0){
-            const MCBot_TagType tag =  getTag(outputs);
-
-            //distriminant function P for V, H, and top tagger
-            const double PV=log10(outputs.at("dnnOutput_V")/
-              (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_top")+0.05*outputs.at("dnnOutput_H")));
-            const double PH=log10(outputs.at("dnnOutput_H")/
-              (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_top")+0.05*outputs.at("dnnOutput_V")));
-            const double Ptop=log10(outputs.at("dnnOutput_top")/
-              (0.9*outputs.at("dnnOutput_light")+0.05*outputs.at("dnnOutput_V")+0.05*outputs.at("dnnOutput_H")));
-
-            _h["PV"]->fill(PV);
-            _h["PH"]->fill(PH);
-            _h["Ptop"]->fill(Ptop);
-
-
-            //MultiTag discriminant functions (see fig 4 of paper)
-            // Does not apply to bkg jets
-            if ( _mode > 1 ){
-              //Case 1: The PV function
-              if (PV > _threshold.at("PV") && PH > _threshold.at("PH") && Ptop < _threshold.at("Pt")
-                && (_mode == 2 || _mode == 3)){
-                  _h["VH_discriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_H")));
-              }
-              //Case 2: The Vt function.
-              if (PV > _threshold.at("PV") && PH < _threshold.at("PH") && Ptop > _threshold.at("Pt")
-                && (_mode == 2 || _mode == 4 )){
-                _h["Vt_discriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_top")));
-              }
-              //Case 3: The Ht function.
-              if (PV < _threshold.at("PV") && PH > _threshold.at("PH") && Ptop > _threshold.at("Pt")
-                && ( _mode == 3 || _mode == 4 )){
-                  _h["Ht_discriminant"]->fill(log10(outputs.at("dnnOutput_H")/outputs.at("dnnOutput_top")));
-              }
-              //Case 4: The triple-tag plot.
-              if (PV > _threshold.at("PV") && PH > _threshold.at("PH") && Ptop > _threshold.at("Pt")){
-                _h["TripleDiscriminant"]->fill(log10(outputs.at("dnnOutput_V")/outputs.at("dnnOutput_top")));
-              }
-            }
-
-            //Variable-R Reclustered Jet Masses:
-            _h["mVRC"]->fill(j.m());
-            if (_mode == 3){
-              _h["mVRC_trueHiggs"]->fill(j.m());
-              if (tag == MCBot_TagType::Higgs){
-                _h["mVRC_trueHiggsTaggedHiggs"]->fill(j.m());
-              }
-            } else if (_mode == 2){
-              _h["mVRC_trueVector"]->fill(j.m());
-              if (tag == MCBot_TagType::Vec){
-                _h["mVRC_trueVectorTaggedVector"]->fill(j.m());
-              }
-            }
-            else if (_mode == 4){
-              _h["mVRC_trueTop"]->fill(j.m());
-              if (tag == MCBot_TagType::top){
-                _h["mVRC_trueTopTaggedTop"]->fill(j.m());
-              }
-            }
-            else if (_mode == 1){
-              _h["mVRC_truebkg"]->fill(j.m());
-              if (tag == MCBot_TagType::Higgs){
-                _h["mVRC_truebkgTaggedHiggs"]->fill(j.m());
-              }
-              else if (tag == MCBot_TagType::Vec){
-                _h["mVRC_truebkgTaggedVector"]->fill(j.m());
-              }
-              else if (tag == MCBot_TagType::top){
-                _h["mVRC_truebkgTaggedTop"]->fill(j.m());
-              }
-              else {
-                _h["mVRC_truebkgTaggedbkg"]->fill(j.m());
-              }
-            }
-
           }
 
         }
 
-        //Now let's get on with the actual analysis
-
-
-
       }
+
+
       
 
+      //Now let's get on with the actual analysis
+      //Preselection
+      if (smeared_electrons.size() != 0){
+        vetoEvent;
+      }
+      if (smeared_muons.size() != 0){
+        vetoEvent;
+      }
+      //HT > 1250GeV
+      // HT = total scalar sum of the transverse momenta of all track particles and energy deposits
+      double HT = std::accumulate(smeared_small_jets.begin(), smeared_small_jets.end(), 0*GeV, 
+                                  [](double count, const Jet& nextjet){return (count+nextjet.pt());}); 
+      if (HT <= 1250*GeV){
+        vetoEvent;
+      }
+      //ETMiss < 200GeV and ETmiss > 40GeV
+      if (ETmiss <= 40*GeV || ETmiss >= 200*GeV){
+        vetoEvent;
+      }
+      //Four small jets 
+      if (smeared_small_jets.size() < 4){
+        vetoEvent;
+      }
+      //Minimum pT's for leading smalljets 
+      if (smeared_small_jets[0].pT() <= 300*GeV || smeared_small_jets[1].pT() <= 200*GeV ||
+        smeared_small_jets[2].pT() <= 125*GeV || smeared_small_jets[3].pT() <= 75*GeV){
+        vetoEvent;
+      }
+      //2 bjets
+      if (smeared_bjets.size() < 2){
+        vetoEvent;
+      }
+
+
+      //Two vRC jets tagged V or H
+      int nVtags = std::count_if(JetTags.begin(), JetTags.end(), 
+                                  [](const MCBot_TagType tt){return (tt == MCBot_TagType::Vec);});
+      int nHtags = std::count_if(JetTags.begin(), JetTags.end(), 
+                                  [](const MCBot_TagType tt){return (tt == MCBot_TagType::Higgs);});
+      int ntoptags = std::count_if(JetTags.begin(), JetTags.end(), 
+                                  [](const MCBot_TagType tt){return (tt == MCBot_TagType::top);});                              
+
+      if (nVtags + nHtags < 2){
+        vetoEvent;
+      }
+
+      //select signal/validation/control region.
+      //TODO: The pre-selection cuts say 2 or more (v or H) tagged jets, but each signal region requires only two.
+      // I also can't see some sort of tie-break procedure outlined (e.g. take tags of two highest pT jets)
+
+      //VV signal regions
+      if (nVtags == 2 && nHtags == 0 && ntoptags == 0 && smeared_bjets.size() == 2){
+        _sigBins["VV_0t_2b"]->fill();
+      }
+      else if (nVtags == 2 && nHtags == 0 && ntoptags == 0 && smeared_bjets.size() > 2){
+        _sigBins["VV_0t_3b"]->fill();
+      }
+      else if (nVtags == 2 && nHtags == 0 && ntoptags == 1 && smeared_bjets.size() == 2) {
+        _sigBins["VV_1t_2b"]->fill();
+      } 
+      else if (nVtags == 2 && nHtags == 0 && ntoptags == 1 && smeared_bjets.size() > 2) {
+        _sigBins["VV_1t_3b"]->fill();
+      }
+      //VH signal regions
+      else if (nVtags == 1 && nHtags == 1 && ntoptags == 0  && smeared_bjets.size() == 2){
+        _sigBins["VH_0t_2b"]->fill();
+      }
+      else if (nVtags == 1 && nHtags == 1 && ntoptags == 0 && smeared_bjets.size() > 2) {
+        _sigBins["VH_0t_3b"]->fill();
+      }
+      else if (nVtags == 1 && nHtags == 1 && ntoptags == 1 && smeared_bjets.size() == 2){
+        _sigBins["VH_1t_2b"]->fill();
+      }
+      else if (nVtags == 1 && nHtags == 1 && ntoptags == 1 && smeared_bjets.size() > 2 ) {
+        _sigBins["VH_1t_3b"]->fill();
+      }
+      //HH signal regions
+      else if (nVtags == 0 && nHtags == 2 && ntoptags == 0 && smeared_bjets.size() > 2){
+        _sigBins["HH_0t_3b"]->fill();
+      }
+      else if ( nVtags == 0 && nHtags == 2 && ntoptags == 1 && smeared_bjets.size() > 2){
+        _sigBins["HH_1t_3b"]->fill();
+      }
+      //XX signal regions.
+      //TODO: mild inconcistency between text and table: try both == and >= and see which match better the results...
+      else if (nVtags + nHtags == 2 && ntoptags >= 2 && smeared_bjets.size()==2){
+        _sigBins["XX_2t_2b"]->fill();
+      }
+      else if (nVtags + nHtags == 2 && ntoptags >= 2 && smeared_bjets.size()>=3){
+        _sigBins["XX_2t_3b"]->fill();
+      }
+
+
+      //Now cover the validation regions
+
+      //MultiJet Background Uncertainty Validation Regions (2)
+      //TODO: This makes no sense. They say there are two regions but define one?!?
+      //Possibly involves altering nVtags? But how?!
+      //If I had to guess, by symmetry its HH_1t_2b, but this contradicts the paper. Gong with it for now...
+      else if (smeared_bjets.size()==2 && nHtags == 2 && ntoptags == 0 && nVtags == 0){
+        _valBins["HH_0t_2b"]->fill();
+      }
+      else if (smeared_bjets.size()==2 && nHtags == 2 && ntoptags == 1 && nVtags == 0){
+        _valBins["HH_1t_2b"]->fill();
+      }
+      //Closure uncertainty validation regions (7)
+      if (nVtags == 2 && nHtags == 0 && ntoptags == 0 && smeared_bjets.size() == 1){
+        _valBins["VV_0t_1b"]->fill();
+      }
+      else if (nVtags == 2 && nHtags == 0 && ntoptags == 1 && smeared_bjets.size() == 1) {
+        _valBins["VV_1t_1b"]->fill();
+      } 
+      else if (nVtags == 1 && nHtags == 1 && ntoptags == 0  && smeared_bjets.size() == 1){
+        _valBins["VH_0t_1b"]->fill();
+      } 
+      else if (nVtags == 1 && nHtags == 1 && ntoptags == 1 && smeared_bjets.size() == 1){
+        _valBins["VH_1t_1b"]->fill();
+      } 
+      else if (nVtags == 0 && nHtags == 2 && ntoptags == 0 && smeared_bjets.size() == 1){
+        _valBins["HH_0t_1b"]->fill();
+      } 
+      else if ( nVtags == 0 && nHtags == 2 && ntoptags == 1 && smeared_bjets.size() == 1){
+        _valBins["HH_1t_1b"]->fill();
+      }
+      else if (nVtags + nHtags == 2 && ntoptags >= 2 && smeared_bjets.size()==1){
+        _valBins["XX_2t_1b"]->fill();
+      }
 
 
     }
@@ -427,8 +605,97 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
+      //Calculate efficiencies/rejections:
+      // rejections
+      if (_mode == 1){
+        for (size_t i = 0; i < _h["bkgRejection_Vector_out"]->bins().size(); ++i){
+          _s["bkgRejection_Vector"]->addPoint(_h["bkgRejection_Vector_out"]->bins()[i].xMid(), 
+                                                  _h["bkgRejection_Vector_out"]->bins()[i].sumW()/_h["bkgRejection_Vector_in"]->bins()[i].sumW());
 
+          _s["bkgRejection_Higgs"]->addPoint(_h["bkgRejection_Higgs_out"]->bins()[i].xMid(), 
+                                                  _h["bkgRejection_Higgs_out"]->bins()[i].sumW()/_h["bkgRejection_Higgs_in"]->bins()[i].sumW());
+
+          _s["bkgRejection_Top"]->addPoint(_h["bkgRejection_Top_out"]->bins()[i].xMid(), 
+                                                  _h["bkgRejection_Top_out"]->bins()[i].sumW()/_h["bkgRejection_Top_in"]->bins()[i].sumW());
+        }
+      }
+
+      else if (_mode == 2){
+        //Efficiency for vectors
+        for (size_t i = 0; i < _h["tagEfficiency_Vector_in"]->bins().size(); ++i){
+          _s["tagEfficiency_Vector"]->addPoint(_h["tagEfficiency_Vector_in"]->bins()[i].xMid(), 
+                                                  _h["tagEfficiency_Vector_in"]->bins()[i].sumW()/
+                                                    (_h["tagEfficiency_Vector_in"]->bins()[i].sumW()+_h["tagEfficiency_Vector_out"]->bins()[i].sumW()));
+        }
+      }
+
+      else if (_mode == 3){
+        //Efficiency for Higgs
+        for (size_t i = 0; i < _h["tagEfficiency_Higgs_in"]->bins().size(); ++i){
+          _s["tagEfficiency_Higgs"]->addPoint(_h["tagEfficiency_Higgs_in"]->bins()[i].xMid(), 
+                                                  _h["tagEfficiency_Higgs_in"]->bins()[i].sumW()/
+                                                    (_h["tagEfficiency_Higgs_in"]->bins()[i].sumW()+_h["tagEfficiency_Higgs_out"]->bins()[i].sumW()));
+        }
+      }
+
+      else if (_mode == 4){
+        //Efficiency for Higgs
+        for (size_t i = 0; i < _h["tagEfficiency_Top_in"]->bins().size(); ++i){
+          _s["tagEfficiency_Top"]->addPoint(_h["tagEfficiency_Top_in"]->bins()[i].xMid(), 
+                                                  _h["tagEfficiency_Top_in"]->bins()[i].sumW()/
+                                                    (_h["tagEfficiency_Top_in"]->bins()[i].sumW()+_h["tagEfficiency_Top_out"]->bins()[i].sumW()));
+        }
+      }
+      
+
+      //Normalisations
+      if (_mode > 0){
+        if (_h["PV"]->integral() > 0){
+          _h["PV"]->normalize(1);
+        } if (_h["PH"]->integral() > 0){
+          _h["PH"]->normalize(1);
+        } if (_h["Ptop"]->integral() > 0){
+          _h["Ptop"]->normalize(1);
+        }
+        if (_h["VH_discriminant"]->integral() > 0){
+          _h["VH_discriminant"]->normalize(1);
+        } if (_h["Vt_discriminant"]->integral() > 0){
+          _h["Vt_discriminant"]->normalize(1);
+        } if (_h["Ht_discriminant"]->integral() > 0){
+          _h["Ht_discriminant"]->normalize(1);
+        } if (_h["TripleDiscriminant"]->integral() > 0){
+          _h["TripleDiscriminant"]->normalize(1);
+        }
+        if (_h["mVRC"]->integral() > 0){
+          _h["mVRC"]->normalize(1);
+        } if (_h["mVRC_trueHiggs"]->integral() > 0){
+          _h["mVRC_trueHiggs"]->normalize(1);
+        } if (_h["mVRC_trueVector"]->integral() > 0){
+          _h["mVRC_trueVector"]->normalize(1);
+        } if (_h["mVRC_trueTop"]->integral() > 0){
+          _h["mVRC_trueTop"]->normalize(1);
+        } if (_h["mVRC_truebkg"]->integral() > 0){
+          _h["mVRC_truebkg"]->normalize(1);
+        }
+        if (_h["mVRC_trueHiggsTaggedHiggs"]->integral() > 0){
+          _h["mVRC_trueHiggsTaggedHiggs"]->normalize(1);
+        } if (_h["mVRC_trueVectorTaggedVector"]->integral() > 0){
+          _h["mVRC_trueVectorTaggedVector"]->normalize(1);
+        } if (_h["mVRC_trueTopTaggedTop"]->integral() > 0){
+          _h["mVRC_trueTopTaggedTop"]->normalize(1);
+        }
+        if (_h["mVRC_truebkgTaggedHiggs"]->integral() > 0){
+          _h["mVRC_truebkgTaggedHiggs"]->normalize(1);
+        } if (_h["mVRC_truebkgTaggedVector"]->integral() > 0){
+          _h["mVRC_truebkgTaggedVector"]->normalize(1);
+        }if (_h["mVRC_truebkgTaggedTop"]->integral() > 0){
+          _h["mVRC_truebkgTaggedTop"]->normalize(1);
+        } if (_h["mVRC_truebkgTaggedbkg"]->integral() > 0){
+          _h["mVRC_truebkgTaggedbkg"]->normalize(1);
+        }
+      }
     }
+
 
     /// @}
 
@@ -534,6 +801,7 @@ namespace Rivet {
     }
 
 
+      
     /// @}
 
     /// @name Member variables
