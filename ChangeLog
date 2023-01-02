@@ -1,3 +1,7 @@
+2023-01-02 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add A2_2014_I1297221 eta -> pi0 gamma gamma
+
 2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow linspace() and aspace() to make reversed edge-sets with start > end.
