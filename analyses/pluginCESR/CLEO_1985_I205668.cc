@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief Spectra in Upsilon(1S) decay and nearby continuum
   class CLEO_1985_I205668 : public Analysis {
   public:
 
@@ -28,9 +28,7 @@ namespace Rivet {
       // multiplcities
       for(unsigned int ix=0;ix<2;++ix) {
 	for(unsigned int iy=0;iy<12;++iy) {
-	  std::ostringstream title;
-	  title << "/TMP/MULT_" << ix << "_" << iy;
-	  book(_mult[ix][iy],title.str());
+	  book(_mult[ix][iy],"/TMP/MULT_" +toString(ix) + "_" +toString(iy));
 	}
       }
       // cont spectra

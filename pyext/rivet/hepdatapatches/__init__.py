@@ -104,6 +104,7 @@ from . import MARKII_1988_I261194
 from . import MARKII_1991_I295286
 from . import MARKI_1975_I100733
 from . import MARKJ_1979_I141976
+from . import MD1_1994_I362599
 from . import NA22_1986_I18431
 from . import NMD_1974_I745
 from . import OPAL_1992_I321190
