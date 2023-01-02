@@ -381,8 +381,9 @@ namespace Rivet {
           };
 
           outputs = _nn->compute(NN_Input);
-          JetTags.push_back(getTag(outputs));
           tag =  getTag(outputs);
+          JetTags.push_back(tag);
+          
         }
         // Alternatively, the NN case
         else {
@@ -395,6 +396,7 @@ namespace Rivet {
           getVHandtop_fromEvent(Tops, event, {6});
 
           tag = get_efficiency_tag(j,Vectors,Higgses,Tops);
+          JetTags.push_back(tag);
         }
         
         
@@ -512,7 +514,6 @@ namespace Rivet {
         }
 
       }
-      
 
       
 
@@ -548,7 +549,6 @@ namespace Rivet {
       if (smeared_bjets.size() < 2){
         vetoEvent;
       }
-
 
       //Two vRC jets tagged V or H
       int nVtags = std::count_if(JetTags.begin(), JetTags.end(), 
