@@ -67,6 +67,10 @@ namespace Rivet {
         _mode = 4;
         MSG_DEBUG("Analysis ATLAS_2018_I1685207 running in VAL-TOP mode");
       }
+      else if (mode == "EFF-STD"){
+        _mode = -5;
+        MSG_DEBUG("Analysis ATLAS_2018_I1685207 running in EFF-STD mode");
+      }
       else if (mode == "EFF-VAL-BKG"){
         _mode = -1;
         MSG_DEBUG("Analysis ATLAS_2018_I1685207 running in EFF-VAL-BKG mode");
