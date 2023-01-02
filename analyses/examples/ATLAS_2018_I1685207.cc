@@ -206,9 +206,11 @@ namespace Rivet {
 
     }
 
-
+    
     /// Perform the per-event analysis
     void analyze(const Event& event) {
+      static int count = 0;
+      ++count;
 
       //Enforce 0-lepton veto.
       Particles smeared_electrons = apply<ParticleFinder>(event, "SmearedElec").particles();
@@ -259,7 +261,7 @@ namespace Rivet {
       PseudoJets signal; 
       vector<PseudoJets> SignalConstits;
       //STandard or background validation mode: everything is signal.
-      if (abs(_mode) < 2 || abs(_mode) == -5){
+      if (abs(_mode) < 2 || _mode == -5){
         signal = FilteredVRCjets;
         SignalConstits = FilteredNewConstits;
       }
@@ -383,7 +385,6 @@ namespace Rivet {
           outputs = _nn->compute(NN_Input);
           tag =  getTag(outputs);
           JetTags.push_back(tag);
-          
         }
         // Alternatively, the NN case
         else {
@@ -401,7 +402,7 @@ namespace Rivet {
         
         
         //If we're in a validation mode, do validation stuff.
-        if (abs(_mode) > 0 && _mode != -5){
+        if (_mode != 0 && _mode != -5){
           if (_mode > 0){
             //distriminant function P for V, H, and top tagger
             const double PV=log10(outputs.at("dnnOutput_V")/
@@ -1058,6 +1059,32 @@ namespace Rivet {
 
   };
 
+  // angular smearing function: building on JET_SMEAR_ATLAS_RUN2 
+  Jet JET_SMEAR_ANGULAR(const Jet& j) {
+    // Jet energy resolution lookup
+    //   original -- Implemented by Matthias Danninger for GAMBIT, based roughly on
+    //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
+    //   Parameterisation can be still improved, but eta dependence is minimal
+    /// @todo Also need a JES uncertainty component?
+    static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
+    static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
+    const int ipt = binIndex(j.pt()/GeV, binedges_pt, true);
+    if (ipt < 0) return j;
+    const double resolution = jer.at(ipt);
+
+    // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
+    /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
+    const double fsmear = max(randnorm(1., resolution), 0.); 
+    const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness...
+    
+    Jet j1(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
+
+    // smearing in eta-phi -- customize the standard deviation in randnorm...
+    double dsmear = max(randnorm(0., 0.1), 0.);
+    double theta = rand01() * M_2_PI;
+    
+    return Jet(FourMomentum::mkEtaPhiME(j.eta()+dsmear*cos(theta), mapAngle0To2Pi(j.phi()+dsmear*sin(theta)), j1.mass(), j1.E()));  
+  }
 
   RIVET_DECLARE_PLUGIN(ATLAS_2018_I1685207);
 
