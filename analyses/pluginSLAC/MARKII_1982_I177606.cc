@@ -19,7 +19,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
+      declare(UnstableParticles(Cuts::abspid==413), "UFS");
       //Histograms
       book(_h_spect[0],2,1,1);
       book(_h_spect[1],3,1,1);
@@ -29,7 +29,7 @@ namespace Rivet {
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       const UnstableParticles& ufs = apply<UnstableParticles>(event, "UFS");
-      for (const Particle& p : ufs.particles(Cuts::abspid==413)) {
+      for (const Particle& p : ufs.particles()) {
 	const double xp = 2.*p.E()/sqrtS();
 	const double beta = p.p3().mod() / p.E();
 	_h_spect[0]->fill(xp,1./beta);
