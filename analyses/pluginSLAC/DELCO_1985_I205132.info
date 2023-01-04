@@ -1,0 +1,34 @@
+Name: DELCO_1985_I205132
+Year: 1985
+Summary: $D^{*+}$ spectrum at 29 GeV 
+Experiment: DELCO
+Collider: PEP
+InspireID: 205132
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 54 (1985) 522-525
+RunInfo: e+ e- > hadrons
+Beams: [e+, e-]
+Energies: [29.]
+Description:
+  'Measurement of the $D^{*+}$ spectrum in $e^+e^-$ collisions at $\sqrt{s}=29$ GeV'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Yamamoto:1984jp
+BibTeX: '@article{Yamamoto:1984jp,
+    author = "Yamamoto, H. and others",
+    title = "{Charged $D^*$ Production in $e^+ e^-$ Annihilation at 29-{GeV} and a Limit on D0 - Anti-d0 Mixing}",
+    reportNumber = "SLAC-PUB-3498, CALT-68-1206",
+    doi = "10.1103/PhysRevLett.54.522",
+    journal = "Phys. Rev. Lett.",
+    volume = "54",
+    pages = "522--525",
+    year = "1985"
+}
+'
