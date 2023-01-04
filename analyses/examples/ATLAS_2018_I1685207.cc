@@ -13,7 +13,40 @@
 #include "fastjet/tools/Filter.hh"
 
 
+
+
 namespace Rivet {
+
+  // angular smearing function: building on JET_SMEAR_ATLAS_RUN2 
+  Jet JET_SMEAR_ANGULAR(const Jet& j) {
+    // Jet energy resolution lookup
+    //   original -- Implemented by Matthias Danninger for GAMBIT, based roughly on
+    //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
+    //   Parameterisation can be still improved, but eta dependence is minimal
+    /// @todo Also need a JES uncertainty component?
+    static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
+    static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
+    const int ipt = binIndex(j.pt()/GeV, binedges_pt, true);
+    if (ipt < 0) return j;
+    const double resolution = jer.at(ipt);
+
+    // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
+    /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
+    const double fsmear = max(randnorm(1., resolution), 0.); 
+    const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness...
+    
+    Jet j1(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
+
+    // smearing in eta-phi -- customize the standard deviation in randnorm...
+    double dsmear = max(randnorm(0., 0.1), 0.);
+    double theta = rand01() * M_2_PI;
+    
+    return Jet(FourMomentum::mkEtaPhiME(j.eta()+dsmear*cos(theta), mapAngle0To2Pi(j.phi()+dsmear*sin(theta)), j1.mass(), j1.E()));  
+  }
+
+  Jet JET_SMEAR_COMBO(const Jet& j){
+    return JET_SMEAR_ATLAS_RUN2(JET_SMEAR_ANGULAR(j));
+  }
 
   enum MCBot_TagType{
     Bkg,
@@ -651,7 +684,16 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      //Calculate efficiencies/rejections:
+      //Normalise sig/val region counts to XS
+      const double sf = crossSection()*luminosity()/sumW();
+      for (const string& s : _sigRegionNames ){
+        _sigBins[s]->scaleW(sf);
+      }
+      for (const string& s : _controlRegionNames){
+        _valBins[s]->scaleW(sf);
+      }
+
+      //Calculate efficiencies/rejections (NN, Vaidation only):
       // rejections
       if (_mode == 1){
         for (size_t i = 0; i < _h["bkgRejection_Vector_out"]->bins().size(); ++i){
@@ -665,7 +707,6 @@ namespace Rivet {
                                                   _h["bkgRejection_Top_out"]->bins()[i].sumW()/_h["bkgRejection_Top_in"]->bins()[i].sumW());
         }
       }
-
       else if (_mode == 2){
         //Efficiency for vectors
         for (size_t i = 0; i < _h["tagEfficiency_Vector_in"]->bins().size(); ++i){
@@ -674,7 +715,6 @@ namespace Rivet {
                                                     (_h["tagEfficiency_Vector_in"]->bins()[i].sumW()+_h["tagEfficiency_Vector_out"]->bins()[i].sumW()));
         }
       }
-
       else if (_mode == 3){
         //Efficiency for Higgs
         for (size_t i = 0; i < _h["tagEfficiency_Higgs_in"]->bins().size(); ++i){
@@ -683,7 +723,6 @@ namespace Rivet {
                                                     (_h["tagEfficiency_Higgs_in"]->bins()[i].sumW()+_h["tagEfficiency_Higgs_out"]->bins()[i].sumW()));
         }
       }
-
       else if (_mode == 4){
         //Efficiency for Higgs
         for (size_t i = 0; i < _h["tagEfficiency_Top_in"]->bins().size(); ++i){
@@ -694,7 +733,7 @@ namespace Rivet {
       }
       
 
-      //Normalisations
+      //Validation Plot Normalisation.
       if (_mode > 0){
         if (_h["PV"]->integral() > 0){
           _h["PV"]->normalize(1);
@@ -1054,37 +1093,20 @@ namespace Rivet {
     std::unique_ptr<lwt::LightweightNeuralNetwork> _nn;  
     const std::map<string, double> _threshold = {{"PV", -0.2}, {"PH", 0.35}, {"Pt", 0.1}};
     const std::map<string, double> _tiebreak_thresholds = {{"t_V", -0.3}, {"H_V", -0.55}, {"t_H", 0.2}};
+    //List of sig/control region names for easy iteration:
+    const std::vector<string> _sigRegionNames = {"VV_0t_2b", "VV_0t_3b", "VV_1t_2b", "VV_1t_3b",
+                                                 "VH_0t_2b", "VH_0t_3b", "VH_1t_2b", "VH_1t_3b",
+                                                 "HH_0t_3b", "HH_1t_3b", "XX_2t_2b", "XX_2t_3b"};
+    const std::vector<string> _controlRegionNames = {"HH_0t_2b", "HH_1t_2b",
+                                                     "VV_0t_1b", "VV_1t_1b",
+                                                     "VH_0t_1b", "VH_1t_1b",
+                                                     "HH_0t_1b", "HH_1t_1b", "XX_2t_1b"};
 
     /// @}
 
   };
 
-  // angular smearing function: building on JET_SMEAR_ATLAS_RUN2 
-  Jet JET_SMEAR_ANGULAR(const Jet& j) {
-    // Jet energy resolution lookup
-    //   original -- Implemented by Matthias Danninger for GAMBIT, based roughly on
-    //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
-    //   Parameterisation can be still improved, but eta dependence is minimal
-    /// @todo Also need a JES uncertainty component?
-    static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
-    static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
-    const int ipt = binIndex(j.pt()/GeV, binedges_pt, true);
-    if (ipt < 0) return j;
-    const double resolution = jer.at(ipt);
-
-    // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
-    /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
-    const double fsmear = max(randnorm(1., resolution), 0.); 
-    const double mass = j.mass2() > 0 ? j.mass() : 0; //< numerical carefulness...
-    
-    Jet j1(FourMomentum::mkXYZM(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, mass));
-
-    // smearing in eta-phi -- customize the standard deviation in randnorm...
-    double dsmear = max(randnorm(0., 0.1), 0.);
-    double theta = rand01() * M_2_PI;
-    
-    return Jet(FourMomentum::mkEtaPhiME(j.eta()+dsmear*cos(theta), mapAngle0To2Pi(j.phi()+dsmear*sin(theta)), j1.mass(), j1.E()));  
-  }
+ 
 
   RIVET_DECLARE_PLUGIN(ATLAS_2018_I1685207);
 
