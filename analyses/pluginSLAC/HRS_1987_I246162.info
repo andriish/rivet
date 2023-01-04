@@ -1,0 +1,35 @@
+Name: HRS_1987_I246162
+Year: 1987
+Summary: $\Sigma^{*\pm}$ and $\Xi^-$ spectra at 29 GeV
+Experiment: HRS
+Collider: PEP
+InspireID: 246162
+Status: VALIDATED 
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 58 (1987) 2627
+RunInfo: e+ e- -> hadrons
+Beams: [e+, e-]
+Energies: [29.]
+Description:
+  'Measurement of the  $\Sigma^{*\pm}$ and $\Xi^-$ spectra at 29 GeV'
+ValidationInfo:
+  'Herwig7 events $\Sigma^{*\pm}$ and $\Xi^-$ spectra at 29 GeV'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Abachi:1987ac
+BibTeX: '@article{Abachi:1987ac,
+    author = "Abachi, S. and others",
+    title = "{Production of Strange Baryons in $e^+ e^-$ Annihilations at 29-{GeV}}",
+    reportNumber = "ANL-HEP-PR-87-26, IUHEE-87-4, PU-87-591, UM-HE-87-06",
+    doi = "10.1103/PhysRevLett.58.2627",
+    journal = "Phys. Rev. Lett.",
+    volume = "58",
+    pages = "2627",
+    year = "1987",
+    note = "[Erratum: Phys.Rev.Lett. 59, 2388 (1987)]"
+}
+'
