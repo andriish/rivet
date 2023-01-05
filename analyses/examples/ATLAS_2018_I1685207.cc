@@ -186,8 +186,8 @@ namespace Rivet {
       
       if (_mode > 0){
         //Validation mode NN histograms
-        book(_h["PV"], "PV", 45,-3,1.5);
-        book(_h["PH"], "PH", 55,-3,2.5);
+        book(_h["PV"], "PV", 43,-2.8,1.5);
+        book(_h["PH"], "PH", 53,-2.8,2.5);
         book(_h["Ptop"], "Ptop", 55,-3,2.5);
 
         book(_h["Vt_discriminant"], "Vt_discriminant", 30, -1.5, 1.5);
