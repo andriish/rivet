@@ -6,16 +6,14 @@ namespace Rivet {
   CmpState DecayedParticles::compare(const Projection& p) const {
     const DecayedParticles& other = dynamic_cast<const DecayedParticles&>(p);
     // Compare particles definitions
-    const CmpState teq = mkPCmp(other, "Particles");
+    const CmpState teq = mkPCmp(other, "PARTICLES");
     if (teq != CmpState::EQ) return teq;
-
     // Compare set of stable particles 
     const CmpState nfeq = cmp(_stable.size(), other._stable.size());
     if (nfeq != CmpState::EQ) return nfeq;
     for(const PdgId & pid : _stable) {
       if (other._stable.find(pid)==other._stable.end()) return CmpState::NEQ;
     }
-    
     // If we got this far, we're equal
     return CmpState::EQ;
   }
@@ -39,12 +37,14 @@ namespace Rivet {
 
   /// Perform the particle and decay product finding
   void DecayedParticles::project(const Event& e) {
+    Particles part = apply<ParticleFinder>(e, "PARTICLES").particles();
     // clear the storage and get the new particles
-    _decaying.clear();
-    _decaying = apply<ParticleFinder>(e, "PARTICLES").particles();
-    _nStable.clear();  _nStable.reserve(_decaying.size());
-    _products.clear(); _products.reserve(_decaying.size());
-    for (const Particle& p : _decaying) {
+    _decaying.clear(); _decaying.reserve(part.size());
+    _nStable.clear();  _nStable.reserve(part.size());
+    _products.clear(); _products.reserve(part.size());
+    for (const Particle& p : part) {
+      if(p.children().size()<=1) continue;
+      _decaying.push_back(p);
       unsigned int nstable(0);
       map<PdgId,Particles> products;
       findDecayProducts(p,nstable,products);

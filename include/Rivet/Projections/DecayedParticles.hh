@@ -39,17 +39,17 @@ namespace Rivet {
     /**
      *  Access to the decaying particles
      */
-    const Particles & decaying() {return _decaying;}
+    const Particles & decaying() const {return _decaying;}
 
     /**
      *  Access to the number of stable particles
      */
-    const vector<unsigned int> & nStable() {return _nStable;}
+    const vector<unsigned int> & nStable() const {return _nStable;}
 
     /**
      *  Access to the decay products
      */
-    const vector<map<PdgId,Particles> > & decayProducts() {return _products;}
+    const vector<map<PdgId,Particles> > & decayProducts() const {return _products;}
 
     /**
      *  Check the particles in the ith mode
