@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
@@ -18,10 +19,16 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
-      
+      UnstableParticles ufs = UnstableParticles(Cuts::abspid==411 or
+						Cuts::abspid==421);
+      declare(ufs, "UFS");
+      DecayedParticles DD(ufs);
+      DD.addStable(PID::PI0);
+      DD.addStable(PID::K0S);
+      declare(DD, "DD");
+
+      // histos
       book(_h_1_Kmpip,1,1,1);
       book(_h_1_pipi ,1,1,2);
       book(_h_1_Kmpi0,1,1,3);
@@ -44,88 +51,62 @@ namespace Rivet {
       
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable,
-			   Particles & pip , Particles & pim , Particles & pi0  ,
-			   Particles & Kp  , Particles & Km  , Particles & K0) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if ( id == PID::KPLUS ) {
-       	  Kp.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::KMINUS ) {
-	  Km.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIPLUS) {
-	  pip.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIMINUS) {
-	  pim.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PI0) {
-	  pi0.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::K0S) {
-	  K0.push_back(p);
-          ++nstable;
-        }
-	else if ( !p.children().empty() ) {
-	  findDecayProducts(p, nstable, pip, pim, pi0, Kp , Km, K0);
-	}
-	else
-	  ++nstable;
-      }
-    }
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").
-	    particles(Cuts::abspid== 411 ||Cuts::abspid== 421)) {
-	unsigned int nstable(0);
-	Particles pip, pim, pi0, Kp , Km, K0;
-	findDecayProducts(meson, nstable, pip, pim, pi0, Kp , Km, K0);
-	if(nstable !=3) continue;
-	if(meson.pid()<0) {
-	  swap(pim,pip);
-	  swap(Kp,Km);
-	}
-	if(abs(meson.pid())==421) {
-	  if (pip.size()==1&&Km.size()==1&&pi0.size()==1) {
-	    double mneut  = (Km[0].momentum()+pip[0].momentum()).mass2();
-	    double mminus = (Km[0].momentum()+pi0[0].momentum()).mass2();
-	    double mpipi  = (pip[0].momentum()+pi0[0].momentum()).mass2();
+      static const map<PdgId,unsigned int> & mode1   = { { 211,1}, {-321,1}, {111,1} };
+      static const map<PdgId,unsigned int> & mode1CC = { {-211,1}, { 321,1}, {111,1} };
+      static const map<PdgId,unsigned int> & mode2   = { { 211,1}, {-211,1}, {310,1} };
+      static const map<PdgId,unsigned int> & mode3   = { { 211,1}, { 111,1}, {310,1} };
+      static const map<PdgId,unsigned int> & mode3CC = { {-211,1}, { 111,1}, {310,1} };
+      static const map<PdgId,unsigned int> & mode4   = { { 211,2}, {-321,1} };
+      static const map<PdgId,unsigned int> & mode4CC = { {-211,2}, { 321,1} };
+      DecayedParticles DD = apply<DecayedParticles>(event, "DD");
+      for(unsigned int ix=0;ix<DD.decaying().size();++ix) {
+	int sign = DD.decaying()[ix].pid()/DD.decaying()[ix].abspid();
+	if(DD.decaying()[ix].abspid()==421) {
+	  if ( DD.modeMatches(ix,3,mode1  ) || DD.modeMatches(ix,3,mode1CC)) {
+	    const Particle & pi0 = DD.decayProducts()[ix].at(      111)[0];
+	    const Particle & pip = DD.decayProducts()[ix].at( sign*211)[0];
+	    const Particle & Km  = DD.decayProducts()[ix].at(-sign*321)[0];
+	    double mneut  = (Km.momentum()+pip.momentum()).mass2();
+	    double mminus = (Km.momentum()+pi0.momentum()).mass2();
+	    double mpipi  = (pip.momentum()+pi0.momentum()).mass2();
 	    _h_1_Kmpip->fill(mneut );
 	    _h_1_pipi ->fill(mpipi );
 	    _h_1_Kmpi0->fill(mminus);
 	    _dalitz1  ->fill(mminus,mpipi);
 	  }
-	  else if(pim.size()==1&&pip.size()==1&&K0.size()==1) {
-	    double mminus = (pim[0].momentum()+K0[0].momentum() ).mass2();
-	    double mplus  = (pip[0].momentum()+K0[0].momentum() ).mass2();
-	    double mpipi  = (pip[0].momentum()+pim[0].momentum()).mass2();
+	  else if ( DD.modeMatches(ix,3,mode2  )) {
+	    const Particle & K0  = DD.decayProducts()[ix].at(      310)[0];
+	    const Particle & pip = DD.decayProducts()[ix].at( sign*211)[0];
+	    const Particle & pim = DD.decayProducts()[ix].at(-sign*221)[0];
+	    double mminus = (pim.momentum()+K0.momentum() ).mass2();
+	    double mplus  = (pip.momentum()+K0.momentum() ).mass2();
+	    double mpipi  = (pip.momentum()+pim.momentum()).mass2();
 	    _h_2_K0pip->fill(mplus);
 	    _h_2_K0pim->fill(mminus);
 	    _h_2_pipi ->fill(mpipi);
 	    _dalitz2  ->fill(mminus,mpipi); 
 	  }
 	}
-	else if(abs(meson.pid())==411) {
-	  if (pip.size()==1&&pi0.size()==1&&K0.size()==1) {
-	    double mminus = (K0[0].momentum()+pip[0].momentum()).mass2();
-	    double mplus  = (K0[0].momentum()+pi0[0].momentum()).mass2();
-	    double mpipi  = (pip[0].momentum()+pi0[0].momentum()).mass2();
+	else if(DD.decaying()[ix].abspid()==411) {
+	  if(DD.modeMatches(ix,3,mode3  ) || DD.modeMatches(ix,3,mode3CC)) {
+	    const Particle & pi0 = DD.decayProducts()[ix].at(      111)[0];
+	    const Particle & K0  = DD.decayProducts()[ix].at(      310)[0];
+	    const Particle & pip = DD.decayProducts()[ix].at( sign*211)[0];
+	    double mminus = (K0.momentum()+pip.momentum()).mass2();
+	    double mplus  = (K0.momentum()+pi0.momentum()).mass2();
+	    double mpipi  = (pip.momentum()+pi0.momentum()).mass2();
 	    _h_3_K0pip->fill( mminus);
 	    _h_3_pipi ->fill( mpipi );
 	    _h_3_K0pi0->fill( mplus );
 	    _dalitz3  ->fill(mplus,mpipi);
 	  }
-	  else if(pip.size()==2&&Km.size()==1) {
-	    double mplus  = (Km[0].momentum() +pip[0].momentum()).mass2();
-	    double mminus = (Km[0].momentum() +pip[1].momentum()).mass2();
+	  else if(DD.modeMatches(ix,3,mode4  ) || DD.modeMatches(ix,3,mode4CC)) {
+	    const Particles & pip = DD.decayProducts()[ix].at( sign*211);
+	    const Particle  & Km  = DD.decayProducts()[ix].at(-sign*321)[0];
+	    double mplus  = (Km.momentum() +pip[0].momentum()).mass2();
+	    double mminus = (Km.momentum() +pip[1].momentum()).mass2();
 	    double mpipi  = (pip[0].momentum()+pip[1].momentum()).mass2();
 	    if(mplus<mminus) swap(mplus,mminus);
 	    _h_4_Kmpip[1]->fill(mminus);

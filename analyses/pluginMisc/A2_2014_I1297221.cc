@@ -25,7 +25,6 @@ namespace Rivet {
       DecayedParticles ETA(ufs);
       ETA.addStable(PID::PI0);
       ETA.addStable(PID::K0S);
-      ETA.addStable(PID::ETA);
       declare(ETA, "ETA");
       // histos
       for(unsigned int ix=0;ix<3;++ix) book(_h[ix],1,1,1+ix);

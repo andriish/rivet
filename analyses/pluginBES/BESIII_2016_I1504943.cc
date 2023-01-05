@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -18,56 +19,35 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
-
+      UnstableParticles ufs = UnstableParticles(Cuts::pid==331);
+      declare(ufs, "UFS");
+      DecayedParticles ETA(ufs);
+      ETA.addStable(PID::PI0);
+      ETA.addStable(PID::K0S);
+      declare(ETA, "ETA");
       // Book histograms
       for(unsigned int ix=0;ix<3;++ix)
 	book(_h_br[ix],1,1,1+ix);
       book(_h_m, 2, 1, 1);
       book(_netap, "TMP/netap");
     }
-    
-    void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & ngamma, 
-                           unsigned int & npi0, FourMomentum & pgamma,
-			   bool &omega, bool &nr) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if (id == PID::PI0 ) {
-	  ++npi0;
-          ++nstable;
-	}
-        else if (id == PID::GAMMA) {
-          ++ngamma;
-          ++nstable;
-	  pgamma += p.momentum();
-        }
-        else if ( !p.children().empty() ) {
-	  if (p.pid()==223) omega=true;
-	  nr = false;
-	  findDecayProducts(p, nstable, ngamma,npi0,pgamma,omega,nr);
-        }
-	else
-	  ++nstable;
-      }
-    }
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      // Loop over eta' mesons
-      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==331)) {
-	unsigned nstable(0),ngamma(0),npi0(0);
-	bool omega(false),nr(true);
-	FourMomentum pgamma;
-	findDecayProducts(p,nstable,ngamma,npi0,pgamma,omega,nr);
+      static const map<PdgId,unsigned int> & mode   = { {111,1}, { 22,2} };
+      DecayedParticles ETA = apply<DecayedParticles>(event, "ETA");
+      // loop over particles
+      for(unsigned int ix=0;ix<ETA.decaying().size();++ix) {
 	_netap->fill();
-	if(nstable==3 && npi0==1 && ngamma==2) {
-	  _h_m->fill(pgamma.mass2());
-	  _h_br[0]->fill(.5);
-	  if(omega) _h_br[1]->fill(.5);
-	  if(nr) _h_br[2]->fill(0.5);
-	}
+	// select right decay mode
+	if ( !ETA.modeMatches(ix,3,mode)) continue;
+	const Particles & gam = ETA.decayProducts()[ix].at(22);
+	double mass2 = (gam[0].momentum()+gam[1].momentum()).mass2();
+	_h_m->fill(mass2);
+	_h_br[0]->fill(.5);
+	if(any(ETA.decaying()[ix].children(), hasAbsPID(PID::OMEGA))) _h_br[1]->fill(.5);
+	if(ETA.decaying()[ix].children().size()==3) _h_br[2]->fill(0.5);
       }
     }
 
