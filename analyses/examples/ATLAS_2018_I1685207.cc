@@ -685,7 +685,9 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       //Normalise sig/val region counts to XS
-      const double sf = crossSection()*luminosity()/sumW();
+      //TODO: luminosityfb(), luminosity() don't seem to work.
+      //Hardcoded for now.
+      const double sf = 1000*crossSection()*(36.1)/sumW();
       for (const string& s : _sigRegionNames ){
         _sigBins[s]->scaleW(sf);
       }
