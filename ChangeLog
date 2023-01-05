@@ -182,6 +182,10 @@
 	* Fix various labelling issues in ATLAS_2019_I1736531, ATLAS_2019_I1740909,
 	ATLAS_2019_I1750330 and ATLAS_2019_I1772062 as reported by Natalia Korneeva
 
+2022-05-27 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add BABAR_2016_I1441203 D0->pi+pi-pi0
+
 2022-05-26 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BABAR_2007_I747154 D0->pi+pi-pi0
