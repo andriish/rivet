@@ -700,13 +700,16 @@ namespace Rivet {
       if (_mode == 1){
         for (size_t i = 0; i < _h["bkgRejection_Vector_out"]->bins().size(); ++i){
           _s["bkgRejection_Vector"]->addPoint(_h["bkgRejection_Vector_out"]->bins()[i].xMid(), 
-                                                  _h["bkgRejection_Vector_out"]->bins()[i].sumW()/_h["bkgRejection_Vector_in"]->bins()[i].sumW());
+                                                  ((_h["bkgRejection_Vector_out"]->bins()[i].sumW()+_h["bkgRejection_Vector_in"]->bins()[i].sumW())
+                                                    /_h["bkgRejection_Vector_in"]->bins()[i].sumW()));
 
           _s["bkgRejection_Higgs"]->addPoint(_h["bkgRejection_Higgs_out"]->bins()[i].xMid(), 
-                                                  _h["bkgRejection_Higgs_out"]->bins()[i].sumW()/_h["bkgRejection_Higgs_in"]->bins()[i].sumW());
+                                                  ((_h["bkgRejection_Higgs_out"]->bins()[i].sumW()+_h["bkgRejection_Higgs_in"]->bins()[i].sumW())
+                                                    /_h["bkgRejection_Higgs_in"]->bins()[i].sumW()));
 
           _s["bkgRejection_Top"]->addPoint(_h["bkgRejection_Top_out"]->bins()[i].xMid(), 
-                                                  _h["bkgRejection_Top_out"]->bins()[i].sumW()/_h["bkgRejection_Top_in"]->bins()[i].sumW());
+                                                  ((_h["bkgRejection_Top_out"]->bins()[i].sumW()+_h["bkgRejection_Top_in"]->bins()[i].sumW())
+                                                    /_h["bkgRejection_Top_in"]->bins()[i].sumW()));
         }
       }
       else if (_mode == 2){
