@@ -166,11 +166,6 @@
 	* Add CLEO_2008_I791716 D+ -> K+ K- pi+
 	* Add LHCB_2019_I1720423 D+ -> K+ K+ K-
 
-2022-06-21  Jack Araz  <andy.buckley@cern.ch>
-
-	* Add HEPTopTagger interface (since made optional, with no-build
-	example analysis)
-
 2022-06-23 Peter Richardson <peter.richardson@durham.ac.uk>
 
 	* Add BESIII_2022_I2070086 D_s+ -> KS0 K+ pi0
@@ -182,6 +177,11 @@
 	* Add BESIII_2019_I1724547 D_s+ -> pi+ pi0 eta
 	* Add BESIII_2021_I1854317 D_s+ -> pi+ pi0 KS0
 	* Add BESIII_2022_I1945692 D_s+ -> KS0 KS0 pi+
+
+2022-06-21  Jack Araz  <andy.buckley@cern.ch>
+
+	* Add HEPTopTagger interface (since made optional, with no-build
+	example analysis)
 
 2022-06-21 Peter Richardson <peter.richardson@durham.ac.uk>
 
