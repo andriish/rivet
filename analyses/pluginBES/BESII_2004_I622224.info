@@ -16,7 +16,6 @@ Beams: [e+,e-]
 Energies: [2.2,2.6,3.0,3.2,4.6,4.8]
 Options:
  - ENERGY=2.2,2.6,3.0,3.2,4.6,4.8
-Luminosity_fb: 
 Description:
   'Charged particle momentum distributions for energies between 2.2 and 4.8 GeV.
    Beam energy must be specified as analysis option "ENERGY" when rivet-merging samples.'

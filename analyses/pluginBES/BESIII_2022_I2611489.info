@@ -9,7 +9,7 @@ Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
- - Phys.Rev.Lett. 121 (2018) 25, 251801
+ - arXiv:2212.03753 [hep-ex]
 RunInfo: e+e -> hadrons
 Beams: [e+, e-]
 Energies: [4,6]
