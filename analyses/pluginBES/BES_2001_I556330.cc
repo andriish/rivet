@@ -1,10 +1,12 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief J/psi -> p pbar eta
   class BES_2001_I556330 : public Analysis {
   public:
 

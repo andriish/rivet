@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief psi(2S) -> p pbar eta
   class BESIII_2013_I1227512 : public Analysis {
   public:
 
