@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -18,54 +19,34 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
-
+      UnstableParticles ufs = UnstableParticles(Cuts::pid==331);
+      declare(ufs, "UFS");
+      DecayedParticles ETA(ufs);
+      ETA.addStable(PID::PI0);
+      declare(ETA, "ETA");
       // Book histograms
       book(_h_m, 1, 1, 3);
       book(_netap, "TMP/netap");
     }
-    
-    void findDecayProducts(const Particle & mother, unsigned int & nstable, unsigned int & ngamma, 
-                           unsigned int & nep, unsigned int & nem, FourMomentum & ptot) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if (id == PID::EMINUS ) {
-	  ++nem;
-          ++nstable;
-	  ptot += p.momentum();
-	}
-        else if (id == PID::EPLUS) {
-          ++nep;
-          ++nstable;
-	  ptot += p.momentum();
-        }
-        else if ( !p.children().empty() ) {
-          findDecayProducts(p, nstable, ngamma,nep,nem,ptot);
-        }
-        else if (id == PID::GAMMA) {
-	  ++ngamma;
-          ++nstable;
-        }
-        else
-          ++nstable;
-      }
-    }
-
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-
+      static const map<PdgId,unsigned int> & mode0  = { { 22,2} };
+      static const map<PdgId,unsigned int> & mode1  = { {11,1}, {-11,1}, { 22,1} };
       // Loop over eta' mesons
-      for (const Particle& p : apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==331)) {
-	unsigned nstable(0),ngamma(0),nep(0),nem(0);
-	FourMomentum ptot;
-	findDecayProducts(p,nstable,ngamma,nep,nem,ptot);
-	if(nstable==3 && nem==1 && nem==1 && ngamma==1)
-	  _h_m->fill(ptot.mass());
-	else if(nstable==2 &&ngamma==2)
-	  _netap->fill();
+      DecayedParticles ETA = apply<DecayedParticles>(event, "ETA");
+      // loop over particles
+      for(unsigned int ix=0;ix<ETA.decaying().size();++ix) {
+	// refewrnece mode for denominator
+	if(ETA.modeMatches(ix,2,mode0))
+	   _netap->fill();
+	// select right decay mode
+	else if ( ETA.modeMatches(ix,3,mode1)) {
+	  const Particle & ep = ETA.decayProducts()[ix].at( 11)[0];
+	  const Particle & em = ETA.decayProducts()[ix].at(-11)[0];
+	  _h_m->fill( (em.momentum()+ep.momentum()).mass());
+	}
       }
     }
 

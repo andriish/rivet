@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -18,63 +19,46 @@ namespace Rivet {
 
     /// Book histograms and initialise projections before the run
     void init() {
-      declare(UnstableParticles(), "UFS");
+      // Initialise and register projections
+      UnstableParticles ufs = UnstableParticles(Cuts::abspid==431);
+      declare(ufs, "UFS");
+      DecayedParticles DS(ufs);
+      DS.addStable(PID::PI0);
+      declare(DS,"DS");
+      // histos
       book(_h_pi0pi0,1,1,1);
       book(_h_pippi0,1,1,2);
       book(_dalitz, "dalitz",50,0.,3.5,50,0.,3.5);
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable,
-			   Particles & pi0 , 
-			   Particles & pip  , Particles & pim) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if ( id == PID::PIPLUS ) {
-       	  pip.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIMINUS ) {
-	  pim.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PI0) {
-	  pi0.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::K0S || id == PID::KPLUS || id == PID::KMINUS) {
-          ++nstable;
-        }
-	else if ( !p.children().empty() ) {
-	  findDecayProducts(p, nstable, pi0, pip , pim);
-	}
-	else
-	  ++nstable;
-      }
-    }
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").
-	    particles(Cuts::abspid== 431)) {
-	unsigned int nstable(0);
-	Particles pi0, pip , pim;
-	findDecayProducts(meson, nstable, pi0, pip , pim);
-	if(nstable !=3) continue;
-	if(meson.pid()<0) {
-	  swap(pip,pim);
+      static const map<PdgId,unsigned int> & mode   = { { 211,1},{ 111,2}};
+      static const map<PdgId,unsigned int> & modeCC = { {-211,1},{ 111,2}};
+      DecayedParticles DS = apply<DecayedParticles>(event, "DS");
+      // loop over particles
+      for(unsigned int ix=0;ix<DS.decaying().size();++ix) {
+	int sign = 1;
+	if (DS.decaying()[ix].pid()>0 && DS.modeMatches(ix,3,mode)) {
+	  sign=1;
 	}
-	if(pi0.size()==2&&pip.size()==1) {
-	  double mp1  = (pip[0].momentum() +pi0[0].momentum()).mass2();
-	  double mp2  = (pip[0].momentum() +pi0[1].momentum()).mass2();
-	  double m0   = (pi0[0].momentum() +pi0[1].momentum()).mass();
-	  _dalitz ->fill(mp1,mp2);
-	  _dalitz ->fill(mp2,mp1);
-	  // K_S0 veto
-	  if(m0>0.458 && m0<0.520) continue;
-	  _h_pippi0->fill(sqrt(mp1));
-	  _h_pippi0->fill(sqrt(mp2));
-	  _h_pi0pi0->fill(m0 );
+	else if  (DS.decaying()[ix].pid()<0 && DS.modeMatches(ix,3,modeCC)) {
+	  sign=-1;
 	}
+	else
+	  continue;
+	const Particles & pi0 = DS.decayProducts()[ix].at(      111);
+	const Particle  & pip = DS.decayProducts()[ix].at( sign*211)[0];
+	double mp1  = (pip   .momentum() +pi0[0].momentum()).mass2();
+	double mp2  = (pip   .momentum() +pi0[1].momentum()).mass2();
+	double m0   = (pi0[0].momentum() +pi0[1].momentum()).mass();
+	_dalitz ->fill(mp1,mp2);
+	_dalitz ->fill(mp2,mp1);
+	// K_S0 veto
+	if(m0>0.458 && m0<0.520) continue;
+	_h_pippi0->fill(sqrt(mp1));
+	_h_pippi0->fill(sqrt(mp2));
+	_h_pi0pi0->fill(m0 );
       }
     }
 

@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -19,75 +20,49 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
+      UnstableParticles ufs = UnstableParticles(Cuts::abspid==431);
+      declare(ufs, "UFS");
+      DecayedParticles DS(ufs);
+      DS.addStable(PID::PI0);
+      DS.addStable(PID::K0S);
+      declare(DS,"DS");
+      // histos
       for(unsigned int ix=0;ix<9;++ix)
 	book(_h[ix],1,1,1+ix);
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable,
-			   Particles & pip , Particles & pim , Particles & K0  ,
-			   Particles & Kp  , Particles & Km  ) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if ( id == PID::KPLUS ) {
-       	  Kp.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::KMINUS ) {
-	  Km.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIPLUS) {
-	  pip.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIMINUS) {
-	  pim.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::K0S) {
-	  K0.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PI0||id == PID::K0L) {
-          ++nstable;
-        }
-	else if ( !p.children().empty() ) {
-	  findDecayProducts(p, nstable, pip, pim, K0, Kp , Km);
-	}
-	else
-	  ++nstable;
-      }
-    }
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid== 431)) {
-	unsigned int nstable(0);
-	Particles pip, pim, K0, Kp , Km;
-	findDecayProducts(meson, nstable, pip, pim, K0, Kp , Km);
-	if (nstable!=4) continue;
-	if(meson.pid()<0) {
-	  swap(pim,pip);
-	  swap(Kp,Km);
+      static const map<PdgId,unsigned int> & mode   = { { 211,2}, {-321,1}, {310,1}};
+      static const map<PdgId,unsigned int> & modeCC = { { 211,2}, { 321,1}, {310,1}};
+      DecayedParticles DS = apply<DecayedParticles>(event, "DS");
+      // loop over particles
+      for(unsigned int ix=0;ix<DS.decaying().size();++ix) {
+	int sign = 1;
+	if (DS.decaying()[ix].pid()>0 && DS.modeMatches(ix,4,mode)) {
+	  sign=1;
 	}
-	if(pip.size()==2&&Km.size()==1&&K0.size()==1) {
-	  double mK0pi[2] = {(K0[0].momentum()+pip[0].momentum()).mass(), 
-			     (K0[0].momentum()+pip[1].momentum()).mass()};
-	  if(mK0pi[0]>mK0pi[1]) {
-	    swap(  pip[0],  pip[1]);
-	    swap(mK0pi[0],mK0pi[1]);
-	  }
-	  _h[0]->fill((K0 [0].momentum()+Km [0].momentum()).mass());
-	  _h[1]->fill(mK0pi[0]);
-	  _h[2]->fill((Km [0].momentum()+pip[1].momentum()).mass());
-	  _h[3]->fill(mK0pi[1]);
-	  _h[4]->fill((Km [0].momentum()+pip[0].momentum()).mass());
-	  _h[5]->fill((K0 [0].momentum()+Km [0].momentum()+pip[0].momentum()).mass());
-	  _h[6]->fill((K0 [0].momentum()+Km [0].momentum()+pip[1].momentum()).mass());
-	  _h[7]->fill((pip[0].momentum()+pip[1].momentum()).mass());
-	  _h[8]->fill((Km [0].momentum()+pip[0].momentum()+pip[1].momentum()).mass());
+	else if  (DS.decaying()[ix].pid()<0 && DS.modeMatches(ix,4,modeCC)) {
+	  sign=-1;
 	}
+	else
+	  continue;
+	const Particle  & Km  = DS.decayProducts()[ix].at(-sign*321)[0];
+	const Particles & pip = DS.decayProducts()[ix].at( sign*211);
+	const Particle  & K0  = DS.decayProducts()[ix].at(      310)[0];
+	double mK0pi[2] = {(K0.momentum()+pip[0].momentum()).mass(), 
+			   (K0.momentum()+pip[1].momentum()).mass()};
+	unsigned int i0(0),i1(1);
+	if(mK0pi[i0]>mK0pi[i1]) swap(i0,i1);
+	_h[0]->fill((K0 .momentum()+Km .momentum()).mass());
+	_h[1]->fill(mK0pi[i0]);
+	_h[2]->fill((Km .momentum()+pip[i1].momentum()).mass());
+	_h[3]->fill(mK0pi[i1]);
+	_h[4]->fill((Km .momentum()+pip[i0].momentum()).mass());
+	_h[5]->fill((K0 .momentum()+Km .momentum()+pip[i0].momentum()).mass());
+	_h[6]->fill((K0 .momentum()+Km .momentum()+pip[i1].momentum()).mass());
+	_h[7]->fill((pip[i0].momentum()+pip[i1].momentum()).mass());
+	_h[8]->fill((Km .momentum()+pip[i0].momentum()+pip[i1].momentum()).mass());
       }
     }
 

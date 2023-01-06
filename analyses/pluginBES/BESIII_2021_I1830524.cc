@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -19,72 +20,47 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
+      UnstableParticles ufs = UnstableParticles(Cuts::abspid==431);
+      declare(ufs, "UFS");
+      DecayedParticles DS(ufs);
+      DS.addStable(PID::PI0);
+      DS.addStable(PID::K0S);
+      declare(DS,"DS");
+      // histos
       book(_h_KK[0],1,1,1);
       book(_h_KK[1],1,1,2);
       book(_h_Kmpi ,1,1,3);
       book(_h_Kppi ,1,1,4);
       book(_dalitz, "dalitz",50,0.3,3.5,50,0.07,2.5);
-
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable,
-			   Particles & pip , Particles & pim , Particles & pi0  ,
-			   Particles & Kp  , Particles & Km  , Particles & K0) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if ( id == PID::KPLUS ) {
-       	  Kp.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::KMINUS ) {
-	  Km.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIPLUS) {
-	  pip.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIMINUS) {
-	  pim.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PI0) {
-	  pi0.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::K0S||id == PID::K0L) {
-	  K0.push_back(p);
-          ++nstable;
-        }
-	else if ( !p.children().empty() ) {
-	  findDecayProducts(p, nstable, pip, pim, pi0, Kp , Km, K0);
-	}
-	else
-	  ++nstable;
-      }
-    }
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid== 431 )) {
-	unsigned int nstable(0);
-	Particles pip, pim, pi0, Kp , Km, K0;
-	findDecayProducts(meson, nstable, pip, pim, pi0, Kp , Km, K0);
-	if(nstable !=3) continue;
-	if(meson.pid()<0) {
-	  swap(pim,pip);
-	  swap(Kp,Km);
+      static const map<PdgId,unsigned int> & mode   = { { 211,1},{ 321,1}, {-321,1}};
+      static const map<PdgId,unsigned int> & modeCC = { {-211,1},{ 321,1}, {-321,1}};
+      DecayedParticles DS = apply<DecayedParticles>(event, "DS");
+      // loop over particles
+      for(unsigned int ix=0;ix<DS.decaying().size();++ix) {
+	int sign = 1;
+	if (DS.decaying()[ix].pid()>0 && DS.modeMatches(ix,3,mode)) {
+	  sign=1;
 	}
-	if (nstable==3 && Km.size()==1&&Kp.size()==1&&pip.size()==1) {
-	  double mplus  = (Kp[0].momentum()+pip[0].momentum()).mass2();
-	  double mminus = (Km[0].momentum()+pip[0].momentum()).mass2();
-	  double mKK    = (Kp[0].momentum()+Km [0].momentum()).mass2();
-	  _h_KK[0]->fill(mKK);
-	  _h_KK[1]->fill(mKK);
-	  _h_Kppi->fill(mplus);
-	  _h_Kmpi->fill(mminus);
-	  _dalitz->fill(mKK,mminus);
+	else if  (DS.decaying()[ix].pid()<0 && DS.modeMatches(ix,3,modeCC)) {
+	  sign=-1;
 	}
+	else
+	  continue;
+	const Particle & pip = DS.decayProducts()[ix].at( sign*211)[0];
+	const Particle & Kp  = DS.decayProducts()[ix].at( sign*321)[0];
+	const Particle & Km  = DS.decayProducts()[ix].at(-sign*321)[0];
+	double mplus  = (Kp.momentum()+pip.momentum()).mass2();
+	double mminus = (Km.momentum()+pip.momentum()).mass2();
+	double mKK    = (Kp.momentum()+Km .momentum()).mass2();
+	_h_KK[0]->fill(mKK);
+	_h_KK[1]->fill(mKK);
+	_h_Kppi->fill(mplus);
+	_h_Kmpi->fill(mminus);
+	_dalitz->fill(mKK,mminus);
       }
     }
 

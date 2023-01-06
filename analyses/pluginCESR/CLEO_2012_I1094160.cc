@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief D0 -> KS) K+/- pi-/+
+  /// @brief D0 -> KS0 K+/- pi-/+
   class CLEO_2012_I1094160 : public Analysis {
   public:
 

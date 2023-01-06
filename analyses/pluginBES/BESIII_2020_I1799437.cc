@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief D0 -> and K+K-
+  /// @brief D0 -> K_S0 K+ K-
   class BESIII_2020_I1799437 : public Analysis {
   public:
 

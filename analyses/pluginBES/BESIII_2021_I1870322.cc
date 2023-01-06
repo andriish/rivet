@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -19,7 +20,13 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
+      UnstableParticles ufs = UnstableParticles(Cuts::abspid==431);
+      declare(ufs, "UFS");
+      DecayedParticles DS(ufs);
+      DS.addStable(PID::PI0);
+      DS.addStable(PID::K0S);
+      DS.addStable(PID::ETA);
+      declare(DS,"DS");
       // histograms
       book(_h_pippip   ,1,1,1);
       book(_h_pippim   ,1,1,2);
@@ -29,58 +36,37 @@ namespace Rivet {
       book(_h_pippimeta,1,1,6);
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable,
-			   Particles & pip , Particles & pim , Particles & eta) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if ( id == PID::KPLUS || id == PID::KMINUS ||
-	     id == PID::K0S||id == PID::K0L || id == PID::PI0) {
-	  ++nstable;
-	}
-	else if (id == PID::PIPLUS) {
-	  pip.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIMINUS) {
-	  pim.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::ETA) {
-	  eta.push_back(p);
-          ++nstable;
-        }
-	else if ( !p.children().empty() ) {
-	  findDecayProducts(p, nstable, pip, pim, eta);
-	}
-	else
-	  ++nstable;
-      }
-    }
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid== 431 )) {
-	unsigned int nstable(0);
-	Particles pip, pim, eta;
-	findDecayProducts(meson, nstable, pip, pim, eta);
-	if(nstable !=4) continue;
-	if(meson.pid()<0) {
-	  swap(pim,pip);
+      static const map<PdgId,unsigned int> & mode   = { { 211,2}, {-211,1}, {221,1}};
+      static const map<PdgId,unsigned int> & modeCC = { { 211,1}, {-211,2}, {221,1}};
+      DecayedParticles DS = apply<DecayedParticles>(event, "DS");
+      // loop over particles
+      for(unsigned int ix=0;ix<DS.decaying().size();++ix) {
+	int sign = 1;
+	if (DS.decaying()[ix].pid()>0 && DS.modeMatches(ix,4,mode)) {
+	  sign=1;
 	}
-	if (eta.size()==1&&pim.size()==1&&pip.size()==2) {
-	  double metapipi[2] = {(eta[0].momentum()+pim[0].momentum()+pip[0].momentum()).mass(),
-				(eta[0].momentum()+pim[0].momentum()+pip[1].momentum()).mass()};
-	  if(metapipi[0]<GeV || metapipi[1]<GeV) continue;
-	  _h_pippip->fill((pip[0].momentum()+pip[1].momentum()).mass());
-	  _h_pippim->fill((pim[0].momentum()+pip[0].momentum()).mass());
-	  _h_pippim->fill((pim[0].momentum()+pip[1].momentum()).mass());
-	  _h_pipeta->fill((eta[0].momentum()+pip[0].momentum()).mass());
-	  _h_pipeta->fill((eta[0].momentum()+pip[1].momentum()).mass());
-	  _h_pimeta->fill((eta[0].momentum()+pim[0].momentum()).mass());
-	  _h_3pi   ->fill((pim[0].momentum()+pip[0].momentum()+pip[1].momentum()).mass());
-	  _h_pippimeta->fill(metapipi[0]);
-	  _h_pippimeta->fill(metapipi[1]);
+	else if  (DS.decaying()[ix].pid()<0 && DS.modeMatches(ix,4,modeCC)) {
+	  sign=-1;
 	}
+	else
+	  continue;
+	const Particles & pip  = DS.decayProducts()[ix].at( sign*211);
+	const Particle  & pim  = DS.decayProducts()[ix].at(-sign*211)[0];
+	const Particle  & eta  = DS.decayProducts()[ix].at(      221)[0];
+	double metapipi[2] = {(eta.momentum()+pim.momentum()+pip[0].momentum()).mass(),
+			      (eta.momentum()+pim.momentum()+pip[1].momentum()).mass()};
+	if(metapipi[0]<GeV || metapipi[1]<GeV) continue;
+	_h_pippip->fill((pip[0].momentum()+pip[1].momentum()).mass());
+	_h_pippim->fill((pim.momentum()+pip[0].momentum()).mass());
+	_h_pippim->fill((pim.momentum()+pip[1].momentum()).mass());
+	_h_pipeta->fill((eta.momentum()+pip[0].momentum()).mass());
+	_h_pipeta->fill((eta.momentum()+pip[1].momentum()).mass());
+	_h_pimeta->fill((eta.momentum()+pim.momentum()).mass());
+	_h_3pi   ->fill((pim.momentum()+pip[0].momentum()+pip[1].momentum()).mass());
+	_h_pippimeta->fill(metapipi[0]);
+	_h_pippimeta->fill(metapipi[1]);
       }
     }
 

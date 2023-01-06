@@ -59,17 +59,17 @@ namespace Rivet {
 	}
 	else
 	  continue;
-	const Particles & Km = DP.decayProducts()[ix].at(-sign*321);
+	const Particle  & Km = DP.decayProducts()[ix].at(-sign*321)[0];
 	const Particles & pip= DP.decayProducts()[ix].at( sign*211);
 	// kinematic variables
-	double x[3]  = {(Km[0].momentum() +pip[0].momentum()).mass2(),
-			(Km[0].momentum() +pip[1].momentum()).mass2(),
+	double x[3]  = {(Km    .momentum() +pip[0].momentum()).mass2(),
+			(Km    .momentum() +pip[1].momentum()).mass2(),
 			(pip[0].momentum()+pip[1].momentum()).mass2()};
 	if(x[1]<x[0]) swap(x[0],x[1]);
 	// calculate the efficiency, eqns 6,7 from paper
 	// double xmax[3] = {sqr(meson.mass()-pip[0].mass()),
 	// 		    sqr(meson.mass()-pip[0].mass()),
-	// 		    sqr(meson.mass()-Km[0].mass())};
+	// 		    sqr(meson.mass()-Km  .mass())};
 	double xh = x[0]-1.5,yh=x[1]-1.5;
 	double eff = (1.+E1*(xh+yh)+E2*(sqr(xh)+sqr(yh))+E3*(pow(xh,3)+pow(yh,3))
 		      +Exy*xh*yh+Exyn*xh*yh*(xh+yh));

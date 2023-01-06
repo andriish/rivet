@@ -1,5 +1,6 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
 
 namespace Rivet {
@@ -19,6 +20,15 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
+      UnstableParticles ufs = UnstableParticles(Cuts::pid== 441);
+      declare(ufs, "UFS");
+      DecayedParticles ETAC(ufs);
+      ETAC.addStable(PID::PI0);
+      ETAC.addStable(PID::K0S);
+      ETAC.addStable(PID::ETA);
+      ETAC.addStable(PID::ETAPRIME);
+      declare(ETAC,"ETAC");
+      // Initialise and register projections
       declare(UnstableParticles(), "UFS");
       book(_h_KK    ,1,1,1);
       book(_h_etaPK ,1,1,2);
@@ -31,88 +41,51 @@ namespace Rivet {
       book(_dalitz3, "dalitz3",50,0.,8. ,50,0.,8. );
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable,
-			   Particles & pip , Particles & pim , Particles & pi0  ,
-			   Particles & Kp  , Particles & Km  , Particles & eta,
-			   Particles & etaP) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if ( id == PID::KPLUS ) {
-       	  Kp.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::KMINUS ) {
-	  Km.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIPLUS) {
-	  pip.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIMINUS) {
-	  pim.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PI0) {
-	  pi0.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::ETA) {
-	  eta.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::ETAPRIME) {
-	  etaP.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::K0S||id == PID::K0L) {
-          ++nstable;
-        }
-	else if ( !p.children().empty() ) {
-	  findDecayProducts(p, nstable, pip, pim, pi0, Kp , Km, eta,etaP);
-	}
-	else
-	  ++nstable;
-      }
-    }
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid== 441 )) {
-	unsigned int nstable(0);
-	Particles pip, pim, pi0, Kp , Km, eta,etaP;
-	findDecayProducts(meson, nstable, pip, pim, pi0, Kp , Km, eta, etaP);
-	if(nstable !=3) continue;
-	if(meson.pid()<0) {
-	  swap(pim,pip);
-	  swap(Kp,Km);
-	}
-	if(nstable!=3) continue;
-	if (Km.size()==1&&Kp.size()==1&&etaP.size()==1&&
-	     meson.mass()>2.93 && meson.mass()<3.03) {
-	  double mplus  = (Kp[0].momentum()+etaP[0].momentum()).mass2();
-	  double mminus = (Km[0].momentum()+etaP[0].momentum()).mass2();
-	  double mKK    = (Kp[0].momentum()+Km [0].momentum()).mass2();
+      static const map<PdgId,unsigned int> & mode1  = { { 321,1}, {-321,1}, { 331,1}};
+      static const map<PdgId,unsigned int> & mode2  = { { 211,1}, {-211,1}, { 331,1}};
+      static const map<PdgId,unsigned int> & mode3  = { { 211,1}, {-211,1}, { 221,1}};
+      DecayedParticles ETAC = apply<DecayedParticles>(event, "ETAC");
+      // loop over particles
+      for(unsigned int ix=0;ix<ETAC.decaying().size();++ix) {
+	//K+ K- eta'
+	if (ETAC.modeMatches(ix,3,mode1)&&
+	    ETAC.decaying()[ix].mass()>2.93 && ETAC.decaying()[ix].mass()<3.03) {
+	  const Particle & Kp   = ETAC.decayProducts()[ix].at( 321)[0];
+	  const Particle & Km   = ETAC.decayProducts()[ix].at(-321)[0];
+	  const Particle & etaP = ETAC.decayProducts()[ix].at( 331)[0];
+	  double mplus  = (Kp.momentum()+etaP.momentum()).mass2();
+	  double mminus = (Km.momentum()+etaP.momentum()).mass2();
+	  double mKK    = (Kp.momentum()+Km .momentum()).mass2();
 	  _h_KK   ->fill(sqrt(mKK));
 	  _h_etaPK->fill(sqrt(mplus));
 	  _h_etaPK->fill(sqrt(mminus));
 	  _dalitz1->fill(mplus,mminus);
 	}
-	else if (pim.size()==1&&pip.size()==1&&etaP.size()==1&&
-		 meson.mass()>2.93 && meson.mass()<3.03) {
-	  double mplus  = (pip[0].momentum()+etaP[0].momentum()).mass2();
-	  double mminus = (pim[0].momentum()+etaP[0].momentum()).mass2();
-	  double mpipi    = (pip[0].momentum()+pim [0].momentum()).mass2();
+	// pi+ pi- eta'
+	else if (ETAC.modeMatches(ix,3,mode2)&&
+		 ETAC.decaying()[ix].mass()>2.93 && ETAC.decaying()[ix].mass()<3.03) {
+	  const Particle & pip  = ETAC.decayProducts()[ix].at( 211)[0];
+	  const Particle & pim  = ETAC.decayProducts()[ix].at(-211)[0];
+	  const Particle & etaP = ETAC.decayProducts()[ix].at( 331)[0];
+	  double mplus  = (pip.momentum()+etaP.momentum()).mass2();
+	  double mminus = (pim.momentum()+etaP.momentum()).mass2();
+	  double mpipi    = (pip.momentum()+pim .momentum()).mass2();
 	  _h_pipi1 ->fill(sqrt(mpipi));
 	  _h_etaPpi->fill(sqrt(mplus));
 	  _h_etaPpi->fill(sqrt(mminus));
 	  _dalitz2->fill(mplus,mminus);
 	}
-	else if (pim.size()==1&&pip.size()==1&&eta.size()==1&&
-		 meson.mass()>2.92 && meson.mass()<3.02) {
-	  double mplus  = (pip[0].momentum()+eta[0].momentum()).mass2();
-	  double mminus = (pim[0].momentum()+eta[0].momentum()).mass2();
-	  double mpipi    = (pip[0].momentum()+pim [0].momentum()).mass2();
+	// pi+ pi- eta
+	else if (ETAC.modeMatches(ix,3,mode3)&&
+		 ETAC.decaying()[ix].mass()>2.92 && ETAC.decaying()[ix].mass()<3.02) {
+	  const Particle & pip = ETAC.decayProducts()[ix].at( 211)[0];
+	  const Particle & pim = ETAC.decayProducts()[ix].at(-211)[0];
+	  const Particle & eta = ETAC.decayProducts()[ix].at( 221)[0];
+	  double mplus  = (pip.momentum()+eta.momentum()).mass2();
+	  double mminus = (pim.momentum()+eta.momentum()).mass2();
+	  double mpipi    = (pip.momentum()+pim .momentum()).mass2();
 	  _h_pipi2->fill(sqrt(mpipi));
 	  _h_etapi->fill(sqrt(mplus));
 	  _h_etapi->fill(sqrt(mminus));

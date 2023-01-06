@@ -79,7 +79,7 @@ namespace Rivet {
 	  else if ( DD.modeMatches(ix,3,mode2  )) {
 	    const Particle & K0  = DD.decayProducts()[ix].at(      310)[0];
 	    const Particle & pip = DD.decayProducts()[ix].at( sign*211)[0];
-	    const Particle & pim = DD.decayProducts()[ix].at(-sign*221)[0];
+	    const Particle & pim = DD.decayProducts()[ix].at(-sign*211)[0];
 	    double mminus = (pim.momentum()+K0.momentum() ).mass2();
 	    double mplus  = (pip.momentum()+K0.momentum() ).mass2();
 	    double mpipi  = (pip.momentum()+pim.momentum()).mass2();

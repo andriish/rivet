@@ -19,7 +19,11 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
+      UnstableParticles ufs = UnstableParticles(Cuts::pid== 223);
+      declare(ufs, "UFS");
+      DecayedParticles OMEGA(ufs);
+      OMEGA.addStable(PID::PI0);
+      declare(OMEGA,"OMEGA");
       // histograms
       book(_h_z  ,1,1,1);
       book(_h_phi,1,1,2);
@@ -28,50 +32,29 @@ namespace Rivet {
       book(_dalitz,"dalitz",50,-1,1,50,-1.1,0.9);
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable,
-			   Particles & pip , Particles & pim , Particles & pi0) {
-      for(const Particle & p : mother.children()) {
-	int id = p.pid();
-        if (id == PID::PIPLUS) {
-	  pip.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIMINUS) {
-	  pim.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PI0) {
-	  pi0.push_back(p);
-	  ++nstable;
-	}
-	else if ( !p.children().empty() ) {
-	  findDecayProducts(p, nstable, pip, pim, pi0);
-	}
-	else
-	  ++nstable;
-      }
-    }
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
+      static const map<PdgId,unsigned int> & mode = { { 211,1}, {-211,1}, { 111,1}};
       static const std::complex<double> ii(0.,1.);
-      for(const Particle& meson :
-	    apply<UnstableParticles>(event, "UFS").particles(Cuts::pid==PID::OMEGA)) {
+      DecayedParticles OMEGA = apply<DecayedParticles>(event, "OMEGA");
+      // loop over particles
+      for(unsigned int ix=0;ix<OMEGA.decaying().size();++ix) {
+	// pi+ pi- pi0
+	if (!OMEGA.modeMatches(ix,3,mode)) continue;
 	// apply omega mass cut
-	if(abs(meson.mass()-0.78265)>0.04) continue;
-	// find decay products
-      	unsigned int nstable(0);
-       	Particles pip, pim, pi0;
-      	findDecayProducts(meson, nstable, pip, pim, pi0);
-	if(nstable !=3 || pi0.size()!=1 || pip.size()!=1 || pim.size()!=1) continue;
-	LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(meson.momentum().betaVec());
-	FourMomentum pp = boost.transform(pip[0].momentum());
-	FourMomentum pm = boost.transform(pim[0].momentum());
-	FourMomentum p0 = boost.transform(pi0[0].momentum());
+	if(abs(OMEGA.decaying()[ix].mass()-0.78265)>0.04) continue;
+	// decay products
+	const Particle & pip = OMEGA.decayProducts()[ix].at( 211)[0];
+	const Particle & pim = OMEGA.decayProducts()[ix].at(-211)[0];
+	const Particle & pi0 = OMEGA.decayProducts()[ix].at( 111)[0];
+	LorentzTransform boost = LorentzTransform::mkFrameTransformFromBeta(OMEGA.decaying()[ix].momentum().betaVec());
+	FourMomentum pp = boost.transform(pip.momentum());
+	FourMomentum pm = boost.transform(pim.momentum());
+	FourMomentum p0 = boost.transform(pi0.momentum());
 	// variables from eqn 1 in paper (use version from Eqn 2.1 of 1010.3946)
-	double Qc = meson.mass()-pi0[0].mass()-pim[0].mass()-pip[0].mass();
+	double Qc = OMEGA.decaying()[ix].mass()-pi0.mass()-pim.mass()-pip.mass();
 	double x = sqrt(3.)*(pm.E()-pp.E())/Qc;
-	double y = 3./Qc*(p0.E()-pi0[0].mass())-1.;
+	double y = 3./Qc*(p0.E()-pi0.mass())-1.;
 	_dalitz->fill(x,y);
 	// plot arg and phase of variable
 	std::complex<double> zz = x+ii*y;

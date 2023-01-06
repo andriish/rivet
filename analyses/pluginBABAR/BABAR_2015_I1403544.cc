@@ -1,6 +1,7 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
@@ -19,7 +20,14 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
+      UnstableParticles ufs = UnstableParticles(Cuts::pid== 441);
+      declare(ufs, "UFS");
+      DecayedParticles ETAC(ufs);
+      ETAC.addStable(PID::PI0);
+      ETAC.addStable(PID::K0S);
+      ETAC.addStable(PID::ETA);
+      ETAC.addStable(PID::ETAPRIME);
+      declare(ETAC,"ETAC");
       // histograms
       book(_h_Kppip,3,1,1);
       book(_h_K0pip,3,1,2);
@@ -31,73 +39,38 @@ namespace Rivet {
       book(_dalitz[1], "dalitz_2",50,0.,8.,50,0.,8.);
     }
 
-    void findDecayProducts(const Particle & mother, unsigned int & nstable,
-			   Particles & pip , Particles & pim , Particles & pi0  ,
-			   Particles & Kp  , Particles & Km  , Particles & KS0) {
-      for(const Particle & p : mother.children()) {
-        int id = p.pid();
-        if ( id == PID::KPLUS ) {
-       	  Kp.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::KMINUS ) {
-	  Km.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIPLUS) {
-	  pip.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PIMINUS) {
-	  pim.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::PI0) {
-	  pi0.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::K0S) {
-	  KS0.push_back(p);
-	  ++nstable;
-	}
-	else if (id == PID::ETA||id == PID::K0L) {
-          ++nstable;
-        }
-	else if ( !p.children().empty() ) {
-	  findDecayProducts(p, nstable, pip, pim, pi0, Kp , Km, KS0);
-	}
-	else
-	  ++nstable;
-      }
-    }
-
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      for(const Particle& meson : apply<UnstableParticles>(event, "UFS").particles(Cuts::abspid== 441 )) {
-	unsigned int nstable(0);
-	Particles pip, pim, pi0, Kp , Km, KS0;
-	findDecayProducts(meson, nstable, pip, pim, pi0, Kp , Km, KS0);
-	if(nstable !=3) continue;
-	if (Km.size()==1&&Kp.size()==1&&pi0.size()==1&&
-	    meson.mass()>2.922 && meson.mass()<3.036) {
-	  double mplus  = (Kp[0].momentum()+pi0[0].momentum()).mass2();
-	  double mminus = (Km[0].momentum()+pi0[0].momentum()).mass2();
-	  double mKK    = (Kp[0].momentum()+Km [0].momentum()).mass2();
+      static const map<PdgId,unsigned int> & mode1   = { { 321,1}, {-321,1}, { 111,1}};
+      static const map<PdgId,unsigned int> & mode2   = { { 321,1}, {-211,1}, { 310,1}};
+      static const map<PdgId,unsigned int> & mode2CC = { {-321,1}, { 211,1}, { 310,1}};
+      DecayedParticles ETAC = apply<DecayedParticles>(event, "ETAC");
+      // loop over particles
+      for(unsigned int ix=0;ix<ETAC.decaying().size();++ix) {
+	if (ETAC.modeMatches(ix,3,mode1)&&
+	    ETAC.decaying()[ix].mass()>2.922 && ETAC.decaying()[ix].mass()<3.036) {
+	  const Particle & Kp  = ETAC.decayProducts()[ix].at( 321)[0];
+	  const Particle & Km  = ETAC.decayProducts()[ix].at(-321)[0];
+	  const Particle & pi0 = ETAC.decayProducts()[ix].at( 111)[0];
+	  double mplus  = (Kp.momentum()+pi0.momentum()).mass2();
+	  double mminus = (Km.momentum()+pi0.momentum()).mass2();
+	  double mKK    = (Kp.momentum()+Km .momentum()).mass2();
 	  _h_KpKm->fill(mKK);
 	  _h_Kppi0->fill(mplus);
 	  _h_Kmpi0->fill(mminus);
 	  _dalitz[1]->fill(mplus,mminus);
 	}
-	else if (((Km.size()==1&&pip.size()==1) ||
-		  (Kp.size()==1&&pim.size()==1) )&&KS0.size()==1&&
-		 meson.mass()>2.922 && meson.mass()<3.039) {
-	  if(Km.size()==1) {
-	    swap(Km,Kp);
-	    swap(pim,pip);
-	  }
-	  double mplus  = (Kp[0].momentum()  + pim[0].momentum()).mass2();
-	  double mminus = (KS0[0].momentum() + pim[0].momentum()).mass2();
-	  double mKK    = (Kp[0].momentum()  + KS0[0].momentum()).mass2();
+	else if(ETAC.decaying()[ix].mass()>2.922 && ETAC.decaying()[ix].mass()<3.039) {
+	  int sign=1;
+	  if     (ETAC.modeMatches(ix,3,mode2)) sign= 1;
+	  else if(ETAC.modeMatches(ix,3,mode2)) sign=-1;
+	  else continue;
+	  const Particle & KS0 = ETAC.decayProducts()[ix].at( 310)[0];
+	  const Particle & Kp  = ETAC.decayProducts()[ix].at( sign*321)[0];
+	  const Particle & pim = ETAC.decayProducts()[ix].at(-sign*211)[0];
+	  double mplus  = (Kp.momentum()  + pim.momentum()).mass2();
+	  double mminus = (KS0.momentum() + pim.momentum()).mass2();
+	  double mKK    = (Kp.momentum()  + KS0.momentum()).mass2();
 	  _h_K0Kp ->fill(mKK);
 	  _h_Kppip->fill(mplus);
 	  _h_K0pip->fill(mminus);
