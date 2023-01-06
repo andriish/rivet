@@ -1,10 +1,12 @@
 // -*- C++ -*-
 #include "Rivet/Analysis.hh"
+#include "Rivet/Projections/UnstableParticles.hh"
+#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief B0 ->  p Lambdabar pi- and B0s -> p Lambdabar K-
   class LHCB_2017_I1596893 : public Analysis {
   public:
 
