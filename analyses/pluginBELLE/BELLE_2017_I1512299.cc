@@ -91,7 +91,7 @@ namespace Rivet {
 
             // First boost all relevant momenta into the B-rest frame
             const LorentzTransform B_boost = LorentzTransform::mkFrameTransformFromBeta(pB.betaVec());
-            // Momenta in B rest frame:Ds);
+            // Momenta in B rest frame
             FourMomentum lv_brest_Dstar = B_boost.transform(pDs);
             FourMomentum lv_brest_w     = B_boost.transform(pB - pDs);
             FourMomentum lv_brest_D     = B_boost.transform(pD);

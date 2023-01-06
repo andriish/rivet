@@ -19,7 +19,6 @@ YLabel=$\sigma\times\mathrm{Br}$ [fb]
 LogY=0
 END PLOT
 
-
 BEGIN PLOT /BABAR_2007_I722622/d03-x01-y01
 Title=Spectrum for $\Xi_c^{\prime+}$ production
 XLabel=$p$ [GeV]

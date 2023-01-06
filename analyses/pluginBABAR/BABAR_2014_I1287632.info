@@ -10,7 +10,7 @@ Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
 References:
  - Phys.Rev.D 89 (2014) 11, 112004
-RunInfo: Any process producing eta_c (originally gamma gamma -> chi_c)
+RunInfo: Any process producing eta_c (originally gamma gamma -> eta_c)
 Description:
   'Measurement of the mass distributions in the decays $\eta_c\to K^+K^-\eta$ and $\eta_c\to K^+K^-\pi^0$ by BaBar. The data were read from the plots in the paper and therefore for some points the error bars are the size of the point. Also the sideband background from the plots has been subtracted. It is also not clear that any resolution effects have been unfolded.'
 ValidationInfo:
