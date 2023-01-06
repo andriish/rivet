@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief psi(2S) -> e+e- chi_c and chi_c  -> e+e- Jpsi$
   class BESIII_2017_I1509920 : public Analysis {
   public:
 

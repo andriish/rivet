@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief D0 -> K- pi+ e+e-
   class BABAR_2019_I1691954 : public Analysis {
   public:
 

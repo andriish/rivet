@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief psi(2S) -> pbar K+ Sigma^$ and chi_cJ -> pbar K+Lambda 
   class BESIII_2013_I1203840 : public Analysis {
   public:
 

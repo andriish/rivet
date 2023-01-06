@@ -2,7 +2,6 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/DecayedParticles.hh"
 #include "Rivet/Projections/UnstableParticles.hh"
-#include "Rivet/Projections/DecayedParticles.hh"
 
 namespace Rivet {
 

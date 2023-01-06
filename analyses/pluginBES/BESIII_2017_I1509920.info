@@ -1,6 +1,6 @@
 Name: BESIII_2017_I1509920
 Year: 2017
-Summary:  $\psi(2S)\to e^+e^-\chi_{c(1,2)}$ and $\chi_{c(1,2)}\to e^+e^-$ decays
+Summary:  $\psi(2S)\to e^+e^-\chi_{c(1,2)}$ and $\chi_{c(1,2)}\to e^+e^- J/\psi$ decays
 Experiment: BESIII
 Collider: BEPC
 InspireID: 1509920
@@ -15,7 +15,7 @@ NeedCrossSection: no
 Beams: [e-, e+]
 Energies: [3.686]
 Description:
-  'Measurement of the $e^+e^-$ mass distribution and the helicity angle in the decays $\psi(2S)\to e^+e^-\chi_{c(1,2)}$ and $\chi_{c(1,2)}\to e^+e^-$ decays.
+  'Measurement of the $e^+e^-$ mass distribution and the helicity angle in the decays $\psi(2S)\to e^+e^-\chi_{c(1,2)}$ and $\chi_{c(1,2)}\to e^+e^- J/\psi$ decays.
    Data was read from the plots in the paper and the mass distributions are not corrected, although the angle distributions are'
 ValidationInfo:
   'Herwig 7 events'

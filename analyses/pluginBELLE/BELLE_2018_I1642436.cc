@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief B- -> Lambda_c+ Lambdabar_c- K-
   class BELLE_2018_I1642436 : public Analysis {
   public:
 
