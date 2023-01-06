@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief B -> chi_c1 and chi_c2
   class BELLE_2016_I1408873 : public Analysis {
   public:
 

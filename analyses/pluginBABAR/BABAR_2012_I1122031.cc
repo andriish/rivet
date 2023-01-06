@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief B -> Xs gamma
   class BABAR_2012_I1122031 : public Analysis {
   public:
 

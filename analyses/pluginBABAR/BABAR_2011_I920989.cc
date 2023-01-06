@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief B0 -> D*0 omega
   class BABAR_2011_I920989 : public Analysis {
   public:
 

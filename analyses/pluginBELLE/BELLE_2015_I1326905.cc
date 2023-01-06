@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief B0 ->\to Ds- KS0 pi+ and B+ -> Ds- K+ K^+ 
   class BELLE_2015_I1326905 : public Analysis {
   public:
 
