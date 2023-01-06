@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief eta -> pi+pi-pi0 and eta' -> pi0pi0pi0$
   class BESIII_2015_I1376484 : public Analysis {
   public:
 
