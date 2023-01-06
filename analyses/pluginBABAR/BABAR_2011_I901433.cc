@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief Add a short analysis description here
+  /// @brief B -> phi phi K
   class BABAR_2011_I901433 : public Analysis {
   public:
 

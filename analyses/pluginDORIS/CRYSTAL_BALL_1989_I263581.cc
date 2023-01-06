@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief 
+  /// @brief Electron spectrum  in B decays
   class CRYSTAL_BALL_1989_I263581 : public Analysis {
   public:
 

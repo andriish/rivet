@@ -6,7 +6,7 @@
 namespace Rivet {
 
 
-  /// @brief taU -> pi- KS0 KS0 pi0 nu
+  /// @brief tau -> pi- KS0 KS0 pi0 nu
   class BELLE_2014_I1282136 : public Analysis {
   public:
 

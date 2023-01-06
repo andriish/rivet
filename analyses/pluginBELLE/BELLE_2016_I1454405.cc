@@ -5,7 +5,7 @@
 namespace Rivet {
 
 
-  /// @brief J/psi and psi92S) in Upsilon(1S) decays
+  /// @brief J/psi and psi(2S) in Upsilon(1S) decays
   class BELLE_2016_I1454405 : public Analysis {
   public:
 
