@@ -146,7 +146,7 @@ namespace Rivet {
 	    const FinalState fsj(Cuts::abseta < 4.8);
 	    FastJets Sj(fsj, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE);
 	    declare("Sjet", Sj);
-	    SmearedJets SSj(Sj, JET_SMEAR_ATLAS_RUN2, JET_BTAG_EFFS(0.77, 1./6.2, 1./134));
+	    SmearedJets SSj(Sj, JET_SMEAR_ATLAS_RUN2, JET_BTAG_PERFECT);
       /// @todo Also look into angular smearing? Need a custom smearing function, building on the ATLAS R2
       //SmearedJets SSj(Sj, JET_SMEAR_ANGULAR, JET_BTAG_EFFS(0.77, 1./6.2, 1./134));
     	declare(SSj, "smearedSjet");
@@ -253,6 +253,15 @@ namespace Rivet {
       //Get Jets et al
       Jets smeared_small_jets = apply<JetAlg>(event, "smearedSjet").jetsByPt();
       idiscard(smeared_small_jets, Cuts::pt <= 25*GeV && Cuts::abseta >= 2.5); 
+
+      // Get info about each-jet's mv2c10 score and do efficiency based b-tagging.
+      // TODO: Come up with an elegant (or at least not horrifically ugly) way of preserving this info to the end.
+      // FOR NOW: Store as a pair with jet 3-momentum, match back up using deltaR at the end.
+      vector<pair<ThreeMomentum,int>> jet_mv2c10_bands;
+      jet_mv2c10_bands.reserve(smeared_small_jets.size());
+      for (Jet &j : smeared_small_jets){
+        jet_mv2c10_bands.push_back({j.p3(), dummy_mv2c10_band(j)});
+      }
       const Jets smeared_bjets = filter_select(smeared_small_jets, hasBTag());
       FourMomentum pTmiss;
       for (const Particle& p : apply<VisibleFinalState>(event, "vfs").particles() ) {
@@ -394,21 +403,21 @@ namespace Rivet {
             {"rcjet_m", j.m()/MeV},
             
             //Lead Jet
-            {"sjet_1_mv2c10_binned", static_cast<double>(tagged_constituents[0].bTagged())},
+            {"sjet_1_mv2c10_binned", get_mv2c10(tagged_constituents[0], jet_mv2c10_bands)},
             {"sjet_1_e", tagged_constituents[0].E()/MeV},
             {"sjet_1_phi", tagged_constituents[0].phi()},
             {"sjet_1_eta", tagged_constituents[0].eta()},
             {"sjet_1_pt", tagged_constituents[0].pt()/MeV},
 
             //Second Jet
-            {"sjet_2_mv2c10_binned", (nConstits > 1) ? static_cast<double>(tagged_constituents[1].bTagged()) : -1. },
+            {"sjet_2_mv2c10_binned", (nConstits > 1) ? get_mv2c10(tagged_constituents[1], jet_mv2c10_bands) : -1. },
             {"sjet_2_e", (nConstits > 1) ? tagged_constituents[1].E()/MeV : 0. },
             {"sjet_2_phi", (nConstits > 1) ? tagged_constituents[1].phi() : j.phi() },
             {"sjet_2_eta", (nConstits > 1) ? tagged_constituents[1].eta() : j.eta() },
             {"sjet_2_pt", (nConstits > 1) ? tagged_constituents[1].pt()/MeV : 0. },
 
             //Third Jet
-            {"sjet_3_mv2c10_binned", (nConstits > 2) ? static_cast<double>(tagged_constituents[2].bTagged()) : -1. },
+            {"sjet_3_mv2c10_binned", (nConstits > 2) ? get_mv2c10(tagged_constituents[2], jet_mv2c10_bands) : -1. },
             {"sjet_3_e", (nConstits > 2) ? tagged_constituents[2].E()/MeV : 0. },
             {"sjet_3_phi", (nConstits > 2) ? tagged_constituents[2].phi() : j.phi() },
             {"sjet_3_eta", (nConstits > 2) ? tagged_constituents[2].eta() : j.eta() },
@@ -1081,10 +1090,66 @@ namespace Rivet {
 
       //Triple case is a weird jet indeed.
       else return (rand01() > 0.333 ? get_efficiency_vec_tag(j.pt()) : rand01() > 0.5 ? get_efficiency_higgs_tag(j.pt()) : get_efficiency_top_tag(j.pt()));
-
-
       
     }
+
+    //Attempt at consistent btagging across working points.
+    //Returns 100 if a jet isn't ever btagged,
+    //or else the mv2c10 working point (60, 70, 77, 85)
+    // at which the jet would be tagged,
+    // TODO: Implement properly.
+    int dummy_mv2c10_band(Jet& j){
+      const double variate =  rand01();
+      //TODO: mv2c10 cuts from ATL-PHYS-PUB-2016-012
+      const double beff60 = JET_BTAG_EFFS(0.6, 1/34., 1/184., 1/1538.)(j);
+      const double beff70 = JET_BTAG_EFFS(0.7, 1/12., 1/55., 1/381.)(j);
+      const double beff77 = JET_BTAG_EFFS(0.77, 1/6., 1/22., 1/134.)(j);
+      const double beff85 = JET_BTAG_EFFS(0.85, 1/3.1, 1/8.2, 1/33.)(j);
+      //For the purposes of this analysis outside the NN, a b-tag is done at 77%
+      const bool btag  = rand01() < beff77;
+      // Remove b-tags if needed, and add a dummy one if needed
+      if (!btag && j.bTagged()) j.tags().erase(std::remove_if(j.tags().begin(), j.tags().end(), hasBottom), j.tags().end());
+      if (btag && !j.bTagged()) j.tags().push_back(Particle(PID::BQUARK, j.mom())); ///< @todo Or could use the/an actual clustered b-quark momentum?
+      
+      //Ignore c-tagging.
+
+      if (variate < beff60) return 60;
+      else if (variate < beff70) return 70;
+      else if (variate < beff77) return 77;
+      else if (variate < beff85) return 85;
+      else return 100;
+    }
+
+    double mv2c10_score_from_band(const int band){
+      switch (band){
+        case(60):
+          return 0.934906;
+        case(70):
+          return 0.8244273;
+        case(77):
+          return 0.645925;
+        case(85):
+          return 0.1758475;
+        case(100):
+          return 0.0;
+        default:
+          throw Error("Failed to convert mv2c10 band to score");
+      }
+    }
+
+    // Utility function summing up previous two in one go.
+    double get_mv2c10(const Jet &j, const vector<pair<ThreeMomentum, int>>& mv2c10_bands){
+      auto it = std::find_if(mv2c10_bands.begin(), mv2c10_bands.end(),
+                                  [&j](const pair<ThreeMomentum, int>& p){return (deltaR(p.first, j.p3()) < 0.1);});
+      if (it != mv2c10_bands.end()){
+        return mv2c10_score_from_band(it->second);
+      }
+      else {
+        throw Error("FAILED TO FIND mv2c10");
+      }
+    }
+
+
     /// @}
 
     /// @name Member variables
