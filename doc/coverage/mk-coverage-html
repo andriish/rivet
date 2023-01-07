@@ -63,18 +63,6 @@ for d in glob(dirpatt):
     #print(d)
     rivet.addAnalysisDataPath(os.path.abspath(d))
 
-## Rivet analyses to cross-reference
-ranas = {}
-for aname in rivet.AnalysisLoader.analysisNames():
-    ana = rivet.AnalysisLoader.getAnalysis(aname)
-    # TODO: all anas *should* have an Inspire ID...
-    try:
-        # print(aname, ":", ana.inspireId(), ":")
-        ranas.setdefault(int(ana.inspireId()), []).append(ana.name())
-    except:
-        pass
-
-
 ## Read data from JSON files
 records = {}
 import json
@@ -87,6 +75,20 @@ for jsonfile in args.JSONFILES:
 records = {int(k) : v for k, v in records.items()}
 if args.VERBOSE:
     print("Read total of {} records".format(len(records)))
+
+## Rivet analyses to cross-reference
+ranas = {}
+for aname in rivet.AnalysisLoader.analysisNames():
+    ana = rivet.AnalysisLoader.getAnalysis(aname)
+    # TODO: all anas *should* have an Inspire ID...
+    try:
+        # print(aname, ":", ana.inspireId(), ":")
+        iAnal=int(ana.inspireId())
+        if iAnal in records and not records[iAnal][1] :
+            records[iAnal][1] = ana.experiment()
+        ranas.setdefault(iAnal, []).append(ana.name())
+    except:
+        pass
 
 
 ## Read Inspire IDs from ranking files
