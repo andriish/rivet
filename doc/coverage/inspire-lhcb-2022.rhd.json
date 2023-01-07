@@ -399,6 +399,19 @@
             "CERN-EP-2021-265"
         ]
     ],
+    "2017252": [
+        "Search for the decay $B^0\\to\\phi\\mu^+\\mu^-$",
+        "LHCb",
+        "10.1007/JHEP05(2022)067",
+        "2800508",
+        "2201.10167",
+        null,
+        null,
+        [
+            "LHCb-PAPER-2021-042",
+            "CERN-EP-2021-267"
+        ]
+    ],
     "2031673": [
         "Observation of the doubly charmed baryon decay $ {\\Xi}_{cc}^{++}\\to {\\Xi}_c^{\\prime +}{\\pi}^{+} $",
         "LHCb",
@@ -423,6 +436,19 @@
         [
             "LHCb-PAPER-2021-041",
             "CERN-EP-2022-022"
+        ]
+    ],
+    "2045484": [
+        "First Measurement of the <math display=\"inline\"><mrow><mi>Z</mi><mo stretchy=\"false\">\u2192</mo><msup><mrow><mi>\u03bc</mi></mrow><mrow><mo>+</mo></mrow></msup><msup><mrow><mi>\u03bc</mi></mrow><mrow><mo>-</mo></mrow></msup></mrow></math> Angular Coefficients in the Forward Region of <math display=\"inline\"><mi>p</mi><mi>p</mi></math> Collisions at <math display=\"inline\"><mrow><msqrt><mrow><mi>s</mi></mrow></msqrt><mo>=</mo><mn>13</mn><mtext>\u2009</mtext><mtext>\u2009</mtext><mi>TeV</mi></mrow></math>",
+        "LHCb",
+        "10.1103/PhysRevLett.129.091801",
+        "2803104",
+        "2203.01602",
+        null,
+        null,
+        [
+            "LHCb-PAPER-2021-048",
+            "CERN-EP-2022-030"
         ]
     ]
 }

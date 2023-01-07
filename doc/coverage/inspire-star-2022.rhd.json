@@ -9,6 +9,16 @@
         null,
         []
     ],
+    "1800376": [
+        "Pair invariant mass to isolate background in the search for the chiral magnetic effect in <math><mi>Au</mi><mo>\u00a0</mo><mo>+</mo><mo>\u00a0</mo><mi>Au</mi></math> collisions at <math><mrow><msqrt><msub><mi>s</mi><msub><mrow/><mi>NN</mi></msub></msub></msqrt><mo>=</mo><mn>200</mn><mo>\u00a0</mo><mi>GeV</mi></mrow></math>",
+        "STAR",
+        "10.1103/PhysRevC.106.034908",
+        null,
+        "2006.05035",
+        "ins1800376",
+        null,
+        []
+    ],
     "1869023": [
         "Search for the Chiral Magnetic Effect via Charge-Dependent Azimuthal Correlations Relative to Spectator and Participant Planes in Au+Au Collisions at $\\sqrt{s_{NN}}$ =\u2009 200\u2009GeV",
         "STAR",
@@ -53,7 +63,7 @@
         "Probing the Gluonic Structure of the Deuteron with $J/\\psi$ Photoproduction in d+Au Ultraperipheral Collisions",
         "STAR",
         "10.1103/PhysRevLett.128.122303",
-        "2805008",
+        null,
         "2109.07625",
         "ins1922652",
         null,
@@ -80,7 +90,7 @@
         []
     ],
     "1946124": [
-        "Measurements of H\u039b3 and H\u039b4 Lifetimes and Yields in Au+Au Collisions in the High Baryon Density Region",
+        "Measurements of $H_\\Lambda^3$ and $H_\\Lambda^4$ Lifetimes and Yields in Au+Au Collisions in the High Baryon Density Region",
         "STAR",
         "10.1103/PhysRevLett.128.202301",
         null,
@@ -103,9 +113,29 @@
         "Longitudinal double-spin asymmetry for inclusive jet and dijet production in polarized proton collisions at $\\sqrt{s}=510$ GeV",
         "STAR",
         "10.1103/PhysRevD.105.092011",
-        "2810600",
+        null,
         "2110.11020",
         "ins1949588",
+        null,
+        []
+    ],
+    "1972873": [
+        "Evidence for Nonlinear Gluon Effects in QCD and Their Mass Number Dependence at STAR",
+        "STAR",
+        "10.1103/PhysRevLett.129.092501",
+        null,
+        "2111.10396",
+        "ins1972873",
+        null,
+        []
+    ],
+    "1978766": [
+        "Evidence of Mass Ordering of Charm and Bottom Quark Energy Loss in Au+Au Collisions at RHIC",
+        "STAR",
+        "10.1140/epjc/s10052-022-11003-7",
+        null,
+        "2111.14615",
+        null,
         null,
         []
     ],
@@ -113,7 +143,7 @@
         "Measurements of Proton High Order Cumulants in $\\sqrt{s_{_{\\mathrm{NN}}}}$ = 3 GeV Au+Au Collisions and Implications for the QCD Critical Point",
         "STAR",
         "10.1103/PhysRevLett.128.202303",
-        "2810601",
+        null,
         "2112.00240",
         "ins1981670",
         null,
@@ -126,6 +156,56 @@
         null,
         "2112.04066",
         "ins1986611",
+        null,
+        []
+    ],
+    "2017211": [
+        "Collision-System and Beam-Energy Dependence of Anisotropic Flow Fluctuations",
+        "STAR",
+        "10.1103/PhysRevLett.129.252301",
+        null,
+        "2201.10365",
+        null,
+        null,
+        []
+    ],
+    "2051708": [
+        "Centrality and transverse momentum dependence of higher-order flow harmonics of identified hadrons in Au+Au collisions at $\\sqrt{s_{NN}}$ = 200 GeV",
+        "STAR",
+        "10.1103/PhysRevC.105.064911",
+        null,
+        "2203.07204",
+        "ins2051708",
+        null,
+        []
+    ],
+    "2071694": [
+        "Projections of two-particle correlations onto transverse rapidity in <math><mi>Au</mi><mo>+</mo><mi>Au</mi></math> collisions at <math><mrow><msqrt><msub><mi>s</mi><mrow><mi>N</mi><mi>N</mi></mrow></msub></msqrt><mo>=</mo><mn>200</mn><mo>\u00a0</mo><mi>GeV</mi></mrow></math> at STAR",
+        "STAR",
+        "10.1103/PhysRevC.106.044906",
+        null,
+        "2204.11661",
+        "ins2071694",
+        null,
+        []
+    ],
+    "2087127": [
+        "Azimuthal transverse single-spin asymmetries of inclusive jets and identified hadrons within jets from polarized $pp$ collisions at $\\sqrt{s}$ = 200 GeV",
+        "STAR",
+        "10.1103/PhysRevD.106.072010",
+        null,
+        "2205.11800",
+        "ins2087127",
+        null,
+        []
+    ],
+    "2105274": [
+        "Measurement of <math altimg=\"si1.svg\"><mmultiscripts><mrow><mi mathvariant=\"normal\">H</mi></mrow><mprescripts/><mrow><mi mathvariant=\"normal\">\u039b</mi></mrow><mrow><mn>4</mn></mrow></mmultiscripts></math> and <math altimg=\"si2.svg\"><mmultiscripts><mrow><mi mathvariant=\"normal\">He</mi></mrow><mprescripts/><mrow><mi mathvariant=\"normal\">\u039b</mi></mrow><mrow><mn>4</mn></mrow></mmultiscripts></math> binding energy in Au+Au collisions at <math altimg=\"si3.svg\"><msqrt><mrow><msub><mrow><mi>s</mi></mrow><mrow><mi mathvariant=\"normal\">NN</mi></mrow></msub></mrow></msqrt></math> = 3 GeV",
+        "STAR",
+        "10.1016/j.physletb.2022.137449",
+        null,
+        "2207.00778",
+        "ins2105274",
         null,
         []
     ]

@@ -176,6 +176,7 @@
 798469 . Inclusive cross section and double helicity asymmetry for pi^0 production in $p^+ p$ collisions at $\sqrt{s}=62.4$ GeV
 800796 . Energy and system size dependence of phi meson production in Cu+Cu and Au+Au collisions
 804391 . Observation of Two-source Interference in the Photoproduction Reaction Au Au ---> Au Au rho0
+810030 . Energy and system dependence of high-p(T) triggered two-particle near-side correlations
 810426 . Measurement of D* Mesons in Jets from p+p Collisions at s**(1/2) = 200-GeV
 810902 . K/pi Fluctuations at Relativistic Energies
 814937 . Pion Interferometry in Au+Au and Cu+Cu Collisions at RHIC
@@ -459,6 +460,7 @@
 1798581 . Polarization and cross section of midrapidity J/$\psi$ production in $p+p$ collisions at $\sqrt {s}$ = 510  GeV
 1798586 . Production of $b\bar{b}$ at forward rapidity in $p$+$p$ collisions at $\sqrt{s}=510$ GeV
 1798665 . Measurement of inclusive charged-particle jet production in Au + Au collisions at $\sqrt{s_{NN}}=$200 GeV
+1800376 . Pair invariant mass to isolate background in the search for the chiral magnetic effect in <math><mi>Au</mi><mo> </mo><mo>+</mo><mo> </mo><mi>Au</mi></math> collisions at <math><mrow><msqrt><msub><mi>s</mi><msub><mrow/><mi>NN</mi></msub></msub></msqrt><mo>=</mo><mn>200</mn><mo> </mo><mi>GeV</mi></mrow></math>
 1802752 . Investigation of the linear and mode-coupled flow harmonics in Au+Au collisions at $\sqrt {S_{NN}}$ = 200 GeV
 1806120 . Measurement of inclusive J/$\psi$ polarization in $p+p$ collisions at $\sqrt {s}$ =200  GeV by the STAR experiment
 1806121 . Beam-energy dependence of the directed flow of deuterons in Au+Au collisions
@@ -482,12 +484,19 @@
 1925052 ! Differential measurements of jet substructure and partonic energy loss in Au+Au collisions at $\sqrt {S_{NN}}$ =200 GeV
 1928900 . Measurement of inclusive electrons from open heavy-flavor hadron decays in $p$+$p$ collisions at $\sqrt{s} = 200$  GeV with the STAR detector
 1944868 . Transverse single spin asymmetries of forward neutrons in $p+p$, $p+$Al and $p+$Au collisions at $\sqrt{s_{_{NN}}}=200$ GeV as a function of transverse and longitudinal momenta
-1946124 . Measurements of HΛ3 and HΛ4 Lifetimes and Yields in Au+Au Collisions in the High Baryon Density Region
+1946124 . Measurements of $H_\Lambda^3$ and $H_\Lambda^4$ Lifetimes and Yields in Au+Au Collisions in the High Baryon Density Region
 1946829 . Measurement of cold nuclear matter effects for inclusive J/ψ in p+Au collisions at sNN=200 GeV
 1949588 . Longitudinal double-spin asymmetry for inclusive jet and dijet production in polarized proton collisions at $\sqrt{s}=510$ GeV
 1965617 . Systematic study of nuclear effects in $p$ $+$Al, $p$ $+$Au, $d$ $+$Au, and $^{3}$He$+$Au collisions at $\sqrt{s_{_{NN}}}=200$ GeV using $\pi^0$ production
+1972873 . Evidence for Nonlinear Gluon Effects in QCD and Their Mass Number Dependence at STAR
+1978766 . Evidence of Mass Ordering of Charm and Bottom Quark Energy Loss in Au+Au Collisions at RHIC
 1981670 . Measurements of Proton High Order Cumulants in $\sqrt{s_{_{\mathrm{NN}}}}$ = 3 GeV Au+Au Collisions and Implications for the QCD Critical Point
 1986611 . Light nuclei collectivity from $\sqrt{s_{NN}}$ = 3 GeV Au+Au collisions at RHIC
 1988071 . Transverse-single-spin asymmetries of charged pions at midrapidity in transversely polarized $p{+}p$ collisions at $\sqrt{s}=200$  GeV
+2017211 . Collision-System and Beam-Energy Dependence of Anisotropic Flow Fluctuations
 2026169 . Kinematic dependence of azimuthal anisotropies in $p+Au,$ $d+Au,$ and $^3He+Au$ at $\sqrt{s}_{NN}=200$ GeV
-2029951 . Measurement of $\psi(2S)$ nuclear modification at backward and forward rapidity in $p$$+$$p$, $p$$+$Al, and $p$$+$Au collisions at $\sqrt{s_{_{NN}}}=200$ GeV
+2029951 . Measurement of $\psi(2S)$ nuclear modification at backward and forward rapidity in $p$ $+$ $p$, $p$ $+$ Al, and $p$ $+$ Au collisions at $\sqrt{s_{_{NN}}}=200$ GeV
+2051708 . Centrality and transverse momentum dependence of higher-order flow harmonics of identified hadrons in Au+Au collisions at $\sqrt{s_{NN}}$ = 200 GeV
+2071694 . Projections of two-particle correlations onto transverse rapidity in <math><mi>Au</mi><mo>+</mo><mi>Au</mi></math> collisions at <math><mrow><msqrt><msub><mi>s</mi><mrow><mi>N</mi><mi>N</mi></mrow></msub></msqrt><mo>=</mo><mn>200</mn><mo> </mo><mi>GeV</mi></mrow></math> at STAR
+2087127 . Azimuthal transverse single-spin asymmetries of inclusive jets and identified hadrons within jets from polarized $pp$ collisions at $\sqrt{s}$ = 200 GeV
+2105274 . Measurement of <math altimg="si1.svg"><mmultiscripts><mrow><mi mathvariant="normal">H</mi></mrow><mprescripts/><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></mmultiscripts></math> and <math altimg="si2.svg"><mmultiscripts><mrow><mi mathvariant="normal">He</mi></mrow><mprescripts/><mrow><mi mathvariant="normal">Λ</mi></mrow><mrow><mn>4</mn></mrow></mmultiscripts></math> binding energy in Au+Au collisions at <math altimg="si3.svg"><msqrt><mrow><msub><mrow><mi>s</mi></mrow><mrow><mi mathvariant="normal">NN</mi></mrow></msub></mrow></msqrt></math> = 3 GeV

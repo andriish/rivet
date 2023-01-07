@@ -1,4 +1,16 @@
 {
+    "1752507": [
+        "Global polarization of $\\Lambda \\bar \\Lambda$ hyperons in Pb-Pb collisions at $\\sqrt {s_{NN}}$ = 2.76 and 5.02 TeV",
+        "ALICE",
+        "10.1103/PhysRevC.101.044611",
+        "2685249",
+        "1909.01281",
+        "ins1752507",
+        null,
+        [
+            "CERN-EP-2019-173"
+        ]
+    ],
     "1856529": [
         "Nuclear modification factor of light neutral-meson spectra up to high transverse momentum in p\u2013Pb collisions at sNN=8.16 TeV",
         "ALICE",
@@ -12,7 +24,7 @@
         ]
     ],
     "1857549": [
-        "Exploring the N$\\Lambda$-N$\\Sigma$ coupled system with high precision correlation techniques at the LHC",
+        "Exploring the N\u039b\u2013N\u03a3 coupled system with high precision correlation techniques at the LHC",
         "ALICE",
         "10.1016/j.physletb.2022.137272",
         "2759417",
@@ -93,6 +105,18 @@
             "CERN-EP-2021-103"
         ]
     ],
+    "1870141": [
+        "Production of K$^{*}(892)^{0}$ and $\\phi(1020)$ in pp and Pb-Pb collisions at $\\sqrt{s_{\\rm NN}} = 5.02$ TeV",
+        "ALICE",
+        "10.1103/PhysRevC.106.034907",
+        "2770614",
+        "2106.13113",
+        null,
+        null,
+        [
+            "CERN-EP-2021-101"
+        ]
+    ],
     "1889905": [
         "Hypertriton Production in p-Pb Collisions at $\\sqrt {s_{NN}}$=5.02\u2009\u2009TeV",
         "A Large Ion Collider Experiment",
@@ -103,6 +127,18 @@
         null,
         [
             "CERN-EP-2021-139"
+        ]
+    ],
+    "1890061": [
+        "Study of very forward energy and its correlation with particle production at midrapidity in pp and p-Pb collisions at the LHC",
+        "ALICE",
+        "10.1007/JHEP08(2022)086",
+        "2776001",
+        "2107.10757",
+        "ins1890061",
+        null,
+        [
+            "CERN-EP-2021-144"
         ]
     ],
     "1891385": [
@@ -178,7 +214,7 @@
         ]
     ],
     "1943964": [
-        "General balance functions of identified charged hadron pairs of $(\\pi,{\\rm K},{\\rm p})$ in Pb$-$Pb collisions at $\\sqrt{s_{\\rm NN}} = 2.76$ TeV",
+        "General balance functions of identified charged hadron pairs of (\u03c0,K,p) in Pb\u2013Pb collisions at <math altimg=\"si1.svg\"><msub><mrow><msqrt><mrow><mi>s</mi></mrow></msqrt></mrow><mrow><msub><mrow/><mrow><mi mathvariant=\"normal\">NN</mi></mrow></msub></mrow></msub><mo linebreak=\"goodbreak\" linebreakstyle=\"after\">=</mo></math> 2.76 TeV",
         "ALICE",
         "10.1016/j.physletb.2022.137338",
         "2782590",
@@ -225,8 +261,20 @@
             "CERN-EP-2021-187"
         ]
     ],
+    "1966120": [
+        "Characterizing the initial conditions of heavy-ion collisions at the LHC with mean transverse momentum and anisotropic flow correlations",
+        "ALICE",
+        "10.1016/j.physletb.2022.137393",
+        "2790425",
+        "2111.06106",
+        "ins1966120",
+        null,
+        [
+            "CERN-EP-2021-232"
+        ]
+    ],
     "1967109": [
-        "K$^0_{\\rm S}$K$^0_{\\rm S}$ and K$^0_{\\rm S}$K$^\\pm$ femtoscopy in pp collisions at $\\sqrt{s}=$ 5.02 and 13 TeV",
+        "K<math altimg=\"si1.svg\"><msubsup><mrow/><mrow><mi mathvariant=\"normal\">S</mi></mrow><mrow><mn>0</mn></mrow></msubsup></math>K<math altimg=\"si1.svg\"><msubsup><mrow/><mrow><mi mathvariant=\"normal\">S</mi></mrow><mrow><mn>0</mn></mrow></msubsup></math> and K<math altimg=\"si1.svg\"><msubsup><mrow/><mrow><mi mathvariant=\"normal\">S</mi></mrow><mrow><mn>0</mn></mrow></msubsup></math>K\u00b1 femtoscopy in pp collisions at <math altimg=\"si2.svg\"><msqrt><mrow><mi>s</mi></mrow></msqrt><mo linebreak=\"goodbreak\" linebreakstyle=\"after\">=</mo><mn>5.02</mn></math> and 13 TeV",
         "ALICE",
         "10.1016/j.physletb.2022.137335",
         "2789848",
@@ -274,7 +322,7 @@
         ]
     ],
     "1993200": [
-        "Neutral to charged kaon yield fluctuations in Pb \u2013 Pb collisions at sNN=2.76 TeV",
+        "Neutral to charged kaon yield fluctuations in Pb \u2013 Pb collisions at <math altimg=\"si1.svg\"><msqrt><mrow><msub><mrow><mi>s</mi></mrow><mrow><mi mathvariant=\"normal\">NN</mi></mrow></msub></mrow></msqrt><mo linebreak=\"goodbreak\" linebreakstyle=\"after\">=</mo><mn>2.76</mn></math> TeV",
         "ALICE",
         "10.1016/j.physletb.2022.137242",
         "2792522",
@@ -283,6 +331,42 @@
         null,
         [
             "CERN-EP-2021-261"
+        ]
+    ],
+    "2011222": [
+        "First study of the two-body scattering involving charm hadrons",
+        "ALICE",
+        "10.1103/PhysRevD.106.052010",
+        "2799306",
+        "2201.05352",
+        "ins2011222",
+        null,
+        [
+            "CERN-EP-2022-006"
+        ]
+    ],
+    "2025044": [
+        "Measurement of beauty production via non-prompt D$^{0}$ mesons in Pb-Pb collisions at $ \\sqrt{{\\textrm{s}}_{\\textrm{NN}}} $= 5.02 TeV",
+        "ALICE",
+        "10.1007/JHEP12(2022)126",
+        "2800601",
+        "2202.00815",
+        "ins2025044",
+        null,
+        [
+            "CERN-EP-2022-015"
+        ]
+    ],
+    "2026264": [
+        "Measurement of anti-$^3$He nuclei absorption in matter and impact on their propagation in the Galaxy.",
+        "ALICE",
+        "10.1038/s41567-022-01804-8",
+        "2801009",
+        "2202.01549",
+        "ins2026264",
+        null,
+        [
+            "CERN-EP-2022-023"
         ]
     ],
     "2026265": [
