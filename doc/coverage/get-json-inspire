@@ -1,16 +1,16 @@
 #! /usr/bin/env bash
 
 # TODO: structure better, e.g. associative groupings by YSTART:YEND pairs
-CURRENT=(alice atlas cms lhcb totem lhcf star phenix cleo h1 zeus hermes babar belle opal delphi aleph l3 sld compass snd cmd bes besiii cdf d0 kloe)
-#TO2010=(...)
+CURRENT=(alice atlas cms lhcb totem lhcf star phenix cleo h1 zeus hermes babar belle opal delphi aleph l3 sld compass snd cmd bes besiii cdf d0 kloe kedr)
+TO2010=(focus e691 e791 e756)
 TO2000=(amy jade argus venus topaz hrs mac tpc dm2 cello fenice lena cusb e735 olya)
 TO1990=(dasp desy147 dm1 jade marki markii markj mupi pluto tasso) # nmd two_gamma
-EXPTS=("${CURRENT[@]}" "${TO2000[@]}" "${TO1990[@]}")
+EXPTS=("${CURRENT[@]}" "${TO2010[@]}" "${TO2000[@]}" "${TO1990[@]}")
 
 # EXPTS=(atlas cms)
 
 # TODO: does the "publication_info.journal_title:* and not publication_info.cnum:*" condition remove the need to test on author numbers? A quick test suggests not quite
-SMALL=(amy jade argus snd cmd topaz pluto tasso dm1 dm2 lhcf cello mupi lena kloe fenice bbar brahms kloe cusb dasp desy147 e735 ehs two_gamma hrs mac marki markii markj md1 nd nmd olya sfm totem tpc venus fenice)
+SMALL=(amy jade argus snd cmd topaz pluto tasso dm1 dm2 lhcf cello mupi lena kloe fenice bbar brahms kloe cusb dasp desy147 e735 ehs two_gamma hrs mac marki markii markj md1 nd nmd olya sfm totem tpc venus fenice focus kedr e691 e791 e756)
 
 for EXPT in ${EXPTS[@]}; do
     NAUTH=100
@@ -26,7 +26,13 @@ for EXPT in ${EXPTS[@]}; do
 	        break
 	    fi
     done
-    # Change start year for older experiments
+    # Change end year for older experiments
+    for OLDEXPT in ${TO2010[@]}; do
+            if [[ "$OLDEXPT" == "$EXPT" ]]; then
+		ENDYEAR=2010
+		break
+            fi
+    done
     for OLDEXPT in ${TO2000[@]}; do
 	    if [[ "$OLDEXPT" == "$EXPT" ]]; then
 	        ENDYEAR=2000
