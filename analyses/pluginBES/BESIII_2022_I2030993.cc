@@ -36,8 +36,8 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static const map<PdgId,unsigned int> & mode   = { { 211,2}, {-211,1}};
-      static const map<PdgId,unsigned int> & modeCC = { {-211,2}, { 211,1}};
+      static const map<PdgId,unsigned int> & mode   = { { 211,1}, { 111,1}, { 331,1}};
+      static const map<PdgId,unsigned int> & modeCC = { {-211,1}, { 111,1}, { 331,1}};
       DecayedParticles DS = apply<DecayedParticles>(event, "DS");
       // loop over particles
       for(unsigned int ix=0;ix<DS.decaying().size();++ix) {
@@ -52,7 +52,7 @@ namespace Rivet {
 	  continue;
 	const Particle  & pip = DS.decayProducts()[ix].at( sign*211)[0];
 	const Particle  & pi0 = DS.decayProducts()[ix].at(      111)[0];
-	const Particle  & eta = DS.decayProducts()[ix].at(      221)[0];
+	const Particle  & eta = DS.decayProducts()[ix].at(      331)[0];
 	double mplus = (eta.momentum()+pip.momentum()).mass2();
 	double mzero = (eta.momentum()+pi0.momentum()).mass2();
 	double mpipi = (pip.momentum()+pi0.momentum()).mass2();

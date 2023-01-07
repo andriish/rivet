@@ -95,7 +95,8 @@ namespace Rivet {
 	    _h_pipi1  ->fill(mpipi);
 	    _dalitz1   ->fill(mplus,mminus);
 	  }
-	  else if(DD.modeMatches(ix,3,mode2  ) || DD.modeMatches(ix,3,mode2CC)) {
+	  else if( ( DD.decaying()[ix].pid()>0 && DD.modeMatches(ix,3,mode2  )) ||
+		   ( DD.decaying()[ix].pid()<0 && DD.modeMatches(ix,3,mode2CC))) {
 	    const Particle & pi0 = DD.decayProducts()[ix].at(      111)[0];
 	    const Particle & pip = DD.decayProducts()[ix].at( sign*211)[0];
 	    const Particle & Km  = DD.decayProducts()[ix].at(-sign*321)[0];

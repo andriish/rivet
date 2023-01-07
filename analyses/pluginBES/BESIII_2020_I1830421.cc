@@ -20,7 +20,7 @@ namespace Rivet {
     /// Book histograms and initialise projections before the run
     void init() {
       // Initialise and register projections
-      UnstableParticles ufs = UnstableParticles(Cuts::pid== 221);
+      UnstableParticles ufs = UnstableParticles(Cuts::pid== 331);
       declare(ufs, "UFS");
       DecayedParticles ETA(ufs);
       declare(ETA,"ETA");

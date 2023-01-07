@@ -40,7 +40,7 @@ namespace Rivet {
 	if ( !ETA.modeMatches(ix,3,mode)) continue;
 	const Particle & pip = ETA.decayProducts()[ix].at( 211)[0];
 	const Particle & pim = ETA.decayProducts()[ix].at(-211)[0];
-	_h_m->fill((pip.momentum()+pim.momentum()).mass());
+	_h_m->fill((pip.momentum()+pim.momentum()).mass()/MeV);
       }
     }
 

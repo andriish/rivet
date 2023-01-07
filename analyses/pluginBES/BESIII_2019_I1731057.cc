@@ -36,7 +36,7 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static const map<PdgId,unsigned int> & mode   = { { 211,1},{-211,1}, {111,1}};
+      static const map<PdgId,unsigned int> & mode   = { { 321,1},{-321,1}, {111,1}};
       DecayedParticles PSI = apply<DecayedParticles>(event, "PSI");
       // loop over particles
       for(unsigned int ix=0;ix<PSI.decaying().size();++ix) {

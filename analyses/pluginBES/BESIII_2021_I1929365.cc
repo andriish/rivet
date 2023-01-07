@@ -24,6 +24,7 @@ namespace Rivet {
       declare(ufs, "UFS");
       DecayedParticles DS(ufs);
       DS.addStable(PID::PI0);
+      DS.addStable(PID::K0S);
       declare(DS,"DS");
       // histos
       book(_h_pi0pi0,1,1,1);

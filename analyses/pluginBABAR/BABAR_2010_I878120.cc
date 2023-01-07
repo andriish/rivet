@@ -35,8 +35,8 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static const map<PdgId,unsigned int> & mode   = { { 211,2}, {-321,1} };
-      static const map<PdgId,unsigned int> & modeCC = { {-211,2}, { 321,1} };
+      static const map<PdgId,unsigned int> & mode   = { { 211,1}, { 321,1}, {-321,1} };
+      static const map<PdgId,unsigned int> & modeCC = { {-211,1}, { 321,1}, {-321,1} };
       // Loop over D+ mesons
       DecayedParticles DS = apply<DecayedParticles>(event, "DS");
       for(unsigned int ix=0;ix<DS.decaying().size();++ix) {

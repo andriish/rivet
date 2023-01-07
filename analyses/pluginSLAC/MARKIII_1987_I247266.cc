@@ -64,7 +64,8 @@ namespace Rivet {
       for(unsigned int ix=0;ix<DD.decaying().size();++ix) {
 	int sign = DD.decaying()[ix].pid()/DD.decaying()[ix].abspid();
 	if(DD.decaying()[ix].abspid()==421) {
-	  if ( DD.modeMatches(ix,3,mode1  ) || DD.modeMatches(ix,3,mode1CC)) {
+	  if ( ( DD.decaying()[ix].pid()>0 && DD.modeMatches(ix,3,mode1  )) ||
+	       ( DD.decaying()[ix].pid()<0 && DD.modeMatches(ix,3,mode1CC))) {
 	    const Particle & pi0 = DD.decayProducts()[ix].at(      111)[0];
 	    const Particle & pip = DD.decayProducts()[ix].at( sign*211)[0];
 	    const Particle & Km  = DD.decayProducts()[ix].at(-sign*321)[0];

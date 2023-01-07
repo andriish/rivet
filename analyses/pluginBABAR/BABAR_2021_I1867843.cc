@@ -28,8 +28,7 @@ namespace Rivet {
       ETAC.addStable(PID::ETA);
       ETAC.addStable(PID::ETAPRIME);
       declare(ETAC,"ETAC");
-      // Initialise and register projections
-      declare(UnstableParticles(), "UFS");
+      // histograms
       book(_h_KK    ,1,1,1);
       book(_h_etaPK ,1,1,2);
       book(_h_pipi1 ,2,1,1);

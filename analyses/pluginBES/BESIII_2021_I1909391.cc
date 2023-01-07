@@ -43,8 +43,8 @@ namespace Rivet {
       static const double E11 = -0.158;
       static const double E12 =  0.090;
       static const double Eth[3] = {1.516,1.516,1.563};
-      static const map<PdgId,unsigned int> & mode   = { { 211,1},{ 111,1}, {310,1}};
-      static const map<PdgId,unsigned int> & modeCC = { {-211,1},{ 111,1}, {310,1}};
+      static const map<PdgId,unsigned int> & mode   = { { 211,2}, {-211,1}};
+      static const map<PdgId,unsigned int> & modeCC = { {-211,2}, { 211,1}};
       DecayedParticles DS = apply<DecayedParticles>(event, "DS");
       // loop over particles
       for(unsigned int ix=0;ix<DS.decaying().size();++ix) {
