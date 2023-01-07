@@ -10,7 +10,7 @@ We need this as many older papers don't have experiment info in Inspire
 """
 
 from __future__ import print_function
-
+import time
 import argparse
 ap = argparse.ArgumentParser(usage=__doc__)
 args = ap.parse_args()
@@ -63,10 +63,11 @@ for ins, rec in anas.items():
         import urllib2 as urlreq
 
     ## Skip if we have the paper or from PDG
-    if ins in records:
+    if int(ins) in records:
         continue
     if "PDG" in rec[0]:
         continue
+    time.sleep(.5)
     print("Trying to retrieve missing Inspire record with ID: {}".format(ins))
 
     ## Use the Inspire API, searching only for the Inspire key
