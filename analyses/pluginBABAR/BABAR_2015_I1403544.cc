@@ -47,6 +47,7 @@ namespace Rivet {
       DecayedParticles ETAC = apply<DecayedParticles>(event, "ETAC");
       // loop over particles
       for(unsigned int ix=0;ix<ETAC.decaying().size();++ix) {
+	// K+ K- pi0
 	if (ETAC.modeMatches(ix,3,mode1)&&
 	    ETAC.decaying()[ix].mass()>2.922 && ETAC.decaying()[ix].mass()<3.036) {
 	  const Particle & Kp  = ETAC.decayProducts()[ix].at( 321)[0];
@@ -63,8 +64,8 @@ namespace Rivet {
 	}
 	else if(ETAC.decaying()[ix].mass()>2.922 && ETAC.decaying()[ix].mass()<3.039) {
 	  int sign=1;
-	  if     (ETAC.modeMatches(ix,3,mode2)) sign= 1;
-	  else if(ETAC.modeMatches(ix,3,mode2)) sign=-1;
+	  if     (ETAC.modeMatches(ix,3,mode2  )) sign= 1;
+	  else if(ETAC.modeMatches(ix,3,mode2CC)) sign=-1;
 	  else continue;
 	  const Particle & KS0 = ETAC.decayProducts()[ix].at( 310)[0];
 	  const Particle & Kp  = ETAC.decayProducts()[ix].at( sign*321)[0];

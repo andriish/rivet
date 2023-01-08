@@ -23,7 +23,8 @@ namespace Rivet {
       UnstableParticles ufs = UnstableParticles(Cuts::pid== 441);
       declare(ufs, "UFS");
       DecayedParticles ETAC(ufs);
-      ETAC.addStable(PID::ETAPRIME);
+      ETAC.addStable(PID::PI0);
+      ETAC.addStable(PID::ETA);
       declare(ETAC,"ETAC");
       // histos
       book(_h_KK[0],1,1,1);
@@ -38,8 +39,8 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static const map<PdgId,unsigned int> & mode1 = { { 211,1},{-211,1}, {111,1}};
-      static const map<PdgId,unsigned int> & mode2 = { { 211,1},{-211,1}, {221,1}};
+      static const map<PdgId,unsigned int> & mode1 = { { 321,1},{-321,1}, {111,1}};
+      static const map<PdgId,unsigned int> & mode2 = { { 321,1},{-321,1}, {221,1}};
       DecayedParticles ETAC = apply<DecayedParticles>(event, "ETAC");
       // loop over particles
       for(unsigned int ix=0;ix<ETAC.decaying().size();++ix) {

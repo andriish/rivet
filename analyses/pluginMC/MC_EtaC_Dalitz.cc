@@ -130,6 +130,7 @@ namespace Rivet {
       DecayedParticles ETAC = apply<DecayedParticles>(event, "ETAC");
       // loop over particles
       for(unsigned int ix=0;ix<ETAC.decaying().size();++ix) {
+	if(ETAC.decaying()[ix].mass()<2.93 || ETAC.decaying()[ix].mass()>3.03) continue;
 	// pi+ pi- eta
 	if (ETAC.modeMatches(ix,3,mode1)) {
 	  const Particle & pip = ETAC.decayProducts()[ix].at( 211)[0];
@@ -298,7 +299,7 @@ namespace Rivet {
 	  _dalitz[12]->fill(mplus,mminus);
       	}
        	// KS0 K+ pi-
-	else if (ETAC.modeMatches(ix,3,mode13)) {
+	else if (ETAC.modeMatches(ix,3,mode14)) {
 	  const Particle & KS0 = ETAC.decayProducts()[ix].at( 310)[0];
 	  const Particle & Kp  = ETAC.decayProducts()[ix].at( 321)[0];
 	  const Particle & pim = ETAC.decayProducts()[ix].at(-211)[0];
@@ -311,7 +312,7 @@ namespace Rivet {
 	  _dalitz[13]->fill(mplus,mminus);
 	}
 	// KS0 K- pi+
-	else if (ETAC.modeMatches(ix,3,mode13)) {
+	else if (ETAC.modeMatches(ix,3,mode15)) {
 	  const Particle & KS0 = ETAC.decayProducts()[ix].at( 310)[0];
 	  const Particle & Km  = ETAC.decayProducts()[ix].at(-321)[0];
 	  const Particle & pip = ETAC.decayProducts()[ix].at( 211)[0];
@@ -324,7 +325,7 @@ namespace Rivet {
        	  _dalitz[14]->fill(mplus,mminus);
        	}
        	// KL0 K+ pi-
-	else if (ETAC.modeMatches(ix,3,mode13)) {
+	else if (ETAC.modeMatches(ix,3,mode16)) {
 	  const Particle & KL0 = ETAC.decayProducts()[ix].at( 130)[0];
 	  const Particle & Kp  = ETAC.decayProducts()[ix].at( 321)[0];
 	  const Particle & pim = ETAC.decayProducts()[ix].at(-211)[0];
@@ -337,7 +338,7 @@ namespace Rivet {
 	  _dalitz[15]->fill(mplus,mminus);
       	}
       	// KL0 K- pip
-	else if (ETAC.modeMatches(ix,3,mode13)) {
+	else if (ETAC.modeMatches(ix,3,mode17)) {
 	  const Particle & KL0 = ETAC.decayProducts()[ix].at( 130)[0];
 	  const Particle & Km  = ETAC.decayProducts()[ix].at(-321)[0];
 	  const Particle & pip = ETAC.decayProducts()[ix].at( 211)[0];
