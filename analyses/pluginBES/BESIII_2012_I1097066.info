@@ -4,7 +4,7 @@ Summary: Angular analysis of direct $\psi(2S)\to\gamma\gamma J\psi$
 Experiment: BESIII
 Collider: BEPC
 InspireID: 1097066
-Status: UNVALIDATED NOHEPDATA
+Status: VALIDATED NOHEPDATA
 Reentrant: true
 Authors:
  - Peter Richardson <peter.richardson@durham.ac.uk>
