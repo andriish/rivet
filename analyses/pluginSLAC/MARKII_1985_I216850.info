@@ -1,0 +1,34 @@
+Name: MARKII_1985_I216850
+Year: 1985
+Summary: Charge Particle Distributions in Nearly Symmetric 3 Jet Events at 29 GeV
+Experiment: MARKII
+Collider: MARKII
+InspireID: 216850
+Status: VALIDATED
+Reentrant: true
+Authors:
+ - Peter Richardson <peter.richardson@durham.ac.uk>
+References:
+ - Phys.Rev.Lett. 55 (1985) 1954
+RunInfo: e+ e- -> hadrons
+Beams: [e+, e-]
+Energies: [29.]
+Description:
+  'Measurement of the fractional momentum of particles in 3 Nearly Symmetric 3 Jet Events at 29 GeV. Provides information on gluon jets'
+ValidationInfo:
+  'Herwig7 events'
+#ReleaseTests:
+# - $A my-hepmc-prefix :MODE=some_rivet_flag
+Keywords: []
+BibKey: Petersen:1985hp
+BibTeX: '@article{Petersen:1985hp,
+    author = "Petersen, A. and others",
+    title = "{Inclusive Charged Particle Distribution in Nearly Threefold Symmetric Three Jet Events at $e$({CM}) = 29-{GeV}}",
+    reportNumber = "SLAC-PUB-3759, LBL-20171",
+    doi = "10.1103/PhysRevLett.55.1954",
+    journal = "Phys. Rev. Lett.",
+    volume = "55",
+    pages = "1954",
+    year = "1985"
+}
+'
