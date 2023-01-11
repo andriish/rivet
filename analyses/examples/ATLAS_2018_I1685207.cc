@@ -183,6 +183,11 @@ namespace Rivet {
       book(_valBins["HH_0t_1b"], "HH_0t_1b");
       book(_valBins["HH_1t_1b"], "HH_1t_1b");
       book(_valBins["XX_2t_1b"], "XX_2t_1b");
+
+      //Cutflow bins
+      for (const string &s : _cutflowNames){
+        book(_cutflowBins[s], s);
+      }
       
       if (_mode > 0){
         //Validation mode NN histograms
@@ -575,10 +580,6 @@ namespace Rivet {
       if (HT <= 1250*GeV){
         vetoEvent;
       }
-      //ETMiss < 200GeV and ETmiss > 40GeV
-      if (ETmiss <= 40*GeV || ETmiss >= 200*GeV){
-        vetoEvent;
-      }
       //Four small jets 
       if (smeared_small_jets.size() < 4){
         vetoEvent;
@@ -588,10 +589,41 @@ namespace Rivet {
         smeared_small_jets[2].pT() <= 125*GeV || smeared_small_jets[3].pT() <= 75*GeV){
         vetoEvent;
       }
+
+      //"preselection" cutflow should be.
+      _cutflowBins["presel"]->fill();
+
+      // TODO: I believe this cutf is superfluous for the main analysis
+      // (i.e. it cuts nothing that isn't cut elsewhere), but for validation
+      // we need the cutflow.
+      // It's probably a slightly inefficiecnt ordering to leave it in though.
+      // Cut for >=2 boson candiates:
+      size_t nCandidates = 0;
+      for (size_t i = 0; i < smeared_small_jets.size(); ++i){
+        if (JetTags[i] == MCBot_TagType::Vec || JetTags[i] == MCBot_TagType::Higgs){
+          ++nCandidates;
+        } 
+        else if (69*GeV < smeared_small_jets[i].mass() && smeared_small_jets[i].mass() < 155*GeV){
+          ++nCandidates;
+        }
+      }
+      if (nCandidates < 2){
+        vetoEvent;
+      }
+      _cutflowBins[">=2 boson candidates"]->fill();
+
       //2 bjets
       if (smeared_bjets.size() < 2){
         vetoEvent;
       }
+      _cutflowBins[">=2 b tags"]->fill();
+
+      //ETMiss < 200GeV and ETmiss > 40GeV
+      if (ETmiss <= 40*GeV || ETmiss >= 200*GeV){
+        vetoEvent;
+      }
+      //n.b the cutflow table only mentions ETMiss > 40, but assume it means both?
+      _cutflowBins["ETmiss >= 40"]->fill();
 
       //Two vRC jets tagged V or H
       int nVtags = std::count_if(JetTags.begin(), JetTags.end(), 
@@ -599,14 +631,17 @@ namespace Rivet {
       int nHtags = std::count_if(JetTags.begin(), JetTags.end(), 
                                   [](const MCBot_TagType tt){return (tt == MCBot_TagType::Higgs);});
       int ntoptags = std::count_if(JetTags.begin(), JetTags.end(), 
-                                  [](const MCBot_TagType tt){return (tt == MCBot_TagType::top);});                              
+                                  [](const MCBot_TagType tt){return (tt == MCBot_TagType::top);});
 
       if (nVtags + nHtags < 2){
         vetoEvent;
       }
 
+      _cutflowBins[">=2 bosons (DNN)"]->fill();
+
       //select signal/validation/control region.
       //TODO: The pre-selection cuts say 2 or more (v or H) tagged jets, but each signal region requires only two.
+      // TODO: I understand the above now, needs a slight rewrite. Should lead to an increase in counts?
       // I also can't see some sort of tie-break procedure outlined (e.g. take tags of two highest pT jets)
 
       //VV signal regions
@@ -1155,6 +1190,7 @@ namespace Rivet {
     /// @name Member variables
     map<string, CounterPtr> _sigBins;
     map<string, CounterPtr> _valBins;
+    map<string, CounterPtr> _cutflowBins;
     map<string, Histo1DPtr> _h;
     map<string, Scatter2DPtr> _s;
     map<string, Histo2DPtr> _h2;
@@ -1171,6 +1207,7 @@ namespace Rivet {
                                                      "VV_0t_1b", "VV_1t_1b",
                                                      "VH_0t_1b", "VH_1t_1b",
                                                      "HH_0t_1b", "HH_1t_1b", "XX_2t_1b"};
+    const vector<string> _cutflowNames = {"presel", ">=2 boson candidates", ">=2 b tags", "ETmiss >= 40", ">=2 bosons (DNN)" };
 
     /// @}
 
