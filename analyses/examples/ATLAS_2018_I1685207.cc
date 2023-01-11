@@ -738,6 +738,9 @@ namespace Rivet {
       for (const string& s : _controlRegionNames){
         _valBins[s]->scaleW(sf);
       }
+      for (const string& s : _cutflowNames){
+        _cutflowBins[s]->scaleW(sf);
+      }
 
       //Calculate efficiencies/rejections (NN, Vaidation only):
       // rejections
