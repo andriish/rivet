@@ -3,4 +3,5 @@ Title=$\alpha$ for $\Lambda_c^+\to\Lambda^0e^+\nu_e$ and $\bar\Lambda_c^+\to\bar
 YLabel=$\alpha_\Lambda\times\alpha_{\Lambda_c\to\Lambda^0e^+\nu_e}$
 YMin=-1.
 YMax=1.
+LogY=0
 END PLOT
