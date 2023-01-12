@@ -73,7 +73,6 @@ namespace Rivet {
 	  else if(Y.pid()==200553) {
 	    ihist=0;
 	  }
-	  _h_r[ihist]->fill(10.58);
 	  _w  [ihist]->fill();
 	  Particles deut;
 	  findDecayProducts(Y, deut);
@@ -83,6 +82,7 @@ namespace Rivet {
 	    boost = LorentzTransform::mkFrameTransformFromBeta(Y.momentum().betaVec());
 	  for(const Particle& p : deut) {
 	    double mom = boost.transform(p.momentum()).p3().mod();
+	    _h_r[ihist]->fill(10.58);
 	    _h_p[ihist]->fill(mom);
 	    _w  [ihist]->fill();
 	  }
