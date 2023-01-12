@@ -142,6 +142,8 @@ namespace Rivet {
 	Scatter2DPtr mult;
 	book(mult,ix, 1, 1);
 	for (size_t b = 0; b < temphisto.numPoints(); b++) {
+	  if( (ix==1 || ix==3) &&  _c_muonsY ->val()==0.) continue;
+	  if(  ix==2           &&  _c_hadrons->val()==0.) continue;
 	  const double x  = temphisto.point(b).x();
 	  pair<double,double> ex = temphisto.point(b).xErrs();
 	  if(x==9.458) {
