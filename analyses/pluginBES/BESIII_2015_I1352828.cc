@@ -26,6 +26,7 @@ namespace Rivet {
       DecayedParticles chi(ufs);
       chi.addStable( PID::PHI);
       chi.addStable( PID::K0S);
+      chi.addStable( PID::PI0);
       declare(chi, "chi");
       // histos
       for(unsigned int iy=0;iy<2;++iy)
