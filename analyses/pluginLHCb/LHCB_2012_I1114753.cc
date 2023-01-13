@@ -61,7 +61,7 @@ namespace Rivet {
 	if(lambda.size() !=1 || nstable !=3 ||
 	   pip.size()!=1 || pim.size() !=1 ) continue;
 	FourMomentum q = pip[0].momentum()+pim[0].momentum();
-	_h_mpipi->fill(q.mass());
+	_h_mpipi->fill(q.mass()/MeV);
       }
     }
 
