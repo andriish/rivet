@@ -72,7 +72,7 @@ namespace Rivet {
 	  _h_Kppi0->fill(mminus);
 	  _dalitz_KpKmpi->fill(mplus,mminus);
 	}
-	else if (PSI.decaying()[ix].mass()>2.922 && PSI.decaying()[ix].mass()<3.039) {
+	else {
 	  int sign =1;
 	  if     (PSI.modeMatches(ix,3,mode3  )) sign= 1;
 	  else if(PSI.modeMatches(ix,3,mode3CC)) sign=-1;

@@ -33,8 +33,8 @@ namespace Rivet {
 
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static const map<PdgId,unsigned int> & mode   = { { 321,1}, {-211,1}, {13,1}, {-13,1} };
-      static const map<PdgId,unsigned int> & modeCC = { {-321,1}, { 211,1}, {13,1}, {-13,1} };
+      static const map<PdgId,unsigned int> & mode   = { { 321,1}, { 211,1}, {13,1}, {-13,1} };
+      static const map<PdgId,unsigned int> & modeCC = { { 321,1}, {-211,1}, {13,1}, {-13,1} };
       DecayedParticles D0 = apply<DecayedParticles>(event, "D0");
       // loop over particles
       for(unsigned int ix=0;ix<D0.decaying().size();++ix) {
@@ -47,8 +47,8 @@ namespace Rivet {
 	}
 	else
 	  continue;
-       	const Particle & Kp = D0.decayProducts()[ix].at( sign*321)[0];
-      	const Particle & pim= D0.decayProducts()[ix].at(-sign*211)[0];
+       	const Particle & Kp = D0.decayProducts()[ix].at(-sign*321)[0];
+      	const Particle & pim= D0.decayProducts()[ix].at( sign*211)[0];
       	const Particle & mup= D0.decayProducts()[ix].at( 13)[0];
       	const Particle & mum= D0.decayProducts()[ix].at(-13)[0];
 	_h[0]->fill((Kp.momentum()+pim.momentum()).mass()/MeV);
