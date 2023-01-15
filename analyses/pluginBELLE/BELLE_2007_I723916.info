@@ -1,6 +1,6 @@
 Name: BELLE_2007_I723916
 Year: 2007
-Summary: Decay angles for $\Lambda_c(2880)^+\to\Sigma_c^{*0,++}\pi^{+,-}$
+Summary: Decay angles for $\Lambda_c(2880)^+\to\Sigma_c^{0,++}\pi^{+,-}$
 Experiment: BELLE
 Collider: KEKB
 InspireID: 723916
@@ -15,7 +15,7 @@ Beams: [e+, e-]
 Energies: [10.58]
 Options:
  - PID=*
-Description: 'Measurement of the helicity and decay angles for the decay $\Lambda_c(2880)^+\to\Sigma_c^{*0,++}\pi^{+,-}$.
+Description: 'Measurement of the helicity and decay angles for the decay $\Lambda_c(2880)^+\to\Sigma_c^{0,++}\pi^{+,-}$.
 The PDG code for this particle is not specified and which multiplet it belongs to is unclear. The default
 is to use, 4126, i.e the first spin $\frac{5}{2}$ state'
 ValidationInfo:
