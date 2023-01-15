@@ -6,6 +6,6 @@ def patch(path, ao):
     if path in needs_patching:
       for i in range(ao.numPoints()):
           ao.point(i).setVal(1, float(i))
-          ao.point(i).setErrs(1, (0.5, 0.5))
+          ao.point(i).setXErrs((0.5, 0.5))
     return ao
 
