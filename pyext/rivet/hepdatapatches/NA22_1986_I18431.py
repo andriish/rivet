@@ -12,7 +12,7 @@ def patch(path, ao):
           newao.setAnnotation(anno, ao.annotation(anno))
       ao = newao
       for i in range(ao.numPoints()):
-          ao.point(i).setErrs(1, (1.0, 1.0))
+          ao.point(i).setXErrs((1.0, 1.0))
           if 'd01' in path:
               ao.point(i).setX(2*(i+1))
               ao.point(i).scaleY(1.0 / 20.94) # simga_inel(pi+ p) from DOI:10.1007/BF01550769

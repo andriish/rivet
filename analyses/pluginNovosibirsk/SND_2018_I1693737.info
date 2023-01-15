@@ -21,7 +21,7 @@ BibTeX: '%%% contains utf-8, see: http://inspirehep.net/info/faq/general#utf8
 
 @article{Achasov:2018ygm,
       author         = "Achasov, M. N. and others",
-      title          = "{Measurement of the $e^+e^−\to\eta K^+K^−$ Cross
+      title          = "{Measurement of the $e^+e^-\to\eta K^+K^-$ Cross
                         Section by Means of the SND Detector}",
       journal        = "Phys. Atom. Nucl.",
       volume         = "81",
