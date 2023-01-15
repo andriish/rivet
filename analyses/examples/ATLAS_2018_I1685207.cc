@@ -641,7 +641,7 @@ namespace Rivet {
 
       //select signal/validation/control region.
       //TODO: The pre-selection cuts say 2 or more (v or H) tagged jets, but each signal region requires only two.
-      // TODO: I understand the above now, needs a slight rewrite. Should lead to an increase in counts?
+      //  TODO: I understand the above now, needs a slight rewrite. Should lead to an increase in counts?
       // I also can't see some sort of tie-break procedure outlined (e.g. take tags of two highest pT jets)
 
       //VV signal regions
@@ -679,6 +679,7 @@ namespace Rivet {
       }
       //XX signal regions.
       //TODO: mild inconcistency between text and table: try both == and >= and see which match better the results...
+      //TODO: Reading the int note, it's definitely >= 2. Come back to this later.
       else if (nVtags + nHtags == 2 && ntoptags >= 2 && smeared_bjets.size()==2){
         _sigBins["XX_2t_2b"]->fill();
       }
