@@ -84,6 +84,7 @@ def _parse_args(args):
 def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns):
     """Loop over all input files. Only use the first occurrence of any REF-histogram
     and the first occurrence in each MC file for every MC-histogram."""
+
     refhistos, mchistos = {}, {}
     for infile, inname in zip(filelist, filenames):
         mchistos.setdefault(inname, {})
@@ -132,7 +133,7 @@ def _get_histos(filelist, filenames, plotoptions, path_patterns, path_unpatterns
                 refhistos[basepath] = ao
             else: #if basepath not in mchistos[infile]:
                 mchistos[inname].setdefault(basepath, {})[aop.varid(defaultWeightName)] = ao
-
+    
     return refhistos, mchistos
 
 
@@ -209,24 +210,22 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     outputdict['histograms'] = {}
 
     if plot_id in refhistos:
-        #print(refhistos[plot_id])
-        outputdict['histograms'][reftitle] = {'yoda': refhistos[plot_id]} # this is where ErrorBreakdown is included?
-        #print(refhistos[plot_id])
+        outputdict['histograms'][reftitle] = {'nominal': refhistos[plot_id]} # this is where ErrorBreakdown is included?
         # outputdict['histograms'][reftitle]['TESTING'] = "Hello"
         outputdict['histograms'][reftitle]['IsRef'] = True
-
     for filename, mchistos_in_file in mchistos.items():
         outputdict['histograms'][filename] = {}
         # TODO: will there ever be multiple histograms with same ID here?
-        for histogram in mchistos_in_file[plot_id].values():
-            #if not isinstance(histogram, yoda.Histo1D): 
-            #print(histogram.numBinsX())
-            #    print("NO 1d")
-            #print("\n HISTOGRAM \n --- \n {} \n --- \n END HISTOGRAM".format(histogram))
+
+        for histogramkey, histogram in mchistos_in_file[plot_id].items():
             outputdict['histograms'][filename].update(plotoptions.get(filename, {}))
+
             # Maybe add this mc_errs option to the plotoptions dict and only pass the plotoptions dict to the function?
             outputdict['histograms'][filename]['ErrorBars'] = mc_errs
-            outputdict['histograms'][filename]['yoda'] = histogram
+            if histogramkey not in ['0', 'nominal', 'yoda']:  
+                outputdict['histograms'][filename]['multiweight'+histogramkey] = histogram
+            else:
+                outputdict['histograms'][filename]['nominal'] = histogram
     
     # Remove all sections of the output_dict that do not contain any information.
     # A list of keys is first created. Otherwise, it will raise an error since the size of the dict changes.
@@ -234,7 +233,6 @@ def _make_output(plot_id, plotdirs, config_files, mchistos, refhistos, reftitle,
     for key in dict_keys:
         if not outputdict[key]:
             del outputdict[key]
-
     return outputdict
 
 
