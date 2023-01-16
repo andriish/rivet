@@ -11,6 +11,7 @@ Authors:
  - Ben Nachman <benjamin.philip.nachman@cern.ch>
  - Deepak Kar <deepak.kar@cern.ch>
 References:
+ - ATLAS-STDM-2017-16
  - arXiv:1906.09254  [hep-ex]
  -  Phys.Rev.D 100 (2019) 5, 052011
 RunInfo:
@@ -23,7 +24,7 @@ Description:
   'This paper presents a measurement of quantities related to the formation of jets from 
    high-energy quarks and gluons (fragmentation). Jets with transverse momentum 
    100 GeV $< p_T <$ 2.5 TeV and pseudorapidity $|\eta|<2.1$ from an integrated luminosity of 
-   33 fb$^{−1}$ of $\sqrt{s}=$13 TeV proton-proton collisions are reconstructed with the ATLAS detector 
+   33 fb$^{-1}$ of $\sqrt{s}=$13 TeV proton-proton collisions are reconstructed with the ATLAS detector
    at the Large Hadron Collider. Charged-particle tracks with $p_T >$ 500 MeV and $|\eta|<2.5$ 
    are used to probe the detailed structure of the jet. The fragmentation properties of the more 
    forward and the more central of the two leading jets from each event are studied. 

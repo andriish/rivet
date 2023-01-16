@@ -10,6 +10,7 @@ Authors:
  - Ben Nachman <benjamin.philip.nachman@cern.ch>
  - Christian Gutschow <chris.g@cern.ch>
 References:
+ - ATLAS-TOPQ-2014-09
  - arXiv:1506.05629 [hep-ex]
 RunInfo:
   ttbar production with one W decaying leptonically, the other one hadronically

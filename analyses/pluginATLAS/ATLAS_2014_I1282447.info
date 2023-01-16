@@ -9,6 +9,7 @@ Reentrant: false
 Authors:
  - Kristin Lohwasser <kristin.lohwasser@cern.ch>
 References:
+ - ATLAS-STDM-2012-14
  - JHEP 1405 (2014) 068
  - doi:10.1007/JHEP05(2014)068
  - arXiv:1402.6263 [hep-ex]

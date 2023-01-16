@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Giovanni Marchiori <giovanni.marchiori@cern.ch>
 References:
+ - ATLAS-STDM-2011-28
  - arXiv:1203.3161 [hep-ex]
 RunInfo:
   Inclusive photon+jet+X events at $\sqrt{s} = 7$~TeV.

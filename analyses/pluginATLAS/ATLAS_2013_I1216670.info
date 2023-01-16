@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Tim Martin <tim.martin@cern.ch>
 References:
+ - ATLAS-STDM-2011-29
  - New J.Phys. 15 (2013) 033038
  - doi:10.1088/1367-2630/15/3/033038
  - arXiv:1301.6872 [hep-ex]

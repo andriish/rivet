@@ -10,6 +10,7 @@ Authors:
  - Javier Llorente <javier.llorente.merino@cern.ch>
  - Deepak Kar <deepak.kar@cern.ch>
 References:
+ - ATLAS-STDM-2019-02
  - arXiv:2007.12600 [hep-ex]
 Keywords:
   - Mutijet
@@ -21,8 +22,8 @@ Energies: [13000]
 Luminosity_fb: 139.0
 PtCuts: [100.0]
 Description:
-   'A measurement of event-shape variables in proton−proton collisions at large momentum transfer 
-   is presented using data collected at s√=13 TeV with the ATLAS detector at the Large Hadron Collider. 
+   'A measurement of event-shape variables in proton-proton collisions at large momentum transfer 
+   is presented using data collected at $\sqrt{s}$=13 TeV with the ATLAS detector at the Large Hadron Collider. 
    Six event-shape variables calculated using hadronic jets are studied in inclusive multijet 
    events using data corresponding to an integrated luminosity of 139 fb$^{-1}$. 
    Measurements are performed in bins of jet multiplicity and in different ranges 

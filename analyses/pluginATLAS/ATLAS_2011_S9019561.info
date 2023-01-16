@@ -10,6 +10,7 @@ Reentrant: true
 Authors:
  - Angela Chen <aqchen@fas.harvard.edu>
 References:
+ - ATLAS-SUSY-2011-05
  - arXiv:1103.6214
 RunInfo:
   BSM signal events at 7000 GeV.

@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Reinhard Schwienhorst <schwier@cern.ch>
 References:
+ - ATLAS-TOPQ-2012-20
  - JHEP01 (2016) 064
  - doi:10.1007/JHEP01(2016)064
  - arXiv:1510.03752 [hep-ex]

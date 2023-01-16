@@ -1,3 +1,53 @@
+2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Allow linspace() and aspace() to make reversed edge-sets with start > end.
+
+	* Add powspace() and powdbnspace() uniform-spacing functions for
+	power laws, and a generic _fnspace() function for any
+	transform/inverse function-pair.
+
+2022-12-06 Christian Gutschow  <chris.g@cern.ch>
+
+	* Fix couting of raw vs tmp histos when checking self-consistency
+	of output file.
+
+	* Replace regex_match with reg_search to pick up substring
+	matches, too.
+
+2022-11-08 Christian Gutschow  <chris.g@cern.ch>
+
+	* Fix bug in DELPHI_2011_I890503 and OPAL_2003_I599181, where the
+	wrong decay chain was checked for weak decays (thanks to Max
+	Knobbe for spotting).
+
+2022-11-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Change configure script to use the --rpath=no option to
+	fastjet-config, removing fragile path-hacking.
+
+	* Add CXXFLAGS and LDFLAGS propagation to the Python-extension
+	build script (thanks to Alexander Puck Neuwirth for the
+	suggestion).
+
+2022-10-27 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ATLAS_2018_I1615866 gamma gamma -> mu+ mu-
+	* Add ATLAS_2015_I1377585 gamma gamma -> l+ l-
+
+2022-10-27 Christian Gutschow  <chris.g@cern.ch>
+
+	* Add reentrant marker to MC_DILEPTON.info (thanks to Jens Roggel
+	for spotting)
+
+2022-10-26 Tomek Procter <t.procter.1@research.gla.ac.uk>
+
+	* Make logger thread safe(r) by making ColorMap and LevelMap
+	thread_local.
+
+2022-10-26 Tomek Procter <t.procter.1@research.gla.ac.uk>
+
+	* Extend RivetLWTNN.hh to allow use of lwt::LightweightGraph
+
 2022-10-13  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Enable Cython autoconversion from C++ strings to the appropriate
@@ -10,7 +60,8 @@
 
 2022-06-21  Jack Araz  <andy.buckley@cern.ch>
 
-	* Add HEPTopTagger interface (since made optional, with no-build example analysis).
+	* Add HEPTopTagger interface (since made optional, with no-build
+	example analysis).
 
 2022-09-14  Andy Buckley  <andy.buckley@cern.ch>
 

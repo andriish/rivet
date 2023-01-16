@@ -11,15 +11,16 @@ Authors:
  - Neil Warrack <neil.warrack@cern.ch>
  - Roger Naranjo
 References:
-- 'arXiv:2004.03969'
-- submitted to EPJC
+ - ATLAS-HIGG-2018-29
+ - 'arXiv:2004.03969'
+ - submitted to EPJC
 RunInfo: routine expects Higgs to 4l processes including ggH, VBF, VH and ttH. The total production cross section including tau decays should be passed and the routine applies branching ratios.
 Beams: [p+, p+]
 Energies: [13000]
 Luminosity_fb: 139
 Description:
     'Inclusive and differential fiducial cross sections of the Higgs boson are measured in the $H \to ZZ^* \to 4\ell$ ($\ell = e, \mu$) decay
-    channel. The results are based on proton−proton collision data produced at the Large Hadron Collider at a centre-of-mass energy
+    channel. The results are based on proton-proton collision data produced at the Large Hadron Collider at a centre-of-mass energy
     of 13 TeV and recorded by the ATLAS detector from 2015 to 2018, equivalent to an integrated luminosity of 139 fb$^{-1}$. The
     inclusive fiducial cross section for the  $H \to ZZ^* \to 4\ell$ process is measured to be  $\sigma_\text{fid} = 3.28 \pm 0.32$ fb, in
     agreement with the Standard Model prediction of  $\sigma_\text{fid, SM} = 3.41 \pm 0.18$ fb. Differential fiducial cross sections are

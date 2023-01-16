@@ -73,19 +73,20 @@ namespace Rivet {
     Particles parts = originalparts;
 
     // sort the Particles by abspid or pid, as desired.
-    if (abspid)
+    if (abspid) {
       sort
       ( parts.begin()
       , parts.end()
       , [](const Particle& p1, const Particle& p2) { return p1.abspid() < p2.abspid(); }
       );
-
-    else
+    }
+    else {
       sort
       ( parts.begin()
       , parts.end()
       , [](const Particle& p1, const Particle& p2) { return p1.pid() < p2.pid(); }
       );
+    }
 
     // once sorted, every pid should align exactly;
     // otherwise these aren't the parts we're looking for!

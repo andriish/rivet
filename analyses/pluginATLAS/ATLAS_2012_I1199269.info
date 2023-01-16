@@ -5,6 +5,7 @@ Reentrant: true
 Authors:
  - Giovanni Marchiori <giovanni.marchiori@cern.ch>
 References:
+ - ATLAS-STDM-2012-05
  - arXiv:1211.1913 [hep-ex]
  - JHEP 1301 (2013) 086
 RunInfo:

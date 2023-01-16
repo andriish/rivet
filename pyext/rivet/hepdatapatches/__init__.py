@@ -16,7 +16,9 @@ from . import ARGUS_1992_I319102
 from . import ARGUS_1993_S2653028
 from . import ARGUS_1993_S2789213
 from . import ARGUS_1994_I354224
+from . import ATLAS_2013_I1190187
 from . import ATLAS_2016_I1468168
+from . import ATLAS_2018_I1615866
 from . import ATLAS_2018_I1635273
 from . import ATLAS_2018_I1711223
 from . import ATLAS_2019_I1720438

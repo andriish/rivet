@@ -5,17 +5,23 @@ SHELL ["/bin/bash", "--login", "-c"]
 
 ARG YODA_BRANCH
 ARG RIVET_BRANCH
-RUN mkdir /code && cd /code \
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && mkdir /code && cd /code \
     && texhash \
     && git clone --depth 1 --branch $YODA_BRANCH https://gitlab.com/hepcedar/yoda.git yoda/ \
     && cd yoda/ \
     && autoreconf -i \
     && ./configure && make -j $(nproc --ignore=1) && make install \
     && cd .. \
+    && rm -rf /code
+
+RUN export DEBIAN_FRONTEND=noninteractive \
+    && mkdir /code && cd /code \
     && git clone --depth 1 --branch $RIVET_BRANCH https://gitlab.com/hepcedar/rivet.git rivet/ \
     && cd rivet/ \
     && autoreconf -i \
     && if [[ -d /usr/local/include/HepMC3 ]]; then HEPMC_FLAG="--with-hepmc3=/usr/local"; fi \
+    && autoconf --version \
     && ./configure $HEPMC_FLAG && make -j $(nproc --ignore=1) && make install \
     && texhash \
     && echo "source /usr/local/etc/bash_completion.d/rivet-completion" > /etc/profile.d/rivet-completion.sh \

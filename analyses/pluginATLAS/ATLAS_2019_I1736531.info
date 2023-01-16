@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Deepak Kar <deepak.kar@cern.ch>
 References:
+ - ATLAS-STDM-2017-28
  - arXiv:1905.09752 [hep-ex]
  - Eur. Phys. J. C 79 (2019) 666
 RunInfo:
@@ -19,7 +20,7 @@ Options:
 Energies: [[6500,6500]]
 Luminosity_fb: 3.2
 Description:
-    'This paper presents measurements of charged-particle distributions sensitive to the properties of the underlying event in events containing a Z boson decaying into a muon pair.The data were obtained using the ATLAS detector at the LHC in proton-proton collisions at a centre-of-mass energy of 13 TeV with an integrated luminosity of 3.2 fb$^{−1}$. Distributions of the charged-particle multiplicity and of the charged-particle transverse momentum are measured in regions of the azimuth defined relative to the Z boson direction. The measured distributions are compared with the predictions of various Monte Carlo generators which implement different underlying-event models. The Monte Carlo model predictions qualitatively describe the data well, but with some significant discrepancies.'
+    'This paper presents measurements of charged-particle distributions sensitive to the properties of the underlying event in events containing a Z boson decaying into a muon pair.The data were obtained using the ATLAS detector at the LHC in proton-proton collisions at a centre-of-mass energy of 13 TeV with an integrated luminosity of 3.2 fb$^{-1}$. Distributions of the charged-particle multiplicity and of the charged-particle transverse momentum are measured in regions of the azimuth defined relative to the Z boson direction. The measured distributions are compared with the predictions of various Monte Carlo generators which implement different underlying-event models. The Monte Carlo model predictions qualitatively describe the data well, but with some significant discrepancies.'
 BibKey: Aad:2019vyd
 BibTeX: '@article{Aad:2019vyd,
     author = "Aad, Georges and others",

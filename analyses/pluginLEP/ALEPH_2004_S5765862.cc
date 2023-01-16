@@ -106,7 +106,7 @@ namespace Rivet {
         case 172: offset = 2; break;
         case 183: offset = 3; break;
         case 189: offset = 4; break;
-        case 196: offset = 5; break;
+        case 197: offset = 5; break;
         case 200: offset = 6; break;
         case 206: offset = 7; break;
         default:

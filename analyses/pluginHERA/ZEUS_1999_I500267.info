@@ -10,7 +10,7 @@ Authors:
  - Andrii Verbytskyi <andrii.verbytskyi@mpp.mpg.de>
 References:
  - Eur.Phys.J.C 11 (1999) 427-445
- - arXiv:hep-ex/9905032'
+ - arXiv:hep-ex/9905032
 RunInfo: Inclusive high $Q^2$ DIS
 NeedCrossSection: yes
 Beams: [p+, e+]

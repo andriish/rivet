@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 References:
+ - ATLAS-STDM-2011-08
  - arXiv:1201.1276 [hep-ex]
 RunInfo:
   W+jet events in either the electron or the muon decay channel (but not both).

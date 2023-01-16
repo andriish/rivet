@@ -9,8 +9,9 @@ Reentrant: true
 Authors:
  - Christian Bierlich <christian.bierlich@thep.lu.se>
 References:
-- 'JHEP 09 (2015) 050'
-- 'arXiv:1504.04337 [hep-ex]'
+ - ATLAS-HION-2011-03
+ - 'JHEP 09 (2015) 050'
+ - 'arXiv:1504.04337 [hep-ex]'
 RunInfo: Pb--Pb minimum bias events. Centrality calibration from ATLAS_PBPB_CENTRALITY.
 NeedCrossSection: no
 Options:

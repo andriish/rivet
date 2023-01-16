@@ -139,8 +139,16 @@ for aname in sorted(all_analyses, key=anasort):
                     page += "  <li>%s <a href='%s'>%s</a></li>\n" % ("arXiv:", htmlify(url), htmlify(code))
                 elif r.startswith("doi:"):
                     code = r.replace("doi:", "")
-                    url = "http://dx.doi.org/" + code
+                    url = "https://dx.doi.org/" + code
                     page += "  <li>%s <a href='%s'>%s</a></li>\n" % ("DOI:", htmlify(url), htmlify(code))
+                elif r.startswith("ATLAS-"):
+                    code = r.replace("ATLAS-", "")
+                    url = "https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/PAPERS/" + code
+                    page += "  <li>%s <a href='%s'>%s</a></li>\n" % ("Public page:", htmlify(url), htmlify(code))
+                elif r.startswith("CMS-"):
+                    code = r.replace("CMS-", "")
+                    url = "https://cms-results.web.cern.ch/cms-results/public-results/publications/" + code
+                    page += "  <li>%s <a href='%s'>%s</a></li>\n" % ("Public page:", htmlify(url), htmlify(code))
                 else:
                     page += "  <li>%s</li>\n" % htmlify(r)
             page += "</ul>\n"

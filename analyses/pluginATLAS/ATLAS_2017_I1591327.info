@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 References:
+ - ATLAS-STDM-2015-15
  - arXiv:1704.03839 [hep-ex]
  - submitted to PRD
 Keywords:

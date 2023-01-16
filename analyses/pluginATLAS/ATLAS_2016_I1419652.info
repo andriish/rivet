@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Roman Lysak <roman.lysak@cern.ch>
 References:
+ - ATLAS-STDM-2015-02
  - arXiv:1602.01633
  - doi:10.1016/j.physletb.2016.04.050
  - Physics Letters B (2016), Vol. 758, pp. 67-88

@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Hannes Mildner <hannes.mildner@cern.ch>
 References:
+ - ATLAS-STDM-2018-34
  - arXiv:2103.10319 [hep-ex]
 Keywords:
  - 2boson

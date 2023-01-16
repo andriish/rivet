@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Stephen Paul Bieniek <stephen.paul.bieniek@cern.ch>
 References:
+ - ATLAS-STDM-2010-15
  - Eur.Phys.J. C71 (2011) 1846
  - arXiv:1109.6833 [hep-ex]
 RunInfo:

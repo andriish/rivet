@@ -524,6 +524,24 @@ namespace Rivet {
   }
 
 
+  /// @todo Mixed-arg operators: better via SFINAE??
+  /// @note Why *does* this actually cause compiler trouble, given (V3, V3) is a correct sig-match for (V3,P3) and (P3, P3) is not?
+  inline Vector3 operator+(const ThreeMomentum& a, const Vector3& b) {
+    return add(static_cast<const Vector3&>(a), b);
+  }
+  inline Vector3 operator+(const Vector3& a, const ThreeMomentum& b) {
+    return add(a, static_cast<const Vector3&>(b));
+  }
+
+  inline Vector3 operator-(const ThreeMomentum& a, const Vector3& b) {
+    return add(static_cast<const Vector3&>(a), -b);
+  }
+  inline Vector3 operator-(const Vector3& a, const ThreeMomentum& b) {
+    return add(a, -static_cast<const Vector3&>(b));
+  }
+
+
+
   /////////////////////////////////////////////////////
 
 

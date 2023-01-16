@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Deepak Kar <deepak.kar@cern.ch>
 References:
+ - ATLAS-STDM-2011-32
  - arXiv:1207.6915
  - Phys.Rev. D88 (2013) 032004
  - 10.1103/PhysRevD.88.032004

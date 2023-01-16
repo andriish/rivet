@@ -11,6 +11,7 @@ Authors:
  - sokratis.michail.19@ucl.ac.uk
  - yoran.yeh.20@ucl.ac.uk
 References:
+ - ATLAS-STDM-2017-18
  - JHEP 12 (2018) 010
  - 10.1007/JHEP12(2018)010
  - arXiv:1810.04995 [hep-ex]
@@ -23,7 +24,7 @@ NeedCrossSection: True
 Options:
  - LVETO=ON,OFF
 Description:
-  'The production of Z bosons in association with a high-energy photon (Z$\gamma$ production) is studied in the neutrino decay channel of the Z boson using pp collisions at $\sqrt s$ = 13 TeV. The analysis uses a data sample with an integrated luminosity of 36.1 fb−1 collected by the ATLAS detector at the LHC in 2015 and 2016. Candidate Z$\gamma$ events with invisible decays of the Z boson are selected by requiring significant transverse momentum (pT) of the dineutrino system in conjunction with a single isolated photon with large
+  'The production of Z bosons in association with a high-energy photon (Z$\gamma$ production) is studied in the neutrino decay channel of the Z boson using pp collisions at $\sqrt s$ = 13 TeV. The analysis uses a data sample with an integrated luminosity of 36.1 fb-1 collected by the ATLAS detector at the LHC in 2015 and 2016. Candidate Z$\gamma$ events with invisible decays of the Z boson are selected by requiring significant transverse momentum (pT) of the dineutrino system in conjunction with a single isolated photon with large
 transverse energy (ET). The rate of Z$\gamma$ production is measured as a function of photon ET, dineutrino system pT and jet multiplicity. Evidence of anomalous triple gauge-boson couplings is sought in Z$\gamma$ production with photo ET greater than 600 GeV. No excess is observed relative to the Standard Model expectation, and upper limits are set on the strength of ZZ$\gamma$ and Z$\gamma\gamma$ couplings.'
 BibKey: ATLAS:2018nci
 BibTeX: '@article{ATLAS:2018nci,

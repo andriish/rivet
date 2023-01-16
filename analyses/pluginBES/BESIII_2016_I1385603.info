@@ -20,7 +20,7 @@ BibTeX: '%%% contains utf-8, see: http://inspirehep.net/info/faq/general#utf8
 
 @article{Ablikim:2015orh,
       author         = "Ablikim, M. and others",
-      title          = "{Measurement of the $e^+ e^− \to \pi^+ \pi^−$ cross
+      title          = "{Measurement of the $e^+ e^- \to \pi^+ \pi^-$ cross
                         section between 600 and 900 MeV using initial state
                         radiation}",
       collaboration  = "BESIII",
