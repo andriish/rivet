@@ -7,7 +7,7 @@
 namespace Rivet {
 
 
-  /// @brief Example analysis demonstrating use of LWTNN neural networks
+  /// @brief Example analysis demonstrating use of ONNX neural networks
   ///
   /// An example analysis to demonstrate using ONNX to preserve a neural net
   /// inside Rivet. The network used here is a "fake" model that takes in
