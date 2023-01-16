@@ -986,9 +986,17 @@ class MainPlot(Plot):
             xmin = inputdata.histos[refdata].getXMin()
             xmax = inputdata.histos[refdata].getXMax()
             if inputdata.description.get('XMin'):
-                xmin = float(inputdata.description['XMin'])
+                try:
+                    xmin = float(inputdata.description['XMin'])
+                except:
+                    # xmin will be the xmin from above
+                    pass
             if inputdata.description.get('XMax'):
-                xmax = float(inputdata.description['XMax'])
+                try:
+                    xmax = float(inputdata.description['XMax'])
+                except:
+                    # xmax will be the xmax from above
+                    pass
             gof = inputdata.histos[i].getChi2(inputdata.histos[refdata], [xmin, xmax])
             if i == inputdata.description['GofFrame'] and inputdata.description['FrameColor'] is None:
                 inputdata.description['FrameColor'] = pickcolor(gof)

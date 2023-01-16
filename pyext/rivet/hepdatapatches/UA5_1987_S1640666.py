@@ -10,6 +10,6 @@ def patch(path, ao):
       if 'd03' in path:
         bWidth = 1.0
       for p in ao.points():
-          p.setErrs(1, (bWidth, bWidth))
+          p.setXErrs((bWidth, bWidth))
     return ao
 

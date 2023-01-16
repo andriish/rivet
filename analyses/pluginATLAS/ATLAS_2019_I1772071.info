@@ -22,11 +22,11 @@ Luminosity_fb: 36.1
 Beams: [p+, p+]
 Energies: [13000]
 Description:
-  'The dynamics of isolated-photon plus two-jet production in pp collisions at a centre-of-mass e
-  nergy of 13 TeV are studied with the ATLAS detector at the LHC using a dataset corresponding 
-  to an integrated luminosity of 36.1 fb$^{−1}$. Cross sections are measured as functions 
+  'The dynamics of isolated-photon plus two-jet production in pp collisions at a centre-of-mass
+  energy of 13 TeV are studied with the ATLAS detector at the LHC using a dataset corresponding 
+  to an integrated luminosity of 36.1 fb$^{-1}$. Cross sections are measured as functions 
   of a variety of observables, including angular correlations and invariant masses of 
-  the objects in the final state, γ + jet + jet. Measurements are also performed in 
+  the objects in the final state, $\gamma$ + jet + jet. Measurements are also performed in 
   phase-space regions enriched in each of the two underlying physical mechanisms, 
   namely direct and fragmentation processes. The measurements cover the range of photon 
   (jet) transverse momenta from 150 GeV (100 GeV) to 2 TeV. The tree-level plus 

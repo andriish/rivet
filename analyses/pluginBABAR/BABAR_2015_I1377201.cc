@@ -49,7 +49,7 @@ namespace Rivet {
       else if(z<.5) return 2;
       else          return 3;
     }
-    
+
     /// Perform the per-event analysis
     void analyze(const Event& event) {
       // get the axis, direction of incoming electron
@@ -97,8 +97,8 @@ namespace Rivet {
 	  if(phi12<0.) phi12 = -phi12;
 	  // hadron defn
 	  ThreeVector h_z = p2.p3().unit();
-	  ThreeVector h_x = (axis1-h_z.dot(axis1)*h_z).unit();
-	  ThreeVector pt1 = p1.p3()-h_z.dot(p1.p3())*h_z;
+	  ThreeVector h_x = (axis1 - h_z.dot(axis1)*h_z).unit();
+	  ThreeVector pt1 = p1.p3() - h_z.dot(p1.p3())*h_z;
 	  double phi0 = pt1.angle(h_x);
 	  if(phi0>M_PI)  phi0 -= 2*M_PI;
 	  if(phi0<-M_PI) phi0 += 2*M_PI;
@@ -143,11 +143,11 @@ namespace Rivet {
 	    _h_hadron[1][2][ibin]->fill(phi0);
 	  }
 
-	  
+
 	}
       }
     }
-    
+
     pair<double,double> calcAsymmetry(Scatter2DPtr hist,double fact=1.) {
       double sum1(0.),sum2(0.);
       for (auto point : hist->points() ) {
@@ -186,7 +186,7 @@ namespace Rivet {
 	book(h3_hadron_UL,2*itype+2,1,2,0);
 	Scatter3DPtr h3_hadron_UC;
 	book(h3_hadron_UC,2*itype+2,1,3,0);
-	
+
 	unsigned int ihist=1;
 	Scatter2DPtr h2_thrust_UL;
 	book(h2_thrust_UL,7+2*itype,ihist,2);
@@ -196,7 +196,7 @@ namespace Rivet {
 	book(h2_hadron_UL,8+2*itype,ihist,2);
 	Scatter2DPtr h2_hadron_UC;
 	book(h2_hadron_UC,8+2*itype,ihist,3);
-	
+
 	Scatter3D temphisto1(refData<Scatter3D>(2*itype+1, 1, 2));
 	Scatter3D temphisto2(refData<Scatter3D>(2*itype+2, 1, 2));
 	for(unsigned int ibin=0;ibin<16;++ibin) {

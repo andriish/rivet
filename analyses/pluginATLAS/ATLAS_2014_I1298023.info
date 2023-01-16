@@ -22,7 +22,7 @@ PtCuts: [25,30]
 NeedCrossSection: True
 Description:
   First measurement of $W^\pm W^\pm jj$, same-electric-charge diboson production in association with two jets, using
-  $20.3 {\rm fb}^{-1}$ of proton-proton collision data at $\sqrt{s} = 8$\,TeV recorded by the ATLAS detector at the
+  $20.3 {\rm fb}^{-1}$ of proton-proton collision data at $\sqrt{s} = 8$\,TeV recorded by the ATLAS detector at the
   Large Hadron Collider. Events with two reconstructed same-charge leptons ($e^\pm e^\pm$, $e^\pm \mu^\pm$, and
   $\mu^\pm \mu^\pm$) and two or more jets are analyzed. Production cross sections are measured in two fiducial regions,
   with different sensitivities to the electroweak and strong production mechanisms. First evidence
