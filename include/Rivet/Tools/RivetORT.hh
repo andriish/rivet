@@ -23,10 +23,10 @@ namespace Rivet {
         Ort::SessionOptions sessionopts; //todo - check this is allowed to go out of scope.
         _session = std::make_unique<Ort::Session> (*_env, filename.c_str(), sessionopts);
 
-        //Get netowrk hyper-params and store them (input, output shape, etc.)
+        //Get network hyper-params and store them (input, output shape, etc.) in the class.
         getNetworkInfo();
 
-        printNetworkInfo(cout);
+        MSG_DEBUG(*this);
 
       }
 
@@ -73,7 +73,7 @@ namespace Rivet {
         // I'd like to know why.
         for (auto& i : _inputNodeDims){
           if (i < 0)
-            i = abs(idiscard);
+            i = abs(i);
         }
 
 
@@ -97,22 +97,27 @@ namespace Rivet {
         }
       }
 
-      std::ostream& printNetworkInfo(std::ostream& os){
-          os << "RivetORT Network Summary: \n";
-          os << "Input name: " << _inputNodeName << " Output name: " << _outputNodeName;
-          os << "\nInput dimensions: (";
-          for (size_t i = 0; i < _inputNodeDims.size()-1; ++i){
-            os << _inputNodeDims[i] << ", ";
-          }
-          os << _inputNodeDims[_inputNodeDims.size() - 1] << ")\n";
-          os << "Input Type (in ONNX enum form): " << _inType << "\n";
-          os << "\nOutput dimensions: (";
-          for (size_t i = 0; i < _outputNodeDims.size()-1; ++i){
-            os << _outputNodeDims[i] << ", ";
-          }
-          os << _outputNodeDims[_outputNodeDims.size() - 1] << ")\n";
-          os << "Output Type (in ONNX enum form): " << _outType << "\n";
-          return os;
+      friend ostream& operator <<(std::ostream& os, const RivetORT& rort){
+        os << "RivetORT Network Summary: \n";
+        os << "Input name: " << rort._inputNodeName << " Output name: " << rort._outputNodeName;
+        os << "\nInput dimensions: (";
+        for (size_t i = 0; i < rort._inputNodeDims.size()-1; ++i){
+          os << rort._inputNodeDims[i] << ", ";
+        }
+        os << rort._inputNodeDims[rort._inputNodeDims.size() - 1] << ")\n";
+        os << "Input Type (in ONNX enum form): " << rort._inType << "\n";
+        os << "\nOutput dimensions: (";
+        for (size_t i = 0; i < rort._outputNodeDims.size()-1; ++i){
+          os << rort._outputNodeDims[i] << ", ";
+        }
+        os << rort._outputNodeDims[rort._outputNodeDims.size() - 1] << ")\n";
+        os << "Output Type (in ONNX enum form): " << rort._outType << "\n";
+        return os;
+      }
+
+      Log& getLog() const {
+        string logname = "Rivet.RivetORT";
+        return Log::getLog(logname);
       }
 
 
