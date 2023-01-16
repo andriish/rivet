@@ -11,12 +11,15 @@
 
 namespace Rivet {
   using namespace std;
-    //Simple object to automatically take care of basic ONNX networks
-    //Assumes one input/output node (note a node is not a neuron - a node is a single 
-    //tensor of arbitrary dimension size)
+    /// @brief Simple object to automatically take care of basic ONNX networks
+    ///
+    /// Assumes one input/output node (note a node is not a neuron - a node is a single 
+    /// tensor of arbitrary dimension size)
+    /// See examples/EXAMPLE_ONNX.cc for how to use this.
     class RivetORT{
 
       public:
+      /// constructor
       RivetORT(const string& filename, const string& runname = "RivetORT"){
         //Set some ORT variables that need to be kept in memory
         _env = std::make_unique<Ort::Env>(ORT_LOGGING_LEVEL_WARNING,runname.c_str() );
@@ -27,12 +30,12 @@ namespace Rivet {
         getNetworkInfo();
 
         MSG_DEBUG(*this);
-
       }
 
-      //Default constructor with no args causes problems.
+      //Default constructor with no args causes problems - delete it.
       RivetORT() = delete;
 
+      /// given an input vector, populate an output vector
       void compute(std::vector<float> &inputs, std::vector<float>& outputs){
         //Create ORT inputs
         // create input tensor object from data values
@@ -51,12 +54,8 @@ namespace Rivet {
         float* floatarr = output_tensors.front().GetTensorMutableData<float>();
 
         outputs.clear();
-        //TODO: Generalise for different shape output arrays.
-        for (size_t i = 0; i < _outputNodeDims[0]; ++i){
-          outputs.push_back(*floatarr);
-          ++floatarr;
-        }                                                       
-
+        // TODO (longer-term): Generalise for different shape output arrays.
+        outputs.assign(floatarr, floatarr+_outputNodeDims[0]);                                                     
       }
 
       void getNetworkInfo(){
@@ -75,7 +74,6 @@ namespace Rivet {
           if (i < 0)
             i = abs(i);
         }
-
 
         auto output_name = _session->GetOutputNameAllocated(0, allocator);
         _outputNodeName = output_name.get();
@@ -97,9 +95,10 @@ namespace Rivet {
         }
       }
 
+      /// Printing function for debugging.
       friend ostream& operator <<(std::ostream& os, const RivetORT& rort){
         os << "RivetORT Network Summary: \n";
-        os << "Input name: " << rort._inputNodeName << " Output name: " << rort._outputNodeName;
+        os << "Input name: " << rort._inputNodeName << "; Output name: " << rort._outputNodeName;
         os << "\nInput dimensions: (";
         for (size_t i = 0; i < rort._inputNodeDims.size()-1; ++i){
           os << rort._inputNodeDims[i] << ", ";
@@ -115,35 +114,27 @@ namespace Rivet {
         return os;
       }
 
+      /// Logger
       Log& getLog() const {
         string logname = "Rivet.RivetORT";
         return Log::getLog(logname);
       }
 
-
-
       private:
-      //ORT things that need to be preserved
+      /// ORT things that need to be preserved
       std::unique_ptr<Ort::Env> _env;
       std::unique_ptr<Ort::Session> _session;
 
-      //Useful Info about the object, may as well be cached in member vars, will be needed
-      //multiple times.
+      /// Useful Info about the object, may as well be cached in member vars, will be needed
+      /// multiple times.
       std::vector<int64_t> _inputNodeDims;//I don't like this int64_t stuff but ORT insisted.
       std::vector<int64_t> _outputNodeDims;
       ONNXTensorElementDataType _inType;
       ONNXTensorElementDataType _outType;
 
-      string _inputNodeName; //Needs to be converted for use but I'm not messing around with pointers to pointers to chars etc. Its 2022, guys!
-      string _outputNodeName;
-
-      
-
-        
-
+      string _inputNodeName;
+      string _outputNodeName;  
   };
-
-
 }
 
 
