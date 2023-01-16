@@ -19,8 +19,8 @@ Description:
    $3.2 \text{fb}^{-1}$. The measurement is performed for a dimuon invariant mass of between 12 GeV and 70 GeV, including the differential cross section as a function of the mass.'
 ValidationInfo:
   'Herwig 7 events'
-#ReleaseTests:
-# - $A my-hepmc-prefix :MODE=some_rivet_flag
+ReleaseTests:
+ - $A pp-13000-yy2mumu
 Keywords: []
 BibKey: ATLAS:2017sfe
 BibTeX: '@article{ATLAS:2017sfe,
