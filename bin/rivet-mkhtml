@@ -491,7 +491,15 @@ if __name__ == '__main__':
   # execute python scripts with multiprocessing Pool
   sys.stdout.write('Plotting...')
   p = Pool(processes=4)
-  p.map(ex.execute, pyScripts)
+  #p.map(ex.execute, pyScripts)
+  try:
+    import tqdm
+    for _ in tqdm.tqdm(p.imap_unordered(ex.execute, pyScripts), total=len(pyScripts)):
+        pass
+  except ImportError:
+    for i, _ in enumerate(p.imap_unordered(ex.execute, pyScripts), 1):
+      sys.stderr.write(f'\rdone {100*i/len(pyScripts):.1f}%')
+  
   sys.stdout.write('\r')
   sys.stdout.write('Plotting... done!\n')
 
