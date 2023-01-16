@@ -26,7 +26,12 @@ namespace Rivet {
         //Get netowrk hyper-params and store them (input, output shape, etc.)
         getNetworkInfo();
 
+        printNetworkInfo(cout);
+
       }
+
+      //Default constructor with no args causes problems.
+      RivetORT() = delete;
 
       void compute(std::vector<float> &inputs, std::vector<float>& outputs){
         //Create ORT inputs
@@ -63,6 +68,14 @@ namespace Rivet {
         auto in_tensor_info = in_type_info.GetTensorTypeAndShapeInfo();
         _inType = in_tensor_info.GetElementType();//TODO: Use this for SFINAE
         _inputNodeDims = in_tensor_info.GetShape();
+        // Check for -1's: This is an artifact of batch size issues.
+        // TODO: It's interesting that this is problematic in C++ and not in python.
+        // I'd like to know why.
+        for (auto& i : _inputNodeDims){
+          if (i < 0)
+            i = abs(idiscard);
+        }
+
 
         auto output_name = _session->GetOutputNameAllocated(0, allocator);
         _outputNodeName = output_name.get();
@@ -70,6 +83,13 @@ namespace Rivet {
         auto out_tensor_info = in_type_info.GetTensorTypeAndShapeInfo();
         _outType = out_tensor_info.GetElementType();//TODO: Use this for SFINAE
         _outputNodeDims = out_tensor_info.GetShape();
+        // Check for -1's: This is an artifact of batch size issues.
+        // TODO: It's interesting that this is problematic in C++ and not in python.
+        // I'd like to know why.
+        for (auto& i : _outputNodeDims){
+          if (i < 0)
+            i = abs(i);
+        }
 
         //Do some basic sanity checks:
         if (_session->GetInputCount() != 1 || _session->GetInputCount() != 1){
