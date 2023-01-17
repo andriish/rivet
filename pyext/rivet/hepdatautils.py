@@ -97,6 +97,7 @@ def patch_yodaref(yoda_from_hepdata, pattern=None, unpattern=None):
     import rivet.hepdatapatches as hdpatch
     # Get analysis object, request Ref(Un)match strings to pass as pattern & unpattern
     hepdata_content = yoda.read(yoda_from_hepdata, True, pattern, unpattern)
+    extra=[]
     for tag in hepdata_content:
         if tag.startswith("/REF"):
             routine, tableid = tag.rstrip("/")[5:].split('/')
@@ -104,18 +105,40 @@ def patch_yodaref(yoda_from_hepdata, pattern=None, unpattern=None):
                 # get relevant patch function for this routine and apply patch
                 routine_patcher = importlib.import_module("rivet.hepdatapatches." + routine)
                 hepdata_content[tag] = routine_patcher.patch(tag, hepdata_content[tag])
-            # The following hack is to remove the ErrorBreakdown for HepData entries
-            # where the histogram has inconsistent breakdowns across bins
-            # This is intended as a temporary workaround until we've fixed all the entries
-            try:
-              try:
-                  nvars = len(hepdata_content[tag].variations())
-              except RuntimeError:
-                  raise AssertionError("WARNING - Table {0} for {1} has a broken ErrorBreakdown!".format(tableid, routine))
-              for p in hepdata_content[tag].points():
-                  assert(nvars == len(p.errMap().keys()))
-            except AssertionError:
-                print ("WARNING - Table {0} for {1} has an inconsistent ErrorBreakdown across points!".format(tableid, routine))
-                hepdata_content[tag].rmAnnotation('ErrorBreakdown')
-                hepdata_content[tag].rmVariations()
+            if isinstance(hepdata_content[tag],list) :
+                aos = hepdata_content[tag]
+                for val in aos : extra.append(val)
+            else :
+                # The following hack is to remove the ErrorBreakdown for HepData entries
+                # where the histogram has inconsistent breakdowns across bins
+                # This is intended as a temporary workaround until we've fixed all the entries
+                try:
+                    try:
+                        nvars = len(hepdata_content[tag].variations())
+                    except RuntimeError:
+                        raise AssertionError("WARNING - Table {0} for {1} has a broken ErrorBreakdown!".format(tableid, routine))
+                    for p in hepdata_content[tag].points():
+                        assert(nvars == len(p.errMap().keys()))
+                except AssertionError:
+                    print ("WARNING - Table {0} for {1} has an inconsistent ErrorBreakdown across points!".format(tableid, routine))
+                    hepdata_content[tag].rmAnnotation('ErrorBreakdown')
+                    hepdata_content[tag].rmVariations()
+    # extra histos
+    for val in extra :
+         tag = val.path()
+         hepdata_content[tag] = val
+         # The following hack is to remove the ErrorBreakdown for HepData entries
+         # where the histogram has inconsistent breakdowns across bins
+         # This is intended as a temporary workaround until we've fixed all the entries
+         try:
+             try:
+                 nvars = len(hepdata_content[tag].variations())
+             except RuntimeError:
+                 raise AssertionError("WARNING - Table {0} for {1} has a broken ErrorBreakdown!".format(tableid, routine))
+             for p in hepdata_content[tag].points():
+                 assert(nvars == len(p.errMap().keys()))
+         except AssertionError:
+             print ("WARNING - Table {0} for {1} has an inconsistent ErrorBreakdown across points!".format(tableid, routine))
+             hepdata_content[tag].rmAnnotation('ErrorBreakdown')
+             hepdata_content[tag].rmVariations()
     return hepdata_content
