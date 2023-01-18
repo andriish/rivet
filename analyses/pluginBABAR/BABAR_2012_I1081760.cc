@@ -50,7 +50,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      normalize(_h);
+      normalize(_h,1.,false);
     }
 
     /// @}
