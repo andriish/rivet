@@ -57,7 +57,7 @@ namespace Rivet {
     void finalize() {
       normalize(_dalitz);
       for(unsigned int ix=0;ix<3;++ix)
-	normalize(_h[ix]);
+	normalize(_h[ix],1.,false);
     }
 
     /// @}
