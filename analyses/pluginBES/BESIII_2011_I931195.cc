@@ -26,9 +26,9 @@ namespace Rivet {
       declare(FinalState(), "FS");
       for(unsigned int ichi=0;ichi<2;++ichi) {
 	for(unsigned int imeson=0;imeson<2;++imeson) {
-	  book(_h_thy[ichi][imeson][0],"h_"+toString(ichi+1)+"_"+toString(imeson+1)+"_gamma",50,-1.,1.);
-	  book(_h_thy[ichi][imeson][1],"h_"+toString(ichi+1)+"_"+toString(imeson+1)+"_meson",50,-1.,1.);
-	  book(_h_thy[ichi][imeson][2],"h_"+toString(ichi+1)+"_"+toString(imeson+1)+"_phi"  ,50,0.,2.*M_PI);
+	  book(_h_thy[ichi][imeson][0],"TMP/h_"+toString(ichi+1)+"_"+toString(imeson+1)+"_gamma",50,-1.,1.);
+	  book(_h_thy[ichi][imeson][1],"TMP/h_"+toString(ichi+1)+"_"+toString(imeson+1)+"_meson",50,-1.,1.);
+	  book(_h_thy[ichi][imeson][2],"TMP/h_"+toString(ichi+1)+"_"+toString(imeson+1)+"_phi"  ,50,0.,2.*M_PI);
 	  for(unsigned int iy=0;iy<3;++iy)
 	    book(_h_exp[ichi][imeson][iy],5+ichi,1+imeson,1+iy);
 	}
