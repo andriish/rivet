@@ -1,10 +1,10 @@
 BEGIN PLOT /ZEUS_2000_I524911/d01-x01-y01
 LogY=0
 Title=Differential $\phi$ distribution for $p_T = 0.5$ GeV
-XLabel=$\phi (degrees)$ 
-YLabel=$1/N dn/d\phi (rad^-1)$ 
-XMin=-pi
-XMax=pi
+XLabel=$\phi (degrees)$
+YLabel=$1/N dn/d\phi (rad^-1)$
+XMin=-180
+XMax=180
 YMin=0.00
 YMax=0.10
 LegendYPos=0.4
@@ -23,8 +23,8 @@ LogY=0
 Title=Differential $\phi$ distribution for $p_T = 1$ GeV
 XLabel=$\phi (degree)$
 YLabel=$1/N dn/d\phi (rad^-1)$
-XMin=-pi
-XMax=pi
+XMin=-180
+XMax=180
 YMin=0.00
 YMax=0.08
 YMajorTickMarks=10
@@ -36,10 +36,10 @@ END PLOT
 BEGIN PLOT /ZEUS_2000_I524911/d01-x01-y03
 LogY=0
 Title=Differential $\phi$ distribution for $p_T = 1.5$ GeV
-XLabel=$\phi (degrees)$ 
-YLabel=$1/N dn/d\phi (rad^-1)$ 
-XMin=-pi
-XMax=pi
+XLabel=$\phi (degrees)$
+YLabel=$1/N dn/d\phi (rad^-1)$
+XMin=-180
+XMax=180
 YMin=0.00
 YMax=0.06
 YMajorTickMarks=5
@@ -50,10 +50,10 @@ END PLOT
 BEGIN PLOT /ZEUS_2000_I524911/d01-x01-y04
 Title=Differential $\phi$ distribution for $p_T = 2$ GeV
 LogY=0
-XLabel=$\phi (degrees)$ 
-YLabel=$1/N dn/d\phi (rad^-1)$ 
-XMin=-pi
-XMax=pi
+XLabel=$\phi (degrees)$
+YLabel=$1/N dn/d\phi (rad^-1)$
+XMin=-180
+XMax=180
 YMin=0.000
 YMax=0.040
 YMajorTickMarks=10
