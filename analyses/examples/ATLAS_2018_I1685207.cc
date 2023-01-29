@@ -241,23 +241,35 @@ namespace Rivet {
         book(_h["mVRC_truebkgTaggedTop"], "mVRC_truebkgTaggedTop", 100, 40, 240);
         book(_h["mVRC_truebkgTaggedbkg"], "mVRC_truebkgTaggedbkg", 100, 40, 240); 
       }
-
     }
 
     
     /// Perform the per-event analysis
     void analyze(const Event& event) {
-      static int count = 0;
-      ++count;
 
-      //Enforce 0-lepton veto.
+      //Get particles
       Particles smeared_electrons = apply<ParticleFinder>(event, "SmearedElec").particles();
       Particles smeared_muons = apply<ParticleFinder>(event, "SmearedMuon").particles();
       
-
       //Get Jets et al
       Jets smeared_small_jets = apply<JetAlg>(event, "smearedSjet").jetsByPt();
       idiscard(smeared_small_jets, Cuts::pt <= 25*GeV && Cuts::abseta >= 2.5); 
+
+      //Overlap removal:
+      idiscardIfAnyDeltaRLess(smeared_small_jets, smeared_electrons, 0.2);
+      idiscardIfAnyDeltaRLess(smeared_small_jets, smeared_muons, 0.2);
+      idiscardIfAny(smeared_small_jets, smeared_muons,
+          [](const Jet &j, const Particle &mu){
+            return ((std::count_if(j.particles().begin(), j.particles().end(), [](const Particle& tr){
+              return tr.pt() > 500*MeV;}) < 3)
+              && deltaR(j.p3(), mu.p3()) < 0.4);
+          });
+      idiscardIfAnyDeltaRLess(smeared_electrons, smeared_small_jets, 0.4);
+      idiscardIfAny(smeared_muons, smeared_small_jets, [](const Particle& mu, const Jet& j){
+        return deltaR(mu.p3(), j.p3()) < min(0.4, 0.04+10/j.pt());
+      });
+
+
 
       // Get info about each-jet's mv2c10 score and do efficiency based b-tagging.
       // TODO: Come up with an elegant (or at least not horrifically ugly) way of preserving this info to the end.
@@ -289,17 +301,38 @@ namespace Rivet {
       naive_RC_trimmer(VRC_jets, TrimmedVRCjets, 0.05, NewConstits);
       PseudoJet tr_pj;
 
-      PseudoJets FilteredVRCjets;
-      vector<PseudoJets> FilteredNewConstits;
+      PseudoJets UnsortedFilteredVRCjets;
+      vector<PseudoJets> UnsortedFilteredNewConstits;
       for (size_t i = 0; i < TrimmedVRCjets.size(); ++i){
         tr_pj = TrimmedVRCjets[i];
         if (tr_pj.pt() > 150*GeV && abs(tr_pj.eta()) < 2.5 && tr_pj.m() > 40*GeV){
-          FilteredVRCjets.push_back(tr_pj);
-          FilteredNewConstits.push_back(NewConstits[i]);
+          UnsortedFilteredVRCjets.push_back(tr_pj);
+          UnsortedFilteredNewConstits.push_back(NewConstits[i]);
         }
       }
+      //Ensure Jets are still pT ordered after trimming:
+      // Note that the Consituents need to go with it, which leads to some ugliness
+      // Feels like there should be an STL algroithm to make this less ugly.
+      PseudoJets FilteredVRCjets(UnsortedFilteredVRCjets.size());
+      vector<PseudoJets> FilteredNewConstits(UnsortedFilteredVRCjets.size());
+      {
+        //Build a permutation vector to get the order we want.
+        vector<size_t> permutation(UnsortedFilteredVRCjets.size());
+        std::iota(permutation.begin(), permutation.end(), 0);
+        sort(permutation.begin(), permutation.end(),
+         [&UnsortedFilteredVRCjets](size_t i, size_t j){
+            return UnsortedFilteredVRCjets[i].pt() > UnsortedFilteredVRCjets[j].pt();
+        });
+        //Note there's a transform in Rivet namespace also.
+        std::transform(permutation.begin(), permutation.end(), 
+          FilteredVRCjets.begin(), 
+            [&UnsortedFilteredVRCjets](size_t i){return UnsortedFilteredVRCjets[i];
+          });
+        std::transform(permutation.begin(), permutation.end(), 
+          FilteredNewConstits.begin(), [&UnsortedFilteredNewConstits](size_t i){return UnsortedFilteredNewConstits[i];});
+      }
       int VRCsize = FilteredVRCjets.size();
-      //If there are no RC jets, why bother carrying on.
+      //If there are no vRC jets, why bother carrying on.
       if (VRCsize == 0) {
         vetoEvent;
       }
@@ -307,7 +340,7 @@ namespace Rivet {
       // signal - vRC jets for further analysis with their corresponding constituent jets in SignalConstits
       PseudoJets signal; 
       vector<PseudoJets> SignalConstits;
-      //STandard or background validation mode: everything is signal.
+      //Standard or background validation mode: everything is signal.
       if (abs(_mode) < 2 || _mode == -5){
         signal = FilteredVRCjets;
         SignalConstits = FilteredNewConstits;
@@ -401,6 +434,7 @@ namespace Rivet {
         std::map<string, double> outputs;
 
         //Evaluate the Neural Net and the P-scores.
+        //Quick test: Let's only consider leading two jets!
         if (_mode >= 0){
           const std::map<string, double> NN_Input = {
             {"rcjet_pt", j.pt()/MeV},
@@ -625,13 +659,29 @@ namespace Rivet {
       //n.b the cutflow table only mentions ETMiss > 40, but assume it means both?
       _cutflowBins["ETmiss >= 40"]->fill();
 
-      //Two vRC jets tagged V or H
-      int nVtags = std::count_if(JetTags.begin(), JetTags.end(), 
-                                  [](const MCBot_TagType tt){return (tt == MCBot_TagType::Vec);});
-      int nHtags = std::count_if(JetTags.begin(), JetTags.end(), 
-                                  [](const MCBot_TagType tt){return (tt == MCBot_TagType::Higgs);});
-      int ntoptags = std::count_if(JetTags.begin(), JetTags.end(), 
-                                  [](const MCBot_TagType tt){return (tt == MCBot_TagType::top);});
+      // //Two vRC jets tagged V or H
+      // int nVtags = std::count_if(JetTags.begin(), JetTags.end(), 
+      //                             [](const MCBot_TagType tt){return (tt == MCBot_TagType::Vec);});
+      // int nHtags = std::count_if(JetTags.begin(), JetTags.end(), 
+      //                             [](const MCBot_TagType tt){return (tt == MCBot_TagType::Higgs);});
+      // int ntoptags = std::count_if(JetTags.begin(), JetTags.end(), 
+      //                             [](const MCBot_TagType tt){return (tt == MCBot_TagType::top);});
+
+      // Get two highest pT tags (JetTags should be pT ordered as Signal is pT ordered)
+      int nVtags = 0, nHtags = 0, ntoptags = 0;
+      for (const MCBot_TagType tt : JetTags){
+        switch(tt){
+          case (MCBot_TagType::Vec):
+            ++nVtags; break;
+          case (MCBot_TagType::Higgs):
+            ++nHtags; break;
+          case (MCBot_TagType::top):
+            ++ntoptags; break;
+          default:
+            break; //Do nothing
+        }
+        if (nVtags + nHtags == 2) break;
+      }
 
       if (nVtags + nHtags < 2){
         vetoEvent;
@@ -879,6 +929,9 @@ namespace Rivet {
     static void getVHandtop_fromEvent(std::vector<Particle>& ps, const Event& ge, 
                                       std::vector<int> wanted_pids = {6,23,24,25}){
       for (const auto& p : ge.allParticles()){
+        if (p.pt() < 20*GeV){
+          continue;
+        }
         const int pid = p.pid();
         //TODO: Should there also be a status code check?
         //If its Vht, check its parents aren't the same particle to avoid including what is really the same particle many times.
