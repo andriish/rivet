@@ -44,6 +44,37 @@ namespace Rivet {
     return Jet(FourMomentum::mkEtaPhiME(j.eta()+dsmear*cos(theta), mapAngle0To2Pi(j.phi()+dsmear*sin(theta)), j1.mass(), j1.E()));  
   }
 
+  // angular smearing function: building on JET_SMEAR_ATLAS_RUN2 
+  Jet JET_SMEAR_ANGULAR_ENERGY_PRESERVED(const Jet& j) {
+    // Jet energy resolution lookup
+    //   original -- Implemented by Matthias Danninger for GAMBIT, based roughly on
+    //   https://atlas.web.cern.ch/Atlas/GROUPS/PHYSICS/CONFNOTES/ATLAS-CONF-2015-017/
+    //   Parameterisation can be still improved, but eta dependence is minimal
+    /// @todo Also need a JES uncertainty component?
+    static const vector<double> binedges_pt = {0., 50., 70., 100., 150., 200., 1000., 10000.};
+    static const vector<double> jer = {0.145, 0.115, 0.095, 0.075, 0.07, 0.05, 0.04, 0.04}; //< note overflow value
+    const int ipt = binIndex(j.pt()/GeV, binedges_pt, true);
+    if (ipt < 0) return j;
+    const double resolution = jer.at(ipt);
+
+    // Smear by a Gaussian centered on 1 with width given by the (fractional) resolution
+    /// @todo Is this the best way to smear? Should we preserve the energy, or pT, or direction?
+    const double fsmear = max(randnorm(1., resolution), 0.); 
+    const double fsmear2 = fsmear*fsmear;
+    //Ensure that the smearing doesn't accidently make the mass negative.
+    const double newE = ((j.E()*j.E() > j.px()*j.px()*fsmear2 + j.py()*j.py()*fsmear2 + j.pz()*j.pz()*fsmear2) 
+                      ? j.E() : j.px()*j.px()*fsmear2 + j.py()*j.py()*fsmear2 + j.pz()*j.pz()*fsmear2)+DBL_EPSILON; 
+    
+
+    Jet j1(FourMomentum::mkXYZE(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, newE));
+
+    // smearing in eta-phi -- customize the standard deviation in randnorm...
+    double dsmear = max(randnorm(0., 0.1), 0.);
+    double theta = rand01() * M_2_PI;
+    
+    return Jet(FourMomentum::mkEtaPhiME(j.eta()+dsmear*cos(theta), mapAngle0To2Pi(j.phi()+dsmear*sin(theta)), j1.mass(), j1.E()));  
+  }
+
   Jet JET_SMEAR_COMBO(const Jet& j){
     return JET_SMEAR_ATLAS_RUN2(JET_SMEAR_ANGULAR(j));
   }
