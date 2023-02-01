@@ -9,13 +9,13 @@ pkgpath=$CERNLIBPATH
 pkglibpath=$CERNLIBLIBPATH
 pkgincpath=$CERNLIBINCPATH
 pkgbinpath=$CERNLIBBINPATH
-AC_ARG_WITH([cernlib], AC_HELP_STRING(--with-cernlib, 
+AC_ARG_WITH([cernlib], AC_HELP_STRING(--with-cernlib,
             path to CERNLIB), [pkgpath=$with_cernlib], [])
-AC_ARG_WITH([cernlib-libpath], AC_HELP_STRING(--with-cernlib-libpath, 
+AC_ARG_WITH([cernlib-libpath], AC_HELP_STRING(--with-cernlib-libpath,
             path to CERNLIB libraries), [pkglibpath=$with_cernlib_libpath], [])
-AC_ARG_WITH([cernlib-incpath], AC_HELP_STRING(--with-cernlib-incpath, 
+AC_ARG_WITH([cernlib-incpath], AC_HELP_STRING(--with-cernlib-incpath,
             path to CERNLIB includes), [pkgincpath=$with_cernlib_incpath], [])
-AC_ARG_WITH([cernlib-binpath], AC_HELP_STRING(--with-cernlib-binpath, 
+AC_ARG_WITH([cernlib-binpath], AC_HELP_STRING(--with-cernlib-binpath,
             path to CERNLIB binaries), [pkgbinpath=$with_cernlib_binpath], [])
 
 CERNLIBFLAGS=""
@@ -35,7 +35,7 @@ if test x$with_cernlib != xno; then
     CERNLIBFLAGS=`$CERNLIB $cernlibs`
     ## Try to break down the flags into LDFLAGS and LDADD components
     for i in $CERNLIBFLAGS; do
-      if test `echo $i | egrep -- "-L.*"`; then
+      if test `echo $i | grep -E -- "-L.*"`; then
         CERNLIBLDFLAGS="$CERNLIBLDFLAGS $i"
       else
         CERNLIBLDADD="$CERNLIBLDADD $i"
