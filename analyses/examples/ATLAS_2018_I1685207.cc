@@ -63,7 +63,7 @@ namespace Rivet {
     const double fsmear2 = fsmear*fsmear;
     //Ensure that the smearing doesn't accidently make the mass negative.
     const double newE = ((j.E()*j.E() > j.px()*j.px()*fsmear2 + j.py()*j.py()*fsmear2 + j.pz()*j.pz()*fsmear2) 
-                      ? j.E() : j.px()*j.px()*fsmear2 + j.py()*j.py()*fsmear2 + j.pz()*j.pz()*fsmear2)+DBL_EPSILON; 
+                        ? j.E() : sqrt(j.px()*j.px()*fsmear2 + j.py()*j.py()*fsmear2 + j.pz()*j.pz()*fsmear2 + DBL_EPSILON));  
     
 
     Jet j1(FourMomentum::mkXYZE(j.px()*fsmear, j.py()*fsmear, j.pz()*fsmear, newE));
