@@ -105,7 +105,7 @@ namespace Rivet {
     double phi(const PhiMapping mapping=ZERO_2PI) const { return momentum().phi(mapping); }
 
     /// Get the 3-momentum directly.
-    Vector3 p3() const { return momentum().vector3(); }
+    ThreeMomentum p3() const { return momentum().vector3(); }
     /// Get the 3-momentum magnitude directly.
     double p() const { return momentum().p(); }
     /// Get the 3-momentum magnitude-squared directly.

@@ -97,8 +97,8 @@ namespace Rivet {
 	  if(phi12<0.) phi12 = -phi12;
 	  // hadron defn
 	  ThreeVector h_z = p2.p3().unit();
-	  ThreeVector h_x = (axis1-h_z.dot(axis1)*h_z).unit();
-	  ThreeVector pt1 = p1.p3()-h_z.dot(p1.p3())*h_z;
+	  ThreeVector h_x = (axis1 - h_z.dot(axis1)*h_z).unit();
+	  ThreeVector pt1 = p1.p3() - h_z.dot(p1.p3())*h_z;
 	  double phi0 = pt1.angle(h_x);
 	  if(phi0>M_PI)  phi0 -= 2*M_PI;
 	  if(phi0<-M_PI) phi0 += 2*M_PI;

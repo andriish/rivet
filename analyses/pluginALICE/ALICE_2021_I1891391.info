@@ -6,8 +6,8 @@ Collider: LHC
 InspireID: 1891391
 Status: VALIDATED
 Authors:
- - Lucia Anna Tarasovičová <lucia.anna.husova@cern.ch>
- - Daniel Günther <daniel.guenther@posteo.de>
+ - Lucia Anna Tarasovicova <lucia.anna.husova@cern.ch>
+ - Daniel Gunther <daniel.guenther@posteo.de>
 References:
  - Eur.Phys.J.C 81 (2021) 10, 945
  - arXiv:2107.11209 [nucl-ex]
@@ -17,7 +17,7 @@ NumEvents: 16000000
 Reentrant: true
 Luminosity_fb: 27e-6
 Description:
-  '\delta\varphi projections of two-particle correlation functions, triggered with charged hadrons, $K_S^0$, and $\Lambda$($\overline{\Lambda}$), per-trigger jet-like yields spectra extracted from these correlation functions on the nera-side and away-side as a function of multiplicity class, $p_{\mathrm{T}}$ of the trigger particle, and $p_{\mathrm{T}}$ of the associated particle in pp collisions at $\sqrt{s} = 13$ TeV. The ratios of these yields to the yields from minimum bias collisions as well as the ratios of yields triggered with different particles are also included.'
+  '$\delta\varphi$ projections of two-particle correlation functions, triggered with charged hadrons, $K_S^0$, and $\Lambda$($\overline{\Lambda}$), per-trigger jet-like yields spectra extracted from these correlation functions on the nera-side and away-side as a function of multiplicity class, $p_{\mathrm{T}}$ of the trigger particle, and $p_{\mathrm{T}}$ of the associated particle in pp collisions at $\sqrt{s} = 13$ TeV. The ratios of these yields to the yields from minimum bias collisions as well as the ratios of yields triggered with different particles are also included.'
 ValidationInfo:
   'A description of the process used to validate the Rivet code against
   the original experimental analysis. Cut-flow tables and similar information

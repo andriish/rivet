@@ -27,8 +27,8 @@ Options:
 Description:
   'The cross-section for the production of two jets in association with a leptonically decaying Z boson ($Zjj$) is measured in
   proton-proton collisions at a centre-of-mass energy of 13 TeV, using data recorded with the ATLAS detector at the Large Hadron
-  Collider, corresponding to an integrated luminosity of 3.2 fbi$^{-1}$. The electroweak $Zjj$ cross-section is extracted in a fiducial
-  region chosen to enhance the electroweak contribution relative to the dominant Drell–Yan $Zjj$ process, which is constrained using a
+  Collider, corresponding to an integrated luminosity of 3.2 fb$^{-1}$. The electroweak $Zjj$ cross-section is extracted in a fiducial
+  region chosen to enhance the electroweak contribution relative to the dominant Drell-Yan $Zjj$ process, which is constrained using a
   data-driven approach. The measured fiducial electroweak cross-section is 
   $\sigma_{EWZjj}$ = 119$\pm$16(stat.)$\pm$20(syst.)$\pm$2(lumi.) fb for dijet invariant mass greater than 250 GeV, 
   and 34.2$\pm$5.8(stat.)$\pm$5.5(syst.)$\pm$0.7(lumi.) fb for dijet invariant mass greater than 1 TeV.

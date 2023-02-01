@@ -2,7 +2,7 @@ Name: ARGUS_1995_I397794
 Year: 1995
 Summary: Spectrum for $D_{s2}^+$ production at 10.58 GeV
 Experiment: ARGUS
-Collider: <Insert the collider name>
+Collider: DORIS
 InspireID: 397794
 Status: VALIDATED
 Authors:

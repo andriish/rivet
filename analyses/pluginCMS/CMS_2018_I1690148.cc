@@ -80,9 +80,7 @@ namespace Rivet {
         for (int o = 0; o < 33; ++o) { // observable
           d += 1;
           for (int f = 0; f < 4; ++f) { // flavor
-            char buffer [20];
-            sprintf(buffer, "d%02d-x01-y%02d", d, f+1);
-            book(_h[r][o][f], buffer);
+            book(_h[r][o][f], d, 1, f+1);
           }
         }
       }

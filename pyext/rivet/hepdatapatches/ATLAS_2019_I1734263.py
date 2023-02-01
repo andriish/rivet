@@ -4,5 +4,5 @@ def patch(path, ao):
 
     if path in needs_patching:
         for p in ao.points():
-            p.setErrs(1, (2.5, 2.5))
+            p.setXErrs((2.5, 2.5))
     return ao

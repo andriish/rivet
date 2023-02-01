@@ -29,6 +29,11 @@
 	build script (thanks to Alexander Puck Neuwirth for the
 	suggestion).
 
+2022-10-27 Peter Richardson <peter.richardson@durham.ac.uk>
+
+	* Add ATLAS_2018_I1615866 gamma gamma -> mu+ mu-
+	* Add ATLAS_2015_I1377585 gamma gamma -> l+ l-
+
 2022-10-27 Christian Gutschow  <chris.g@cern.ch>
 
 	* Add reentrant marker to MC_DILEPTON.info (thanks to Jens Roggel

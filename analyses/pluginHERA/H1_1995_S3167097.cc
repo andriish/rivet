@@ -94,12 +94,12 @@ namespace Rivet {
         scale(_hEtFlow[ibin], 0.5/ *_sumw[ibin]);
       /// @todo Improve this!
       Scatter2DPtr s21,s22,s23;
-      divide(_tmphAvEt,_tmphN,s21);
       book(s21, "21");
-      divide(_tmphAvX,_tmphN,s22);
+      divide(_tmphAvEt,_tmphN,s21);
       book(s22, "22");
-      divide(_tmphAvQ2,_tmphN,s23);
+      divide(_tmphAvX,_tmphN,s22);
       book(s23, "23");
+      divide(_tmphAvQ2,_tmphN,s23);
     }
 
     /// @}

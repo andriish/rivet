@@ -2,7 +2,7 @@ Name: CLEO_2001_I552541
 Year: 2001
 Summary: Correlated $\Lambda^+_c\bar{\Lambda}_c$ production in $e^+e^-$ annihilations at $\sqrt{s}=10.5$ GeV
 Experiment: CLEO
-Collider: <Insert the collider name>
+Collider: CESR
 InspireID: 552541
 Status: VALIDATED
 Authors:

@@ -2,7 +2,7 @@ Name: BESIII_2014_I1323621
 Year: 2014
 Summary: Cross section for $e^+e^-\to \omega\chi_{c0}$ at energies between 4.21 and 4.42 GeV
 Experiment: BESIII
-Collider: <Insert the collider name>
+Collider: BEPC
 InspireID: 1323621
 Status: VALIDATED
 Authors:
