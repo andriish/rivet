@@ -10,6 +10,7 @@ Reentrant: true
 Authors:
  - James Monk <jmonk@cern.ch>
 References:
+ - ATLAS-STDM-2010-03
  - arXiv:1009.5908
 RunInfo:
   pp QCD jet production with a minimum jet pT of 60 GeV (inclusive) or 30 GeV (di-jets) at 7 TeV.

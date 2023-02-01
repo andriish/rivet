@@ -12,6 +12,7 @@ Authors:
  - Sercan Sen <sercan.sen@cern.ch>
  - Peter Skands <Peter.Skands@cern.ch>
 References:
+ - ATLAS-BPHY-2011-02
  - arXiv:1206.3122 [hep-ex]
 RunInfo:
   pp to b-hadron + X at 7 TeV, i.e. switch on "HardQCD:gg2bbbar" and "HardQCD:qqbar2bbbar" flags in Pythia8.

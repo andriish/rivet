@@ -7,10 +7,10 @@ function xdocker { echo "docker $@"; docker "$@"; }
 
 test "$FORCE" && BUILD="$BUILD --no-cache"
 
-YODA_BRANCH=yoda-1.9.6
+YODA_BRANCH=yoda-1.9.7
 
 ## Last branch name -> latest
-for RIVET_BRANCH in release-3-1-x rivet-3.1.6; do
+for RIVET_BRANCH in release-3-1-x rivet-3.1.7; do
     RIVET_VERSION=${RIVET_BRANCH#rivet-}
 
     BUILD="$BUILD --build-arg YODA_BRANCH=$YODA_BRANCH" # --squash"

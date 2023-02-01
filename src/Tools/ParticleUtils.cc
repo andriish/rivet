@@ -87,18 +87,18 @@ namespace Rivet {
       , [](const Particle& p1, const Particle& p2) { return p1.pid() < p2.pid(); }
       );
 
-      // once sorted, every pid should align exactly;
-      // otherwise these aren't the parts we're looking for!
-      for (size_t i = 0; i < pids.size(); i++) {
-        if (abspid) {
-          if (parts[i].abspid() != pids[i]) return false;
-        } else {
-          if (parts[i].pid() != pids[i]) return false;
-        }
+    // once sorted, every pid should align exactly;
+    // otherwise these aren't the parts we're looking for!
+    for (size_t i = 0; i < pids.size(); i++) {
+      if (abspid) {
+        if (parts[i].abspid() != pids[i]) return false;
+      } else {
+        if (parts[i].pid() != pids[i]) return false;
       }
-
-      return true;
     }
+
+    return true;
+  }
 
   // checks if the decay chains of the input Particles are compatible with the
   // desired pids.

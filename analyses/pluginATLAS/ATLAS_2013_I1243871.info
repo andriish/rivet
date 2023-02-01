@@ -9,6 +9,7 @@ Reentrant: false
 Authors:
  - Javier Llorente <javier.llorente.merino@cern.ch>
 References:
+ - ATLAS-STDM-2011-48
  - arXiv:1307.5749 [hep-ex]
 RunInfo: Top quark pair production in $pp$ collisions at $\sqrt{s} = 7$ TeV
 NumEvents: 1000000

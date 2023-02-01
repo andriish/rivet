@@ -34,12 +34,14 @@ incargs += " -I" + sysconfig.get_config_var("INCLUDEPY")
 
 ## Compile args
 cmpargs = "@PYEXT_CXXFLAGS@"
+cmpargs += " @CXXFLAGS@"
 
 ## Link args -- base on install-prefix, or on local lib dirs for pre-install build
 linkargs = " ".join("-L{}".format(d) for d in lookupdirs)
 linkargs += " -L@abs_top_builddir@/src/.libs" if "RIVET_LOCAL" in os.environ else "-L@prefix@/lib"
 ## This needs to be passed separately on Mac, otherwise HepMC3 library won't be found
 @ENABLE_HEPMC_3_TRUE@if platform.system() == "Darwin": linkargs += " -Wl,-rpath,@HEPMC3LIBPATH@"
+linkargs += " @LDFLAGS@"
 
 ## Library args
 @ENABLE_HEPMC_3_TRUE@libraries = ["HepMC3"]

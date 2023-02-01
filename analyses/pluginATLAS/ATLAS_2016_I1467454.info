@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Markus Zinser <markus.zinser@cern.ch>
 References:
+ - ATLAS-STDM-2014-06
  - JHEP 1608 (2016) 009
  - doi:10.1007/JHEP08(2016)009
  - arXiv:1606.01736 [hep-ex]

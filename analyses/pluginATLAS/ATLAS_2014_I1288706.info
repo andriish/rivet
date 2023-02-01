@@ -9,9 +9,10 @@ Reentrant: true
 Authors:
   - Elena Yatsenko <elena.yatsenko@cern.ch>
 References:
-  - JHEP06(2014)112
-  - doi:10.1007/JHEP06(2014)112
-  - arXiv:1404.1212 [hep-ex]
+ - ATLAS-STDM-2011-41
+ - JHEP06(2014)112
+ - doi:10.1007/JHEP06(2014)112
+ - arXiv:1404.1212 [hep-ex]
 RunInfo:
   Run with inclusive $Z$ events, with $Z/\gamma^*$ decays to electrons and/or muons at $\sqrt{s} = 7$~TeV.
 NumEvents: 1000000

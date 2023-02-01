@@ -10,6 +10,7 @@ Authors:
  - Elena Yatsenko <elena.yatsenko@desy.de>
  - Judith Katzy <jkatzy@mail.cern.ch>
 References:
+ - ATLAS-STDM-2011-15
  - arXiv:1108.6308 [hep-ex]
 RunInfo:
   Run with $W$ decays to $e\,\nu_e$ and/or $\mu\,\nu_\mu$.

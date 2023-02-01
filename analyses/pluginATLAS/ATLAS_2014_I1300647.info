@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Elena Yatsenko <elena.yatsenko@cern.ch>
 References:
+ - ATLAS-STDM-2012-23
  - JHEP09(2014)145
  - arXiv:1406.3660 [hep-ex]
 RunInfo:

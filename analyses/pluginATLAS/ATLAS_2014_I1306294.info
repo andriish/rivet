@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Gavin Hesketh <gavin.hesketh@ucl.ac.uk>
 References:
+ - ATLAS-STDM-2012-15
  - arXiv:1407.3643 [hep-ex]
  - JHEP 1410 (2014) 141
 RunInfo: Z+b(b) production in $pp$ collisions at $\sqrt{s} = 7$ TeV, electronic Z-decays

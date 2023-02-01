@@ -10,9 +10,10 @@ Authors:
  - Leif Lönnblad <leif.lonnblad@thep.lu.se>
  - Christian Bierlich <christian.bierlich@thep.lu.se>
 References:
-- Eur.Phys.J. C76 (2016) no.4, 199
-- DOI:0.1140/epjc/s10052-016-4002-3
-- arXiv:1508.00848 [hep-ex]
+ - ATLAS-HION-2012-15
+ - Eur.Phys.J. C76 (2016) no.4, 199
+ - DOI:0.1140/epjc/s10052-016-4002-3
+ - arXiv:1508.00848 [hep-ex]
 RunInfo: p-Pb minimum bias events with $c\tau > 10 cm$ stable.
 NeedCrossSection: no
 Options:

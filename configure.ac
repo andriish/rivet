@@ -220,10 +220,10 @@ if test -f "$FJCONFIG"; then
   fjmajor=$(echo $fjversion | cut -f1 -d.)
   fjminor=$(echo $fjversion | cut -f2 -d.)
   fjmicro=$(echo $fjversion | cut -f3 -d.)
-  if test "$fjmajor" -lt 3 -o "$fjminor" -lt 4 ; then  #< only works for v3.x
-    AC_MSG_ERROR([FastJet version 3.4.0 or later is required]) #< plugin libs chanced with 3.4.0
+  if test "$fjmajor" -lt 3 -o "$fjminor" -lt 2 ; then  #< only works for v3.x
+    AC_MSG_ERROR([FastJet version 3.2.0 or later is required])
   fi
-  FASTJETLIBADD="$($FJCONFIG --plugins --shared --libs | sed 's/\S*\/gcc\/\S*//g')"
+  FASTJETLIBADD="$($FJCONFIG --libs --plugins --rpath=no)"
 else
   FASTJETLIBADD="-L$FASTJETLIBPATH -l$FASTJETLIBNAME -lfastjetplugins"
 fi
@@ -358,7 +358,7 @@ if test x$enable_pyext == xyes; then
   AC_SUBST(PYTHON_FULL_VERSION)
   AC_SUBST(PYTHON_MAJOR_VERSION)
   #RIVET_PYTHONPATH=$pythondir
-  RIVET_PYTHONPATH=`$PYTHON -c "from __future__ import print_function; import sysconfig; print(sysconfig.get_path('platlib', 'posix_user', vars={'userbase' : '$prefix'}))"`
+  RIVET_PYTHONPATH=`$PYTHON -c "from __future__ import print_function; import sysconfig; print(sysconfig.get_path('platlib', vars={'platbase': '$prefix', 'base': '$prefix'}))"`
   AC_SUBST(RIVET_PYTHONPATH)
   AC_MSG_NOTICE(Rivet Python lib will be installed to $RIVET_PYTHONPATH)
   if test -z "$PYTHON"; then

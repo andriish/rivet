@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Christian Gutschow <chris.g@cern.ch>
 References:
+ - ATLAS-STDM-2014-12
  - arXiv:1512.02192 [hep-ex]
  - submitted to EPJC
 RunInfo:

@@ -57,7 +57,7 @@ if test x$CLHEPCONFIG != xno; then
   verstr=`$CLHEPCONFIG --version`
   CLHEPVERSION=`echo $verstr | sed -e s/'^CLHEP\ *\(@<:@0-9\.@:>@*\)$'/'\1'/`
 
-  if test $( echo $CLHEPVERSION | egrep "^1\..*" ); then
+  if test $( echo $CLHEPVERSION | grep -E -- "^1\..*" ); then
     AC_MSG_NOTICE([CLHEP version < 2.0 detected.])
     $1
   else
@@ -65,8 +65,8 @@ if test x$CLHEPCONFIG != xno; then
     $2
   fi
 
-  AM_CONDITIONAL([CLHEP1], test $( echo $CLHEPVERSION | egrep "^1\..*") )
-  AM_CONDITIONAL([CLHEP2], test $( echo $CLHEPVERSION | egrep "^2\..*") )
+  AM_CONDITIONAL([CLHEP1], test $( echo $CLHEPVERSION | grep -E -- "^1\..*") )
+  AM_CONDITIONAL([CLHEP2], test $( echo $CLHEPVERSION | grep -E -- "^2\..*") )
 else
   AC_CHECK_FILE([$CLHEPINCPATH]/config/CLHEP.h, [clhep_config=yes], [clhep_config=no])
   if test x$clhep_config = xyes; then
@@ -102,7 +102,7 @@ AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <CLHEP/Random/Random.h>
 namespace CLHEP {}]], [[using namespace CLHEP; HepRandom r; r.flat();]])],
 [AC_MSG_RESULT(yes)
 $1],
-[AC_MSG_RESULT(no) 
+[AC_MSG_RESULT(no)
 AC_MSG_NOTICE([CLHEP does not work])
 $2])
 LIBS="$oldLIB"

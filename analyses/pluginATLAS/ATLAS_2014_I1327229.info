@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Joern Mahlstedt <joern.mahlstedt@cern.ch>
 References:
+ - ATLAS-EXOT-2012-20
  - arXiv:1411.2921 [hep-ex]
 RunInfo:
   Any process producing at least 3 leptons (e.g. pair production of doubly-charged Higgs or excited leptons)

@@ -10,6 +10,7 @@ Reentrant: true
 Authors:
  - Frank Siegert <frank.siegert@cern.ch>
 References:
+ - ATLAS-STDM-2010-07
  - arXiv:1012.5382 [hep-ex]
 RunInfo:
   W+jets events ideally with matrix element corrections to describe the

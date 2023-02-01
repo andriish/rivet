@@ -10,6 +10,7 @@ Authors:
  - Oldrich Kepka <oldrich.kepka@cern.ch>
  - Katerina Moudra <katerina.moudra@cern.ch>
 References:
+ - ATLAS-STDM-2012-02
  - arXiv:1211.6096 [hep-ex]
 RunInfo:
   Run with inclusive $Z$ events, with $Z$ decays to 4 leptons or 2 leptons + MET.

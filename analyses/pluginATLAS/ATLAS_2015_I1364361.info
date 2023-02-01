@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Michaela Queitsch-Maitland <michaela.queitsch-maitland@cern.ch>
 References:
+ - ATLAS-HIGG-2014-11
  - arXiv:1504.05833
 RunInfo:
   pp Higgs production at 8 TeV, include all processes (ggH, VH, VBF, ttH), stable Higgs

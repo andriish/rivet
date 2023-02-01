@@ -42,9 +42,9 @@ function _rivet() {
         fi
     fi
 
-    if (echo ${prev} | egrep -- "-\<a\>|--\<analysis\>|--\<analyses\>|--\<show-analysis\>|--\<show-analyses\>|--\<list-analyses\>" &> /dev/null); then
+    if (echo ${prev} | grep -E -- "-\<a\>|--\<analysis\>|--\<analyses\>|--\<show-analysis\>|--\<show-analyses\>|--\<list-analyses\>" &> /dev/null); then
         anas=$(rivet --list-analyses --quiet) #< excludes aliases
-        if (echo ${cur} | egrep "," &> /dev/null); then
+        if (echo ${cur} | grep -E "," &> /dev/null); then
             oldcurstripped=$(sed "s/,[^,]\{,\}$//g" <<< "$cur"),
             cur=$(sed "s/^,//g" <<< $(grep -o ",[^,]\{,\}$" <<< "${cur}"))
             COMPREPLY=( $(compgen -W "$anas" -P "${oldcurstripped}" -- ${cur}) )
@@ -54,17 +54,17 @@ function _rivet() {
         return 0
     fi
 
-    if (echo ${prev} | egrep -- "\<-n\>|--\<nevts\>|--\<runname\>|--\<histo-interval\>|--\<cross-section\>|\<-x\>|--\<event-timeout\>" &> /dev/null); then
+    if (echo ${prev} | grep -E -- "\<-n\>|--\<nevts\>|--\<runname\>|--\<histo-interval\>|--\<cross-section\>|\<-x\>|--\<event-timeout\>" &> /dev/null); then
         COMPREPLY=()
         return 0
     fi
 
-    if (echo ${prev} | egrep -- "--\<histo-file\>|\<-H\>" &> /dev/null); then
+    if (echo ${prev} | grep -E -- "--\<histo-file\>|\<-H\>" &> /dev/null); then
         _filedir "yoda|yoda.gz"
         return 0
     fi
 
-    if (echo ${prev} | egrep -- "--\<analysis-path\>|--\<analysis-path-append\>" &> /dev/null); then
+    if (echo ${prev} | grep -E -- "--\<analysis-path\>|--\<analysis-path-append\>" &> /dev/null); then
         _filedir -d
         return 0
     fi
@@ -247,17 +247,17 @@ function _rivet_mkhtml() {
     fi
 
     ## Options with files / directories as the arg
-    if (echo ${prev} | egrep -- "--\<outputdir\>|\<-o\>" &> /dev/null); then
+    if (echo ${prev} | grep -E -- "--\<outputdir\>|\<-o\>" &> /dev/null); then
         _filedir -d
         return 0
     fi
-    if (echo ${prev} | egrep -- "--\<config\>|\<-c\>" &> /dev/null); then
+    if (echo ${prev} | grep -E -- "--\<config\>|\<-c\>" &> /dev/null); then
         _filedir
         return 0
     fi
 
     ## Options without an completeable arg
-    if (echo ${prev} | egrep -- "\<-t\>|--\<title\>|--\<refid\>|--\<n\>|--\<num-threads\>|\<-m\>|--\<match\>|\<-M\>|--\<unmatch\>" &> /dev/null); then
+    if (echo ${prev} | grep -E -- "\<-t\>|--\<title\>|--\<refid\>|--\<n\>|--\<num-threads\>|\<-m\>|--\<match\>|\<-M\>|--\<unmatch\>" &> /dev/null); then
         COMPREPLY=()
         return 0
     fi

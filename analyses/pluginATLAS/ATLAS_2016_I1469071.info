@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Elena Yatsenko <elena.yatsenko@cern.ch>
 References:
+ - ATLAS-STDM-2015-19
  - Phys. Lett. B 762 (2016) 1
  - arXiv:1606.04017 [hep-ex]
  - doi:10.1016/j.physletb.2016.08.052

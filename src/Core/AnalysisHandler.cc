@@ -642,21 +642,25 @@ namespace Rivet {
       // @todo move this map construction into YODA?
       vector<YODA::AnalysisObject*> aos_raw;
       map<string,YODA::AnalysisObject*> raw_map;
+      size_t rawcount = 0, tmpcount = 0;
       try {
         YODA::read(file, aos_raw);
         for (YODA::AnalysisObject* aor : aos_raw) {
           const string& aopath = aor->path();
           // skip everything that isn't pre-finalize
-          if ( !AOPath(aopath).isRaw() ) continue;
+          const AOPath aop_obj(aopath);
+          if (!aop_obj.isRaw())   continue;
+          if (aop_obj.isTmp())  ++tmpcount;
+          ++rawcount;
           bool skip = false;
           if (aopath != "") {
             if (matches.size()) {
               skip = !std::any_of(matches.begin(), matches.end(), [&](const string &exp){
-                                  return std::regex_match(aopath, std::regex(exp));} );
+                                  return std::regex_search(aopath, std::regex(exp));} );
             }
             if (unmatches.size()) {
               skip |= std::any_of(unmatches.begin(), unmatches.end(), [&](const string &exp){
-                                 return std::regex_match(aopath, std::regex(exp));} );
+                                 return std::regex_search(aopath, std::regex(exp));} );
             }
           }
           if (skip)  continue;
@@ -670,7 +674,7 @@ namespace Rivet {
         MSG_WARNING("No AOs selected from file: " << file);
         continue;
       }
-      if (equiv && 2*raw_map.size() != aos_raw.size()) {
+      if (equiv && (2*rawcount - tmpcount) != aos_raw.size()) {
         MSG_WARNING("Number of pre- and post-finalize AOs do not match for file: " << file);
         continue;
       }

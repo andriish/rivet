@@ -9,6 +9,7 @@ Reentrant: true
 Authors:
  - Sebastien Prince <sebastien.prince@cern.ch>
 References:
+ - ATLAS-STDM-2017-02
  - submitted to PLB
  - arXiv:1710.09560 [hep-ex]
 Keywords:
