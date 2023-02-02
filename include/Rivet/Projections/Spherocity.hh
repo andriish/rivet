@@ -108,7 +108,7 @@ namespace Rivet {
     /// @}
 
 
-  private:
+  protected:
 
     /// The spherocity scalars.
     vector<double> _spherocities;
@@ -117,7 +117,7 @@ namespace Rivet {
     vector<Vector3> _spherocityAxes;
 
 
-  private:
+  protected:
 
     /// Explicitly calculate the spherocity values.
     void _calcSpherocity(const vector<Vector3>& fsmomenta);

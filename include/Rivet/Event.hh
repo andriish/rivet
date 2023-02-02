@@ -188,9 +188,6 @@ namespace Rivet {
     /// Get a Log object for Event
     Log& getLog() const;
 
-    /// @brief Actual (shared) implementation of the constructors from GenEvents
-    void _init(const GenEvent& ge);
-
 
     // /// @brief Remove uninteresting or unphysical particles in the
     // /// GenEvent to speed up searches

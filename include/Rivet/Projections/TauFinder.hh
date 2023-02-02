@@ -54,7 +54,7 @@ namespace Rivet {
     virtual CmpState compare(const Projection& p) const;
 
 
-  private:
+  protected:
 
     /// The decaymode enum
     DecayMode _decmode;

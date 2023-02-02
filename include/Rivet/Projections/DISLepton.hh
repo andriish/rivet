@@ -113,14 +113,10 @@ namespace Rivet {
     /// Useful for e.g. input to a jet finder
     const VetoedFinalState& remainingFinalState() const;
 
-
-  public:
-
     /// Clear the projection
     void clear() { _theParticles.clear(); }
-
-
-  private:
+    
+  protected:
 
     /// The incoming lepton
     Particle _incoming;

@@ -81,7 +81,8 @@ namespace Rivet {
     /// The beam particles in the current collision
     ParticlePair _theBeams;
 
-  private:
+
+  protected:
 
     /// Compare with other projections -- it's always the same, since there are no params
     virtual CmpState compare(const Projection&) const { return CmpState::EQ; }

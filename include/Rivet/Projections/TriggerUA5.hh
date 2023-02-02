@@ -59,9 +59,9 @@ namespace Rivet {
     }
 
 
-  private:
+  protected:
 
-    /// The min bias trigger decisions
+    /// The min-bias trigger decisions
     bool _decision_sd, _decision_nsd_1, _decision_nsd_2;
 
     /// Is it a pp collision?

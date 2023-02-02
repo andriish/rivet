@@ -1,7 +1,7 @@
 // -*- C++ -*-
 //
-// This file is part of MCUtils -- https://bitbucket.org/andybuckley/mcutils
-// Copyright (C) 2013-2016 Andy Buckley <andy.buckley@cern.ch>
+// This file is part of MCUtils -- https://gitlab.com/hepcedar/mcutils/
+// Copyright (C) 2013-2022 Andy Buckley <andy.buckley@cern.ch>
 //
 // Embedding of MCUtils code in other projects is permitted provided this
 // notice is retained and the MCUtils namespace and include path are changed.
@@ -14,6 +14,7 @@
 
 #include "Rivet/Tools/ParticleName.hh"
 #include "Rivet/Math/MathUtils.hh"
+#include <cassert>
 
 namespace Rivet {
   namespace PID {
@@ -24,17 +25,49 @@ namespace Rivet {
 
     /// Absolute value
     /// @deprecated Just use abs()!
-    inline int abspid(int pid) { return abs(pid); }
+    inline int abspid(int pid) {
+      return abs(pid);
+    }
+
+
+    // /// Compile-time int^int power-raising function
+    // template <size_t N>
+    // inline int _intpow(int x) { return x * _intpow<N-1>(x); }
+    // template <>
+    // inline int _intpow<0>(int x) { return 1; }
+
+    /// Raise 10 to an integer power (terrible)
+    // inline size_t _pow10(unsigned int power) {
+    //   return (size_t) std::pow(10.0, power);
+    // }
+    /// Raise 10 to an integer power (LUT, tested and found faster than constexpr version)
+    inline size_t _pow10(unsigned int power) {
+      assert(power >= 0 && "_pow10 only defined for positive powers");
+      assert(power < 16 && "_pow10 only defined for powers < 16");
+      static const size_t POWS10[] = {1, 10, 100, 1000, 10000, 100000, 1000000,
+                                      10000000, 100000000, 1000000000, 10000000000,
+                                      100000000000, 1000000000000, 10000000000000,
+                                      100000000000000, 1000000000000000, 10000000000000000};
+      return POWS10[power];
+    }
+    // /// Raise 10 to an integer power (constexpr)
+    // inline constexpr size_t _pow10(unsigned int power) {
+    //   assert(power >= 0 && "_pow10 only defined for positive powers");
+    //   return (power > 0) ? 10*_pow10(power-1) : 1;
+    // }
 
     ///  PID digits (base 10) are: n nr nl nq1 nq2 nq3 nj
     ///  The Location enum provides a convenient index into the PID.
     enum Location { nj=1, nq3, nq2, nq1, nl, nr, n, n8, n9, n10 };
 
     /// Split the PID into constituent integers
+    ///
+    ///  PID digits (base 10) are: n nr nl nq1 nq2 nq3 nj (cf. Location)
+    ///
+    /// @note Right-to-left nunbering, RHS-digit index = 1
     inline unsigned short _digit(Location loc, int pid) {
-      //  PID digits (base 10) are: n nr nl nq1 nq2 nq3 nj (cf. Location)
-      int numerator = (int) std::pow(10.0, (loc-1));
-      return (abs(pid)/numerator) % 10;
+      const int div = _pow10(loc-1);
+      return (abs(pid)/div) % 10;
     }
 
     /// Returns everything beyond the 7th digit (e.g. outside the numbering scheme)
@@ -89,27 +122,45 @@ namespace Rivet {
     /// @note Ion numbers are +/- 10LZZZAAAI.
     inline int nuclZ(int pid) {
       // A proton can also be a Hydrogen nucleus
-      if (abs(pid) == 2212) { return 1; }
+      if (abs(pid) == 2212) {
+        return 1;
+      }
       if (isNucleus(pid)) return (abs(pid)/10000) % 1000;
       return 0;
+    }
+    /// @deprecated Use nuclZ()
+    inline int Z(int pid) {
+      return nuclZ(pid);
     }
 
     /// Get the atomic weight (number of nucleons) in a nucleus/ion
     /// @note Ion numbers are +/- 10LZZZAAAI.
     inline int nuclA(int pid) {
       // a proton can also be a Hydrogen nucleus
-      if (abs(pid) == 2212) { return 1; }
+      if (abs(pid) == 2212) {
+        return 1;
+      }
       if (isNucleus(pid)) return (abs(pid)/10) % 1000;
       return 0;
+    }
+    /// @deprecated Use nuclA()
+    inline int A(int pid) {
+      return nuclA(pid);
     }
 
     /// If this is a nucleus (ion), get nLambda
     /// @note Ion numbers are +/- 10LZZZAAAI.
     inline int nuclNlambda(int pid) {
       // a proton can also be a Hydrogen nucleus
-      if (abs(pid) == 2212) { return 0; }
+      if (abs(pid) == 2212) {
+        return 0;
+      }
       if (isNucleus(pid)) return _digit(n8,pid);
       return 0;
+    }
+    /// @deprecated Use nuclNlambda()
+    inline int lambda(int pid) {
+      return nuclNlambda(pid);
     }
 
     /// @}
@@ -161,7 +212,9 @@ namespace Rivet {
     }
     /// Alias for isChargedLepton
     /// @deprecated Prefer isChargedLepton
-    inline bool isChLepton(int pid) { return isChargedLepton(pid); }
+    inline bool isChLepton(int pid) {
+      return isChargedLepton(pid);
+    }
 
     /// Determine if the PID is that of a neutrino
     inline bool isNeutrino(int pid) {
@@ -211,16 +264,24 @@ namespace Rivet {
     // inline bool isUp(int pid) { return abs(pid) == UQUARK; }
 
     /// Determine if the PID is that of an s/sbar
-    inline bool isStrange(int pid) { return abs(pid) == SQUARK; }
+    inline bool isStrange(int pid) {
+      return abs(pid) == SQUARK;
+    }
 
     /// Determine if the PID is that of a c/cbar
-    inline bool isCharm(int pid) { return abs(pid) == CQUARK; }
+    inline bool isCharm(int pid) {
+      return abs(pid) == CQUARK;
+    }
 
     /// Determine if the PID is that of a b/bbar
-    inline bool isBottom(int pid) { return abs(pid) == BQUARK; }
+    inline bool isBottom(int pid) {
+      return abs(pid) == BQUARK;
+    }
 
     /// Determine if the PID is that of a t/tbar
-    inline bool isTop(int pid) { return abs(pid) == TQUARK; }
+    inline bool isTop(int pid) {
+      return abs(pid) == TQUARK;
+    }
 
     /// @}
 
@@ -294,7 +355,9 @@ namespace Rivet {
       return false;
     }
     /// @deprecated Use the nicer capitalisation isDiquark(pid)
-    inline bool isDiQuark(int pid) { return isDiquark(pid); }
+    inline bool isDiQuark(int pid) {
+      return isDiquark(pid);
+    }
 
     /// Check to see if this is a valid pentaquark
     inline bool isPentaquark(int pid) {
@@ -351,9 +414,9 @@ namespace Rivet {
 
     /// Is this an SM fundamental particle?
     inline bool isSMFundamental(int pid) {
-        return isQuark(pid) || isLepton(pid) ||
-          isGluon(pid) || isPhoton(pid) || isW(pid) || isZ(pid) || isHiggs(pid) ||
-          isBSMBoson(pid) || isGraviton(pid);
+      return isQuark(pid) || isLepton(pid) ||
+        isGluon(pid) || isPhoton(pid) || isW(pid) || isZ(pid) || isHiggs(pid) ||
+        isBSMBoson(pid) || isGraviton(pid);
     }
 
     /// @brief Is this a fundamental SUSY particle?
@@ -391,7 +454,9 @@ namespace Rivet {
       return true;
     }
     /// Alias
-    inline bool isRhadron(int pid) { return isRHadron(pid); }
+    inline bool isRhadron(int pid) {
+      return isRHadron(pid);
+    }
 
     /// Is this a technicolor particle?
     inline bool isTechnicolor(int pid) {
@@ -414,8 +479,8 @@ namespace Rivet {
 
     /// Is this a lepto-quark?
     inline bool isLeptoQuark(int pid) {
-      // Many UFO models are extending the PDG standards
-      return abs(pid)==42;
+      // Many UFO models are extending the PDG standards... is this going to be official?
+      return abs(pid) == 42;
     }
 
     /// Is this a generic Dark Matter particle?
@@ -434,13 +499,13 @@ namespace Rivet {
       return isDarkMatter(pid);
     }
 
-    /// Is this a Hidden Valley particle
+    /// Is this a Hidden Valley particle?
     inline bool isHiddenValley(int pid) {
       return (_digit(n,pid) == 4 && _digit(nr,pid) == 9);
     }
 
     /// Is this an exotic particle?
-    inline bool isExotic(int pid){
+    inline bool isExotic(int pid) {
       // From the PDG definition, 40-80 reserved for exotic particles
       // Some overlap with ranges from other functions (e.g. isDM)
       // Also covers R0 (41)
@@ -458,7 +523,8 @@ namespace Rivet {
       if (_digit(nr,pid) != 1) return false;
       if (_digit(nl,pid) != 1 && _digit(nl,pid) != 2) return false;
       // Require at least 1 core digit
-      if (_digit(nq3,pid) == 0)  { return false; }
+      // NOT TRUE! Electrically neutral monopoles are possible
+      // if (_digit(nq3,pid) == 0)  return false;
       // Always have spin zero for now
       if (_digit(nj,pid) != 0) return false;
       return true;
@@ -471,14 +537,14 @@ namespace Rivet {
     /// Is this a Q-ball?
     /// @note Ad-hoc numbering for such particles is 100xxxx0, where xxxx is the charge in tenths.
     inline bool isQBall(int pid) {
-     if (_extraBits(pid) != 1) return false;
-     if (_digit(n,pid) != 0) return false;
-     if (_digit(nr,pid) != 0) return false;
-     // Check the core number
-     if ((abs(pid)/10) % 10000 == 0) return false;
-     // These particles have spin zero for now
-     if (_digit(nj,pid) != 0) return false;
-     return true;
+      if (_extraBits(pid) != 1) return false;
+      if (_digit(n,pid) != 0) return false;
+      if (_digit(nr,pid) != 0) return false;
+      // Check the core number
+      if ((abs(pid)/10) % 10000 == 0) return false;
+      // These particles have spin zero for now
+      if (_digit(nj,pid) != 0) return false;
+      return true;
     }
     /// Alias
     inline bool isQball(int pid) {
@@ -491,7 +557,7 @@ namespace Rivet {
       return isLepton( _fundamentalID(pid) );
     }
 
-    // Is this a black hole?
+    /// Is this a black hole?
     inline bool isBlackHole(int pid) {
       if (_digit(n,pid) != 5 && _digit(n,pid) != 6) return false;
       if (_digit(nl,pid) != 0) return false;
@@ -510,10 +576,10 @@ namespace Rivet {
     /// Is this a BSM particle (including graviton)?
     inline bool isBSM(int pid) {
       return isSUSY(pid) || isRHadron(pid) || isTechnicolor(pid) ||
-             isExcited(pid) || isKK(pid) || isGraviton(pid) ||
-             isBSMBoson(pid) || isLeptoQuark(pid) || isDM(pid) || isHiddenValley(pid) ||
-             isExotic(pid) || isFourthGen(pid) || isBlackHole(pid) ||
-             isDyon(pid) || isQball(pid) || isAECO(pid);
+        isExcited(pid) || isKK(pid) || isGraviton(pid) ||
+        isBSMBoson(pid) || isLeptoQuark(pid) || isDM(pid) || isHiddenValley(pid) ||
+        isExotic(pid) || isFourthGen(pid) || isBlackHole(pid) ||
+        isDyon(pid) || isQball(pid) || isAECO(pid);
     }
 
     /// Check to see if this is a valid PID (i.e. matches any known scheme)
@@ -535,7 +601,9 @@ namespace Rivet {
       // Final check on fundamental ID
       return (_fundamentalID(pid) > 0);
     }
-    inline bool isValid(int pid) { return _isValid(pid); }
+    inline bool isValid(int pid) {
+      return _isValid(pid);
+    }
 
     /// @}
 
@@ -550,37 +618,49 @@ namespace Rivet {
       // if (_fundamentalID(pid) > 0) return false;
       if (isMagMonopole(pid)) return false;
       if (isRHadron(pid)) {
-         int iz = 7;
-         for (int i = 6; i > 1; --i) {
-           if (_digit(Location(i), pid) == 0) {
-             iz = i;
-           } else if ( i == iz-1 ) {
-             // ignore squark or gluino
-           } else {
-             if (_digit(Location(i),pid) == q) return true;
-           }
-         }
-         return false;
-     }
-     if (_digit(nq3,pid) == q || _digit(nq2,pid) == q || _digit(nq1,pid) == q ) return true;
-     if (isPentaquark(pid)) {
-         if (_digit(nl,pid) == q || _digit(nr,pid) == q) return true;
-     }
-     return false;
+        int iz = 7;
+        for (int i = 6; i > 1; --i) {
+          if (_digit(Location(i), pid) == 0) {
+            iz = i;
+          } else if ( i == iz-1 ) {
+            // ignore squark or gluino
+          } else {
+            if (_digit(Location(i),pid) == q) return true;
+          }
+        }
+        return false;
+      }
+      if (_digit(nq3,pid) == q || _digit(nq2,pid) == q || _digit(nq1,pid) == q ) return true;
+      if (isPentaquark(pid)) {
+        if (_digit(nl,pid) == q || _digit(nr,pid) == q) return true;
+      }
+      return false;
     }
 
     /// Does this particle contain a down quark?
-    inline bool hasDown(int pid) { return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 1); }
+    inline bool hasDown(int pid) {
+      return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 1);
+    }
     /// Does this particle contain an up quark?
-    inline bool hasUp(int pid) { return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 2); }
+    inline bool hasUp(int pid) {
+      return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 2);
+    }
     /// Does this particle contain a strange quark?
-    inline bool hasStrange(int pid) { return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 3); }
+    inline bool hasStrange(int pid) {
+      return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 3);
+    }
     /// Does this particle contain a charm quark?
-    inline bool hasCharm(int pid) { return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 4); }
+    inline bool hasCharm(int pid) {
+      return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 4);
+    }
     /// Does this particle contain a bottom quark?
-    inline bool hasBottom(int pid) { return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 5); }
+    inline bool hasBottom(int pid) {
+      return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 5);
+    }
     /// Does this particle contain a top quark?
-    inline bool hasTop(int pid) { return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 6); }
+    inline bool hasTop(int pid) {
+      return (isHadron(pid) || isQuark(pid)) && _hasQ(pid, 6);
+    }
 
     /// @}
 
@@ -589,55 +669,61 @@ namespace Rivet {
     /// @{
 
     /// Determine if the particle is a heavy flavour hadron or parton
-    inline bool isHeavyFlavour(int pid) {
+    inline bool isHeavyFlavor(int pid) {
       if (!isHadron(pid) && !isQuark(pid)) return false;
       return hasCharm(pid) || hasBottom(pid) || hasTop(pid);
     }
+    /// British-spelling alias for isHeavyFlavor
+    inline bool isHeavyFlavour(int pid) {
+      return isHeavyFlavor(pid);
+    }
 
-    // /// Determine if the particle is a light-flavour flavour hadron or parton
-    // inline bool isLightFlavour(int pid) {
-    //   return !isHeavyFlavour();
+
+    // /// Determine if the particle is a light-flavour hadron or parton
+    // inline bool isLightFlavor(int pid) {
+    //   return !isHeavyFlavor();
     // }
+
 
     /// Determine if the PID is that of a heavy parton (c,b,t)
     inline bool isHeavyParton(int pid) {
-      return isParton(pid) && isHeavyFlavour(pid);
+      return isParton(pid) && isHeavyFlavor(pid);
     }
 
     /// Determine if the PID is that of a light parton (u,d,s)
     inline bool isLightParton(int pid) {
-      return isParton(pid) && !isHeavyFlavour(pid);
+      return isParton(pid) && !isHeavyFlavor(pid);
     }
 
 
     /// Determine if the PID is that of a heavy flavour (b or c) meson
     inline bool isHeavyMeson(int pid) {
-      return isMeson(pid) && isHeavyFlavour(pid);
+      return isMeson(pid) && isHeavyFlavor(pid);
     }
 
     /// Determine if the PID is that of a heavy flavour (b or c) baryon
     inline bool isHeavyBaryon(int pid) {
-      return isBaryon(pid) && isHeavyFlavour(pid);
+      return isBaryon(pid) && isHeavyFlavor(pid);
     }
 
     /// Determine if the PID is that of a heavy flavour (b or c) hadron
     inline bool isHeavyHadron(int pid) {
-      return isHadron(pid) && isHeavyFlavour(pid);
+      return isHadron(pid) && isHeavyFlavor(pid);
     }
 
     /// Determine if the PID is that of a light flavour (not b or c) meson
     inline bool isLightMeson(int pid) {
-      return isMeson(pid) && !isHeavyFlavour(pid);
+      return isMeson(pid) && !isHeavyFlavor(pid);
     }
 
     /// Determine if the PID is that of a light flavour (not b or c) baryon
     inline bool isLightBaryon(int pid) {
-      return isBaryon(pid) && !isHeavyFlavour(pid);
+      return isBaryon(pid) && !isHeavyFlavor(pid);
     }
 
     /// Determine if the PID is that of a light flavour (not b or c) hadron
     inline bool isLightHadron(int pid) {
-      return isHadron(pid) && !isHeavyFlavour(pid);
+      return isHadron(pid) && !isHeavyFlavor(pid);
     }
 
 
@@ -862,16 +948,24 @@ namespace Rivet {
 
     /// Alias for charge3
     /// @deprecated Prefer charge3
-    inline int threeCharge(int pid) { return charge3(pid); }
+    inline int threeCharge(int pid) {
+      return charge3(pid);
+    }
 
     /// Return the absolute value of 3 times the EM charge
-    inline int abscharge3(int pid) { return std::abs(charge3(pid)); }
+    inline int abscharge3(int pid) {
+      return std::abs(charge3(pid));
+    }
 
     /// Return the EM charge (as floating point)
-    inline double charge(int pid) { return charge3(pid)/3.0; }
+    inline double charge(int pid) {
+      return charge3(pid)/3.0;
+    }
 
     /// Return the EM charge (as floating point)
-    inline double abscharge(int pid) { return std::abs(charge(pid)); }
+    inline double abscharge(int pid) {
+      return std::abs(charge(pid));
+    }
 
     /// @}
 
@@ -928,7 +1022,8 @@ namespace Rivet {
 
     /// Determine if the PID is that of an EW scale resonance
     ///
-    /// @todo Also include SUSY, technicolor, etc. etc.? Maybe via a isStandardModel(pid) function, but there are stable BSM particles (in principle)
+    /// @todo Also include SUSY, technicolor, etc. etc.?
+    /// Maybe via a isStandardModel(pid) function, but there are stable BSM particles (in principle)
     inline bool isResonance(int pid) {
       return isW(pid) || isZ(pid) || isHiggs(pid) || isTop(pid);
     }

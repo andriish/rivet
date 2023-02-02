@@ -110,7 +110,8 @@ namespace Rivet {
     void findGap(const Particles& particles, const DISKinematics& diskin);
 
 
-  private:
+
+  protected:
 
     double _M2X, _M2Y, _t;
     double _gap, _gapUpp, _gapLow;

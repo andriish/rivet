@@ -145,7 +145,7 @@ namespace Rivet {
     /// @}
 
 
-  private:
+  protected:
 
     /// Eigenvalues.
     vector<double> _lambdas;

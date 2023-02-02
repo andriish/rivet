@@ -113,7 +113,8 @@ namespace Rivet {
     /// The outgoing lepton
     const ParticlePair & out() const { return _outgoing; }
 
-  private:
+
+  protected:
 
     /// The incoming leptons
     ParticlePair _incoming;

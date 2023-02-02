@@ -162,9 +162,9 @@ namespace Rivet {
     CmpState compare(const Projection& p) const;
 
 
-  private:
+  protected:
 
-    /// @name Jet shape parameters
+    /// @name Jet-shape parameters
     /// @{
 
     /// Vector of radius bin edges

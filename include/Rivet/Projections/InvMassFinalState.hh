@@ -62,7 +62,7 @@ namespace Rivet {
     CmpState compare(const Projection& p) const;
 
 
-  private:
+  protected:
 
     /// IDs of the decay products.
     vector<PdgIdPair> _decayids;
@@ -86,6 +86,5 @@ namespace Rivet {
 
 
 }
-
 
 #endif

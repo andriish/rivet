@@ -172,7 +172,7 @@ namespace Rivet {
     void reset() { _theParticles.clear(); }
 
 
-  private:
+  protected:
 
     /// Stored efficiency & smearing functions
     vector<ParticleEffSmearFn> _detFns;

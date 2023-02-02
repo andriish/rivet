@@ -34,6 +34,7 @@ namespace Rivet {
 
     /// @}
 
+
     /// Require accepted particles to be prompt
     void requirePromptness(bool acc=true, bool allow_from_direct_tau=false, bool allow_from_direct_mu=false) {
       _requirePromptness = acc;
@@ -47,7 +48,8 @@ namespace Rivet {
     /// Compare projections.
     CmpState compare(const Projection& p) const;
 
-    private:
+
+    protected:
 
       bool _requirePromptness, _allow_from_direct_tau, _allow_from_direct_mu;
   };

@@ -118,7 +118,7 @@ namespace Rivet {
     void clear() { _theParticles.clear(); }
 
 
-  private:
+  protected:
 
     /// (Transverse) mass cuts
     double _minmass, _maxmass, _masstarget;

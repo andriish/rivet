@@ -178,7 +178,7 @@ namespace Rivet {
     double mObs;
 
 
-  private:
+  protected:
 
     /// The number of event to mix with.
     size_t nMix;

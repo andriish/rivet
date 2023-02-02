@@ -168,9 +168,10 @@ namespace Rivet {
     /// the order, and the value gives the corresponding eccentricity.
     map<int,double> eccentricities() const;
 
-  private:
 
-    /// A pointer to the actual heavy ion object
+  protected:
+
+    /// A pointer to the actual heavy-ion object
     ConstGenHeavyIonPtr _hi;
 
   };

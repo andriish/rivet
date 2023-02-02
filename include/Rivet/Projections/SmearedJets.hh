@@ -195,7 +195,7 @@ namespace Rivet {
     void reset() { _recojets.clear(); }
 
 
-  private:
+  protected:
 
     /// Smeared jets
     Jets _recojets;

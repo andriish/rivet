@@ -106,9 +106,9 @@ namespace Rivet {
     CmpState compare(const Projection& p) const;
 
 
-  private:
+  protected:
 
-    /// The final-state particles.
+    /// The accepted final-state particle IDs.
     set<PdgId> _pids;
 
     // A vector of all other particles in the final state
@@ -118,6 +118,5 @@ namespace Rivet {
 
 
 }
-
 
 #endif

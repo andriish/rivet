@@ -211,7 +211,7 @@ namespace Rivet {
     CmpState compare(const Projection& p) const;
 
 
-  private:
+  protected:
 
     /// The veto cuts
     vector<Cut> _vetoCuts;

@@ -45,7 +45,7 @@ namespace Rivet {
     double sumEt() const { return _sumet; }
 
 
-  private:
+  protected:
 
     /// The sum of the Et in the central rapidity bin.
     double _sumet;
