@@ -1,3 +1,9 @@
+2023-02-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Change/correct DressedLeptons behaviour to accept photons from
+	prompt muons and taus. (Return to 2.x behaviour, accidentally
+	reverted.)
+
 2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow linspace() and aspace() to make reversed edge-sets with start > end.

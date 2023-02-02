@@ -155,7 +155,7 @@ namespace Rivet {
     /// @todo Would like to do this, but the range objects are broken
     // foreach (const GenParticlePtr gp, gv->particles(HepMC::descendants))
     for(ConstGenParticlePtr it: HepMCUtils::particles(gv, Relatives::DESCENDANTS)){
-    //for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
+      //for (GenVertex::particle_iterator it = gv->particles_begin(HepMC::descendants); it != gv->particles_end(HepMC::descendants); ++it) {
       // if ((*it)->status() != 1 || (*it)->end_vertex() != NULL) continue;
       const Particle p(*it);
       if (!p.isStable()) continue;
@@ -211,75 +211,70 @@ namespace Rivet {
 
   bool Particle::fromBottom() const {
     return hasAncestorWith([](const Particle& p){
-        return p.genParticle()->status() == 2 && p.isHadron() && p.hasBottom();
-      });
+      return p.genParticle()->status() == 2 && p.isHadron() && p.hasBottom();
+    });
   }
 
   bool Particle::fromCharm() const {
     return hasAncestorWith([](const Particle& p){
-        return p.genParticle()->status() == 2 && p.isHadron() && p.hasCharm();
-      });
+      return p.genParticle()->status() == 2 && p.isHadron() && p.hasCharm();
+    });
   }
 
   bool Particle::fromHadron() const {
     return hasAncestorWith([](const Particle& p){
-        return p.genParticle()->status() == 2 && p.isHadron();
-      });
+      return p.genParticle()->status() == 2 && p.isHadron();
+    });
   }
 
   bool Particle::fromTau(bool prompt_taus_only) const {
     if (prompt_taus_only && fromHadron()) return false;
     return hasAncestorWith([](const Particle& p){
-        return p.genParticle()->status() == 2 && isTau(p);
-      });
+      return p.genParticle()->status() == 2 && isTau(p);
+    });
   }
 
   bool Particle::fromHadronicTau(bool prompt_taus_only) const {
     return hasAncestorWith([&](const Particle& p){
-        return p.genParticle()->status() == 2 && isTau(p) && (!prompt_taus_only || p.isPrompt()) && hasHadronicDecay(p);
-      });
+      return p.genParticle()->status() == 2 && isTau(p) && (!prompt_taus_only || p.isPrompt()) && hasHadronicDecay(p);
+    });
   }
-
 
 
 
   bool Particle::isDirect(bool allow_from_direct_tau, bool allow_from_direct_mu) const {
-  const size_t tm = 2 * size_t(allow_from_direct_tau) + size_t(allow_from_direct_mu); // need one cache per combi
-  while (!_isDirect[tm].second) { ///< @todo Replace awkward caching with C++17 std::optional
-    // Immediate short-circuit: hadrons can't be direct, and for partons we can't tell
-    if (isHadron() || isParton()) {
-      _isDirect[tm] = std::make_pair(false, true); break;
-    }
+    const size_t tm = 2 * size_t(allow_from_direct_tau) + size_t(allow_from_direct_mu); // need one cache per combi
+    while (!_isDirect[tm].second) { ///< @todo Replace awkward caching with C++17 std::optional
+      // Immediate short-circuit: hadrons can't be direct, and for partons we can't tell
+      if (isHadron() || isParton()) {
+        _isDirect[tm] = std::make_pair(false, true); break;
+      }
 
-    // Obtain links to parentage
-    if (genParticle() == nullptr) { _isDirect[tm] = std::make_pair(false, true); break; } // no HepMC connection, give up! Throw UserError exception?
-    ConstGenVertexPtr prodVtx = genParticle()->production_vertex();
-    if (prodVtx == nullptr) { _isDirect[tm] = std::make_pair(false, true); break; } // orphaned particle, has to be assume false
-    std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams =
-      HepMCUtils::beams(prodVtx->parent_event());
-    for (ConstGenParticlePtr ancestor : HepMCUtils::particles(prodVtx, Relatives::ANCESTORS)) {
-      const PdgId pid = ancestor->pdg_id();
-      /// @todo Would be nicer to be able to write this recursively up
-      /// the chain, exiting as soon as a parton or string/cluster is
-      /// seen
-      if (ancestor->status() != 2) continue; // no non-standard
-                                             // statuses or beams to
-                                             // be used in decision
-                                             // making
-      if (ancestor == thebeams.first || ancestor == thebeams.second)  continue; // ignore beam particles
-      if (PID::isHadron(pid)) {
-        _isDirect[tm] = std::make_pair(false, true); break;
-      } // direct particles can't be from hadron decays
-      if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_direct_tau) {
-        _isDirect[tm] = std::make_pair(false, true); break;
-      } // allow or ban particles from tau decays (permitting tau copies)
-      if (abs(pid) == PID::MUON && abspid() != PID::MUON && !allow_from_direct_mu) {
-        _isDirect[tm] = std::make_pair(false, true); break;
-      } // allow or ban particles from muon decays (permitting muon copies)
+      // Obtain links to parentage
+      if (genParticle() == nullptr) { _isDirect[tm] = std::make_pair(false, true); break; } // no HepMC connection, give up! Throw UserError exception?
+      ConstGenVertexPtr prodVtx = genParticle()->production_vertex();
+      if (prodVtx == nullptr) { _isDirect[tm] = std::make_pair(false, true); break; } // orphaned particle, has to be assume false
+      std::pair<ConstGenParticlePtr,ConstGenParticlePtr> thebeams = HepMCUtils::beams(prodVtx->parent_event());
+      for (ConstGenParticlePtr ancestor : HepMCUtils::particles(prodVtx, Relatives::ANCESTORS)) {
+        const PdgId pid = ancestor->pdg_id();
+        /// @todo Would be nicer to be able to write this recursively up the
+        /// chain, exiting as soon as a parton or string/cluster is seen...
+        if (ancestor->status() != 2) continue; // no non-standard
+        // Statuses or beams to be used in decision-making
+        if (ancestor == thebeams.first || ancestor == thebeams.second)  continue; // ignore beam particles
+        if (PID::isHadron(pid)) {
+          _isDirect[tm] = std::make_pair(false, true); break;
+        } // direct particles can't be from hadron decays
+        if (abs(pid) == PID::TAU && abspid() != PID::TAU && !allow_from_direct_tau) {
+          _isDirect[tm] = std::make_pair(false, true); break;
+        } // allow or ban particles from tau decays (permitting tau copies)
+        if (abs(pid) == PID::MUON && abspid() != PID::MUON && !allow_from_direct_mu) {
+          _isDirect[tm] = std::make_pair(false, true); break;
+        } // allow or ban particles from muon decays (permitting muon copies)
+      }
+      if (!_isDirect[tm].second) _isDirect[tm] = std::make_pair(true, true); //< guarantee loop exit
     }
-    if (!_isDirect[tm].second) _isDirect[tm] = std::make_pair(true, true); //< guarantee loop exit
-  }
-  return _isDirect[tm].first;
+    return _isDirect[tm].first;
   }
 
 
