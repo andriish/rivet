@@ -15,13 +15,6 @@ namespace Rivet {
 
   /// @cond INTERNAL
 
-  namespace SFINAE {
-    /// C++11 equivalent of C++17 std::void_t
-    template <typename ...>
-    using void_t = void;
-  }
-
-
   struct RefType { };
 
   struct PtrType { };
@@ -31,12 +24,12 @@ namespace Rivet {
 
   template <typename U>
   struct TypeTraits<const U&> {
-    typedef RefType ArgType;
+    using ArgType = RefType;
   };
 
   template <typename U>
   struct TypeTraits<const U*> {
-    typedef PtrType ArgType;
+    using ArgType = PtrType;
   };
 
 
@@ -46,7 +39,7 @@ namespace Rivet {
   struct Derefable : std::false_type {};
   //
   template <typename T>
-  struct Derefable<T, SFINAE::void_t< decltype(*std::declval<T>())> > : std::true_type {};
+  struct Derefable<T, std::void_t< decltype(*std::declval<T>())> > : std::true_type {};
 
 
   /// SFINAE check for non-const iterability trait
@@ -54,7 +47,7 @@ namespace Rivet {
   // struct Iterable : std::false_type {};
   // //
   // template <typename T>
-  // struct Iterable<T, SFINAE::void_t< decltype(*std::declval<T>())> > : std::true_type {};
+  // struct Iterable<T, std::void_t< decltype(*std::declval<T>())> > : std::true_type {};
   // template <typename T>
   // using ConstIterable = pretty_print::is_container<T>;
 
@@ -62,13 +55,15 @@ namespace Rivet {
   template <typename T, typename=void>
   struct HasXYZ : std::false_type {};
   template <typename T>
-  struct HasXYZ<T, SFINAE::void_t< decltype(std::declval<T>().x() + std::declval<T>().y() + std::declval<T>().z())> > : std::true_type {};
+  struct HasXYZ<T, std::void_t< decltype(std::declval<T>().x() + std::declval<T>().y() +
+                                         std::declval<T>().z())> > : std::true_type {};
 
 
   template <typename T, typename=void>
   struct HasXYZT : std::false_type {};
   template <typename T>
-  struct HasXYZT<T, SFINAE::void_t< decltype(std::declval<T>().x() + std::declval<T>().y() + std::declval<T>().z() + std::declval<T>().t())> > : std::true_type {};
+  struct HasXYZT<T, std::void_t< decltype(std::declval<T>().x() +  std::declval<T>().y() +
+                                          std::declval<T>().z() +  std::declval<T>().t())> > : std::true_type {};
 
 
   /// @endcond
