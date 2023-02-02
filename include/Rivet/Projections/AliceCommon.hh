@@ -26,8 +26,8 @@ namespace Rivet {
     public:
       V0Multiplicity() : SingleValueProjection() {
         setName(MODE<0 ? "ALICE::V0CMultiplicity":
-		MODE>0 ? "ALICE::V0AMultiplicity":
-		"ALICE::V0MMultiplicity");
+                MODE>0 ? "ALICE::V0AMultiplicity":
+                "ALICE::V0MMultiplicity");
         Cut cut;
         if      (MODE < 0) cut = V0Cacceptance;
         else if (MODE > 0) cut = V0Aacceptance;
@@ -62,8 +62,8 @@ namespace Rivet {
       ///
       /// @param p Projection to compare against
       virtual CmpState compare(const Projection& p) const {
-	return dynamic_cast<const V0Multiplicity<MODE>*>(&p) ?
-	  CmpState::EQ : CmpState::NEQ;
+        return dynamic_cast<const V0Multiplicity<MODE>*>(&p) ?
+          CmpState::EQ : CmpState::NEQ;
       }
 
     };
@@ -133,8 +133,8 @@ namespace Rivet {
       ///
       /// @param p Projection to compare against
       virtual CmpState compare(const Projection& p) const {
-	return dynamic_cast<const CLMultiplicity<INNER>*>(&p) ?
-	  CmpState::EQ : CmpState::NEQ;
+        return dynamic_cast<const CLMultiplicity<INNER>*>(&p) ?
+          CmpState::EQ : CmpState::NEQ;
       }
 
     };
@@ -152,13 +152,13 @@ namespace Rivet {
 
 
 
-     /// A template of ALICE V0-based triggers.
-     ///
-     /// - @c MODE=-1  Check in the V0-C acceptance (@f$-3.7<\eta<-1.7@f$)
-     /// - @c MODE=+1  Check in the V0-A acceptance (@f$+2.8<\eta<+5.1@f$)
-     /// - @c MODE=0   Check in both V0-A and -C acceptances (V0-OR)
-     ///
-     /// @ingroup alice_rivet
+    /// A template of ALICE V0-based triggers.
+    ///
+    /// - @c MODE=-1  Check in the V0-C acceptance (@f$-3.7<\eta<-1.7@f$)
+    /// - @c MODE=+1  Check in the V0-A acceptance (@f$+2.8<\eta<+5.1@f$)
+    /// - @c MODE=0   Check in both V0-A and -C acceptances (V0-OR)
+    ///
+    /// @ingroup alice_rivet
     template <int MODE>
     class V0Trigger : public TriggerProjection {
     public:
@@ -176,10 +176,10 @@ namespace Rivet {
       /// Destructor
       virtual ~V0Trigger() {}
 
-       /// Do the projection.  Checks if the number of projected
-       /// particles is larger than 0
-       ///
-       /// @param e Event to project from
+      /// Do the projection.  Checks if the number of projected
+      /// particles is larger than 0
+      ///
+      /// @param e Event to project from
       virtual void project(const Event& e) {
         fail(); // Assume failure
         if (apply<V0Multiplicity<MODE>>(e, "FinalState")() > 0) pass();
@@ -199,8 +199,8 @@ namespace Rivet {
       /// @return true (EQUIVALENT) if the projection @a p is of the same
       /// type as this.
       virtual CmpState compare(const Projection& p) const {
-	return dynamic_cast<const V0Trigger<MODE>*>(&p) ?
-	  CmpState::EQ : CmpState::NEQ;
+        return dynamic_cast<const V0Trigger<MODE>*>(&p) ?
+          CmpState::EQ : CmpState::NEQ;
       }
 
     };
@@ -237,10 +237,10 @@ namespace Rivet {
       /// Destructor
       virtual ~V0AndTrigger() {}
 
-       /// Do the projection.  Checks if the numbers of projected
-       /// particles on both sides, are larger than 0
-       ///
-       /// @param e Event to project from
+      /// Do the projection.  Checks if the numbers of projected
+      /// particles on both sides, are larger than 0
+      ///
+      /// @param e Event to project from
       virtual void project(const Event& e) {
         fail(); // Assume failure
         if (apply<V0ATrigger>(e,"V0A")() && apply<V0CTrigger>(e,"V0C")()) pass();
@@ -251,13 +251,13 @@ namespace Rivet {
       /// @param p Projection to compare to.
       virtual CmpState compare(const Projection& p) const
       {
-	return dynamic_cast<const V0AndTrigger*>(&p) ?
-	  CmpState::EQ : CmpState::NEQ;
+        return dynamic_cast<const V0AndTrigger*>(&p) ?
+          CmpState::EQ : CmpState::NEQ;
       }
 
-       /// Clone this projection
-       ///
-       /// @return New wrapped pointer to object of this class
+      /// Clone this projection
+      ///
+      /// @return New wrapped pointer to object of this class
       virtual std::unique_ptr<Rivet::Projection> clone() const {
         return std::unique_ptr<Projection>(new V0AndTrigger(*this));
       }
@@ -278,17 +278,17 @@ namespace Rivet {
         : Rivet::PrimaryParticles({},c)
       { }
 
-       /// Compare to projections.
-       ///
-       /// @param p Projection to compare to.
-       ///
-       /// @return true (EQUIVALENT) if the projection @a p is of the same
-       /// type as this, if the cuts are equal, and that the list of PDG
-       /// IDs are the same.
+      /// Compare to projections.
+      ///
+      /// @param p Projection to compare to.
+      ///
+      /// @return true (EQUIVALENT) if the projection @a p is of the same
+      /// type as this, if the cuts are equal, and that the list of PDG
+      /// IDs are the same.
       virtual CmpState compare(const Projection& p) const {
-	const PrimaryParticles* o = dynamic_cast<const PrimaryParticles*>(&p);
-	if (_cuts != o->_cuts) return CmpState::NEQ;
-	return mkPCmp(*o,"PrimaryParticles");
+        const PrimaryParticles* o = dynamic_cast<const PrimaryParticles*>(&p);
+        if (_cuts != o->_cuts) return CmpState::NEQ;
+        return mkPCmp(*o,"PrimaryParticles");
       }
 
       /// Clone this projection
@@ -298,20 +298,20 @@ namespace Rivet {
 
     protected:
 
-       /// Check PDG ID of particle @a p is in the list of accepted
-       /// primaries.
-       ///
-       /// @param p Particle to investigate.
-       ///
-       /// @return true if the particle PDG ID is in the list of known
-       /// primary PDG IDs.
-       ///
-       /// @note We explicitly override this to allow for nuclei, and we
-       /// explicitly check for a specific set of particles (and
-       /// anti-particles).  This means we do not use the base class
-       /// list of particles.  Therefore, we also need to override the
-       /// compare method.
-       bool isPrimaryPID(ConstGenParticlePtr p) const {
+      /// Check PDG ID of particle @a p is in the list of accepted
+      /// primaries.
+      ///
+      /// @param p Particle to investigate.
+      ///
+      /// @return true if the particle PDG ID is in the list of known
+      /// primary PDG IDs.
+      ///
+      /// @note We explicitly override this to allow for nuclei, and we
+      /// explicitly check for a specific set of particles (and
+      /// anti-particles).  This means we do not use the base class
+      /// list of particles.  Therefore, we also need to override the
+      /// compare method.
+      bool isPrimaryPID(ConstGenParticlePtr p) const {
         const int pdg = abs(p->pdg_id());
         // Check for nucleus
         if (pdg > 1000000000) return true;

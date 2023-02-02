@@ -6,61 +6,61 @@
 
 namespace Rivet {
 
-/** @brief Base class for projections returning a bool corresponding
-    to a trigger.
+  /** @brief Base class for projections returning a bool corresponding
+      to a trigger.
 
-    @author Leif Lönnblad
+      @author Leif Lönnblad
 
-    Project an event down to a single true or false value accessible
-    through the operator() function, where true means that the event
-    has passed some trigger criterion.
+      Project an event down to a single true or false value accessible
+      through the operator() function, where true means that the event
+      has passed some trigger criterion.
 
-*/
-class TriggerProjection: public Projection {
+  */
+  class TriggerProjection: public Projection {
 
-public:
+  public:
 
-  /// The default constructor.
-  TriggerProjection() : _passed(true) {
-    setName("TriggerProjection");
-  }
-  virtual ~TriggerProjection() {}
+    /// The default constructor.
+    TriggerProjection() : _passed(true) {
+      setName("TriggerProjection");
+    }
+    virtual ~TriggerProjection() {}
 
-  /// Clone on the heap.
-  DEFAULT_RIVET_PROJ_CLONE(TriggerProjection);
+    /// Clone on the heap.
+    DEFAULT_RIVET_PROJ_CLONE(TriggerProjection);
 
-  /// Return true if the event has passed some trigger or selection
-  /// criteria.
-  bool operator()() const {
-    return _passed;
-  }
+    /// Return true if the event has passed some trigger or selection
+    /// criteria.
+    bool operator()() const {
+      return _passed;
+    }
 
-protected:
+  protected:
 
-  virtual void project(const Event& e) {
-    pass();
-  }
+    virtual void project(const Event& e) {
+      pass();
+    }
 
-  /// Indicate that the event has passed the trigger.
-  void pass() {
-    _passed = true;
-  }
+    /// Indicate that the event has passed the trigger.
+    void pass() {
+      _passed = true;
+    }
 
-  /// Compare projections
-  virtual CmpState compare(const Projection&) const {
-    return CmpState::EQ;
-  }
+    /// Compare projections
+    virtual CmpState compare(const Projection&) const {
+      return CmpState::EQ;
+    }
 
-  /// Indicate that the event has failed the trigger.
-  void fail() {
-    _passed = false;
-  }
+    /// Indicate that the event has failed the trigger.
+    void fail() {
+      _passed = false;
+    }
 
-private:
+  protected:
 
-  bool _passed;
+    bool _passed;
 
-};
+  };
 
 }
 

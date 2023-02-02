@@ -30,7 +30,7 @@ namespace Rivet {
     virtual void project(const Event& e);
 
 
-  private:
+  protected:
 
     /// Compare with other projections.
     virtual CmpState compare(const Projection & p) const;

@@ -147,7 +147,7 @@ namespace Rivet {
     CmpState compare(const Projection& p) const;
 
 
-  private:
+  protected:
 
     /// Maximum cone radius to find photons in
     double _dRmax;

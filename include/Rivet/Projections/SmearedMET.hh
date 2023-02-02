@@ -93,7 +93,7 @@ namespace Rivet {
     void reset() {  }
 
 
-  private:
+  protected:
 
     Vector3 _vet;
 
