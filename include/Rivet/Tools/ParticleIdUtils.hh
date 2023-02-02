@@ -885,7 +885,6 @@ namespace Rivet {
     /// Three times the EM charge (as integer)
     inline int charge3(int pid) {
       static int ch100[100] = { -1,  2, -1, 2, -1, 2, -1, 2, 0, 0,
-<<<<<<< HEAD
                                 -3,  0, -3, 0, -3, 0, -3, 0, 0, 0,
                                  0,  0,  0, 3,  0, 0,  0, 0, 0, 0,
                                  0,  0,  0, 3,  0, 0,  3, 0, 0, 0,
