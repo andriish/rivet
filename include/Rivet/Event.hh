@@ -56,8 +56,7 @@ namespace Rivet {
     /// Copy constructor
     Event(const Event& e)
       : _weightIndices(e._weightIndices),
-        _genevent(e._genevent)
-    {  }
+        _genevent(e._genevent) {  }
 
     /// @}
 
