@@ -1,7 +1,7 @@
 ## Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.68])
-AC_INIT([Rivet],[3.1.7],[rivet@projects.hepforge.org],[Rivet])
+AC_INIT([Rivet],[3.2.0a],[rivet@projects.hepforge.org],[Rivet])
 
 ## Check and block installation into the src/build dir
 if test "$prefix" = "$PWD"; then
@@ -49,7 +49,7 @@ if test "x$CXXFLAGS" == "x"; then CXXFLAGS="-O2"; fi
 ## Compiler setup
 AC_LANG(C++)
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX([14], [noext], [mandatory])
+AX_CXX_COMPILE_STDCXX([17], [noext], [mandatory])
 
 ## Store and propagate the compiler identity and flags
 RIVETCXX="$CXX"
