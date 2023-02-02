@@ -83,7 +83,7 @@ namespace Rivet {
     ///@}
 
 
-  private:
+  protected:
 
     /// The Parisi event shape variables.
     double _C, _D;
@@ -95,6 +95,5 @@ namespace Rivet {
 
 
 }
-
 
 #endif

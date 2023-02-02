@@ -95,7 +95,7 @@ namespace Rivet {
     }
 
 
-  private:
+  protected:
 
     /// The \f$Q^2\f$.
     double _theQ2;

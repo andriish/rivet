@@ -73,17 +73,22 @@ namespace Rivet {
     void calc(const vector<Vector3>& fsmomenta);
 
     //@}
-  private:
-    /// Eigenvalues.
+
+
+  protected:
+
+    /// Eigenvalues
     vector<double> _lambdas;
 
-  private:
+
+  protected:
 
     /// Actually do the calculation
     void _calcFParameter(const vector<Vector3>& fsmomenta);
 
   };
-}
 
+
+}
 
 #endif

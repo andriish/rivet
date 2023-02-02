@@ -128,7 +128,7 @@ namespace Rivet {
     }
 
 
-  private:
+  protected:
 
     WhichTop _topmode;
 
@@ -140,6 +140,5 @@ namespace Rivet {
 
 
 }
-
 
 #endif

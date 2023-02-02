@@ -157,7 +157,8 @@ namespace Rivet {
       return _highMassDirection;
     }
 
-  private:
+
+  protected:
 
     /// Visible energy-squared, \f$ E^2_\mathrm{vis} \f$.
     double _E2vis;
@@ -172,7 +173,7 @@ namespace Rivet {
     bool _highMassEqMaxBroad;
 
     /// Is the hemisphere with the max mass the one in the direction of the axis;
-    bool _highMassDirection; 
+    bool _highMassDirection;
   };
 
 

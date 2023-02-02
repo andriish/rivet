@@ -60,7 +60,7 @@ namespace Rivet {
 
 
 
-  private:
+  protected:
 
     /// The \f$Q^2\f$.
     pair<double,double> _theQ2;

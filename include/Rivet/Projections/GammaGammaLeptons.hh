@@ -21,7 +21,7 @@ namespace Rivet {
     /// Enum to enable different orderings for selecting scattered
     /// leptons in case several were found.
     enum SortOrder { ENERGY, ETA, ET };
-    
+
     /// @name Constructors.
     //@{
 
@@ -89,7 +89,7 @@ namespace Rivet {
     }
 
 
-    
+
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(GammaGammaLeptons);
 
@@ -113,7 +113,8 @@ namespace Rivet {
     /// The outgoing lepton
     const ParticlePair & out() const { return _outgoing; }
 
-  private:
+
+  protected:
 
     /// The incoming leptons
     ParticlePair _incoming;
