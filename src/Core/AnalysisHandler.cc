@@ -1139,7 +1139,8 @@ namespace Rivet {
     if (xsecs.empty())
       throw UserError("No cross-section supplied!");
 
-    if (xsecs.size() == 1)  setCrossSection(xsecs[0], isUserSupplied);
+    const bool allEqual = std::adjacent_find(xsecs.begin(), xsecs.end(), std::not_equal_to<>()) == xsecs.end();
+    if (xsecs.size() == 1 || allEqual)  setCrossSection(xsecs[0], isUserSupplied);
     else {
       // Update the user xsec
       if (isUserSupplied) _userxs = xsecs[0];

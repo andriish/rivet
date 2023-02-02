@@ -131,7 +131,7 @@ namespace Rivet {
     CmpState compare(const Projection& p) const;
 
 
-  private:
+  protected:
 
     /// The total visible momentum
     FourMomentum _momentum;

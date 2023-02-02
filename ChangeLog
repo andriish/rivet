@@ -4,6 +4,9 @@
 	prompt muons and taus. (Return to 2.x behaviour, accidentally
 	reverted.)
 
+	* Update ParticleIdUtils content to match latest MCUtils. Includes
+	a serious speed-up (6x!) in PID digit decoding!
+
 2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Allow linspace() and aspace() to make reversed edge-sets with start > end.

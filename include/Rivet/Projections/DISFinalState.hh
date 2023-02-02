@@ -100,7 +100,7 @@ namespace Rivet {
     }
 
 
-  private:
+  protected:
 
     BoostFrame _boosttype;
 

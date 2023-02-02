@@ -62,12 +62,13 @@ namespace Rivet {
     //@}
 
 
-  private:
+  protected:
 
     /// The beamthrust scalar.
     double _beamthrust;
 
-  private:
+
+  protected:
 
     /// Explicitly calculate the beamthrust values.
     void _calcBeamThrust(const vector<FourMomentum>& fsmomenta);

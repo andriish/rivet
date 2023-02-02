@@ -62,6 +62,7 @@ namespace Rivet {
       else return _pY_HCM;
     }
 
+
   protected:
 
     virtual CmpState compare(const Projection& p) const;
@@ -72,7 +73,8 @@ namespace Rivet {
 
     void findgap(const Particles& particles, const DISKinematics& diskin);
 
-  private:
+
+  protected:
 
     double _M2X, _M2Y, _t;
     double _gap, _gapUpp, _gapLow;

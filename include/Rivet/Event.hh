@@ -38,16 +38,15 @@ namespace Rivet {
     /// @deprecated HepMC uses pointers, so we should talk to HepMC via pointers
     Event(const GenEvent& ge, const vector<size_t>& indices = {}, bool strip = false)
       : _weightIndices(indices), _genevent_original(&ge), _genevent(ge) {
-        if ( strip ) _strip(_genevent);
-        _init(ge);
-      }
+      if ( strip ) _strip(_genevent);
+      _init(ge);
+    }
 
     /// Copy constructor
     Event(const Event& e)
       : _weightIndices(e._weightIndices),
         _genevent_original(e._genevent_original),
-        _genevent(e._genevent)
-    {  }
+        _genevent(e._genevent) { }
 
     //@}
 

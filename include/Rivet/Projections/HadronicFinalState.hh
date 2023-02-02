@@ -17,20 +17,19 @@ namespace Rivet {
   public:
 
     /// Constructor: the supplied FinalState projection is assumed to live through the run.
-    HadronicFinalState(const FinalState& fsp)
-    {
+    HadronicFinalState(const FinalState& fsp) {
       setName("HadronicFinalState");
       declare(fsp, "FS");
     }
 
-    HadronicFinalState(const Cut& c=Cuts::open())
-    {
+    HadronicFinalState(const Cut& c=Cuts::open()) {
       setName("HadronicFinalState");
       declare(FinalState(c), "FS");
     }
 
     /// Clone on the heap.
     DEFAULT_RIVET_PROJ_CLONE(HadronicFinalState);
+
 
   protected:
 
@@ -44,6 +43,5 @@ namespace Rivet {
 
 
 }
-
 
 #endif

@@ -21,8 +21,8 @@ namespace Rivet {
 
     /// Constructor with specific FinalState.
     InvisibleFinalState(bool requirepromptness=false, bool allow_from_direct_tau=false, bool allow_from_direct_mu=false)
-      : _requirePromptness(requirepromptness), 
-        _allow_from_direct_tau(allow_from_direct_tau), 
+      : _requirePromptness(requirepromptness),
+        _allow_from_direct_tau(allow_from_direct_tau),
         _allow_from_direct_mu(allow_from_direct_mu)
     {
       setName("InvisibleFinalState");
@@ -33,6 +33,7 @@ namespace Rivet {
     DEFAULT_RIVET_PROJ_CLONE(InvisibleFinalState);
 
     //@}
+
 
     /// Require accepted particles to be prompt
     void requirePromptness(bool acc=true, bool allow_from_direct_tau=false, bool allow_from_direct_mu=false) {
@@ -47,7 +48,8 @@ namespace Rivet {
     /// Compare projections.
     CmpState compare(const Projection& p) const;
 
-    private:
+
+    protected:
 
       bool _requirePromptness, _allow_from_direct_tau, _allow_from_direct_mu;
   };

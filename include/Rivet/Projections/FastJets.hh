@@ -295,7 +295,7 @@ namespace Rivet {
     //@}
 
 
-  private:
+  protected:
 
     /// Shared utility functions to implement constructor behaviour
     void _initBase();
@@ -315,7 +315,7 @@ namespace Rivet {
     void calc(const Particles& fsparticles, const Particles& tagparticles=Particles());
 
 
-  private:
+  protected:
 
     /// Jet definition
     fastjet::JetDefinition _jdef;

@@ -120,7 +120,7 @@ namespace Rivet {
     //@}
 
 
-  private:
+  protected:
 
     /// The thrust scalars.
     vector<double> _thrusts;
@@ -128,7 +128,8 @@ namespace Rivet {
     /// The thrust axes.
     vector<Vector3> _thrustAxes;
 
-  private:
+
+  protected:
 
     /// Explicitly calculate the thrust values.
     void _calcThrust(const vector<Vector3>& fsmomenta);
