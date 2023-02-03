@@ -1,9 +1,13 @@
-2023-01-16 Tomek Procter <t.procter.1@research.gla.ac.uk>
+2023-02-03 Tomek Procter <t.procter.1@research.gla.ac.uk>
 
 	* Add Support for using ONNX neural nets in Tools/RivetORT.hh
 
 	* Add example analysis demonstrating use of an ONNX neural net.
 
+2023-02-02  Andy Buckley  <andy.buckley@cern.ch>
+
+	* Update ParticleIdUtils content to match latest MCUtils. Includes
+	a serious speed-up (6x!) in PID digit decoding!
 
 2022-12-15  Andy Buckley  <andy.buckley@cern.ch>
 

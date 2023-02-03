@@ -106,7 +106,7 @@ namespace Rivet {
     void clear() { _theParticles.clear(); }
 
 
-  private:
+  protected:
 
     /// Mass cuts to apply to clustered leptons (cf. InvMassFinalState)
     double _minmass, _maxmass, _masstarget;

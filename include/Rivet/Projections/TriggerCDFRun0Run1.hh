@@ -42,9 +42,9 @@ namespace Rivet {
     }
 
 
-  private:
+  protected:
 
-    /// The min bias trigger decision
+    /// The min-bias trigger decision
     bool _decision_mb;
 
   };

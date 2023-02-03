@@ -33,7 +33,8 @@ namespace Rivet {
       return cmp(_lossFraction, other._lossFraction);
     }
 
-  private:
+
+  protected:
 
     double _lossFraction;
 

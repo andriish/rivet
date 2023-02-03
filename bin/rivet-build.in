@@ -97,8 +97,8 @@ fi
 
 ## Get and check the target library name
 libname="$1"
-match1=$(basename "$libname" | egrep '^.*\.so')
-match2=$(basename "$libname" | egrep '^Rivet.*\.so')
+match1=$(basename "$libname" | grep -E -- '^.*\.so')
+match2=$(basename "$libname" | grep -E -- '^Rivet.*\.so')
 if test -n "$match1"; then
 	if test -z "$match2"; then
 		echo "Library name '$libname' does not have the required 'Rivet*.so' name pattern" >&2

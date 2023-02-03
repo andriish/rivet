@@ -64,10 +64,11 @@ namespace Rivet {
     /// Compare projections.
     CmpState compare(const Projection& p) const;
 
-  private:
+
+  protected:
 
     /// IDs of the leading particles to be selected
-    std::set<long>_ids;
+    std::set<long> _ids;
     bool _leading_only;
 
   };

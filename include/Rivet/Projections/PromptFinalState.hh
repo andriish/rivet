@@ -57,7 +57,7 @@ namespace Rivet {
     CmpState compare(const Projection& p) const;
 
 
-  private:
+  protected:
 
     bool _acceptMuDecays, _acceptTauDecays;
 
