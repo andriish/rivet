@@ -486,3 +486,9 @@ check_onnx_analyses_ubuntu_gcc_hepmc3_py3:
     ARCH: ubuntu-gcc-hepmc3-py3
   needs: [build_ubuntu_gcc_hepmc3_py3, get_test_hepmc]
   <<: *check_onnx_analyses_template
+
+check_onnx_analyses_fedora_gcc_hepmc3_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc3-py3
+  needs: [build_fedora_gcc_hepmc3_py3, get_test_hepmc]
+  <<: *check_onnx_analyses_template
