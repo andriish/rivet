@@ -476,7 +476,10 @@ check_lwtnn_analyses_fedora_gcc_hepmc3_py3:
     - cp $CI_PROJECT_DIR/analyses/examples/EXAMPLE_ONNX.onnx .
   # Run the ONNX example analysis
     - rivet --pwd -a EXAMPLE_ONNX $CI_PROJECT_DIR/tt.hepmc.gz
-    - cat Rivet.yoda
+  # Compare one particularly lively histo bin
+    - if [[ -z $(grep -m 1 "3.500000e+01    4.000000e+01    1.400000e+02    1.400000e+02    5.289760e+03    2.001242e+05    1.400000e+02" Rivet.yoda) ]];
+         then echo "yoda output not matched"; cat Rivet.yoda; exit 1;
+      fi
 
 check_onnx_analyses_ubuntu_gcc_hepmc3_py3:
   variables:
