@@ -13,7 +13,7 @@ namespace Rivet {
   /// inside Rivet. The network used here is a "fake" model that takes in
   /// info about the 3 leading-pT jets and returns an arbitrary score that
   /// is plotted.
-  /// This is very similar to EXAMPLE_LWTNN but the networkis not the same.
+  /// This is very similar to EXAMPLE_LWTNN but the network is not the same.
   /// (though once again, the output of the network is completely meaningless)
   class EXAMPLE_ONNX : public Analysis {
   public:
