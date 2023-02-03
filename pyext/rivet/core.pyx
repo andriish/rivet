@@ -1,5 +1,5 @@
 # cython: embedsignature=True
-# cython: c_string_type=str, c_string_encoding=ascii
+# cython: c_string_type=str, c_string_encoding=utf8
 # distutils: language = c++
 
 import sys
