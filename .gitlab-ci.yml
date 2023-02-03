@@ -457,7 +457,7 @@ check_lwtnn_analyses_fedora_gcc_hepmc3_py3:
   stage: check
   script:
   # If we're not in val mode, don't do this test:
-    #- if [[ $VAL != 1 ]]; then exit 0; fi
+    - if [[ $VAL != 1 ]]; then exit 0; fi
   # LWTNN setup variables
     - ONNX_INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
     - ONNX_VERSION="1.13.1"
