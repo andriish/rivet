@@ -94,12 +94,16 @@ namespace Rivet {
     const double fsmear = max(randnorm(1., resolution), 0.); 
     const double fsmear2 = fsmear*fsmear;
     //Ensure that the smearing doesn't accidently make the mass negative.
-    const double newpx = j.px()*fsmear;
-    const double newpy = sqrt(j.pt2() - newpx*newpx);
+    //const double newpx = min(j.px()*fsmear, j.pt());
+    //const double newpy = sqrt(j.pt2() - newpx*newpx);
+    const double newpx = j.px();
+    const double newpy = j.py();
     const double newE = (j.E2()*fsmear2 > j.pt2() + j.pz2()*fsmear2) ? j.E() * fsmear : sqrt(j.pt2() + j.pz2() + DBL_EPSILON);
     
 
     Jet j1(FourMomentum::mkXYZE(newpx, newpy, j.pz()*fsmear, newE));
+    // cout << "j: " << j << endl;
+    // cout << "j1: " << j1 << endl;
 
     // smearing in eta-phi -- customize the standard deviation in randnorm...
     double dsmear = max(randnorm(0., 0.1), 0.);
