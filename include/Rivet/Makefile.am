@@ -147,7 +147,7 @@ nobase_pkginclude_HEADERS += \
   Tools/RivetHepMC.hh \
   Tools/RivetHTT.hh \
   Tools/RivetLWTNN.hh  \
-  Tools/RivetORT.hh  \
+  Tools/RivetONNXrt.hh  \
   Tools/RivetMT2.hh \
   Tools/RivetPaths.hh \
   Tools/RivetSTL.hh \
