@@ -86,12 +86,12 @@ namespace Rivet {
         book(_h["DNN_H"], "DNN_H", 30, 0., 1.);
         book(_h["DNN_top"], "DNN_top", 30, 0., 1.);
         
-        if (_mode == 1){
+        if (_mode == 2){
           book(_h["DNN_V_forH"], "DNN_V_forH", 30, 0., 1.);
-          book(_h["DNN_V_fortop"], "DNN_V_forH", 30, 0., 1.);
+          book(_h["DNN_V_fortop"], "DNN_V_fortop", 30, 0., 1.);
           
           book(_h["DNN_H_forV"], "DNN_H_forV", 30, 0., 1.);
-          book(_h["DNN_H_fortop"], "DNN_H_forH", 30, 0., 1.);
+          book(_h["DNN_H_fortop"], "DNN_H_fortop", 30, 0., 1.);
 
           book(_h["DNN_top_forV"], "DNN_top_forV", 30, 0., 1.);
           book(_h["DNN_top_forH"], "DNN_top_forH", 30, 0., 1.);
@@ -100,7 +100,7 @@ namespace Rivet {
           book(_h["DNN_light_forH"], "DNN_light_forH", 30, 0., 1.);
           book(_h["DNN_light_fortop"], "DNN_light_fortop", 30, 0., 1.);
         }
-        else if (_mode == 2){
+        else if (_mode == 3){
           book(_h["DNN_light"], "DNN_light", 30, 0., 1.);
         }
         
@@ -120,7 +120,7 @@ namespace Rivet {
         book(_h["Hist2l_2b_SR_"+s], "Hist2l_2b_SR_"+s, 
           (s == "Notag" || s =="Htag" || s=="toptag") ? 
             // I was today years old when I learned you can't put an initialiser list
-            // inside a ternary operator.
+            // directly inside a ternary operator.
             (vector<double>{0, 600, 1000, 1400, 2000}) : vector<double>{0, 600, 1000, 2000} );
         book(_sigBins["2l_2b_SR_"+s], "2l_2b_SR_"+s);
       }
@@ -634,14 +634,18 @@ namespace Rivet {
         if (_h["DNN_top"]->integral() > 0){
           _h["DNN_top"]->normalize(1.);
         }
-        if (_h["DNN_light"]->integral() > 0){
-          _h["DNN_light"]->normalize(1.);
+        if (_mode == 3){
+          if (_h["DNN_light"]->integral() > 0){
+            _h["DNN_light"]->normalize(1.);
+          }
         }
-        for (const string &s : {"DNN_V_forH", "DNN_V_fortop", "DNN_H_forV", "DNN_H_fortop",
-                                "DNN_top_forV", "DNN_top_forH", "DNN_light_forV", "DNN_light_forH",
-                                 "DNN_light_fortop", "DNN_light"}){
-          if (_h[s]->integral() > 0){
-          _h[s]->normalize(1.);
+        else {
+          for (const string &s : {"DNN_V_forH", "DNN_V_fortop", "DNN_H_forV", "DNN_H_fortop",
+                                  "DNN_top_forV", "DNN_top_forH", "DNN_light_forV", "DNN_light_forH",
+                                  "DNN_light_fortop"}){
+            if (_h[s]->integral() > 0){
+            _h[s]->normalize(1.);
+            }
           }
         }
         return;
