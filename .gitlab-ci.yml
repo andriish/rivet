@@ -476,7 +476,7 @@ check_lwtnn_analyses_fedora_gcc_hepmc3_py3:
     - cp $CI_PROJECT_DIR/analyses/examples/EXAMPLE_ONNX.onnx .
   # Run the ONNX example analysis
     - rivet --pwd -a EXAMPLE_ONNX $CI_PROJECT_DIR/tt.hepmc.gz
-    - echo Rivet.yoda
+    - cat Rivet.yoda
 
 check_onnx_analyses_ubuntu_gcc_hepmc3_py3:
   variables:
