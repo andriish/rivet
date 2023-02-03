@@ -1,6 +1,6 @@
 // -*- C++ -*-
-#ifndef RIVET_RivetORT_HH
-#define RIVET_RivetORT_HH
+#ifndef RIVET_RivetONNXrt_HH
+#define RIVET_RivetONNXrt_HH
 
 #include <iostream>
 
@@ -16,11 +16,11 @@ namespace Rivet {
     /// Assumes one input/output node (note a node is not a neuron - a node is a single 
     /// tensor of arbitrary dimension size)
     /// See examples/EXAMPLE_ONNX.cc for how to use this.
-    class RivetORT{
+    class RivetONNXrt{
 
       public:
       /// constructor
-      RivetORT(const string& filename, const string& runname = "RivetORT"){
+      RivetONNXrt(const string& filename, const string& runname = "RivetONNXrt"){
         //Set some ORT variables that need to be kept in memory
         _env = std::make_unique<Ort::Env>(ORT_LOGGING_LEVEL_WARNING,runname.c_str() );
         Ort::SessionOptions sessionopts; //todo - check this is allowed to go out of scope.
@@ -33,11 +33,11 @@ namespace Rivet {
       }
 
       //Default constructor with no args causes problems - delete it.
-      RivetORT() = delete;
+      RivetONNXrt() = delete;
 
       /// given an input vector, populate an output vector
       void compute(std::vector<float> &inputs, std::vector<float>& outputs){
-        //Create ORT inputs
+        //Create ONNXrt inputs
         // create input tensor object from data values
         auto memory_info = Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
         auto input_tensor = Ort::Value::CreateTensor<float>(memory_info, inputs.data(),
@@ -91,13 +91,13 @@ namespace Rivet {
 
         //Do some basic sanity checks:
         if (_session->GetInputCount() != 1 || _session->GetInputCount() != 1){
-          throw("RivetORT class cannot deal with multiple input/output nodes");
+          throw("RivetONNXrt class cannot deal with multiple input/output nodes");
         }
       }
 
       /// Printing function for debugging.
-      friend ostream& operator <<(std::ostream& os, const RivetORT& rort){
-        os << "RivetORT Network Summary: \n";
+      friend ostream& operator <<(std::ostream& os, const RivetONNXrt& rort){
+        os << "RivetONNXrt Network Summary: \n";
         os << "Input name: " << rort._inputNodeName << "; Output name: " << rort._outputNodeName;
         os << "\nInput dimensions: (";
         for (size_t i = 0; i < rort._inputNodeDims.size()-1; ++i){
@@ -116,7 +116,7 @@ namespace Rivet {
 
       /// Logger
       Log& getLog() const {
-        string logname = "Rivet.RivetORT";
+        string logname = "Rivet.RivetONNXrt";
         return Log::getLog(logname);
       }
 

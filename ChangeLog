@@ -1,6 +1,6 @@
 2023-02-03 Tomek Procter <t.procter.1@research.gla.ac.uk>
 
-	* Add Support for using ONNX neural nets in Tools/RivetORT.hh
+	* Add Support for using ONNX neural nets in Tools/RivetONNXrt.hh
 
 	* Add example analysis demonstrating use of an ONNX neural net.
 

@@ -2,7 +2,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projections/FinalState.hh"
 #include "Rivet/Projections/FastJets.hh"
-#include "Rivet/Tools/RivetORT.hh"
+#include "Rivet/Tools/RivetONNXrt.hh"
 
 namespace Rivet {
 
@@ -42,7 +42,7 @@ namespace Rivet {
 
       // Initialise our neural net.
       // Much quicker to load in init than once per event!
-      _nn = make_unique<RivetORT>(RivetORT(analysisDataPath("onnx")));
+      _nn = make_unique<RivetONNXrt>(RivetONNXrt(analysisDataPath("onnx")));
       // ^This finds a file with the same name as the analysis but with the
       // 'onnx' suffix (i.e. EXAMPLE_ONNX.onnx).
 
@@ -78,7 +78,7 @@ namespace Rivet {
       _nn->compute(nn_input, nn_output);
 
       // Fill histogram
-      _h["DNN_output"]->fill(nn_output[0]);
+      _h["DNN_output"]->fill(abs(nn_output[0]));
     }
 
 
@@ -99,7 +99,7 @@ namespace Rivet {
     /// @name Member variables
     /// @{
     /// The neural network
-    unique_ptr<RivetORT> _nn;
+    unique_ptr<RivetONNXrt> _nn;
     /// @}
   };
 
