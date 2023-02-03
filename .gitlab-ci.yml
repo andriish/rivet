@@ -329,7 +329,7 @@ check_plugin_fedora_gcc_hepmc3_py3:
   artifacts:
     when: always
     paths:
-      - test_$ARCH/ttbar_test_plots
+     - test_$ARCH/ttbar_test_plots
     expire_in: 36 hrs
 
 
@@ -404,3 +404,50 @@ make_plots_fedora_gcc_hepmc3_py3:
 #     ARCH: ubuntu-gcc-hepmc2-py2
 #   needs: [check_plugin_ubuntu_gcc_hepmc2_py2]
 #   <<: *make_plots_template
+
+.check_lwtnn_analyses_template: &check_lwtnn_analyses_template
+  image: hepstore/hepbase-$ARCH
+  stage: check
+  script:
+  # If we're not in val mode, don't do this test:
+    - if [[ $VAL != 1 ]]; then exit 0; fi
+  # LWTNN setup variables
+    - LWTNN_INSTALL_PREFIX="$CI_PROJECT_DIR"
+    - LWTNN_VERSION="2.13"
+  # general building/compilation variables
+    - MAKE="make -j $(nproc)"
+    - INSTALL_PREFIX="$CI_PROJECT_DIR/local_$ARCH"
+  # install and build lwtnn
+    - wget https://github.com/lwtnn/lwtnn/archive/refs/tags/v$LWTNN_VERSION.tar.gz
+    - tar -xf v$LWTNN_VERSION.tar.gz
+    - cd lwtnn-$LWTNN_VERSION
+    - mkdir -p build && cd build
+    - cmake -DBUILTIN_BOOST=true -DBUILTIN_EIGEN=true -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX ..
+    - $MAKE install
+  # Build the lwtnn example analysis
+    - source $INSTALL_PREFIX/rivetenv.sh
+    - TEST_PREFIX="$CI_PROJECT_DIR/test_$ARCH"
+    - mkdir -p $TEST_PREFIX
+    - cd $TEST_PREFIX
+    - rivet-build RivetEXAMPLE_LWTNN.so $CI_PROJECT_DIR/analyses/examples/EXAMPLE_LWTNN.cc -llwtnn
+    - cp $CI_PROJECT_DIR/analyses/examples/EXAMPLE_LWTNN.json .
+  # Run the lwtnn example analysis
+    - rivet --pwd -a EXAMPLE_LWTNN $CI_PROJECT_DIR/tt.hepmc.gz
+  # For tt.hepmc.gz, there should be only one non-empty histo bin.
+    - if [[ -z $(grep -m 1 "0.000000e+00	5.000000e+00	9.260000e+02	9.260000e+02	4.999612e+02	2.699365e+02	9.260000e+02" Rivet.yoda) ]];
+         then echo "yoda output not matched"; cat Rivet.yoda; exit 1;
+      fi
+
+check_lwtnn_analyses_ubuntu_gcc_hepmc3_py3:
+  variables:
+    ARCH: ubuntu-gcc-hepmc3-py3
+  needs: [build_ubuntu_gcc_hepmc3_py3, get_test_hepmc]
+  <<: *check_lwtnn_analyses_template
+
+check_lwtnn_analyses_fedora_gcc_hepmc3_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc3-py3
+  needs: [build_fedora_gcc_hepmc3_py3, get_test_hepmc]
+  <<: *check_lwtnn_analyses_template
+
+# TODO - Mac version
