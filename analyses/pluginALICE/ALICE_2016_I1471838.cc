@@ -115,14 +115,14 @@ namespace Rivet {
       }
       // Fill the profiles of yields.
       int index = profileIndex(centralityBins,c);
-      piYield->fillBin(index, double(npi));
-      pYield->fillBin(index, double(npr));
-      kYield->fillBin(index, double(nk));
-      lambdaYield->fillBin(index, double(nla));
-      xiYield->fillBin(index, double(nxi));
+      piYield->fill(piYield->bin(index).xMid(), double(npi));
+      pYield->fill(pYield->bin(index).xMid(), double(npr));
+      kYield->fill(kYield->bin(index).xMid(), double(nk));
+      lambdaYield->fill(lambdaYield->bin(index).xMid(), double(nla));
+      xiYield->fill(xiYield->bin(index).xMid(), double(nxi));
       index = profileIndex(centralityBinsOmega, c);
-      omegaYield->fillBin(index, double(nom));
-      piRebinned->fillBin(index,double(npi));
+      omegaYield->fill(omegaYield->bin(index).xMid(), double(nom));
+      piRebinned->fill(piRebinned->bin(index).xMid(),double(npi));
     }
 
 
@@ -139,13 +139,13 @@ namespace Rivet {
       }
 
       divide(kYield, piYield, kpi);
-      kpi->scaleY(2.);
+      kpi->scale(1, 2.);
       divide(pYield, piYield, ppi);
       divide(lambdaYield, piYield, lpi);
       divide(xiYield, piYield, xpi);
       divide(omegaYield, piRebinned, opi);
       divide(lambdaYield, kYield, lk);
-      lk->scaleY(0.5);
+      lk->scale(1, 0.5);
     }
 
     /// @}

@@ -82,7 +82,7 @@ namespace Rivet {
       vector<Point2D> points1, points2, points3, points4, points5, points6;
       size_t nBins = _hist_EEC1->numBins();
       for (size_t k = 0; k < nBins/2; ++k) {
-        double x = _hist_EEC1->bin(k).midpoint(); double ex = _hist_EEC1->bin(k).xWidth()/2;
+        double x = _hist_EEC1->bin(k).xMid(); double ex = _hist_EEC1->bin(k).xWidth()/2;
 
         double y1 = _hist_EEC1->bin(k).height() - _hist_EEC1->bin(nBins-(k+1)).height();
         double ey1 = sqrt( pow(_hist_EEC1->bin(k).heightErr(),2) + pow(_hist_EEC1->bin(nBins-(k+1)).heightErr(),2) );

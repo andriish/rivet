@@ -49,7 +49,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      Scatter1D R = *_c_hadrons/ *_c_muons;
+      Scatter1D R = (*_c_hadrons/ *_c_muons).mkScatter();
       double              rval = R.point(0).x();
       pair<double,double> rerr = R.point(0).xErrs();
       double fact = crossSection()/ sumOfWeights() /nanobarn;

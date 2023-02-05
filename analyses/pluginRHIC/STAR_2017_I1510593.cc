@@ -214,7 +214,7 @@ namespace Rivet {
             if (c < 5) {
               ++nparts[0];
               _h_snn_npart_PiPlus->fill(energies[enebin], 1.0 / (0.2 * 0.5 * Npart));
-              _h_snn_mt_PiPlus->fillBin(enebin, mTm);
+              _h_snn_mt_PiPlus->fill(_h_snn_mt_PiPlus->bin(enebin).xMid(), mTm);
             }
             ++nPiPlus[enebin];
             break;
@@ -226,8 +226,8 @@ namespace Rivet {
             }
             if (c < 5) {
               ++nparts[1];
-              _h_snn_npart_PiMinus->fillBin(enebin, 1.0 / (0.2 * 0.5 * Npart));
-              _h_snn_mt_PiMinus->fillBin(enebin, mTm);
+              _h_snn_npart_PiMinus->fill(_h_snn_npart_PiMinus->bin(enebin).xMid(), 1.0 / (0.2 * 0.5 * Npart));
+              _h_snn_mt_PiMinus->fill(_h_snn_mt_PiMinus->bin(enebin).xMid(), mTm);
             }
             ++nPi[enebin];
             break;
@@ -239,8 +239,8 @@ namespace Rivet {
             }
             if (c < 5) {
               ++nparts[2];
-              _h_snn_npart_KaPlus->fillBin(enebin, 1.0 / (0.2 * 0.5 * Npart));
-              _h_snn_mt_KaPlus->fillBin(enebin, mTm);
+              _h_snn_npart_KaPlus->fill(_h_snn_npart_KaPlus->bin(enebin).xMid(), 1.0 / (0.2 * 0.5 * Npart));
+              _h_snn_mt_KaPlus->fill(_h_snn_mt_KaPlus->bin(enebin).xMid(), mTm);
             }
             ++nKaonPlus[enebin];
             break;
@@ -252,8 +252,8 @@ namespace Rivet {
             }
             if (c < 5) {
               ++nparts[3];
-              _h_snn_npart_KaMinus->fillBin(enebin, 1.0 / (0.2 * 0.5 * Npart));
-              _h_snn_mt_KaMinus->fillBin(enebin, mTm);
+              _h_snn_npart_KaMinus->fill(_h_snn_npart_KaMinus->bin(enebin).xMid(), 1.0 / (0.2 * 0.5 * Npart));
+              _h_snn_mt_KaMinus->fill(_h_snn_mt_KaMinus->bin(enebin).xMid(), mTm);
             }
             ++nKaon[enebin];
             break;
@@ -265,8 +265,8 @@ namespace Rivet {
             }
             if (c < 5) {
               ++nparts[4];
-              _h_snn_npart_Proton->fillBin(enebin, 1.0 / (0.2 * 0.5 * Npart));
-              _h_snn_mt_Proton->fillBin(enebin, mTm);
+              _h_snn_npart_Proton->fill(_h_snn_npart_Proton->bin(enebin).xMid(), 1.0 / (0.2 * 0.5 * Npart));
+              _h_snn_mt_Proton->fill(_h_snn_mt_Proton->bin(enebin).xMid(), mTm);
             }
             ++nProton[enebin];
             break;
@@ -278,8 +278,8 @@ namespace Rivet {
             }
             if (c < 5) {
               ++nparts[5];
-              _h_snn_npart_AntiProton->fillBin(enebin, 1.0 / (0.2 * 0.5 * Npart));
-              _h_snn_mt_AntiProton->fillBin(enebin, mTm);
+              _h_snn_npart_AntiProton->fill(_h_snn_npart_AntiProton->bin(enebin).xMid(), 1.0 / (0.2 * 0.5 * Npart));
+              _h_snn_mt_AntiProton->fill(_h_snn_mt_AntiProton->bin(enebin).xMid(), mTm);
             }
             ++nAntiProton[enebin];
             break;
@@ -398,138 +398,138 @@ namespace Rivet {
       for (size_t j = 0, N = energies.size(); j < N; ++j) {
         for (size_t i = 0, M = _h_npart_PiPlus[j]->numBins(); i < M; ++i)
           if (_h_npart_PiPlus[j]->bin(i).numEntries() == 0)
-            _h_npart_PiPlus[j]->fillBin(i, -0.1);
+            _h_npart_PiPlus[j]->fill(_h_npart_PiPlus[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_PiMinus[j]->numBins(); i < M; ++i)
           if (_h_npart_PiMinus[j]->bin(i).numEntries() == 0)
-            _h_npart_PiMinus[j]->fillBin(i, -0.1);
+            _h_npart_PiMinus[j]->fill(_h_npart_PiMinus[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_KaPlus[j]->numBins(); i < M; ++i)
           if (_h_npart_KaPlus[j]->bin(i).numEntries() == 0)
-            _h_npart_KaPlus[j]->fillBin(i, -0.1);
+            _h_npart_KaPlus[j]->fill(_h_npart_KaPlus[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_KaMinus[j]->numBins(); i < M; ++i)
           if (_h_npart_KaMinus[j]->bin(i).numEntries() == 0)
-            _h_npart_KaMinus[j]->fillBin(i, -0.1);
+            _h_npart_KaMinus[j]->fill(_h_npart_KaMinus[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_Proton[j]->numBins(); i < M; ++i)
           if (_h_npart_Proton[j]->bin(i).numEntries() == 0)
-            _h_npart_Proton[j]->fillBin(i, -0.1);
+            _h_npart_Proton[j]->fill(_h_npart_Proton[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_AntiProton[j]->numBins(); i < M; ++i)
           if (_h_npart_AntiProton[j]->bin(i).numEntries() == 0)
-            _h_npart_AntiProton[j]->fillBin(i, -0.1);
+            _h_npart_AntiProton[j]->fill(_h_npart_AntiProton[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_pT_PiPlus[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_PiPlus[j]->bin(i).numEntries() == 0)
-            _h_npart_pT_PiPlus[j]->fillBin(i, -0.1);
+            _h_npart_pT_PiPlus[j]->fill(_h_npart_pT_PiPlus[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_pT_PiMinus[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_PiMinus[j]->bin(i).numEntries() == 0)
-            _h_npart_pT_PiMinus[j]->fillBin(i, -0.1);
+            _h_npart_pT_PiMinus[j]->fill(_h_npart_pT_PiMinus[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_pT_KaPlus[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_KaPlus[j]->bin(i).numEntries() == 0)
-            _h_npart_pT_KaPlus[j]->fillBin(i, -0.1);
+            _h_npart_pT_KaPlus[j]->fill(_h_npart_pT_KaPlus[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_pT_KaMinus[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_KaMinus[j]->bin(i).numEntries() == 0)
-            _h_npart_pT_KaMinus[j]->fillBin(i, -0.1);
+            _h_npart_pT_KaMinus[j]->fill(_h_npart_pT_KaMinus[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_pT_Proton[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_Proton[j]->bin(i).numEntries() == 0)
-            _h_npart_pT_Proton[j]->fillBin(i, -0.1);
+            _h_npart_pT_Proton[j]->fill(_h_npart_pT_Proton[j]->bin(i).xMid(), -0.1);
 
         for (size_t i = 0, M = _h_npart_pT_AntiProton[j]->numBins(); i < M; ++i)
           if (_h_npart_pT_AntiProton[j]->bin(i).numEntries() == 0)
-            _h_npart_pT_AntiProton[j]->fillBin(i, -0.1);
+            _h_npart_pT_AntiProton[j]->fill(_h_npart_pT_AntiProton[j]->bin(i).xMid(), -0.1);
       }
 
       for (size_t j = 0; j < 5; ++j)
         for (size_t i = 0; i < 9; ++i) {
           if (_h_npart_Piratio[j]->bin(i).numEntries() == 0)
-            _h_npart_Piratio[j]->fillBin(i, -0.1);
+            _h_npart_Piratio[j]->fill(_h_npart_Piratio[j]->bin(i).xMid(), -0.1);
 
           if (_h_npart_Karatio[j]->bin(i).numEntries() == 0)
-            _h_npart_Karatio[j]->fillBin(i, -0.1);
+            _h_npart_Karatio[j]->fill(_h_npart_Karatio[j]->bin(i).xMid(), -0.1);
 
           if (_h_npart_Pratio[j]->bin(i).numEntries() == 0)
-            _h_npart_Pratio[j]->fillBin(i, -0.1);
+            _h_npart_Pratio[j]->fill(_h_npart_Pratio[j]->bin(i).xMid(), -0.1);
 
           if (_h_npart_KaPi[j]->bin(i).numEntries() == 0)
-            _h_npart_KaPi[j]->fillBin(i, -0.1);
+            _h_npart_KaPi[j]->fill(_h_npart_KaPi[j]->bin(i).xMid(), -0.1);
 
           if (_h_npart_AntiPPi[j]->bin(i).numEntries() == 0)
-            _h_npart_AntiPPi[j]->fillBin(i, -0.1);
+            _h_npart_AntiPPi[j]->fill(_h_npart_AntiPPi[j]->bin(i).xMid(), -0.1);
 
           if (_h_npart_KaPiplus[j]->bin(i).numEntries() == 0)
-            _h_npart_KaPiplus[j]->fillBin(i, -0.1);
+            _h_npart_KaPiplus[j]->fill(_h_npart_KaPiplus[j]->bin(i).xMid(), -0.1);
 
           if (_h_npart_PPiplus[j]->bin(i).numEntries() == 0)
-            _h_npart_PPiplus[j]->fillBin(i, -0.1);
+            _h_npart_PPiplus[j]->fill(_h_npart_PPiplus[j]->bin(i).xMid(), -0.1);
         }
 
 
       for (size_t j = 0; j < 2; ++j) {
         for (size_t i = 0, N = _h_ratios[j]->numBins(); i < N; ++i)
           if (_h_ratios[j]->bin(i).numEntries() == 0)
-            _h_ratios[j]->fillBin(i, -0.1);
+            _h_ratios[j]->fill(_h_ratios[j]->bin(i).xMid(), -0.1);
         for (size_t i = 0, N = _h_yields[j]->numBins(); i < N; ++i)
           if (_h_yields[j]->bin(i).numEntries() == 0)
-            _h_yields[j]->fillBin(i, -0.1);
+            _h_yields[j]->fill(_h_yields[j]->bin(i).xMid(), -0.1);
       }
 
       for (size_t i = 0, N = energies.size(); i < N; ++i) {
         if (_h_snn_npart_PiPlus->bin(i).numEntries() == 0)
-          _h_snn_npart_PiPlus->fillBin(i, -0.1);
+          _h_snn_npart_PiPlus->fill(_h_snn_npart_PiPlus->bin(i).xMid(), -0.1);
 
         if (_h_snn_npart_PiMinus->bin(i).numEntries() == 0)
-          _h_snn_npart_PiMinus->fillBin(i, -0.1);
+          _h_snn_npart_PiMinus->fill(_h_snn_npart_PiMinus->bin(i).xMid(), -0.1);
 
         if (_h_snn_npart_KaPlus->bin(i).numEntries() == 0)
-          _h_snn_npart_KaPlus->fillBin(i, -0.1);
+          _h_snn_npart_KaPlus->fill(_h_snn_npart_KaPlus->bin(i).xMid(), -0.1);
 
         if (_h_snn_npart_KaMinus->bin(i).numEntries() == 0)
-          _h_snn_npart_KaMinus->fillBin(i, -0.1);
+          _h_snn_npart_KaMinus->fill(_h_snn_npart_KaMinus->bin(i).xMid(), -0.1);
 
         if (_h_snn_npart_Proton->bin(i).numEntries() == 0)
-          _h_snn_npart_Proton->fillBin(i, -0.1);
+          _h_snn_npart_Proton->fill(_h_snn_npart_Proton->bin(i).xMid(), -0.1);
 
         if (_h_snn_npart_AntiProton->bin(i).numEntries() == 0)
-          _h_snn_npart_AntiProton->fillBin(i, -0.1);
+          _h_snn_npart_AntiProton->fill(_h_snn_npart_AntiProton->bin(i).xMid(), -0.1);
 
         if (_h_snn_mt_PiPlus->bin(i).numEntries() == 0)
-          _h_snn_mt_PiPlus->fillBin(i, -0.1);
+          _h_snn_mt_PiPlus->fill(_h_snn_mt_PiPlus->bin(i).xMid(), -0.1);
 
         if (_h_snn_mt_PiMinus->bin(i).numEntries() == 0)
-          _h_snn_mt_PiMinus->fillBin(i, -0.1);
+          _h_snn_mt_PiMinus->fill(_h_snn_mt_PiMinus->bin(i).xMid(), -0.1);
 
         if (_h_snn_mt_KaPlus->bin(i).numEntries() == 0)
-          _h_snn_mt_KaPlus->fillBin(i, -0.1);
+          _h_snn_mt_KaPlus->fill(_h_snn_mt_KaPlus->bin(i).xMid(), -0.1);
 
         if (_h_snn_mt_KaMinus->bin(i).numEntries() == 0)
-          _h_snn_mt_KaMinus->fillBin(i, -0.1);
+          _h_snn_mt_KaMinus->fill(_h_snn_mt_KaMinus->bin(i).xMid(), -0.1);
 
         if (_h_snn_mt_Proton->bin(i).numEntries() == 0)
-          _h_snn_mt_Proton->fillBin(i, -0.1);
+          _h_snn_mt_Proton->fill(_h_snn_mt_Proton->bin(i).xMid(), -0.1);
 
         if (_h_snn_mt_AntiProton->bin(i).numEntries() == 0)
-          _h_snn_mt_AntiProton->fillBin(i, -0.1);
+          _h_snn_mt_AntiProton->fill(_h_snn_mt_AntiProton->bin(i).xMid(), -0.1);
 
         if (_h_snn_KaPiplus->bin(i).numEntries() == 0)
-          _h_snn_KaPiplus->fillBin(i, -0.1);
+          _h_snn_KaPiplus->fill(_h_snn_KaPiplus->bin(i).xMid(), -0.1);
 
         if (_h_snn_KaPiminus->bin(i).numEntries() == 0)
-          _h_snn_KaPiminus->fillBin(i, -0.1);
+          _h_snn_KaPiminus->fill(_h_snn_KaPiminus->bin(i).xMid(), -0.1);
 
         if (_h_snn_Piratio->bin(i).numEntries() == 0)
-          _h_snn_Piratio->fillBin(i, -0.1);
+          _h_snn_Piratio->fill(_h_snn_Piratio->bin(i).xMid(), -0.1);
 
         if (_h_snn_Karatio->bin(i).numEntries() == 0)
-          _h_snn_Karatio->fillBin(i, -0.1);
+          _h_snn_Karatio->fill(_h_snn_Karatio->bin(i).xMid(), -0.1);
 
         if (_h_snn_Pratio->bin(i).numEntries() == 0)
-          _h_snn_Pratio->fillBin(i, -0.1);
+          _h_snn_Pratio->fill(_h_snn_Pratio->bin(i).xMid(), -0.1);
       }
     }
 

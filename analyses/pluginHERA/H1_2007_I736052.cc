@@ -300,8 +300,7 @@ namespace Rivet {
         
         scale(_h["3011"], norm);
         // new scaling needed, since x bins are in log10(x)
-        vector<YODA::HistoBin1D>& bins = _h["3011"] -> bins(); 
-        for (auto & b : bins) {          
+        for (auto & b : _h["3011"]->bins()) {          
            double scale_new = b.xWidth()/pow(10,b.xWidth()) ;
            // jacobian d log10/dx = dlog10 / dlogx dlogx/dx = 2.3026 /x 
            double factor = pow(10,b.xMid())/2.3026;
@@ -311,8 +310,7 @@ namespace Rivet {
         _h_binned["Q2xglue"].scale(norm, this);
         // new scaling needed, since x bins are in log10(x)
         for (Histo1DPtr histo : _h_binned["Q2xglue"].histos()) {
-           vector<YODA::HistoBin1D>& bins = histo -> bins(); 
-           for (auto & b : bins) {             
+           for (auto & b : histo->bins()) {             
               double scale_new = b.xWidth()/pow(10,b.xWidth()) ;
               // jacobian d log10/dx = dlog10 / dlogx dlogx/dx = 2.3026 /x 
               double factor = pow(10,b.xMid())/2.3026;

@@ -327,9 +327,9 @@ namespace Rivet {
       scale(_h_RPBar,    1. / *_weightLight);
 
       // convert ratio to %
-      _s_PiM_PiP->scaleY(100.);
-      _s_KM_KP  ->scaleY(100.);
-      _s_Pr_PBar->scaleY(100.);
+      _s_PiM_PiP->scale(1,100.);
+      _s_KM_KP  ->scale(1,100.);
+      _s_Pr_PBar->scale(1,100.);
     }
 
     /// @}

@@ -592,7 +592,8 @@ namespace Rivet {
       for (const string& a : scat.annotations()) {
         if (a != "Path")  scat.rmAnnotation(a);
       }
-    } else {
+    }
+    else {
       scat = Scatter2D(path);
     }
     _setWriterPrecision(path, scat);
@@ -751,80 +752,68 @@ namespace Rivet {
 
   void Analysis::barchart(Histo1DPtr h, Scatter2DPtr s, bool usefocus) const {
     const string path = s->path();
-    *s = mkScatter(*h, usefocus, false); //< do NOT divide by bin width cf. a differential dsigma/dX histogram
-    s->setPath(path);
+    *s = h->mkScatter(path, false, usefocus); //< TODO FIX BIN WIDTH DIVISION OPTION
   }
 
 
   void Analysis::barchart(Histo2DPtr h, Scatter3DPtr s, bool usefocus) const {
     const string path = s->path();
-    *s = mkScatter(*h, usefocus, false); //< do NOT divide by bin area cf. a differential d^2sigma/dXdY histogram
-    s->setPath(path);
+    *s = h->mkScatter(path, false, usefocus); //< do NOT divide by bin area cf. a differential d^2sigma/dXdY histogram
   }
 
 
   void Analysis::divide(CounterPtr c1, CounterPtr c2, Scatter1DPtr s) const {
     const string path = s->path();
-    *s = *c1 / *c2;
-    s->setPath(path);
+    *s = (*c1 / *c2).mkScatter(path);
   }
 
   void Analysis::divide(const Counter& c1, const Counter& c2, Scatter1DPtr s) const {
     const string path = s->path();
-    *s = c1 / c2;
-    s->setPath(path);
+    *s = (c1 / c2).mkScatter(path);
   }
 
 
   void Analysis::divide(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {
     const string path = s->path();
-    *s = *h1 / *h2;
-    s->setPath(path);
+    *s = (*h1 / *h2).mkScatter(path);
   }
 
   void Analysis::divide(const Histo1D& h1, const Histo1D& h2, Scatter2DPtr s) const {
     const string path = s->path();
-    *s = h1 / h2;
-    s->setPath(path);
+    *s = (h1 / h2).mkScatter(path);
   }
 
 
   void Analysis::divide(Profile1DPtr p1, Profile1DPtr p2, Scatter2DPtr s) const {
     const string path = s->path();
-    *s = *p1 / *p2;
-    s->setPath(path);
+    *s = (*p1 / *p2).mkScatter(path);
   }
 
   void Analysis::divide(const Profile1D& p1, const Profile1D& p2, Scatter2DPtr s) const {
     const string path = s->path();
-    *s = p1 / p2;
-    s->setPath(path);
+    *s = (p1 / p2).mkScatter(path);
   }
 
 
   void Analysis::divide(Histo2DPtr h1, Histo2DPtr h2, Scatter3DPtr s) const {
     const string path = s->path();
-    *s = *h1 / *h2;
-    s->setPath(path);
+    *s = (*h1 / *h2).mkScatter(path);
   }
 
   void Analysis::divide(const Histo2D& h1, const Histo2D& h2, Scatter3DPtr s) const {
     const string path = s->path();
-    *s = h1 / h2;
-    s->setPath(path);
+    *s = (h1 / h2).mkScatter(path);
   }
 
 
   void Analysis::divide(Profile2DPtr p1, Profile2DPtr p2, Scatter3DPtr s) const {
     const string path = s->path();
-    *s = *p1 / *p2;
-    s->setPath(path);
+    *s = (*p1 / *p2).mkScatter(path);
   }
 
   void Analysis::divide(const Profile2D& p1, const Profile2D& p2, Scatter3DPtr s) const {
     const string path = s->path();
-    *s = p1 / p2;
-    s->setPath(path);
+    *s = (p1 / p2).mkScatter(path);
   }
 
 
@@ -833,27 +822,23 @@ namespace Rivet {
 
   void Analysis::efficiency(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {
     const string path = s->path();
-    *s = YODA::efficiency(*h1, *h2);
-    s->setPath(path);
+    *s = YODA::efficiency(*h1, *h2).mkScatter(path);
   }
 
   void Analysis::efficiency(const Histo1D& h1, const Histo1D& h2, Scatter2DPtr s) const {
     const string path = s->path();
-    *s = YODA::efficiency(h1, h2);
-    s->setPath(path);
+    *s = YODA::efficiency(h1, h2).mkScatter(path);
   }
 
 
   void Analysis::asymm(Histo1DPtr h1, Histo1DPtr h2, Scatter2DPtr s) const {
     const string path = s->path();
-    *s = YODA::asymm(*h1, *h2);
-    s->setPath(path);
+    *s = YODA::asymm(*h1, *h2).mkScatter(path);
   }
 
   void Analysis::asymm(const Histo1D& h1, const Histo1D& h2, Scatter2DPtr s) const {
     const string path = s->path();
-    *s = YODA::asymm(h1, h2);
-    s->setPath(path);
+    *s = YODA::asymm(h1, h2).mkScatter(path);
   }
 
 
@@ -951,15 +936,13 @@ namespace Rivet {
   void Analysis::integrate(Histo1DPtr h, Scatter2DPtr s) const {
     // preserve the path info
     const string path = s->path();
-    *s = toIntegralHisto(*h);
-    s->setPath(path);
+    *s = mkIntegral(*h).mkScatter(path);
   }
 
   void Analysis::integrate(const Histo1D& h, Scatter2DPtr s) const {
     // preserve the path info
     const string path = s->path();
-    *s = toIntegralHisto(h);
-    s->setPath(path);
+    *s = mkIntegral(h).mkScatter(path);
   }
 
 }
@@ -967,18 +950,6 @@ namespace Rivet {
 
 
 //////////////////////////////////
-
-// namespace {
-//   void errormsg(std::string name) {
-//     // #ifdef HAVE_BACKTRACE
-//     //      void * buffer[4];
-//     //      backtrace(buffer, 4);
-//     //      backtrace_symbols_fd(buffer, 4 , 1);
-//     // #endif
-//     std::cerr << name << ": Can't book objects outside of init().\n";
-//     assert(false);
-//   }
-// }
 
 
 namespace Rivet {

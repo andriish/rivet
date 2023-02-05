@@ -107,8 +107,8 @@ namespace Rivet {
       vector<double> num(NREGIONS, 0), ptSum(NREGIONS, 0.0), avgpt(NREGIONS, 0.0);
 
       // Temporary histos that bin Nch and pT in dPhi.
-      Histo1D hist_num_dphi(*_hist_N_vs_dPhi[0], "/hist_num_dphi");
-      Histo1D hist_pt_dphi(*_hist_pT_vs_dPhi[0], "/hist_pt_dphi");
+      Histo1D hist_num_dphi(_hist_N_vs_dPhi[0]->binning(), "/hist_num_dphi");
+      Histo1D hist_pt_dphi(_hist_pT_vs_dPhi[0]->binning(), "/hist_pt_dphi");
       hist_num_dphi.reset();
       hist_pt_dphi .reset();
 
@@ -224,7 +224,7 @@ namespace Rivet {
         double value = 0.;
         if (hist_num_dphi.bin(i).numEntries() > 0) {
           mean  = hist_num_dphi.bin(i).xMean() ;
-          value = hist_num_dphi.bin(i).area()/hist_num_dphi.bin(i).xWidth()/dEtadPhi2;
+          value = hist_num_dphi.bin(i).volume()/hist_num_dphi.bin(i).xWidth()/dEtadPhi2;
         }
         for (size_t iC = 0; iC < NCUTS; ++iC) {
           if (pTlead >= PTCUTS[iC]*GeV) _hist_N_vs_dPhi[iC] ->fill(mean, value);
@@ -235,7 +235,7 @@ namespace Rivet {
         value = 0.;
         if (hist_pt_dphi.bin(i).numEntries() > 0) {
           mean  = hist_pt_dphi.bin(i).xMean() ;
-          value = hist_pt_dphi.bin(i).area()/hist_pt_dphi.bin(i).xWidth()/dEtadPhi2;
+          value = hist_pt_dphi.bin(i).volume()/hist_pt_dphi.bin(i).xWidth()/dEtadPhi2;
         }
         for (size_t iC = 0; iC < NCUTS; ++iC) {
           if (pTlead >= PTCUTS[iC]*GeV) _hist_pT_vs_dPhi[iC] ->fill(mean, value);

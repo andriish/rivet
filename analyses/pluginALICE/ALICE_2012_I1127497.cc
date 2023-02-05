@@ -182,7 +182,7 @@ namespace Rivet {
           double ncoll = _counterNcoll[ihist]->sumW();
           double sow = _counterSOW[PBPB][ihist]->sumW();
           if (ncoll > 1e-6 && sow > 1e-6)
-            _histRAA[ihist]->scaleY(1. / (ncoll / sow));
+            _histRAA[ihist]->scale(1, 1. / (ncoll / sow));
 
         }
       }

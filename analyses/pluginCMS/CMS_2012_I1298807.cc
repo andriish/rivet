@@ -142,42 +142,42 @@ namespace Rivet {
 
       double sum_height_pt_zz = 0;
       for (size_t i = 0; i < _hist_pt_zz->numBins(); i++) {
-        _hist_pt_zz->bin(i).scaleW(1. / _hist_pt_zz->bin(i).width());
+        _hist_pt_zz->bin(i).scaleW(1. / _hist_pt_zz->bin(i).xWidth());
         sum_height_pt_zz += _hist_pt_zz->bin(i).height();
       }
       scale(_hist_pt_zz, 1. / sum_height_pt_zz);
 
       double sum_height_m_zz = 0;
       for (size_t i = 0; i < _hist_m_zz->numBins(); i++) {
-        _hist_m_zz->bin(i).scaleW(1. / _hist_m_zz->bin(i).width());
+        _hist_m_zz->bin(i).scaleW(1. / _hist_m_zz->bin(i).xWidth());
         sum_height_m_zz += _hist_m_zz->bin(i).height();
       }
       scale(_hist_m_zz, 1. / sum_height_m_zz);
 
       double sum_height_dphi_zz = 0;
       for (size_t i = 0; i < _hist_dphi_zz->numBins(); i++) {
-        _hist_dphi_zz->bin(i).scaleW(1. / _hist_dphi_zz->bin(i).width());
+        _hist_dphi_zz->bin(i).scaleW(1. / _hist_dphi_zz->bin(i).xWidth());
         sum_height_dphi_zz += _hist_dphi_zz->bin(i).height();
       }
       scale(_hist_dphi_zz, 1. / sum_height_dphi_zz);
 
       double sum_height_dR_zz = 0;
       for (size_t i = 0; i < _hist_dR_zz->numBins(); i++) {
-        _hist_dR_zz->bin(i).scaleW(1. / _hist_dR_zz->bin(i).width());
+        _hist_dR_zz->bin(i).scaleW(1. / _hist_dR_zz->bin(i).xWidth());
         sum_height_dR_zz += _hist_dR_zz->bin(i).height();
       }
       scale(_hist_dR_zz, 1. / sum_height_dR_zz);
 
       double sum_height_pt_z1 = 0;
       for (size_t i = 0; i < _hist_pt_z1->numBins(); i++) {
-        _hist_pt_z1->bin(i).scaleW(1. / _hist_pt_z1->bin(i).width());
+        _hist_pt_z1->bin(i).scaleW(1. / _hist_pt_z1->bin(i).xWidth());
         sum_height_pt_z1 += _hist_pt_z1->bin(i).height();
       }
       scale(_hist_pt_z1, 1. / sum_height_pt_z1);
 
       double sum_height_pt_l1 = 0;
       for (size_t i = 0; i < _hist_pt_l1->numBins(); i++) {
-        _hist_pt_l1->bin(i).scaleW(1. / _hist_pt_l1->bin(i).width());
+        _hist_pt_l1->bin(i).scaleW(1. / _hist_pt_l1->bin(i).xWidth());
         sum_height_pt_l1 += _hist_pt_l1->bin(i).height();
       }
       scale(_hist_pt_l1, 1. / sum_height_pt_l1);

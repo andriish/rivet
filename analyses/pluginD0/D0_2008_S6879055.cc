@@ -84,7 +84,7 @@ namespace Rivet {
     /// Finalize
     void finalize() {
       // Now divide by the inclusive result
-      scale(_crossSectionRatio,1/_crossSectionRatio->bin(0).area());
+      scale(_crossSectionRatio,1/_crossSectionRatio->bin(0).volume());
 
       // Normalise jet pTs to integrals of data
       // @note There is no other way to do this, because these quantities are not detector-corrected

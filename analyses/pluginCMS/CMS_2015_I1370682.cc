@@ -270,11 +270,8 @@ namespace Rivet {
 
 
     void applyCorrection(Histo1DPtr h, const double* cf) {
-      vector<YODA::HistoBin1D>& bins = h->bins();
-      for (size_t i=0, n=bins.size(); i<n; ++i ) {
-        const double s = cf[i];
-        YODA::HistoBin1D& bin = bins[i];
-        bin.scaleW(s);
+      for (auto& bin : h->bins()) {
+        bin.scaleW( cf[bin.binIndex()] );
       }
     }
 

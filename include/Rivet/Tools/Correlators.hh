@@ -21,7 +21,7 @@
 #include "Rivet/Analysis.hh"
 #include "Rivet/Projection.hh"
 #include "Rivet/Projections/ParticleFinder.hh"
-#include "YODA/Scatter2D.h"
+#include "YODA/Scatter.h"
 #include <complex>
 
 namespace Rivet {
@@ -529,13 +529,13 @@ namespace Rivet {
           if (yao->path() == "/RAW/"+name+"/TMP/"+profs[i]) {
             YODA::Profile1DPtr pPtr = dynamic_pointer_cast<YODA::Profile1D>(yao);
             for (size_t j = 0; j < binX.size() - 1; ++j) {
-              const YODA::ProfileBin1D& pBin = pPtr->binAt(binX[j]);
+              const YODA::Dbn2D& pBin = pPtr->binAt(binX[j]);
               auto tmp  = binContent[j].getBinPtrs<CorSingleBin>();
               tmp[i]->addContent(pBin.numEntries(), pBin.sumW(), pBin.sumW2(),
                                  pBin.sumWY());
             }
             // Get the reference flow from the underflow bin of the histogram.
-            const YODA::Dbn2D& uBin = pPtr->underflow();
+            const YODA::Dbn2D& uBin = pPtr->bin(0);
             refs[i]->addContent(uBin.numEntries(), uBin.sumW(), uBin.sumW2(),
                                 uBin.sumWY());
             return true;
@@ -961,36 +961,21 @@ namespace Rivet {
             if (rao->path() == "/"+name()+"/TMP/"+ec->profs[i]) {
               // Get a pointer to the active profile.
               rao.get()->setActiveWeightIdx(iW);
-              YODA::Profile1DPtr pPtr = dynamic_pointer_cast<YODA::Profile1D>(
-                                                                              rao.get()->activeYODAPtr());
+              YODA::Profile1DPtr pPtr = dynamic_pointer_cast<YODA::Profile1D>(rao.get()->activeYODAPtr());
               // New bins.
-              vector<YODA::ProfileBin1D> profBins;
-              // Numbers for the summary distribution
-              double ne = 0., sow = 0., sow2 = 0.;
-              for (size_t j = 0, N = binx.size() - 1; j < N; ++j) {
-                vector<CorSingleBin*> binPtrs =
-                  corBins[j].getBinPtrs<CorSingleBin>();
-                // Construct bin of the profiled quantities. We have no information
+              vector<YODA::Dbn2D> profBins;
+              // Add reference flow in the underflow bin.
+              pPtr->bin(0).set( YODA::Dbn2D(refBins[i]->numEntries(), refBins[i]->sumW(),
+                                            refBins[i]->sumW2(), 0., 0., refBins[i]->sumWX(), 0., 0.) );
+              for (size_t j = 1, N = binx.size() - 1; j <= N; ++j) {
+                vector<CorSingleBin*> binPtrs = corBins[j].getBinPtrs<CorSingleBin>();
+                // Construct bin of the profiled quantities and put the
+                // ECorrelator into the raw histogram. We have no information
                 // (and no desire to add it) of sumWX of the profile, so really
                 // we should use a Dbn1D - but that does not work for Profile1D's.
-                profBins.push_back( YODA::ProfileBin1D(pPtr->bin(j).xEdges(),
-                                                       YODA::Dbn2D( binPtrs[i]->numEntries(), binPtrs[i]->sumW(),
-                                                                    binPtrs[i]->sumW2(), 0., 0., binPtrs[i]->sumWX(), 0, 0)));
-                ne += binPtrs[i]->numEntries();
-                sow += binPtrs[i]->sumW();
-                sow2 += binPtrs[i]->sumW2();
+                pPtr->bin(j).set( YODA::Dbn2D(binPtrs[i]->numEntries(), binPtrs[i]->sumW(),
+                                              binPtrs[i]->sumW2(), 0., 0., binPtrs[i]->sumWX(), 0, 0) );
               }
-              // Put the ECorrelator into the raw histogram.
-              pPtr->reset();
-              pPtr->bins().clear();
-              // Add the bins.
-              pPtr->addBins(profBins);
-              // Set the total distribution.
-              pPtr->setTotalDbn(YODA::Dbn2D(ne,sow,sow2,0.,0.,0.,0.,0.));
-              // And reference flow in the underflow bin.
-              pPtr->setUnderflow(YODA::Dbn2D(refBins[i]->numEntries(),
-                                             refBins[i]->sumW(), refBins[i]->sumW2(), 0., 0.,
-                                             refBins[i]->sumWX(), 0., 0.));
             }
           }
         }

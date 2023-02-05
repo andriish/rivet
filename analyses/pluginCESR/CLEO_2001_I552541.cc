@@ -82,18 +82,18 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      Scatter1D R_D0_low_low    = *_n_Dbar0[0][0]/ *_d_Dbar0[0];
-      Scatter1D R_D0_low_high   = *_n_Dbar0[0][1]/ *_d_Dbar0[0];
-      Scatter1D R_D0_high_low   = *_n_Dbar0[1][0]/ *_d_Dbar0[1];
-      Scatter1D R_D0_high_high  = *_n_Dbar0[1][1]/ *_d_Dbar0[1];
-      Scatter1D R_Dm_low_low    = *_n_Dm[0][0]   / *_d_Dm[0];
-      Scatter1D R_Dm_low_high   = *_n_Dm[0][1]   / *_d_Dm[0];
-      Scatter1D R_Dm_high_low   = *_n_Dm[1][0]   / *_d_Dm[1];
-      Scatter1D R_Dm_high_high  = *_n_Dm[1][1]   / *_d_Dm[1];
-      Scatter1D R_Lam_low_low   = *_n_Lam[0][0]  / *_d_Lam[0];
-      Scatter1D R_Lam_low_high  = *_n_Lam[0][1]  / *_d_Lam[0];
-      Scatter1D R_Lam_high_low  = *_n_Lam[1][0]  / *_d_Lam[1];
-      Scatter1D R_Lam_high_high = *_n_Lam[1][1]  / *_d_Lam[1];
+      Scatter1D R_D0_low_low    = (*_n_Dbar0[0][0]/ *_d_Dbar0[0]).mkScatter();
+      Scatter1D R_D0_low_high   = (*_n_Dbar0[0][1]/ *_d_Dbar0[0]).mkScatter();
+      Scatter1D R_D0_high_low   = (*_n_Dbar0[1][0]/ *_d_Dbar0[1]).mkScatter();
+      Scatter1D R_D0_high_high  = (*_n_Dbar0[1][1]/ *_d_Dbar0[1]).mkScatter();
+      Scatter1D R_Dm_low_low    = (*_n_Dm[0][0]   / *_d_Dm[0]).mkScatter();
+      Scatter1D R_Dm_low_high   = (*_n_Dm[0][1]   / *_d_Dm[0]).mkScatter();
+      Scatter1D R_Dm_high_low   = (*_n_Dm[1][0]   / *_d_Dm[1]).mkScatter();
+      Scatter1D R_Dm_high_high  = (*_n_Dm[1][1]   / *_d_Dm[1]).mkScatter();
+      Scatter1D R_Lam_low_low   = (*_n_Lam[0][0]  / *_d_Lam[0]).mkScatter();
+      Scatter1D R_Lam_low_high  = (*_n_Lam[0][1]  / *_d_Lam[0]).mkScatter();
+      Scatter1D R_Lam_high_low  = (*_n_Lam[1][0]  / *_d_Lam[1]).mkScatter();
+      Scatter1D R_Lam_high_high = (*_n_Lam[1][1]  / *_d_Lam[1]).mkScatter();
       for(unsigned int ix=3;ix<5;++ix) {
 	for(unsigned int iy=1;iy<5;++iy) {
 	  double num(0.),den(0.),num_err(0.),den_err(0.);

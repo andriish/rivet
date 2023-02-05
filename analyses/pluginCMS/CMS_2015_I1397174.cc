@@ -334,21 +334,21 @@ namespace Rivet {
 
     void fillGapFractions(const Jets& addJets, Profile1DPtr h_gap_addJet1Pt, Profile1DPtr h_gap_addJet2Pt, Profile1DPtr h_gap_addJetHT, double weight) {
       const double j1pt = (addJets.size() > 0) ? addJets[0].pT() : 0;
-      for (size_t i = 0; i < h_gap_addJet1Pt->numBins(); ++i) {
+      for (size_t i = 1; i <= h_gap_addJet1Pt->numBins(); ++i) {
         const double binCenter = h_gap_addJet1Pt->bin(i).xMid();
-        h_gap_addJet1Pt->fillBin(i, int(j1pt/GeV < binCenter), weight);
+        h_gap_addJet1Pt->fill(binCenter, int(j1pt/GeV < binCenter), weight);
       }
 
       const double j2pt = (addJets.size() > 1) ? addJets[1].pT() : 0;
-      for (size_t i = 0; i < h_gap_addJet2Pt->numBins(); ++i) {
+      for (size_t i = 1; i <= h_gap_addJet2Pt->numBins(); ++i) {
         const double binCenter = h_gap_addJet2Pt->bin(i).xMid();
-        h_gap_addJet2Pt->fillBin(i, int(j2pt/GeV < binCenter), weight);
+        h_gap_addJet2Pt->fill(binCenter, int(j2pt/GeV < binCenter), weight);
       }
 
       const double ht = sum(addJets, Kin::pT, 0.);
-      for (size_t i = 0; i < h_gap_addJetHT->numBins(); ++i) {
+      for (size_t i = 1; i <= h_gap_addJetHT->numBins(); ++i) {
         const double binCenter = h_gap_addJetHT->bin(i).xMid();
-        h_gap_addJetHT->fillBin(i, int(ht/GeV < binCenter) , weight);
+        h_gap_addJetHT->fill(binCenter, int(ht/GeV < binCenter) , weight);
       }
     }
 

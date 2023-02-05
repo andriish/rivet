@@ -67,7 +67,7 @@ namespace Rivet {
           if (ex2.first ==0.) ex2. first=0.0001;
           if (ex2.second==0.) ex2.second=0.0001;
           if (inRange(sqrtS(), x-ex2.first, x+ex2.second)) {
-            cross->addPoint(x, sigma, ex, make_pair(error,error));
+            cross->addPoint({x, sigma}, {ex, {error,error}});
           }
           else {
             cross->addPoint(x, 0., ex, make_pair(0.,.0));

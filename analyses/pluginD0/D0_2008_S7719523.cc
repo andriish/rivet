@@ -130,10 +130,10 @@ namespace Rivet {
       // Central/forward ratio combinations
       /// @note The central/forward histo binnings are not the same! Hence the need to do these by hand :-(
       for (size_t i = 0; i < _h_cen_same_fwd_same->numPoints(); ++i) {
-        const YODA::HistoBin1D& cen_same_bini = _h_central_same_cross_section->bin(i);
-        const YODA::HistoBin1D& cen_opp_bini = _h_central_opp_cross_section->bin(i);
-        const YODA::HistoBin1D& fwd_same_bini = _h_central_same_cross_section->bin(i);
-        const YODA::HistoBin1D& fwd_opp_bini = _h_central_opp_cross_section->bin(i);
+        const auto& cen_same_bini = _h_central_same_cross_section->bin(i);
+        const auto& cen_opp_bini = _h_central_opp_cross_section->bin(i);
+        const auto& fwd_same_bini = _h_central_same_cross_section->bin(i);
+        const auto& fwd_opp_bini = _h_central_opp_cross_section->bin(i);
         _h_cen_same_fwd_same->point(i).setY(_safediv(cen_same_bini.sumW(), fwd_same_bini.sumW(), 0),
                                             add_quad(cen_same_bini.relErr(), fwd_same_bini.relErr()));
         _h_cen_opp_fwd_same->point(i).setY(_safediv(cen_opp_bini.sumW(), fwd_same_bini.sumW(), 0),

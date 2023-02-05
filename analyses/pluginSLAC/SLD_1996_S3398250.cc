@@ -99,8 +99,8 @@ namespace Rivet {
     void multiplicity_subtract(const Histo1DPtr first, const Histo1DPtr second, Scatter2DPtr & scatter) {
       const double x  = first->bin(0).xMid();
       const double ex = first->bin(0).xWidth()/2.;
-      const double y  = first->bin(0).area() - second->bin(0).area();
-      const double ey = sqrt(sqr(first->bin(0).areaErr()) + sqr(second->bin(0).areaErr()));
+      const double y  = first->bin(0).volume() - second->bin(0).volume();
+      const double ey = sqrt(sqr(first->bin(0).volumeErr()) + sqr(second->bin(0).volumeErr()));
       scatter->addPoint(x, y, ex, ey);
     }
 

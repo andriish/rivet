@@ -152,12 +152,12 @@ namespace Rivet {
       	ratioScatterBins(_hbr_Dstar.histos()[i], _hbr_Dplus.histos()[i], hr_DstarDplus[i]);
       	ratioScatterBins(_hbr_Ds.histos()[i], _hbr_Dstar.histos()[i], hr_DsDstar[i]);
       	// scale 100x as measurement is in %
-      	hr_DplusDzero[i]->scaleY(100.);
-      	hr_DsDzero[i]->scaleY(100.);
-      	hr_DstarDzero[i]->scaleY(100.);
-      	hr_DsDplus[i]->scaleY(100.);
-      	hr_DstarDplus[i]->scaleY(100.);
-      	hr_DsDstar[i]->scaleY(100.);
+      	hr_DplusDzero[i]->scale(1,100.);
+      	hr_DsDzero[i]->scale(1,100.);
+      	hr_DstarDzero[i]->scale(1,100.);
+      	hr_DsDplus[i]->scale(1,100.);
+      	hr_DstarDplus[i]->scale(1,100.);
+      	hr_DsDstar[i]->scale(1,100.);
       }
     }
 
@@ -176,11 +176,10 @@ namespace Rivet {
       }
       sedges.push_back(s->points().back().xMax());
       // make deep-copies as rebinning changes bins each time - any smarter alternative ?!
-      Histo1D *hnc, *hdc;
-      hnc = new YODA::Histo1D(hn->bins(), hn->totalDbn(), hn->underflow(), hn->overflow());
-      hdc = new YODA::Histo1D(hd->bins(), hd->totalDbn(), hd->underflow(), hd->overflow());
-      hnc->rebinTo(sedges);
-      hdc->rebinTo(sedges);
+      Histo1D *hnc = hn->newclone();
+      Histo1D *hdc = hd->newclone();
+      hnc->rebinXTo(sedges);
+      hdc->rebinXTo(sedges);
       divide(*hnc, *hdc, s);
       delete hnc; delete hdc;
     }

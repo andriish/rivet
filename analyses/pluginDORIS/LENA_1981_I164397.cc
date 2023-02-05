@@ -134,7 +134,7 @@ namespace Rivet {
 	    _mult->addPoint(x, _charge_Ups1->val(), ex, make_pair(_charge_Ups1->err(),_charge_Ups1->err()));
 	  }
 	  else {
-	    _mult->addPoint(x, 0., ex, make_pair(0.,.0));
+	    _mult->addPoint({x, 0.}, {ex, {0.,.0}});
 	  }
 	}
 	// Upsilon 2S
@@ -143,7 +143,7 @@ namespace Rivet {
 	    _mult->addPoint(x, _charge_Ups2->val(), ex, make_pair(_charge_Ups2->err(),_charge_Ups2->err()));
 	  }
 	  else {
-	    _mult->addPoint(x, 0., ex, make_pair(0.,.0));
+	    _mult->addPoint({x, 0.}, {ex, {0.,.0}});
 	  }
 	}
 	else {
@@ -151,7 +151,7 @@ namespace Rivet {
 	    _mult->addPoint(x, _charge_cont->val(), ex, make_pair(_charge_cont->err(),_charge_cont->err()));
 	  }
 	  else {
-	    _mult->addPoint(x, 0., ex, make_pair(0.,.0));
+	    _mult->addPoint({x, 0.}, {ex, {0.,.0}});
 	  }
 	}
       }

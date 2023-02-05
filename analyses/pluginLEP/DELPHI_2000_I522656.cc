@@ -141,7 +141,7 @@ namespace Rivet {
       // Cambridge is more complicated, inclusive defn
       for (size_t i = 0; i < _h_cam->numBins(); ++i) {
 	double ycut = _h_cam->bin(i).xMax();
-	// 	  double width = _h_y_2_Cambridge->bin(i).width();
+	// 	  double width = _h_y_2_Cambridge->bin(i).xWidth();
 	fastjet::EECambridgePlugin plugin(ycut);
 	fastjet::JetDefinition jdef(&plugin);
 	fastjet::ClusterSequence cseq(pjs, jdef);
@@ -166,10 +166,10 @@ namespace Rivet {
     /// Normalise histograms etc., after the run
     void finalize() {
       for(unsigned int ix=0;ix<8;++ix) {
-	if(ix<2) scale(_h_thrust.histos()[ix],1./_h_bin->bins()[ix].area());
-	scale(_h_EEC.histos()[ix],180./M_PI/_h_bin->bins()[ix].area());
-	scale(_h_AEEC.histos()[ix],180./M_PI/_h_bin->bins()[ix].area());
-	scale(_h_cone.histos()[ix],180./M_PI/_h_bin->bins()[ix].area());
+	if(ix<2) scale(_h_thrust.histos()[ix],1./_h_bin->bins()[ix].volume());
+	scale(_h_EEC.histos()[ix],180./M_PI/_h_bin->bins()[ix].volume());
+	scale(_h_AEEC.histos()[ix],180./M_PI/_h_bin->bins()[ix].volume());
+	scale(_h_cone.histos()[ix],180./M_PI/_h_bin->bins()[ix].volume());
       }
 
       

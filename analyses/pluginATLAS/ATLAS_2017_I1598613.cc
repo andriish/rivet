@@ -204,7 +204,7 @@ namespace Rivet {
       for (size_t i = 0; i < handler.scatter->numPoints(); ++i) {
         const Point2D& f = myTransferFn.point(i);
         Point2D& p = handler.scatter->point(i);
-        const HistoBin1D&  b = handler.histo->bin(i);
+        const auto&  b = handler.histo->bin(i);
         double newy;
         try {
           newy = b.height();
@@ -230,7 +230,7 @@ namespace Rivet {
       }
       if (area > 0.) { // normalise to unity
         for (size_t i = 0; i < handler.scatter->numPoints(); ++i)
-          handler.scatter->point(i).scaleY(1.0 / area);
+          handler.scatter->point(i).scale(1,1.0 / area);
       }
     }
 

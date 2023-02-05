@@ -33,7 +33,7 @@ namespace Rivet {
       double FQF = 1.-FGF;
 
       for (size_t i=0; i<hGluon->numBins(); i++) {
-        double binCenter = hGluon->bin(i).midpoint();
+        double binCenter = hGluon->bin(i).xMid();
         double gVal = 0., qVal = 0.;
         if ((FQF -  FQC) != 0.) {
           gVal = (FQF * hCentral->bin(ptbin*(nBins) + i).height() - FQC * hForward->bin(ptbin*(nBins) + i).height()) / (FQF - FQC);
@@ -119,7 +119,7 @@ namespace Rivet {
       if (var=="m" || var=="tm") {
         double norm = 0.;
         for (size_t i = normBin1; i < normBin2; i++) { //only normalize in the resummation region.
-          norm+=hist->bin(i).area();
+          norm+=hist->bin(i).volume();
         }
         if (norm > 0.) {
           hist->scaleW(1.0/(norm));

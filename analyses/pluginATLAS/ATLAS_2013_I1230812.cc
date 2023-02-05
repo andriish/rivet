@@ -200,7 +200,7 @@ namespace Rivet {
     /// @{
 
     /// Calculate the efficiency error, being careful about div-by-zero
-    double err_incl(const HistoBin1D &M, const HistoBin1D &N, bool hasWeights) {
+    double err_incl(const YODA::Dbn1D& M, const YODA::Dbn1D& N, bool hasWeights) {
       double r = safediv(M.sumW(), N.sumW());
       if (hasWeights) { // use F. James's approximation for weighted events
         return sqrt( safediv((1 - 2 * r) * M.sumW2() + r * r * N.sumW2(), N.sumW() * N.sumW()) );
@@ -209,7 +209,7 @@ namespace Rivet {
     }
 
     /// Calculate the ratio error, being careful about div-by-zero
-    double err_excl(const HistoBin1D &A, const HistoBin1D &B) {
+    double err_excl(const YODA::Dbn1D& A, const YODA::Dbn1D& B) {
       double r = safediv(A.sumW(), B.sumW());
       double dAsquared = safediv(A.sumW2(), A.sumW() * A.sumW()); // squared relative error of A
       double dBsquared = safediv(B.sumW2(), B.sumW() * B.sumW()); // squared relative error of B
@@ -223,15 +223,15 @@ namespace Rivet {
       bool hasWeights = _h_njet_incl->effNumEntries() != _h_njet_incl->numEntries();
       for (size_t i = 0; i < 6; ++i) {
         _h_njet_incl_ratio->point(i).setY(safediv(_h_njet_incl->bin(i + 1).sumW(), _h_njet_incl->bin(i).sumW()),
-                                          err_incl(_h_njet_incl->bin(i + 1), _h_njet_incl->bin(i), hasWeights));
+                                          err_incl(_h_njet_incl->bin(i + 1).raw(), _h_njet_incl->bin(i).raw(), hasWeights));
         _h_njet_excl_ratio->point(i).setY(safediv(_h_njet_excl->bin(i + 1).sumW(), _h_njet_excl->bin(i).sumW()),
-                                          err_excl(_h_njet_excl->bin(i + 1), _h_njet_excl->bin(i)));
+                                          err_excl(_h_njet_excl->bin(i + 1).raw(), _h_njet_excl->bin(i).raw()));
         if (i >= 1) {
           _h_njet_excl_pt150_ratio->point(i - 1).setY(safediv(_h_njet_excl_pt150->bin(i).sumW(), _h_njet_excl_pt150->bin(i - 1).sumW()),
-                                                      err_excl(_h_njet_excl_pt150->bin(i), _h_njet_excl_pt150->bin(i - 1)));
+                                                      err_excl(_h_njet_excl_pt150->bin(i).raw(), _h_njet_excl_pt150->bin(i - 1).raw()));
           if (i >= 2) {
             _h_njet_excl_vbf_ratio->point(i - 2).setY(safediv(_h_njet_excl_vbf->bin(i).sumW(), _h_njet_excl_vbf->bin(i - 1).sumW()),
-                                                      err_excl(_h_njet_excl_vbf->bin(i), _h_njet_excl_vbf->bin(i - 1)));
+                                                      err_excl(_h_njet_excl_vbf->bin(i).raw(), _h_njet_excl_vbf->bin(i - 1).raw()));
           }
         }
       }

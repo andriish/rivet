@@ -131,7 +131,7 @@ namespace Rivet {
     /// @todo Replace with barchart()
     void normalizeToSum(Histo1DPtr hist) {
       for (size_t i = 0; i < hist->numBins(); ++i) {
-        float width = hist->bin(i).width();
+        float width = hist->bin(i).xWidth();
         hist->bin(i).scaleW(width != 0 ? width : 1.);
       }
       if (hist->integral() > 0) scale(hist, 1./hist->integral());

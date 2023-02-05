@@ -54,8 +54,8 @@ namespace Rivet {
       //double sum = 0.;
       for (size_t i = 0; i < hist->numBins(); ++i) {
         //sum += hist->bin(i).height();
-        double width = hist->bin(i).width();
-        hist->bin(i).scaleW(width != 0 ? width : 1.);
+        const double area = hist->bin(i).area();
+        hist->bin(i).scaleW(area != 0 ? area : 1.);
       }
       if (hist->integral() > 0) scale(hist, 1./hist->integral());
     }

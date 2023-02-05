@@ -138,7 +138,7 @@ namespace Rivet {
 
     /// Normalise histograms etc., after the run
     void finalize() {
-      Scatter1D R = *_c_hadrons/ *_c_muons;
+      Scatter1D R = (*_c_hadrons/ *_c_muons).mkScatter();
       double              rval = R.point(0).x();
       pair<double,double> rerr = R.point(0).xErrs();
       double fact = crossSection()/ sumOfWeights() /picobarn;
@@ -232,7 +232,7 @@ namespace Rivet {
           if (inRange(sqs, x-ex2.first, x+ex2.second)) {
             mult->addPoint(x, value, ex, make_pair(error,error));
           } else {
-            mult->addPoint(x, 0., ex, make_pair(0.,.0));
+            mult->addPoint({x, 0.}, {ex, {0.,.0}});
           }
         }
       }

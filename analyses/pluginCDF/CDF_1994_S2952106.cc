@@ -115,8 +115,8 @@ namespace Rivet {
           0.0233, 0.0288, 0.0384, 0.0396, 0.0468, 0.0419, 0.0459, 0.0399, 0.0355, 0.0329,
           0.0274, 0.0230, 0.0201, 0.0120, 0.0100, 0.0080, 0.0051, 0.0051, 0.0010, 0.0010 };
       for (size_t i = 0;  i < 40; ++i) {
-        const double yval = _tmphistJet3eta->bin(i).area() * (eta3_CDF_sim[i]/eta3_Ideal_sim[i]);
-        const double yerr = _tmphistJet3eta->bin(i).areaErr() * (eta3_CDF_sim_err[i]/eta3_Ideal_sim[i]);
+        const double yval = _tmphistJet3eta->bin(i).volume() * (eta3_CDF_sim[i]/eta3_Ideal_sim[i]);
+        const double yerr = _tmphistJet3eta->bin(i).volumeErr() * (eta3_CDF_sim_err[i]/eta3_Ideal_sim[i]);
         _histJet3eta->addPoint(_tmphistJet3eta->bin(i).xMid(), yval/dbl(*_sumw),
                                _tmphistJet3eta->bin(i).xWidth()/2.0, yerr/dbl(*_sumw));
       }
@@ -138,8 +138,8 @@ namespace Rivet {
           0.0142, 0.0134, 0.0101, 0.0090, 0.0080, 0.0034, 0.0030, 0.0033, 0.0027, 0.0021,
           0.0012, 0.0006, 0.0004, 0.0005, 0.0003 };
       for (size_t i = 0;  i < 35; ++i) {
-        const double yval = _tmphistR23->bin(i).area() * (R23_CDF_sim[i]/R23_Ideal_sim[i]);
-        const double yerr = _tmphistR23->bin(i).areaErr() * (R23_CDF_sim_err[i]/R23_Ideal_sim[i]);
+        const double yval = _tmphistR23->bin(i).volume() * (R23_CDF_sim[i]/R23_Ideal_sim[i]);
+        const double yerr = _tmphistR23->bin(i).volumeErr() * (R23_CDF_sim_err[i]/R23_Ideal_sim[i]);
         _histR23->addPoint(_tmphistR23->bin(i).xMid(), yval/dbl(*_sumw),
                            _tmphistR23->bin(i).xWidth()/2.0, yerr/dbl(*_sumw));
       }
@@ -161,8 +161,8 @@ namespace Rivet {
           0.0099, 0.0079, 0.0102, 0.0114, 0.0124, 0.0130, 0.0165, 0.0160, 0.0177, 0.0190,
           0.0232, 0.0243, 0.0238, 0.0248, 0.0235, 0.0298, 0.0292, 0.0291, 0.0268, 0.0316 };
       for (size_t i = 0;  i < 40; ++i) {
-        const double yval = _tmphistAlpha->bin(i).area() * (alpha_CDF_sim[i]/alpha_Ideal_sim[i]);
-        const double yerr = _tmphistAlpha->bin(i).areaErr() * (alpha_CDF_sim_err[i]/alpha_Ideal_sim[i]);
+        const double yval = _tmphistAlpha->bin(i).volume() * (alpha_CDF_sim[i]/alpha_Ideal_sim[i]);
+        const double yerr = _tmphistAlpha->bin(i).volumeErr() * (alpha_CDF_sim_err[i]/alpha_Ideal_sim[i]);
         _histAlpha->addPoint(_tmphistAlpha->bin(i).xMid(), yval/dbl(*_sumw),
                              _tmphistAlpha->bin(i).xWidth()/2.0, yerr/dbl(*_sumw));
       }

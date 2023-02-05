@@ -112,17 +112,17 @@ namespace Rivet {
 	  if(ix==2 && iy!=1) continue;
 	  if(ix==1) {
 	    if(iy==1) {
-	      R = *_c_1S/ *_c_muons;
+	      R = (*_c_1S/ *_c_muons).mkScatter();
 	    }
 	    else if(iy==2) {
-	      R = *_c_2S/ *_c_muons;
+	      R = (*_c_2S/ *_c_muons).mkScatter();
 	    }
 	    else {
-	      R = *_c_3S/ *_c_muons;
+	      R = (*_c_3S/ *_c_muons).mkScatter();
 	    }
 	  }
 	  else if(ix==2) {
-	    R = *_c_hadrons/ *_c_muons;
+	    R = (*_c_hadrons/ *_c_muons).mkScatter();
 	  }
 	  double              rval = R.point(0).x();
 	  pair<double,double> rerr = R.point(0).xErrs();
@@ -136,10 +136,10 @@ namespace Rivet {
 	    if(ex2.first ==0.) ex2. first=0.0001;
 	    if(ex2.second==0.) ex2.second=0.0001;
 	    if (inRange(sqrtS()/MeV, x-ex2.first, x+ex2.second)) {
-	      mult   ->addPoint(x, rval, ex, rerr);
+	      mult   ->addPoint({x, rval}, {ex, rerr});
 	    }
 	    else {
-	      mult   ->addPoint(x, 0., ex, make_pair(0.,.0));
+	      mult   ->addPoint({x, 0.}, {ex, {0.,.0}});
 	    }
 	  }
 	}

@@ -74,11 +74,11 @@ namespace Rivet {
       if(hist->numEntries()==0.) return make_pair(0.,make_pair(0.,0.));
       double sum1(0.),sum2(0.),sum3(0.),sum4(0.),sum5(0.);
       for (auto bin : hist->bins() ) {
-       	double Oi = bin.area();
+       	double Oi = bin.volume();
 	if(Oi==0.) continue;
 	double a =  1.5*(bin.xMax() - bin.xMin());
 	double b = 0.5*(pow(bin.xMax(),3) - pow(bin.xMin(),3));
-       	double Ei = bin.areaErr();
+       	double Ei = bin.volumeErr();
 	sum1 +=   a*Oi/sqr(Ei);
 	sum2 +=   b*Oi/sqr(Ei);
 	sum3 += sqr(a)/sqr(Ei);

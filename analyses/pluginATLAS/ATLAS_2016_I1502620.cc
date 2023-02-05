@@ -165,23 +165,23 @@ namespace Rivet {
       // Construct asymmetry: (dsig+/deta - dsig-/deta) / (dsig+/deta + dsig-/deta)
       //divide(*_h_Wp_eta - *_h_Wm_eta, *_h_Wp_eta + *_h_Wm_eta, _h_W_asym);
       if (_runW) {
-	for (size_t i = 0; i < _h_Wp_eta->numBins(); ++i) {
-	  YODA::HistoBin1D& bp = _h_Wp_eta->bin(i);
-	  YODA::HistoBin1D& bm = _h_Wm_eta->bin(i);
-	  const double sum  = bp.height() + bm.height();
-	  //const double xerr = 0.5 * bp.xWidth();
-	  double val = 0., yerr = 0.;
+        for (size_t i = 0; i < _h_Wp_eta->numBins(); ++i) {
+          const auto& bp = _h_Wp_eta->bin(i);
+          const auto& bm = _h_Wm_eta->bin(i);
+          const double sum  = bp.height() + bm.height();
+          //const double xerr = 0.5 * bp.xWidth();
+          double val = 0., yerr = 0.;
 
-	  if (sum) {
-	    const double pos2  = bp.height() * bp.height();
-	    const double min2  = bm.height() * bm.height();
-	    const double errp2 = bp.heightErr() * bp.heightErr();
-	    const double errm2 = bm.heightErr() * bm.heightErr();
-	    val = (bp.height() - bm.height()) / sum;
-	    yerr = 2. * sqrt(errm2 * pos2 + errp2 * min2) / (sum * sum);
-	  }
-	  _h_W_asym->addPoint(bp.midpoint(), val, 0.5*bp.xWidth(), yerr);
-	}
+          if (sum) {
+            const double pos2  = bp.height() * bp.height();
+            const double min2  = bm.height() * bm.height();
+            const double errp2 = bp.heightErr() * bp.heightErr();
+            const double errm2 = bm.heightErr() * bm.heightErr();
+            val = (bp.height() - bm.height()) / sum;
+            yerr = 2. * sqrt(errm2 * pos2 + errp2 * min2) / (sum * sum);
+          }
+          _h_W_asym->addPoint(bp.xMid(), val, 0.5*bp.xWidth(), yerr);
+        }
       }
 
       ///  Normalise, scale and otherwise manipulate histograms here
@@ -192,16 +192,16 @@ namespace Rivet {
       const double sf = lfac * 0.5 * crossSection() /picobarn / sumOfWeights(); // 0.5 accounts for rapidity bin width
 
       if (_runW){
-	scale(_h_Wp_eta, sf);
-	scale(_h_Wm_eta, sf);
+        scale(_h_Wp_eta, sf);
+        scale(_h_Wm_eta, sf);
       }
 
       if (_runZ){
-	scale(_h_Zcenlow_y_dressed, sf);
-	scale(_h_Zcenpeak_y_dressed, sf);
-	scale(_h_Zcenhigh_y_dressed, sf);
-	scale(_h_Zfwdpeak_y_dressed, sf);
-	scale(_h_Zfwdhigh_y_dressed, sf);
+        scale(_h_Zcenlow_y_dressed, sf);
+        scale(_h_Zcenpeak_y_dressed, sf);
+        scale(_h_Zcenhigh_y_dressed, sf);
+        scale(_h_Zfwdpeak_y_dressed, sf);
+        scale(_h_Zfwdhigh_y_dressed, sf);
       }
     }
 

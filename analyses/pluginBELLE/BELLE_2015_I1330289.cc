@@ -97,7 +97,7 @@ namespace Rivet {
       scale(_h_spectrum, 1e6/_nBottom->sumW());
       // multiply by the bin width
       for (size_t ix = 0; ix < _h_spectrum->numBins(); ++ix) {
-        _h_spectrum->bins()[ix].scaleW(_h_spectrum->bins()[ix].xWidth());
+        _h_spectrum->bin(ix).scaleW(_h_spectrum->bin(ix).xWidth());
       }
     }
 

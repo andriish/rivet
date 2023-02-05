@@ -88,11 +88,11 @@ namespace Rivet {
       if(hist->numEntries()==0.) return make_pair(0.,0.);
       double sum1(0.),sum2(0.);
       for (auto bin : hist->bins() ) {
-	double Oi = bin.area();
+	double Oi = bin.volume();
 	if(Oi==0.) continue;
 	double ai = 0.125*( -bin.xMin()*(3.+sqr(bin.xMin())) + bin.xMax()*(3.+sqr(bin.xMax())));
 	double bi = 0.375*( -bin.xMin()*(1.-sqr(bin.xMin())) + bin.xMax()*(1.-sqr(bin.xMax())));
-	double Ei = bin.areaErr();
+	double Ei = bin.volumeErr();
 	sum1 += sqr(bi/Ei);
 	sum2 += bi/sqr(Ei)*(Oi-ai);
       }

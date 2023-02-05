@@ -159,8 +159,7 @@ namespace Rivet {
           double Nev = dbl(*_Nevt_after_cuts_Q[iQ]) ;
           // cout << " Nev " << Nev << " " << iQ << endl;
           if (Nev != 0) scale(histo, 1./Nev);
-          vector<YODA::HistoBin1D>& bins = histo -> bins();
-          for (auto & b : bins) b.scaleW(b.xWidth());
+          for (auto & b : histo->bins()) b.scaleW(b.xWidth());
           ++iQ;
       }
       
@@ -169,8 +168,7 @@ namespace Rivet {
           double Nev = dbl(*_Nevt_after_cuts_Q[iQ]) ;
           //cout << " Nev " << Nev << " " << iQ << endl;
           if (Nev != 0) scale(histo, 1./Nev);
-          vector<YODA::HistoBin1D>& bins = histo -> bins();
-          for (auto & b : bins) b.scaleW(b.xWidth());
+          for (auto & b : histo->bins()) b.scaleW(b.xWidth());
           ++iQ;
       }
       
@@ -179,8 +177,7 @@ namespace Rivet {
           double Nev = dbl(*_Nevt_after_cuts_Q[iQ]) ;
           // cout << " Nev " << Nev << " " << iQ << endl;
           if (Nev != 0) scale(histo, 1./Nev);
-          vector<YODA::HistoBin1D>& bins = histo -> bins();
-          for (auto & b : bins) b.scaleW(b.xWidth());
+          for (auto & b : histo->bins()) b.scaleW(b.xWidth());
           ++iQ;
       }
       
@@ -189,8 +186,7 @@ namespace Rivet {
           double Nev = dbl(*_Nevt_after_cuts_Q[iQ]) ;
           // cout << " Nev " << Nev << " " << iQ << endl;
           if (Nev != 0) scale(histo, 1./Nev);
-          vector<YODA::HistoBin1D>& bins = histo -> bins();
-          for (auto & b : bins) b.scaleW(b.xWidth());
+          for (auto & b : histo->bins()) b.scaleW(b.xWidth());
           ++iQ;
       }
 

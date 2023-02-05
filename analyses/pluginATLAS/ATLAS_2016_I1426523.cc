@@ -400,8 +400,8 @@ namespace Rivet {
     void makeScatterWithoutDividingByBinwidth(const string& tag) {
       vector<Point2D> points;
       //size_t nBins = _dummy->numBins();
-      for (const HistoBin1D &bin : _h[tag]->bins()) {
-        double  x = bin.midpoint();
+      for (const auto& bin : _h[tag]->bins()) {
+        double  x = bin.xMid();
         double  y = bin.sumW();
         double ex = bin.xWidth()/2;
         double ey = sqrt(bin.sumW2());

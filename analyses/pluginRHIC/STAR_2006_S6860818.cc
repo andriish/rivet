@@ -144,7 +144,7 @@ namespace Rivet {
       divide(_h_pT_lambdabar,_h_pT_lambda, _h_lambar_lam);
       divide(_h_pT_xiplus,_h_pT_ximinus, _h_xiplus_ximinus);
 
-      const YODA::Scatter1D factor = (1./(2.0 * M_PI)) / *_sumWeightSelected;
+      const YODA::Scatter1D factor = ((1./(2.0 * M_PI)) / *_sumWeightSelected).mkScatter();
       scale(_h_pT_k0s,       factor);
       scale(_h_pT_kminus,    factor);
       scale(_h_pT_kplus,     factor);

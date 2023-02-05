@@ -131,13 +131,13 @@ namespace Rivet {
       }
       if (isCompatibleWithSqrtS(900*GeV)) {
         // NB. Ref data is normalised to a fixed value not reproducible from MC.
-        const double scale08 =  (_hist_Esigd3p08->bin(0).area() > 0) ?
+        const double scale08 =  (_hist_Esigd3p08->bin(0).volume() > 0) ?
           0.933e5/_hist_Esigd3p08->bin(0).height() : 0;
         scale(_hist_Esigd3p08, scale08);
-        const double scale40 = (_hist_Esigd3p40->bin(0).area() > 0) ?
+        const double scale40 = (_hist_Esigd3p40->bin(0).volume() > 0) ?
           1.369e5/_hist_Esigd3p40->bin(0).height() : 0;
         scale(_hist_Esigd3p40, scale40);
-        const double scale80 = (_hist_Esigd3p80->bin(0).area() > 0) ?
+        const double scale80 = (_hist_Esigd3p80->bin(0).volume() > 0) ?
           1.657e5/_hist_Esigd3p80->bin(0).height() : 0;
         scale(_hist_Esigd3p80, scale80);
       }

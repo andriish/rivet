@@ -26,7 +26,7 @@ namespace Rivet {
       declare(tracks, "tracks");
 
       // Set up the histograms (each element is a binning in jet pT)
-      for (size_t i = 0; i < 10; i++) {
+      for (size_t i = 0; i < 10; ++i) {
         book(_p_F_z[i]    , i+ 1, 1, 1);
         book(_p_rho_r[i]  , i+11, 1, 1);
         book(_p_f_pTrel[i], i+21, 1, 1);
@@ -48,8 +48,9 @@ namespace Rivet {
         if (n_jets == 0) continue;
 
         // First... count the tracks
-        Histo1D h_ntracks_z(*_p_F_z[i]), h_ntracks_r(*_p_rho_r[i]), h_ntracks_pTrel(*_p_f_pTrel[i]);
-
+        Histo1D h_ntracks_z(_p_F_z[i]->binning()),
+                h_ntracks_r(_p_rho_r[i]->binning()),
+                h_ntracks_pTrel(_p_f_pTrel[i]->binning());
         for (const Jet& j : jets) {
           for (const Particle& p : tracks) {
             const double dr = deltaR(j, p, RAPIDITY);
@@ -61,11 +62,11 @@ namespace Rivet {
         }
 
         // Then... calculate the observable and fill the profiles
-        for (const HistoBin1D& b : h_ntracks_z.bins())
+        for (const auto& b : h_ntracks_z.bins())
           _p_F_z[i]->fill(b.xMid(), b.height());
-        for (const HistoBin1D& b : h_ntracks_r.bins())
-          _p_rho_r[i]->fill(b.xMid(), b.area()/annulus_area(b.xMin(), b.xMax()));
-        for (const HistoBin1D& b : h_ntracks_pTrel.bins())
+        for (const auto& b : h_ntracks_r.bins())
+          _p_rho_r[i]->fill(b.xMid(), b.volume()/annulus_area(b.xMin(), b.xMax()));
+        for (const auto& b : h_ntracks_pTrel.bins())
           _p_f_pTrel[i]->fill(b.xMid(), b.height());
 
       }

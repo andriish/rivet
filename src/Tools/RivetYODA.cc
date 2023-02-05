@@ -113,24 +113,6 @@ namespace {
   using Rivet::Fills;
   using Rivet::TupleWrapper;
 
-  template <class T>
-  typename T::BinType
-  fillT2binT(typename T::FillType a) {
-    return a;
-  }
-
-  template <>
-  YODA::Profile1D::BinType
-  fillT2binT<YODA::Profile1D>(YODA::Profile1D::FillType a) {
-    return get<0>(a);
-  }
-
-  template <>
-  YODA::Profile2D::BinType
-  fillT2binT<YODA::Profile2D>(YODA::Profile2D::FillType a) {
-    return YODA::Profile2D::BinType{ get<0>(a), get<1>(a) };
-  }
-
   struct SmearWindows1D {
 
     template <class T>
@@ -150,7 +132,7 @@ namespace {
       const int iblast = h.bins().size() - 1;
 
       for ( int i = 0; i < nf; ++i ) {
-        const double x = fillT2binT<T>(fills[i].first);
+        const double x = get<0>(fills[i].first);
         int ib = h.binIndexAt(x);
         if ( x >= xmax ) {
           if ( x > xmax ) ++over;
@@ -167,13 +149,13 @@ namespace {
           if ( ib != 0 ) --ibn;
         }
 
-        const double ibw = h.bin(ib).width() < h.bin(ibn).width()? ib: ibn;
+        const double ibw = h.bin(ib).xWidth() < h.bin(ibn).xWidth()? ib: ibn;
         if ( fsmear > 0.0 ) {
-          const double xdel = fsmear*h.bin(ibw).width()/2.0;
+          const double xdel = fsmear*h.bin(ibw).xWidth()/2.0;
           xhi[i] = x + xdel;
           xlo[i] = x - xdel;
         } else {
-          const double xdel = h.bin(ibw).width()/2.0;
+          const double xdel = h.bin(ibw).xWidth()/2.0;
           if ( x > xmax ) {
             xhi[i] = max(xmax + 2.0*xdel, x + xdel);
             xlo[i] = max(xmax, x - xdel);
@@ -295,7 +277,7 @@ namespace {
         hfill.push_back( make_tuple( (ehi + elo)/2.0, sumw/ffrac, ffrac*wfrac ) );
       }
 
-      for (auto f : hfill) {
+      for (auto&& f : hfill) {
         for ( size_t m = 0; m < persistent.size(); ++m ) {
           persistent[m]->fill( get<0>(f), get<1>(f)[m], get<2>(f) );
           // Note the scaling to one single fill
@@ -322,7 +304,7 @@ namespace {
       for ( const auto & xi : x ) {
         // TODO check for NOFILL here
         // persistent[0] has the same binning as all the other persistent objects
-        double window = get_window_size<T>(persistent[0], fillT2binT<T>(xi.first));
+        double window = get_window_size<T>(persistent[0], get<0>(xi.first));
         if ( window > maxwindow )
           maxwindow = window;
       }
@@ -332,8 +314,8 @@ namespace {
       set<double> edgeset;
       // bin edges need to be in here!
       for ( const auto & xi : x ) {
-        edgeset.insert(fillT2binT<T>(xi.first) - wsize);
-        edgeset.insert(fillT2binT<T>(xi.first) + wsize);
+        edgeset.insert(get<0>(xi.first) - wsize);
+        edgeset.insert(get<0>(xi.first) + wsize);
       }
 
       vector< std::tuple<double,valarray<double>,double> > hfill;
@@ -348,9 +330,9 @@ namespace {
         bool gap = true; // Check for gaps between the sub-windows.
         for ( size_t i = 0; i < x.size(); ++i  ) {
           // check equals comparisons here!
-          if ( fillT2binT<T>(x[i].first) + wsize >= ehi
+          if ( get<0>(x[i].first) + wsize >= ehi
                &&
-               fillT2binT<T>(x[i].first) - wsize <= elo ) {
+               get<0>(x[i].first) - wsize <= elo ) {
             sumw += x[i].second * weights[i];
             gap = false;
             ++nfill;
@@ -404,10 +386,19 @@ namespace {
   }
 
   template <>
+  double distance<tuple<double>>(tuple<double> a, tuple<double> b) {
+    return abs(get<0>(a) - get<0>(b));
+  }
+
+  template <>
   double distance<tuple<double,double> >(tuple<double,double> a, tuple<double,double> b) {
     return Rivet::sqr(get<0>(a) - get<0>(b)) + Rivet::sqr(get<1>(a) - get<1>(b));
   }
 
+  template <>
+  double distance<tuple<double,double,double> >(tuple<double,double,double> a, tuple<double,double,double> b) {
+    return Rivet::sqr(get<0>(a) - get<0>(b)) + Rivet::sqr(get<1>(a) - get<1>(b));
+  }
 }
 
 
@@ -478,11 +469,11 @@ namespace {
         if ( subev[i] == NOFILL ) continue;
         size_t j = i;
         while ( j + 1 < maxfill && subev[j + 1] == NOFILL &&
-                distance(fillT2binT<T>(subev[j].first),
-                         fillT2binT<T>(full[j].first))
+                distance(subev[j].first,
+                         full[j].first)
                 >
-                distance(fillT2binT<T>(subev[j].first),
-                         fillT2binT<T>(full[j + 1].first)) )
+                distance(subev[j].first,
+                         full[j + 1].first) )
           {
             swap(subev[j], subev[j + 1]);
             ++j;
@@ -514,9 +505,9 @@ namespace Rivet {
     if (!have_subevents) {
 
       // Simple replay of all tuple entries: each recorded fill is inserted into all persistent weightname histos
-      for (const auto& f : _evgroup[0]->fills()) {
+      for (auto f : _evgroup[0]->fills()) {
         for (size_t m = 0; m < _persistent.size(); ++m) { //< m is the variation index
-          _persistent[m]->fill( f.first, f.second * weight[0][m] );
+          _persistent[m]->fill( std::move(f.first), std::move(f.second) * weight[0][m] );
         }
       }
 
@@ -545,8 +536,7 @@ namespace Rivet {
 
 
   template <>
-  void Wrapper<YODA::Counter>::pushToPersistent(const vector<valarray<double> >& weight,
-                   double) {
+  void Wrapper<YODA::Counter>::pushToPersistent(const vector<valarray<double>>& weight, double) {
 
     // Have we had subevents at all?
     const bool have_subevents = _evgroup.size() > 1;

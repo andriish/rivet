@@ -97,8 +97,8 @@ namespace Rivet {
         double y  = 0; // This is to protect against exceptions
         double ey = 0; // thrown by YODA when calling mean and
         if (ph_i->bin(1).effNumEntries() > 1) { // stdErr at
-          y = 1.0 - ph_i->bin(1).mean();        // low stats
-          ey= ph_i->bin(1).stdErr();
+          y = 1.0 - ph_i->bin(1).yMean();        // low stats
+          ey= ph_i->bin(1).yStdErr();
         }
         _h_OneMinusPsi_vs_pT->addPoint(x, y, ex, ey);
       }

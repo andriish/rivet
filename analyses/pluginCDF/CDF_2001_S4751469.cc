@@ -73,6 +73,14 @@ namespace Rivet {
       book(_sumWeightsPtLead2, "sumWeightsPtLead2");
       book(_sumWeightsPtLead5, "sumWeightsPtLead5");
       book(_sumWeightsPtLead30, "sumWeightsPtLead30");
+
+      book(_htmp_num_dphi_2, "/TMP/_num_dphi_2", refData(1, 1, 1));
+      book(_htmp_num_dphi_5, "/TMP/_num_dphi_5", refData(1, 1, 2));
+      book(_htmp_num_dphi_30, "/TMP/_num_dphi_30", refData(1, 1, 3));
+      book(_htmp_pt_dphi_2, "/TMP/_pt_dphi_2", refData(2, 1, 1));
+      book(_htmp_pt_dphi_5, "/TMP/_pt_dphi_5", refData(2, 1, 2));
+      book(_htmp_pt_dphi_30, "/TMP/_pt_dphi_30", refData(2, 1, 3));
+
     }
 
 
@@ -100,10 +108,6 @@ namespace Rivet {
       // Run over tracks
       double ptSumToward(0.0), ptSumAway(0.0), ptSumTrans(0.0);
       size_t numToward(0), numTrans(0), numAway(0);
-
-      // Temporary histos that bin N and pT in dphi
-      Profile1D htmp_num_dphi_2(refData(1, 1, 1)), htmp_num_dphi_5(refData(1, 1, 2)), htmp_num_dphi_30(refData(1, 1, 3));
-      Profile1D htmp_pt_dphi_2(refData(2, 1, 1)), htmp_pt_dphi_5(refData(2, 1, 2)), htmp_pt_dphi_30(refData(2, 1, 3));
 
       // Final state charged particles
       /// @todo Non-trackjet track efficiencies are corrected?
@@ -141,39 +145,39 @@ namespace Rivet {
         // Fill tmp histos to bin event's track Nch & pT in dphi
         const double dPhideg = 180*dPhi/M_PI;
         if (ptLead/GeV > 2.0) {
-          htmp_num_dphi_2.fill(dPhideg, 1);
-          htmp_pt_dphi_2.fill (dPhideg, pT/GeV);
+          _htmp_num_dphi_2->fill(dPhideg, 1);
+          _htmp_pt_dphi_2->fill (dPhideg, pT/GeV);
         }
         if (ptLead/GeV > 5.0) {
-          htmp_num_dphi_5.fill(dPhideg, 1);
-          htmp_pt_dphi_5.fill (dPhideg, pT/GeV);
+          _htmp_num_dphi_5->fill(dPhideg, 1);
+          _htmp_pt_dphi_5->fill (dPhideg, pT/GeV);
         }
         if (ptLead/GeV > 30.0) {
-          htmp_num_dphi_30.fill(dPhideg, 1);
-          htmp_pt_dphi_30.fill (dPhideg, pT/GeV);
+          _htmp_num_dphi_30->fill(dPhideg, 1);
+          _htmp_pt_dphi_30->fill (dPhideg, pT/GeV);
         }
       }
 
       // Update the "proper" dphi profile histograms
       for (int i = 0; i < 50; i++) { ///< @todo Should really explicitly iterate over nbins for each temp histo
         if (ptLead/GeV > 2.0) {
-          const double x2 = htmp_pt_dphi_2.bin(i).xMid();
-          const double num2 = (htmp_num_dphi_2.bin(i).numEntries() > 0) ? htmp_num_dphi_2.bin(i).mean() : 0.0;
-          const double pt2 = (htmp_num_dphi_2.bin(i).numEntries() > 0) ? htmp_pt_dphi_2.bin(i).mean() : 0.0;
+          const double x2 = _htmp_pt_dphi_2->bin(i).xMid();
+          const double num2 = (_htmp_num_dphi_2->bin(i).numEntries() > 0) ? _htmp_num_dphi_2->bin(i).yMean() : 0.0;
+          const double pt2 = (_htmp_num_dphi_2->bin(i).numEntries() > 0) ? _htmp_pt_dphi_2->bin(i).yMean() : 0.0;
           _numvsDeltaPhi2->fill(x2, num2);
           _pTvsDeltaPhi2->fill(x2, pt2);
         }
         if (ptLead/GeV > 5.0) {
-          const double x5 = htmp_pt_dphi_5.bin(i).xMid();
-          const double num5 = (htmp_num_dphi_5.bin(i).numEntries() > 0) ? htmp_num_dphi_5.bin(i).mean() : 0.0;
-          const double pt5 = (htmp_num_dphi_5.bin(i).numEntries() > 0) ? htmp_pt_dphi_5.bin(i).mean() : 0.0;
+          const double x5 = _htmp_pt_dphi_5->bin(i).xMid();
+          const double num5 = (_htmp_num_dphi_5->bin(i).numEntries() > 0) ? _htmp_num_dphi_5->bin(i).yMean() : 0.0;
+          const double pt5 = (_htmp_num_dphi_5->bin(i).numEntries() > 0) ? _htmp_pt_dphi_5->bin(i).yMean() : 0.0;
           _numvsDeltaPhi5->fill(x5, num5);
           _pTvsDeltaPhi5->fill(x5, pt5);
         }
         if (ptLead/GeV > 30.0) {
-          const double x30 = htmp_pt_dphi_30.bin(i).xMid();
-          const double num30 = (htmp_num_dphi_30.bin(i).numEntries() > 0) ? htmp_num_dphi_30.bin(i).mean() : 0.0;
-          const double pt30 = (htmp_num_dphi_30.bin(i).numEntries() > 0) ? htmp_pt_dphi_30.bin(i).mean() : 0.0;
+          const double x30 = _htmp_pt_dphi_30->bin(i).xMid();
+          const double num30 = (_htmp_num_dphi_30->bin(i).numEntries() > 0) ? _htmp_num_dphi_30->bin(i).yMean() : 0.0;
+          const double pt30 = (_htmp_num_dphi_30->bin(i).numEntries() > 0) ? _htmp_pt_dphi_30->bin(i).yMean() : 0.0;
           _numvsDeltaPhi30->fill(x30, num30);
           _pTvsDeltaPhi30->fill(x30, pt30);
         }
@@ -248,6 +252,11 @@ namespace Rivet {
 
     /// Histogram of \f$ p_T \f$ distribution for 3 different \f$ p_{T1} \f$ IR cutoffs.
     Histo1DPtr _ptTrans2, _ptTrans5, _ptTrans30;
+
+    // Temporary histos that bin N and pT in dphi
+    Profile1DPtr _htmp_num_dphi_2, _htmp_num_dphi_5, _htmp_num_dphi_30;
+    Profile1DPtr _htmp_pt_dphi_2, _htmp_pt_dphi_5, _htmp_pt_dphi_30;
+
     /// @}
 
   };

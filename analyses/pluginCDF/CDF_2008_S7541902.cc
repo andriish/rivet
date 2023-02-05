@@ -116,21 +116,21 @@ namespace Rivet {
       // Fill the 0th ratio histogram specially
       /// @todo This special case for 1-to-0 will disappear if we use Counters for all mults including 0.
       if (_sumW->val() > 0) {
-        const YODA::Histo1D::Bin& b0 = _histJetMult[0]->bin(0);
-        double ratio = b0.area()/dbl(*_sumW);
+        const auto& b0 = _histJetMult[0]->bin(0);
+        double ratio = b0.volume()/dbl(*_sumW);
         double frac_err = 1/dbl(*_sumW); ///< This 1/sqrt{N} error treatment isn't right for weighted events: use YODA::Counter
-        if (b0.area() > 0) frac_err = sqrt( sqr(frac_err) + sqr(b0.areaErr()/b0.area()) );
+        if (b0.volume() > 0) frac_err = sqrt( sqr(frac_err) + sqr(b0.volumeErr()/b0.volume()) );
         _histJetMultRatio[0]->point(0).setY(ratio, ratio*frac_err);
       }
 
       // Loop over the non-zero multiplicities
       for (size_t i = 0; i < 3; ++i) {
-        const YODA::Histo1D::Bin& b1 = _histJetMult[i]->bin(0);
-        const YODA::Histo1D::Bin& b2 = _histJetMult[i+1]->bin(0);
-        if (b1.area() == 0.0) continue;
-        double ratio = b2.area()/b1.area();
-        double frac_err = b1.areaErr()/b1.area();
-        if (b2.area() > 0) frac_err = sqrt( sqr(frac_err) + sqr(b2.areaErr()/b2.area()) );
+        const auto& b1 = _histJetMult[i]->bin(0);
+        const auto& b2 = _histJetMult[i+1]->bin(0);
+        if (b1.volume() == 0.0) continue;
+        double ratio = b2.volume()/b1.volume();
+        double frac_err = b1.volumeErr()/b1.volume();
+        if (b2.volume() > 0) frac_err = sqrt( sqr(frac_err) + sqr(b2.volumeErr()/b2.volume()) );
         _histJetMultRatio[i+1]->point(0).setY(ratio, ratio*frac_err);
       }
 

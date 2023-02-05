@@ -946,6 +946,8 @@ namespace Rivet {
 
       CounterAdapter(const YODA::Counter & c) : x_(c.val()) {}
 
+      CounterAdapter(const YODA::Estimate & e) : x_(e.val()) {}
+
       CounterAdapter(const YODA::Scatter1D & s) : x_(s.points()[0].x()) {
         assert( s.numPoints() == 1 || "Can only scale by a single value.");
       }
@@ -960,9 +962,10 @@ namespace Rivet {
 
   public:
 
-    double dbl(double          x) { return x; }
-    double dbl(const YODA::Counter   & c) { return c.val(); }
-    double dbl(const YODA::Scatter1D & s) {
+    double dbl(double x) { return x; }
+    double dbl(const YODA::Counter& c) { return c.val(); }
+    double dbl(const YODA::PointEstimate& e) { return e.val(); }
+    double dbl(const YODA::Scatter1D& s) {
       assert( s.numPoints() == 1 );
       return s.points()[0].x();
     }

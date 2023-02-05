@@ -67,7 +67,7 @@ namespace Rivet {
       	scale(_h_charged, crossSection()/ sumOfWeights() /microbarn*sqr(sqrtS()));
       }
       // R
-      Scatter1D R = *_c_hadrons/ *_c_muons;
+      Scatter1D R = (*_c_hadrons/ *_c_muons).mkScatter();
       double              rval = R.point(0).x();
       pair<double,double> rerr = R.point(0).xErrs();
       double fact = crossSection()/ sumOfWeights() /nanobarn;

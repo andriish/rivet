@@ -127,11 +127,11 @@ namespace Rivet {
       if(hist->numEntries()==0.) return make_pair(0.,0.);
       double sum1(0.),sum2(0.);
       for (auto bin : hist->bins() ) {
-	double Oi = bin.area();
+	double Oi = bin.volume();
 	if(Oi==0.) continue;
 	double ai = 0.5*(bin.xMax()-bin.xMin());
 	double bi = 0.5*ai*(bin.xMax()+bin.xMin());
-	double Ei = bin.areaErr();
+	double Ei = bin.volumeErr();
 	sum1 += sqr(bi/Ei);
 	sum2 += bi/sqr(Ei)*(Oi-ai);
       }
@@ -153,7 +153,7 @@ namespace Rivet {
       pair<double,double> alpha;
       alpha.first  = (alpha_pi.first*sqr(alpha_rho.second)+alpha_rho.first*sqr(alpha_pi.second))/(sqr(alpha_pi.second)+sqr(alpha_rho.second));
       alpha.second = alpha_pi.second*alpha_rho.second/sqrt(sqr(alpha_pi.second)+sqr(alpha_rho.second));
-      _h_alpha->addPoint(0.5,alpha.first, make_pair(0.5,0.5), make_pair(alpha.second,alpha.second) );
+      _h_alpha->addPoint({0.5,alpha.first}, {make_pair(0.5,0.5), make_pair(alpha.second,alpha.second)});
 
     }
 

@@ -36,18 +36,17 @@ namespace Rivet {
       double sum = calhist.sumW();
 
       if ( increasing ) {
-        double acc = calhist.underflow().sumW();
-        _table.insert(make_pair(calhist.bin(0).xEdges().first, 100.0*acc/sum));
-        for ( int i = 0; i < N; ++i ) {
+        double acc = 0.0;
+        for (int i = 0; i <= N; ++i) {
           acc += calhist.bin(i).sumW();
-          _table.insert(make_pair(calhist.bin(i).xEdges().second, 100.0*acc/sum));
+          _table.insert(make_pair(calhist.bin(i).xMax(), 100.0*acc/sum));
         }
-      } else {
-        double acc = calhist.overflow().sumW();
-        _table.insert(make_pair(calhist.bin(N - 1).xEdges().second, 100.0*acc/sum));
-        for ( int i = N - 1; i >= 0; --i ) {
+      }
+      else {
+        double acc = 0.0;
+        for (int i = N; i > 0; --i) {
           acc += calhist.bin(i).sumW();
-          _table.insert(make_pair(calhist.bin(i).xEdges().first, 100.0*acc/sum));
+          _table.insert(make_pair(calhist.bin(i).xMin(), 100.0*acc/sum));
         }
       }
       if (getLog().isActive(Log::DEBUG)) {

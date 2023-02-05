@@ -141,11 +141,11 @@ namespace Rivet {
       if(hist->numEntries()==0.) return make_pair(0.,make_pair(0.,0.));
       double sum1(0.),sum2(0.),sum3(0.),sum4(0.),sum5(0.);
       for (auto bin : hist->bins() ) {
-       	double Oi = bin.area();
+       	double Oi = bin.volume();
 	if(Oi==0.) continue;
 	double a =  1.5*(bin.xMax() - bin.xMin());
 	double b = 0.5*(pow(bin.xMax(),3) - pow(bin.xMin(),3));
-       	double Ei = bin.areaErr();
+       	double Ei = bin.volumeErr();
 	sum1 +=   a*Oi/sqr(Ei);
 	sum2 +=   b*Oi/sqr(Ei);
 	sum3 += sqr(a)/sqr(Ei);
@@ -191,12 +191,10 @@ namespace Rivet {
       	pair<double,pair<double,double> > alpha = calcAlpha(_h_cThetaStar.histos()[ix]);
       	double centre = 0.5*(bins[ix+1]+bins[ix]);
       	double width  = 0.5*(bins[ix+1]-bins[ix]);
-      	_h_A->addPoint(centre, alpha.first, make_pair(width,width),
-      		       make_pair(alpha.second.first,alpha.second.second) );
+      	_h_A->addPoint({centre, alpha.first}, {{width,width}, {alpha.second.first,alpha.second.second}} );
       	normalize(_h_cThetaH.histos()[ix]);
       	alpha = calcAlpha(_h_cThetaH.histos()[ix]);
-      	_h_alpha->addPoint(centre, alpha.first, make_pair(width,width),
-      			   make_pair(alpha.second.first,alpha.second.second) );
+      	_h_alpha->addPoint({centre, alpha.first}, {{width,width}, {alpha.second.first,alpha.second.second}} );
       }
       double centre1 = 0.5*(bins[2]+bins[0]);
       double width1  = 0.5*(bins[2]-bins[0]);
@@ -215,13 +213,11 @@ namespace Rivet {
       normalize(_h_cH_low);
       alpha = calcAlpha(_h_cH_low);
       book(_h_alpha,2,2,2);
-      _h_alpha->addPoint(centre1, alpha.first, make_pair(width1,width1),
-      		     make_pair(alpha.second.first,alpha.second.second) );
+      _h_alpha->addPoint({centre1, alpha.first}, {{width1,width1}, {alpha.second.first,alpha.second.second}} );
       normalize(_h_cH_high);
       alpha = calcAlpha(_h_cH_high);
       book(_h_alpha,2,3,2);
-      _h_alpha->addPoint(centre2, alpha.first, make_pair(width2,width2),
-      			 make_pair(alpha.second.first,alpha.second.second) );
+      _h_alpha->addPoint({centre2, alpha.first}, {{width2,width2}, {alpha.second.first,alpha.second.second}} );
     }
 
     /// @}

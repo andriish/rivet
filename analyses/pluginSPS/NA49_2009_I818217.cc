@@ -47,12 +47,10 @@ namespace Rivet {
 
     void finalize() {
       scale(_h_dndxf, 1./ *_c_ninel);   // Scale by the number of inelastic events
-      vector<YODA::HistoBin1D>& bins = _h_dndxf -> bins(); // Get histogram bins
-      for (auto b : bins) b.scaleW(1./b.xWidth());  // Scale by the bin width (dxF)
+      for (auto& b : _h_dndxf->bins()) b.scaleW(1./b.xWidth());  // Scale by the bin width (dxF)
 
       scale(_h_dndy, 1./ *_c_ninel);
-      vector<YODA::HistoBin1D>& binsy = _h_dndy -> bins();
-      for (auto by : binsy) by.scaleW(1./by.xWidth());
+      for (auto& by : _h_dndy->bins()) by.scaleW(1./by.xWidth());
     }
 
   private:

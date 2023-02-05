@@ -251,7 +251,7 @@ namespace Rivet {
           const double bh = _b[tag].histo(njet+3)->bin(nb).xMax();
           const double bc = 0.5*(bh+bl);
           hgap->addPoint(bc, gf, bc-bl, bh-bc, 0., 0.);
-          acc += _b[tag].histo(njet+3)->bin(nb).area();
+          acc += _b[tag].histo(njet+3)->bin(nb).volume();
           gf = acc/total;
         }
       } else  MSG_WARNING("Gap fraction is NaN. Histogram not produced.");

@@ -218,9 +218,9 @@ namespace Rivet {
 	  divide(_h_thrust[itype][1][ibin],
 		 _h_thrust[itype][0][ibin],htemp);
 	  pair<double,double> asym = calcAsymmetry(htemp);
-	  h3_thrust_UL->addPoint(p1.x()    ,p1.y()    ,asym.first,
+	  h3_thrust_UL->addPoint(p1.x(), p1.y(), asym.first,
 				 p1.xErrs(),p1.yErrs(),make_pair(asym.second,asym.second) );
-	  h2_thrust_UL->addPoint(p1.y()    ,asym.first,p1.yErrs(),make_pair(asym.second,asym.second) );
+	  h2_thrust_UL->addPoint(p1.y(),asym.first,p1.yErrs(),make_pair(asym.second,asym.second) );
 	  // opposite/all sign
 	  std::ostringstream title2;
 	  title2 << "/TMP/R_thrust_" << type[itype] << "_UC_" << ibin+1;

@@ -109,11 +109,6 @@ namespace Rivet {
       // Select b-jets as those containing a b-hadron
       Jets bjets = discardIfAnyDeltaRLess(good_jets, bHadrons, 0.3);
 
-      size_t n_k0_all = 0;
-      size_t n_k0_out = 0;
-      size_t n_k0_b = 0;
-      size_t n_k0_j = 0;
-
       size_t n_k0_all_visible = 0;
       size_t n_k0_out_visible = 0;
       size_t n_k0_b_visible = 0;
@@ -124,7 +119,6 @@ namespace Rivet {
       for (const Particle& k : k0FS) {
         if (k.hasStableDescendantWith(Cuts::pid == PID::PIPLUS)) isVisible = true;
 
-        n_k0_all += 1;
         if (isVisible) n_k0_all_visible += 1;
         _h["all_k0_pt"]->fill(k.pT()/GeV);
         _h["all_k0_eta"]->fill(k.abseta());
@@ -145,7 +139,6 @@ namespace Rivet {
 
         // K0s not associated to jets
         if (!isJetAssoc){
-          n_k0_out += 1;
           if(isVisible) n_k0_out_visible += 1;
           _h["out_k0_pt"]->fill(k.pT()/GeV);
           _h["out_k0_eta"]->fill(k.abseta());
@@ -154,7 +147,6 @@ namespace Rivet {
 
         //K0s associated to b-jets
         if(isJetAssoc && isBjet){
-          n_k0_b += 1;
           if(isVisible) n_k0_b_visible += 1;
           _h["b_k0_pt"]->fill(k.pT()/GeV);
           _h["b_k0_eta"]->fill(k.abseta());
@@ -164,7 +156,6 @@ namespace Rivet {
 
         //K0s associated to non b-jets
         if(isJetAssoc && !isBjet){
-          n_k0_j += 1;
           if(isVisible) n_k0_j_visible += 1;
           _h["j_k0_pt"]->fill(k.pT()/GeV);
           _h["j_k0_eta"]->fill(k.abseta());

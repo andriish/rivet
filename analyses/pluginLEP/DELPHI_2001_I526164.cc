@@ -319,11 +319,11 @@ namespace Rivet {
             }
           }
           // charge mult
-          ratios[iw] =  *_n_WW[iw][1]/ *_n_WW[iw][0];
+          ratios[iw] =  (*_n_WW[iw][1]/ *_n_WW[iw][0]).mkScatter();
           // sort out identified particle multiplicities
           if(iloc==0) {
             for(unsigned int iy=2;iy<5;++iy) {
-              Scatter1D R = *_n_WW[iw][iy]/ *_n_WW[iw][0];
+              Scatter1D R = (*_n_WW[iw][iy]/ *_n_WW[iw][0]).mkScatter();
               Scatter2D temphisto(refData(4, 1, 2*(iy-1)-iw));
               Scatter2DPtr mult;
               book(mult, 4, 1,  2*(iy-1)-iw);
@@ -337,7 +337,7 @@ namespace Rivet {
                   mult->addPoint(x, R.point(0).x(), ex, R.point(0).xErrs());
                 }
                 else {
-                  mult->addPoint(x, 0., ex, make_pair(0.,.0));
+                  mult->addPoint({x, 0.}, {ex, {0.,.0}});
                 }
               }
             }
@@ -355,29 +355,29 @@ namespace Rivet {
           else if((iloc==1 && b==2) || (iloc==0 && b==3))
             mult->addPoint(x, ratios[0].point(0).x(), ex, ratios[0].point(0).xErrs());
           else
-            mult->addPoint(x, 0., ex, make_pair(0.,.0));
+            mult->addPoint({x, 0.}, {ex, {0.,.0}});
         }
         // difference histos
         // momentum
-        Scatter2D htemp = mkScatter(*(_h_p_chargedB[0]));
-        htemp.scaleY(2.);
+        YODA::Estimate1D htemp = _h_p_chargedB[0]->mkEstimate();
+        htemp.scale(2.);
         Scatter2DPtr hnew;
         book(hnew,6+2*iloc,1,1);
-        *hnew = YODA::subtract(*(_h_p_chargedB[1]),htemp);
+        *hnew = YODA::subtract(*_h_p_chargedB[1],htemp).mkScatter();
         hnew->setPath("/"+name()+"/"+mkAxisCode(6+2*iloc,1,1));
         // xi
-        Scatter2D htemp2 = mkScatter(*(_h_xi_chargedB[0]));
-        htemp2.scaleY(2.);
+        YODA::Estimate1D htemp2 = _h_xi_chargedB[0]->mkEstimate();
+        htemp2.scale(2.);
         Scatter2DPtr hnew2;
         book(hnew2,9+iloc,1,3);
-        *hnew2 = YODA::subtract(*(_h_xi_chargedB[1]),htemp2);
+        *hnew2 = YODA::subtract(*_h_xi_chargedB[1],htemp2).mkScatter();
         hnew2->setPath("/"+name()+"/"+mkAxisCode(9+iloc,1,3));
         // pt
-        Scatter2D hytemp3 = mkScatter(*(_h_pT_chargedB[0]));
-        hytemp3.scaleY(2.);
+        YODA::Estimate1D hytemp3 = _h_pT_chargedB[0]->mkEstimate();
+        hytemp3.scale(2.);
         Scatter2DPtr hnew3;
         book(hnew3,11+iloc,1,3);
-        *hnew3 = YODA::subtract(*(_h_pT_chargedB[1]),hytemp3);
+        *hnew3 = YODA::subtract(*_h_pT_chargedB[1],hytemp3).mkScatter();
         hnew3->setPath("/"+name()+"/"+mkAxisCode(11+iloc,1,3));
       }
     }

@@ -193,7 +193,7 @@ namespace Rivet {
         double value = 0.;
         if (hist_num_dphi_500.bin(i).numEntries() > 0) {
           mean = hist_num_dphi_500.bin(i).xMean();
-          value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).xWidth()/10.0;
+          value = hist_num_dphi_500.bin(i).volume()/hist_num_dphi_500.bin(i).xWidth()/10.0;
         }
         if (pTlead/GeV >= ptcut[0]) _hist_N_vs_dPhi_1_500->fill(mean, value);
         if (pTlead/GeV >= ptcut[1]) _hist_N_vs_dPhi_2_500->fill(mean, value);
@@ -205,7 +205,7 @@ namespace Rivet {
         value = 0.;
         if (hist_pt_dphi_500.bin(i).numEntries() > 0) {
           mean = hist_pt_dphi_500.bin(i).xMean();
-          value = hist_pt_dphi_500.bin(i).area()/hist_pt_dphi_500.bin(i).xWidth()/10.0;
+          value = hist_pt_dphi_500.bin(i).volume()/hist_pt_dphi_500.bin(i).xWidth()/10.0;
         }
         if (pTlead/GeV >= ptcut[0]) _hist_pT_vs_dPhi_1_500->fill(mean, value);
         if (pTlead/GeV >= ptcut[1]) _hist_pT_vs_dPhi_2_500->fill(mean, value);
@@ -266,7 +266,7 @@ namespace Rivet {
         double var = 0.;
         double sd = 0.;
         if (numentries > 0) {
-          var = moment_profiles[1]->bin(b).mean() - intpow(moment_profiles[0]->bin(b).mean(), 2);
+          var = moment_profiles[1]->bin(b).yMean() - intpow(moment_profiles[0]->bin(b).yMean(), 2);
           sd = fuzzyLessEquals(var,0.) ? 0 : sqrt(var); ///< Numerical safety check
         }
         if (sd == 0 || numentries < 3) {
@@ -276,11 +276,11 @@ namespace Rivet {
           continue;
         }
         // c2(y) = m4(x) - 4 m3(x) m1(x) - m2(x)^2 + 8 m2(x) m1(x)^2 - 4 m1(x)^4
-        const double var_on_var = moment_profiles[3]->bin(b).mean()
-          - 4 * moment_profiles[2]->bin(b).mean() * moment_profiles[0]->bin(b).mean()
-          - intpow(moment_profiles[1]->bin(b).mean(), 2)
-          + 8 * moment_profiles[1]->bin(b).mean() * intpow(moment_profiles[0]->bin(b).mean(), 2)
-          - 4 * intpow(moment_profiles[0]->bin(b).mean(), 4);
+        const double var_on_var = moment_profiles[3]->bin(b).yMean()
+          - 4 * moment_profiles[2]->bin(b).yMean() * moment_profiles[0]->bin(b).yMean()
+          - intpow(moment_profiles[1]->bin(b).yMean(), 2)
+          + 8 * moment_profiles[1]->bin(b).yMean() * intpow(moment_profiles[0]->bin(b).yMean(), 2)
+          - 4 * intpow(moment_profiles[0]->bin(b).yMean(), 4);
         const double stderr_on_var = sqrt(var_on_var/(numentries-2.0));
         const double stderr_on_sd = stderr_on_var / (2.0*sd);
         target_dps->addPoint(x, sd, ex, stderr_on_sd);

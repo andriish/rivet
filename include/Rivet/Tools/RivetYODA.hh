@@ -4,13 +4,9 @@
 #include "Rivet/Config/RivetCommon.hh"
 #include "YODA/AnalysisObject.h"
 #include "YODA/Counter.h"
-#include "YODA/Histo1D.h"
-#include "YODA/Histo2D.h"
-#include "YODA/Profile1D.h"
-#include "YODA/Profile2D.h"
-#include "YODA/Scatter1D.h"
-#include "YODA/Scatter2D.h"
-#include "YODA/Scatter3D.h"
+#include "YODA/Histo.h"
+#include "YODA/Profile.h"
+#include "YODA/Scatter.h"
 #include <map>
 #include <valarray>
 
@@ -118,7 +114,7 @@ namespace Rivet {
     }
 
     /// Empty the subevent stack (for start of new event group).
-    void reset() { _fills.clear(); }
+    void reset() noexcept { _fills.clear(); }
 
     /// Access the fill info subevent stack.
     const Fills<YODA::Histo1D>& fills() const { return _fills; }
@@ -152,7 +148,7 @@ namespace Rivet {
     }
 
     /// Empty the subevent stack (for start of new event group).
-    void reset() { _fills.clear(); }
+    void reset() noexcept { _fills.clear(); }
 
     /// Access the fill info subevent stack.
     const Fills<YODA::Profile1D>& fills() const { return _fills; }
@@ -186,7 +182,7 @@ namespace Rivet {
     }
 
     /// Empty the subevent stack (for start of new event group).
-    void reset() { _fills.clear(); }
+    void reset() noexcept { _fills.clear(); }
 
     /// Access the fill info subevent stack.
     const Fills<YODA::Histo2D>& fills() const { return _fills; }
@@ -221,7 +217,7 @@ namespace Rivet {
     }
 
     /// Empty the subevent stack (for start of new event group).
-    void reset() { _fills.clear(); }
+    void reset() noexcept { _fills.clear(); }
 
     /// Access the fill info subevent stack.
     const Fills<YODA::Profile2D>& fills() const { return _fills; }
@@ -746,13 +742,9 @@ namespace Rivet {
 
   using YODA::Counter;
   using YODA::Histo1D;
-  using YODA::HistoBin1D;
   using YODA::Histo2D;
-  using YODA::HistoBin2D;
   using YODA::Profile1D;
-  using YODA::ProfileBin1D;
   using YODA::Profile2D;
-  using YODA::ProfileBin2D;
   using YODA::Scatter1D;
   using YODA::Point1D;
   using YODA::Scatter2D;
@@ -845,7 +837,7 @@ namespace Rivet {
   /// binned, are in other ways compatible.
   template <typename TPtr>
   inline bool bookingCompatible(TPtr a, TPtr b) {
-    return a->sameBinning(*b);
+    return *a == *b;
   }
   inline bool bookingCompatible(CounterPtr, CounterPtr) {
     return true;

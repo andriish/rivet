@@ -28,9 +28,9 @@ namespace Rivet {
         }
       }
 
-      void addBinned(const string &name, const YODA::HistoBin1D &ptbin, const int nbins, const double lo, const double hi) {
-        string suff = "_" + to_string(int(ptbin.xMin())) + "_" + to_string(int(ptbin.xMax()));
-        { Histo1DPtr tmp; _b[name].add(ptbin.xMin(), ptbin.xMax(), book(tmp, name+suff, nbins, lo, hi)); }
+      void addBinned(const string &name, const std::pair<double,double>& ptbin, const int nbins, const double lo, const double hi) {
+        string suff = "_" + to_string(int(ptbin.first)) + "_" + to_string(int(ptbin.second));
+        { Histo1DPtr tmp; _b[name].add(ptbin.first, ptbin.second, book(tmp, name+suff, nbins, lo, hi)); }
       }
 
       /// Book histograms and initialise projections before the run
@@ -101,25 +101,26 @@ namespace Rivet {
         book(_h["c_jet_l_pT"], "lepton_pT_C_jets", 10, 0., 100.);
 
         // double-differentials
-        ptaxis = YODA::Histo1DAxis({25, 30, 50, 70, 100, 150, 300, 500, 1000});
-        for (size_t i = 0; i < ptaxis.numBins(); ++i) {
-          string suff = to_string(int(ptaxis.bin(i).xMin())) + "_" + to_string(int(ptaxis.bin(i).xMax()));
+        ptaxis = YODA::Axis<double>({25, 30, 50, 70, 100, 150, 300, 500, 1000});
+        for (size_t i = 1; i < ptaxis.size()-1; ++i) {
+          const std::pair<double,double> ptbin = std::make_pair(ptaxis.min(i),ptaxis.max(i));
+          string suff = to_string(int(ptbin.first)) + "_" + to_string(int(ptbin.second));
           book(_p["avg_B_jet_rho_"+to_string(i)], "avg_B_jet_rho_"+suff, 10, 0., 0.4);
           book(_p["avg_C_jet_rho_"+to_string(i)], "avg_C_jet_rho_"+suff, 10, 0., 0.4);
 
-          addBinned("avg_B_jet_ch_mult", ptaxis.bin(i), 40, 0.5, 40.5);
-          addBinned("avg_C_jet_ch_mult", ptaxis.bin(i), 40, 0.5, 40.5);
+          addBinned("avg_B_jet_ch_mult", ptbin, 40, 0.5, 40.5);
+          addBinned("avg_C_jet_ch_mult", ptbin, 40, 0.5, 40.5);
           if (i == 0) {
-            addBinned("avg_B_jet_l_pTrel", ptaxis.bin(i), 2, 0., 4.);
-            addBinned("avg_C_jet_l_pTrel", ptaxis.bin(i), 2, 0., 3.);
+            addBinned("avg_B_jet_l_pTrel", ptbin, 2, 0., 4.);
+            addBinned("avg_C_jet_l_pTrel", ptbin, 2, 0., 3.);
           }
           else if (i <= 2) {
-            addBinned("avg_B_jet_l_pTrel", ptaxis.bin(i), 4, 0., 8.);
-            addBinned("avg_C_jet_l_pTrel", ptaxis.bin(i), 5, 0., 6.);
+            addBinned("avg_B_jet_l_pTrel", ptbin, 4, 0., 8.);
+            addBinned("avg_C_jet_l_pTrel", ptbin, 5, 0., 6.);
           }
           else {
-            addBinned("avg_B_jet_l_pTrel", ptaxis.bin(i), 8, 0., 15.);
-            addBinned("avg_C_jet_l_pTrel", ptaxis.bin(i), 8, 0., 10.);
+            addBinned("avg_B_jet_l_pTrel", ptbin, 8, 0., 15.);
+            addBinned("avg_C_jet_l_pTrel", ptbin, 8, 0., 10.);
           }
         }
       }
@@ -233,8 +234,8 @@ namespace Rivet {
               double psi = p_annulus(thisJet, 0, r_bins[i+1])/p_0_R;
               _p["b_jet_rho"]->fill(r, rho);
               _p["b_jet_psi"]->fill(r, psi);
-              size_t ptb = ptaxis.binIndexAt(thisJet.pT()/GeV); // index in {0, nBins - 1}
-              if (ptb < ptaxis.numBins()) _p["avg_B_jet_rho_"+to_string(ptb)]->fill(r, rho);
+              size_t ptb = ptaxis.index(thisJet.pT()/GeV) - 1; // index in {1, nBins}
+              if (ptb < ptaxis.size() - 2) _p["avg_B_jet_rho_"+to_string(ptb)]->fill(r, rho);
             }
           }
 
@@ -257,8 +258,8 @@ namespace Rivet {
                 double psi = p_annulus(thisJet, 0, r_bins[i+1])/p_0_R;
                 _p["c_jet_rho"]->fill(r, rho);
                 _p["c_jet_psi"]->fill(r, psi);
-                size_t ptb = ptaxis.binIndexAt(thisJet.pT()/GeV); // index in {0, nBins - 1}
-                if (ptb < ptaxis.numBins()) _p["avg_C_jet_rho_"+to_string(ptb)]->fill(r, rho);
+                size_t ptb = ptaxis.index(thisJet.pT()/GeV) - 1; // index in {0, nBins - 1}
+                if (ptb < ptaxis.size() - 2) _p["avg_C_jet_rho_"+to_string(ptb)]->fill(r, rho);
               }
             }
           }
@@ -326,7 +327,7 @@ namespace Rivet {
       map<string, Histo1DPtr> _h;
       map<string, Profile1DPtr> _p;
       map<string, BinnedHistogram> _b;
-      YODA::Histo1DAxis ptaxis;
+      YODA::Axis<double> ptaxis;
 
   };
 

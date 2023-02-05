@@ -34,6 +34,7 @@ namespace Rivet {
       book(_hist_N_vs_dPhi_1_500 ,13+isqrts, 1, 1);
       book(_hist_N_vs_dPhi_2_500 ,13+isqrts, 1, 2);
       book(_hist_N_vs_dPhi_3_500 ,13+isqrts, 1, 3);
+      book(_hist_num_dphi_500, "/TMP/num_dphi_500", refData(13+isqrts,1,1));
     }
 
 
@@ -59,7 +60,6 @@ namespace Rivet {
       vector<double> num500(3, 0), ptSum500(3, 0.0);
       // Temporary histos that bin N in dPhi.
       // NB. Only one of each needed since binnings are the same for the energies and pT cuts
-      Histo1D hist_num_dphi_500(refData(13+isqrts,1,1));
       for (const Particle& p : particles500) {
         const double pT = p.pT();
         const double dPhi = deltaPhi(philead, p.phi());
@@ -69,7 +69,7 @@ namespace Rivet {
 
         // Fill temp histos to bin N in dPhi
         if (p.genParticle() != p_lead.genParticle()) { // We don't want to fill all those zeros from the leading track...
-          hist_num_dphi_500.fill(dPhi, 1);
+          _hist_num_dphi_500->fill(dPhi, 1);
         }
       }
 
@@ -87,11 +87,11 @@ namespace Rivet {
       // |Delta(phi)| and so differ by a factor of 2: we have to actually norm for angular range = 2pi
       const size_t nbins = refData(13+isqrts,1,1).numPoints();
       for (size_t i = 0; i < nbins; ++i) {
-        double mean = hist_num_dphi_500.bin(i).xMid();
+        double mean = _hist_num_dphi_500->bin(i).xMid();
         double value = 0.;
-        if (hist_num_dphi_500.bin(i).numEntries() > 0) {
-          mean = hist_num_dphi_500.bin(i).xMean();
-          value = hist_num_dphi_500.bin(i).area()/hist_num_dphi_500.bin(i).xWidth()/10.0;
+        if (_hist_num_dphi_500->bin(i).numEntries() > 0) {
+          mean = _hist_num_dphi_500->bin(i).xMean();
+          value = _hist_num_dphi_500->bin(i).volume()/_hist_num_dphi_500->bin(i).xWidth()/10.0;
         }
         if (pTlead/GeV >= 1.0) _hist_N_vs_dPhi_1_500->fill(mean, value);
         if (pTlead/GeV >= 2.0) _hist_N_vs_dPhi_2_500->fill(mean, value);
@@ -121,6 +121,8 @@ namespace Rivet {
     Profile1DPtr _hist_N_vs_dPhi_1_500;
     Profile1DPtr _hist_N_vs_dPhi_2_500;
     Profile1DPtr _hist_N_vs_dPhi_3_500;
+
+    Histo1DPtr _hist_num_dphi_500;
 
   };
 

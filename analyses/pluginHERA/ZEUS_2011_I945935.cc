@@ -97,8 +97,8 @@ public:
     /// Normalise histograms etc., after the run
     void finalize() {
         for (size_t offset = 0; offset < 7; offset++) {
-            scale(_h_K0S[offset], 1.0/_h_Q2_tmp->bin(offset).area());
-            scale(_h_LAMBDA[offset], 1.0/_h_Q2_tmp->bin(offset).area());
+            scale(_h_K0S[offset], 1.0/_h_Q2_tmp->bin(offset).volume());
+            scale(_h_LAMBDA[offset], 1.0/_h_Q2_tmp->bin(offset).volume());
         }
     }
     Histo1DPtr _h_K0S[7];

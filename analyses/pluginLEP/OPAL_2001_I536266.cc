@@ -102,9 +102,9 @@ namespace Rivet {
 	  }
 	  else {
 	    Scatter1D temp;
-	    if(iy==1)      temp = *_cUp     / *_cDown;
-	    else if(iy==2) temp = *_cStrange/ *_cDown;
-	    else if(iy==3) temp = *_cStrange/ *_cUp  ;
+	    if(iy==1)      temp = (*_cUp     / *_cDown).mkScatter();
+	    else if(iy==2) temp = (*_cStrange/ *_cDown).mkScatter();
+	    else if(iy==3) temp = (*_cStrange/ *_cUp  ).mkScatter();
 	    val  = temp.points()[0].x();
 	    errs = temp.points()[0].xErrs();
 	  }

@@ -157,11 +157,11 @@ namespace Rivet {
       if(hist->numEntries()==0.) return make_pair(0.,0.);
       double sum1(0.),sum2(0.);
       for (auto bin : hist->bins() ) {
-	double Oi = bin.area();
+	double Oi = bin.volume();
 	if(Oi==0.) continue;
 	double ai = 0.5*(bin.xMax()-bin.xMin());
 	double bi = 0.5*ai*(bin.xMax()+bin.xMin());
-	double Ei = bin.areaErr();
+	double Ei = bin.volumeErr();
 	sum1 += sqr(bi/Ei);
 	sum2 += bi/sqr(Ei)*(Oi-ai);
       }
@@ -176,11 +176,11 @@ namespace Rivet {
 	double xsum=2.*xmin+step;
 	Histo1DPtr h2 = hist.histo(xmin+0.5*step);
 	for (auto bin : h2->bins() ) {
-	  double Oi = bin.area();
+	  double Oi = bin.volume();
 	  if(Oi==0.) continue;
 	  double ai = 0.25*(bin.xMax()-bin.xMin())*step;
 	  double bi = 0.25*ai*(bin.xMax()+bin.xMin())*xsum;
-	  double Ei = bin.areaErr();
+	  double Ei = bin.volumeErr();
 	  sum1 += sqr(bi/Ei);
 	  sum2 += bi/sqr(Ei)*(Oi-ai);
 	}

@@ -208,7 +208,7 @@ namespace Rivet {
         const Point2D& r = rmiss.point(i); // SM Rmiss
         const Point2D& n = numer.point(i); // SM numerator
         const Point2D& d = denom.point(i); // SM denominator
-        const HistoBin1D& b = handler.histo->bin(i); // BSM
+        const auto& b = handler.histo->bin(i); // BSM
         double bsmy;
         try {
           bsmy = b.height();

@@ -290,26 +290,26 @@ namespace Rivet {
 	  const double y_56 = jadejet.clusterSeq()->exclusive_ymerge_max(5);
 	  for (size_t i = 0; i < _h_y_2_JADE->numBins(); ++i) {
 	    double ycut = _h_y_2_JADE->bin(i).xMid();
-	    double width = _h_y_2_JADE->bin(i).width();
+	    double width = _h_y_2_JADE->bin(i).xWidth();
 	    if (y_23 < ycut) _h_y_2_JADE->fillBin(i,width);
 	  }
 	  for (size_t i = 0; i < _h_y_3_JADE->numBins(); ++i) {
 	    double ycut = _h_y_3_JADE->bin(i).xMid();
-	    double width = _h_y_3_JADE->bin(i).width();
+	    double width = _h_y_3_JADE->bin(i).xWidth();
 	    if (y_34 < ycut && y_23 > ycut) {
 	      _h_y_3_JADE->fillBin(i,width);
 	    }
 	  }
 	  for (size_t i = 0; i < _h_y_4_JADE->numBins(); ++i) {
 	    double ycut = _h_y_4_JADE->bin(i).xMid();
-	    double width = _h_y_4_JADE->bin(i).width();
+	    double width = _h_y_4_JADE->bin(i).xWidth();
 	    if (y_45 < ycut && y_34 > ycut) {
 	      _h_y_4_JADE->fillBin(i,width);
 	    }
 	  }
 	  for (size_t i = 0; i < _h_y_5_JADE->numBins(); ++i) {
 	    double ycut = _h_y_5_JADE->bin(i).xMid();
-	    double width = _h_y_5_JADE->bin(i).width();
+	    double width = _h_y_5_JADE->bin(i).xWidth();
 	    if (y_56 < ycut && y_45 > ycut) {
 	      _h_y_5_JADE->fillBin(i,width);
 	    }
@@ -326,26 +326,26 @@ namespace Rivet {
 	  const double y_56 = durhamjet.clusterSeq()->exclusive_ymerge_max(5);
 	  for (size_t i = 0; i < _h_y_2_Durham->numBins(); ++i) {
 	    double ycut = _h_y_2_Durham->bin(i).xMid();
-	    double width = _h_y_2_Durham->bin(i).width();
+	    double width = _h_y_2_Durham->bin(i).xWidth();
 	    if (y_23 < ycut) _h_y_2_Durham->fillBin(i,width);
 	  }
 	  for (size_t i = 0; i < _h_y_3_Durham->numBins(); ++i) {
 	    double ycut = _h_y_3_Durham->bin(i).xMid();
-	    double width = _h_y_3_Durham->bin(i).width();
+	    double width = _h_y_3_Durham->bin(i).xWidth();
 	    if (y_34 < ycut && y_23 > ycut) {
 	      _h_y_3_Durham->fillBin(i,width);
 	    }
 	  }
 	  for (size_t i = 0; i < _h_y_4_Durham->numBins(); ++i) {
 	    double ycut = _h_y_4_Durham->bin(i).xMid();
-	    double width = _h_y_4_Durham->bin(i).width();
+	    double width = _h_y_4_Durham->bin(i).xWidth();
 	    if (y_45 < ycut && y_34 > ycut) {
 	      _h_y_4_Durham->fillBin(i,width);
 	    }
 	  }
 	  for (size_t i = 0; i < _h_y_5_Durham->numBins(); ++i) {
 	    double ycut = _h_y_5_Durham->bin(i).xMid();
-	    double width = _h_y_5_Durham->bin(i).width();
+	    double width = _h_y_5_Durham->bin(i).xWidth();
 	    if (y_56 < ycut && y_45 > ycut) {
 	      _h_y_5_Durham->fillBin(i,width);
 	    }
@@ -362,7 +362,7 @@ namespace Rivet {
 	}
 	for (size_t i = 0; i < _h_y_2_Cambridge->numBins(); ++i) {
 	  double ycut = _h_y_2_Cambridge->bin(i).xMid();
-	  double width = _h_y_2_Cambridge->bin(i).width();
+	  double width = _h_y_2_Cambridge->bin(i).xWidth();
 	  fastjet::EECambridgePlugin plugin(ycut);
 	  fastjet::JetDefinition jdef(&plugin);
 	  fastjet::ClusterSequence cseq(pjs, jdef);
@@ -389,8 +389,8 @@ namespace Rivet {
       for (size_t b = 0; b < temphisto.numPoints(); b++) {
 	const double x  = temphisto.point(b).x();
 	pair<double,double> ex = temphisto.point(b).xErrs();
-	double y    = histo->bins()[b].area();
-	double yerr = histo->bins()[b].areaErr();
+	double y    = histo->bins()[b].volume();
+	double yerr = histo->bins()[b].volumeErr();
 	mult->addPoint(x, y, ex, make_pair(yerr,yerr));
       }
       return mult;

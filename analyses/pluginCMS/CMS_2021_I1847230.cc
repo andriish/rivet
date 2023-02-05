@@ -131,16 +131,16 @@ namespace Rivet {
       }
       if (_mode == 3) {
         for (size_t i = 0; i < _h1->numBins(); i++) {
-          _h1->bin(i).scaleW(_h1->bin(i).width());
+          _h1->bin(i).scaleW(_h1->bin(i).xWidth());
         }
         for (size_t i = 0; i < _h2->numBins(); i++) {
-          _h2->bin(i).scaleW(_h2->bin(i).width());
+          _h2->bin(i).scaleW(_h2->bin(i).xWidth());
         }
         for (size_t i = 0; i < _h3->numBins(); i++) {
-          _h3->bin(i).scaleW(_h3->bin(i).width());
+          _h3->bin(i).scaleW(_h3->bin(i).xWidth());
         }
         for (size_t i = 0; i < _h4->numBins(); i++) {
-          _h4->bin(i).scaleW(_h4->bin(i).width());
+          _h4->bin(i).scaleW(_h4->bin(i).xWidth());
         }
         scale(_h1, 1.0/ *_ZJw_gen);
         scale(_h2, 1.0/ *_ZJw_gen);
@@ -155,10 +155,10 @@ namespace Rivet {
     Histo1DPtr  _h2;
     Histo1DPtr  _h3;
     Histo1DPtr  _h4;
-    
+
     CounterPtr _ZJw_gen;
 
-    double _jr; 
+    double _jr;
 
   protected:
 

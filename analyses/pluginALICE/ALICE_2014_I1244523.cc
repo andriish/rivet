@@ -33,9 +33,8 @@ namespace Rivet {
     }
 
     void scaleHisto(Histo1DPtr h) {
-      vector<YODA::HistoBin1D>& bins = h->bins();
-      for (vector<YODA::HistoBin1D>::iterator b = bins.begin(); b != bins.end(); ++b) {
-        b->scaleW(1./b->width()/b->xMid());
+      for (auto& b : h->bins()) {
+        b.scaleW(1./b.xWidth()/b.xMid());
       }
     }
 
@@ -161,38 +160,38 @@ namespace Rivet {
 	    pi1Itr->second->fill(pT, nW);
 	    pi2Itr->second->fill(pT);
 	    pi3Itr->second->fill(pT);
-	    _histPiMeanpT->fillBin(index, pT);
+      _histPiMeanpT->fill(_histPiMeanpT->bin(index).xMid(), pT);
 	  }
 	  else if (pid == 321) { // K +/-
 	    ++nk;
 	    kItr->second->fill(pT, nW);
 	    krItr->second->fill(pT);
-	    _histKMeanpT->fillBin(index, pT);
+	    _histKMeanpT->fill(_histKMeanpT->bin(index).xMid(), pT);
 	  }
 	  else if (pid == 310) { // K0S
 	    k0Itr->second->fill(pT, nW);
 	    klItr->second->fill(pT);
-	    _histK0SMeanpT->fillBin(index, pT);
+	    _histK0SMeanpT->fill(_histK0SMeanpT->bin(index).xMid(), pT);
 	  }
 	  else if (pid == 2212) { // p + pbar
 	    ++np;
 	    pItr->second->fill(pT, nW);
 	    prItr->second->fill(pT);
-	    _histProtonMeanpT->fillBin(index, pT);
+	    _histProtonMeanpT->fill(_histProtonMeanpT->bin(index).xMid(), pT);
 	  }
 	  else if (pid == 3122) { // Lambda + Lambdabar
 	    ++nlam;
 	    lItr->second->fill(pT, nW);
 	    lrItr->second->fill(pT);
-	    _histLambdaMeanpT->fillBin(index, pT);
+	    _histLambdaMeanpT->fill(_histLambdaMeanpT->bin(index).xMid(), pT);
 	  }
         }
       // Fill the yield profiles.
-      _histKYield->fillBin(index, double(nk));
-      _histPi4LYield->fillBin(index, double(npi));
-      _histProtonYield->fillBin(index, double(np));
-      _histPiYield->fillBin(index, double(npi));
-      _histLambdaYield->fillBin(index, double(nlam));
+      _histKYield->fill(_histKYield->bin(index).xMid(), double(nk));
+      _histPi4LYield->fill(_histPi4LYield->bin(index).xMid(), double(npi));
+      _histProtonYield->fill(_histProtonYield->bin(index).xMid(), double(np));
+      _histPiYield->fill(_histPiYield->bin(index).xMid(), double(npi));
+      _histLambdaYield->fill(_histLambdaYield->bin(index).xMid(), double(nlam));
     }
 
     /// Normalise histograms etc., after the run

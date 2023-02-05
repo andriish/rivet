@@ -41,19 +41,19 @@ namespace Rivet {
 	const double y_45 = jadejet.clusterSeq()->exclusive_ymerge_max(4);
 	for (size_t i = 0; i < _h_y_2_JADE->numBins(); ++i) {
 	  double ycut = _h_y_2_JADE->bin(i).xMid();
-	  double width = _h_y_2_JADE->bin(i).width();
+	  double width = _h_y_2_JADE->bin(i).xWidth();
 	  if (y_23 < ycut) _h_y_2_JADE->fillBin(i,width);
 	}
 	for (size_t i = 0; i < _h_y_3_JADE->numBins(); ++i) {
 	  double ycut = _h_y_3_JADE->bin(i).xMid();
-	  double width = _h_y_3_JADE->bin(i).width();
+	  double width = _h_y_3_JADE->bin(i).xWidth();
 	  if (y_34 < ycut && y_23 > ycut) {
 	    _h_y_3_JADE->fillBin(i,width);
 	  }
 	}
 	for (size_t i = 0; i < _h_y_4_JADE->numBins(); ++i) {
 	  double ycut = _h_y_4_JADE->bin(i).xMid();
-	  double width = _h_y_4_JADE->bin(i).width();
+	  double width = _h_y_4_JADE->bin(i).xWidth();
 	  if (y_45 < ycut && y_34 > ycut) {
 	    _h_y_4_JADE->fillBin(i,width);
 	  }

@@ -143,7 +143,7 @@ namespace Rivet {
           double yval(0), yerr(0);
           if (_h_dsigdpt_w->bin(ibin).sumW() != 0 && _h_dsigdpt_z->bin(ibin).sumW() != 0) {
             yval = scalefactor * _h_dsigdpt_w->bin(ibin).sumW() / _h_dsigdpt_z->bin(ibin).sumW();
-            yerr = yval * sqrt( sqr(_h_dsigdpt_w->bin(ibin).relErr()) + sqr(_h_dsigdpt_z->bin(ibin).areaErr()) );
+            yerr = yval * sqrt( sqr(_h_dsigdpt_w->bin(ibin).relErr()) + sqr(_h_dsigdpt_z->bin(ibin).volumeErr()) );
           }
           _h_dsigdpt_scaled_z->addPoint(xval, yval, xerr, yerr);
         }

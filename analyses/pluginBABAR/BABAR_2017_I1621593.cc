@@ -79,7 +79,7 @@ namespace Rivet {
           if(ex2.first ==0.) ex2. first=0.0001;
           if(ex2.second==0.) ex2.second=0.0001;
           if (inRange(sqrtS()/GeV, x-ex2.first, x+ex2.second)) {
-            _mult[ix-1]->addPoint(x, sigma, ex, make_pair(error,error));
+            _mult[ix-1]->addPoint({x, sigma}, {ex, {error,error}});
           }
           else {
             _mult[ix-1]->addPoint(x, 0., ex, make_pair(0.,.0));

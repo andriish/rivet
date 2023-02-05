@@ -82,9 +82,9 @@ namespace Rivet {
       for (size_t i = 0; i < PTEDGES.size()-1; ++i) {
         // Get entry for rad_Psi = 0.2 bin
         /// @todo Not a great handling of empty bins! Skip point, or set NaN values?!
-        ProfileBin1D& bi = _profhistPsi_pT[i]->bin(2);
-        const double y  = (bi.effNumEntries() > 0) ? bi.mean() : 0;
-        const double ey = (bi.effNumEntries() > 1) ? bi.stdErr() : 0;
+        const auto& bi = _profhistPsi_pT[i]->bin(2);
+        const double y  = (bi.effNumEntries() > 0) ? bi.yMean() : 0;
+        const double ey = (bi.effNumEntries() > 1) ? bi.yStdErr() : 0;
         _profhistPsi_vs_pT->point(i).setY(y, ey);
       }
     }

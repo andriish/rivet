@@ -51,7 +51,7 @@ namespace Rivet {
 	  mult->addPoint(x, _c_eta->val(), ex, make_pair(_c_eta->err(),_c_eta->err()));
 	}
 	else {
-	  mult->addPoint(x, 0., ex, make_pair(0.,.0));
+	  mult->addPoint({x, 0.}, {ex, {0.,.0}});
 	}
       }
     }

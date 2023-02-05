@@ -153,9 +153,9 @@ namespace Rivet {
         for (size_t i = 0; i < _s_totEF_minbias->numPoints(); ++i) {
           double val = 0., err = 0.;
           if (_tp_totEF_minbias->bin(i).effNumEntries() > 1) {
-            val = _tp_totEF_minbias->bin(i).mean() * _th_totN_minbias->bin(i).height();
-            err = (_tp_totEF_minbias->bin(i).mean() * _th_totN_minbias->bin(i).heightErr() +
-                   _tp_totEF_minbias->bin(i).stdErr() * _th_totN_minbias->bin(i).height());
+            val = _tp_totEF_minbias->bin(i).yMean() * _th_totN_minbias->bin(i).height();
+            err = (_tp_totEF_minbias->bin(i).yMean() * _th_totN_minbias->bin(i).heightErr() +
+                   _tp_totEF_minbias->bin(i).yStdErr() * _th_totN_minbias->bin(i).height());
           }
           _s_totEF_minbias->point(i).setY(val/_mbSumW->val(), err/_mbSumW->val());
         }
@@ -164,9 +164,9 @@ namespace Rivet {
         for (size_t i = 0; i < _s_totEF_hard->numPoints(); ++i) {
           double val = 0., err = 0.;
           if (_tp_totEF_minbias->bin(i).effNumEntries() > 1) {
-            val = _tp_totEF_hard->bin(i).mean() * _th_totN_hard->bin(i).height();
-            err = (_tp_totEF_hard->bin(i).mean() * _th_totN_hard->bin(i).heightErr() +
-                   _tp_totEF_hard->bin(i).stdErr() * _th_totN_hard->bin(i).height());
+            val = _tp_totEF_hard->bin(i).yMean() * _th_totN_hard->bin(i).height();
+            err = (_tp_totEF_hard->bin(i).yMean() * _th_totN_hard->bin(i).heightErr() +
+                   _tp_totEF_hard->bin(i).yStdErr() * _th_totN_hard->bin(i).height());
           }
           _s_totEF_hard->point(i).setY(val/_hdSumW->val(), err/_hdSumW->val());
         }
@@ -175,9 +175,9 @@ namespace Rivet {
         for (size_t i = 0; i < _s_totEF_diff->numPoints(); ++i) {
           double val = 0., err = 0.;
           if (_tp_totEF_diff->bin(i).effNumEntries() > 1) {
-            val = _tp_totEF_diff->bin(i).mean() * _th_totN_diff->bin(i).height();
-            err = (_tp_totEF_diff->bin(i).mean() * _th_totN_diff->bin(i).heightErr() +
-                   _tp_totEF_diff->bin(i).stdErr() * _th_totN_diff->bin(i).height());
+            val = _tp_totEF_diff->bin(i).yMean() * _th_totN_diff->bin(i).height();
+            err = (_tp_totEF_diff->bin(i).yMean() * _th_totN_diff->bin(i).heightErr() +
+                   _tp_totEF_diff->bin(i).yStdErr() * _th_totN_diff->bin(i).height());
           }
           _s_totEF_diff->point(i).setY(val/_dfSumW->val(), err/_dfSumW->val());
         }
@@ -186,9 +186,9 @@ namespace Rivet {
         for (size_t i = 0; i < _s_totEF_nondiff->numPoints(); ++i) {
           double val = 0., err = 0.;
           if (_tp_totEF_nondiff->bin(i).effNumEntries() > 1) {
-            val = _tp_totEF_nondiff->bin(i).mean() * _th_totN_nondiff->bin(i).height();
-            err = (_tp_totEF_nondiff->bin(i).mean() * _th_totN_nondiff->bin(i).heightErr() +
-                   _tp_totEF_nondiff->bin(i).stdErr() * _th_totN_nondiff->bin(i).height());
+            val = _tp_totEF_nondiff->bin(i).yMean() * _th_totN_nondiff->bin(i).height();
+            err = (_tp_totEF_nondiff->bin(i).yMean() * _th_totN_nondiff->bin(i).heightErr() +
+                   _tp_totEF_nondiff->bin(i).yStdErr() * _th_totN_nondiff->bin(i).height());
             _s_totEF_nondiff->point(i).setY(val/_ndSumW->val(), err/_ndSumW->val());
          }
         }
@@ -197,9 +197,9 @@ namespace Rivet {
         for (size_t i = 0; i < _s_chEF_minbias->numPoints(); ++i) {
           double val = 0., err = 0.;
           if (_tp_chEF_minbias->bin(i).effNumEntries() > 1) {
-            val = _tp_chEF_minbias->bin(i).mean() * _th_chN_minbias->bin(i).height();
-            err = (_tp_chEF_minbias->bin(i).mean() * _th_chN_minbias->bin(i).heightErr() +
-                   _tp_chEF_minbias->bin(i).stdErr() * _th_chN_minbias->bin(i).height());
+            val = _tp_chEF_minbias->bin(i).yMean() * _th_chN_minbias->bin(i).height();
+            err = (_tp_chEF_minbias->bin(i).yMean() * _th_chN_minbias->bin(i).heightErr() +
+                   _tp_chEF_minbias->bin(i).yStdErr() * _th_chN_minbias->bin(i).height());
           }
           _s_chEF_minbias->point(i).setY(val/_mbchSumW->val(), err/_mbchSumW->val());
         }
@@ -208,9 +208,9 @@ namespace Rivet {
         for (size_t i = 0; i < _s_chEF_hard->numPoints(); ++i) {
           double val = 0., err = 0.;
           if (_tp_chEF_hard->bin(i).effNumEntries() > 1) {
-            val = _tp_chEF_hard->bin(i).mean() * _th_chN_hard->bin(i).height();
-            err = (_tp_chEF_hard->bin(i).mean() * _th_chN_hard->bin(i).heightErr() +
-                   _tp_chEF_hard->bin(i).stdErr() * _th_chN_hard->bin(i).height());
+            val = _tp_chEF_hard->bin(i).yMean() * _th_chN_hard->bin(i).height();
+            err = (_tp_chEF_hard->bin(i).yMean() * _th_chN_hard->bin(i).heightErr() +
+                   _tp_chEF_hard->bin(i).yStdErr() * _th_chN_hard->bin(i).height());
           }
           _s_chEF_hard->point(i).setY(val/_hdchSumW->val(), err/_hdchSumW->val());
         }
@@ -219,9 +219,9 @@ namespace Rivet {
         for (size_t i = 0; i < _s_chEF_diff->numPoints(); ++i) {
           double val = 0., err = 0.;
           if (_tp_chEF_diff->bin(i).effNumEntries() > 1) {
-            val = _tp_chEF_diff->bin(i).mean() * _th_chN_diff->bin(i).height();
-            err = (_tp_chEF_diff->bin(i).mean() * _th_chN_diff->bin(i).heightErr() +
-                   _tp_chEF_diff->bin(i).stdErr() * _th_chN_diff->bin(i).height());
+            val = _tp_chEF_diff->bin(i).yMean() * _th_chN_diff->bin(i).height();
+            err = (_tp_chEF_diff->bin(i).yMean() * _th_chN_diff->bin(i).heightErr() +
+                   _tp_chEF_diff->bin(i).yStdErr() * _th_chN_diff->bin(i).height());
           }
           _s_chEF_diff->point(i).setY(val/_dfchSumW->val(), err/_dfchSumW->val());
         }
@@ -230,9 +230,9 @@ namespace Rivet {
         for (size_t i = 0; i < _s_chEF_nondiff->numPoints(); ++i) {
           double val = 0., err = 0.;
           if (_tp_chEF_nondiff->bin(i).effNumEntries() > 1) {
-            val = _tp_chEF_nondiff->bin(i).mean() * _th_chN_nondiff->bin(i).height();
-            err = (_tp_chEF_nondiff->bin(i).mean() * _th_chN_nondiff->bin(i).heightErr() +
-                   _tp_chEF_nondiff->bin(i).stdErr() * _th_chN_nondiff->bin(i).height());
+            val = _tp_chEF_nondiff->bin(i).yMean() * _th_chN_nondiff->bin(i).height();
+            err = (_tp_chEF_nondiff->bin(i).yMean() * _th_chN_nondiff->bin(i).heightErr() +
+                   _tp_chEF_nondiff->bin(i).yStdErr() * _th_chN_nondiff->bin(i).height());
           }
           _s_chEF_nondiff->point(i).setY(val/_ndchSumW->val(), err/_ndchSumW->val());
         }

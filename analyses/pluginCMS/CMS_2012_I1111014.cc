@@ -141,9 +141,9 @@ namespace Rivet {
     void finalize() {
       for (unsigned int i = 0; i < _profhistAsym->numPoints(); ++i) {
         if((_profhistDeta->bin(i).effNumEntries()<2)||(_profhistDphi->bin(i).effNumEntries()<2)) continue;
-        if((_profhistDeta->bin(i).mean()==0)||(_profhistDphi->bin(i).mean()==0)) continue;
-        double mean_ratio=_profhistDeta->bin(i).mean() / _profhistDphi->bin(i).mean();
-        double mean_error=mean_ratio*sqrt(pow(_profhistDeta->bin(i).stdErr()/_profhistDeta->bin(i).mean(),2)+pow(_profhistDphi->bin(i).stdErr()/_profhistDphi->bin(i).mean(),2));
+        if((_profhistDeta->bin(i).yMean()==0)||(_profhistDphi->bin(i).yMean()==0)) continue;
+        double mean_ratio=_profhistDeta->bin(i).yMean() / _profhistDphi->bin(i).yMean();
+        double mean_error=mean_ratio*sqrt(pow(_profhistDeta->bin(i).yStdErr()/_profhistDeta->bin(i).yMean(),2)+pow(_profhistDphi->bin(i).yStdErr()/_profhistDphi->bin(i).yMean(),2));
         _profhistAsym->point(i).setY(mean_ratio,mean_error);
       }
     }

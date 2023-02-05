@@ -64,7 +64,7 @@ namespace Rivet {
 	  mult->addPoint(x, sig_h, ex, make_pair(err_h,err_h));
 	}
 	else {
-	  mult->addPoint(x, 0., ex, make_pair(0.,.0));
+	  mult->addPoint({x, 0.}, {ex, {0.,.0}});
 	}
       }
     }

@@ -170,12 +170,9 @@ namespace Rivet {
         Scatter2DPtr ratio;
         book(ratio, d, 1, 1, true);
 
-        // Should be the case, but better check
-        assert(YODA::Histo1D(*ratio).sameBinning(*numerator));
-
         // The denominator has a finer binning, so rebin it
         auto rebinned_den = denominator->clone();
-        rebinned_den.rebin(numerator->xEdges());
+        rebinned_den.rebinX(numerator->xEdges());
 
         divide(*numerator, rebinned_den, ratio);
       }

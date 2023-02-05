@@ -777,7 +777,7 @@ namespace Rivet {
           }
           else {
             MSG_DEBUG("Multiply user-supplied weight: " << user_xsec);
-            xsec->scaleX(user_xsec);
+            xsec->scale(0, user_xsec);
           }
           // get iterator to the existing (or newly created) key-value pair
           auto xit = allxsecs.insert( make_pair(wname, make_pair(0,0)) ).first;
@@ -1060,7 +1060,7 @@ namespace Rivet {
   YODA::AnalysisObjectPtr _mkStaticClone(YODA::AnalysisObjectPtr aop) {
     YODA::AnalysisObjectPtr rtn;
     T* aop_dyn = dynamic_cast<T*>(aop.get());
-    if (aop_dyn != nullptr) rtn.reset(YODA::mkScatter(*aop_dyn).newclone());
+    if (aop_dyn != nullptr)  rtn.reset((*aop_dyn).mkScatter().newclone());
     return rtn;
   }
 

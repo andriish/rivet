@@ -283,7 +283,7 @@ namespace Rivet {
       if(hist->numEntries()==0.) return make_pair(0.,0.);
       double sum1(0.),sum2(0.);
       for (auto bin : hist->bins() ) {
-	double Oi = bin.area();
+	double Oi = bin.volume();
 	if(Oi==0.) continue;
 	double ai(0.),bi(0.);
 	if(mode==0) {
@@ -298,7 +298,7 @@ namespace Rivet {
 	  ai = -2.*(bin.xMin()-bin.xMax())/M_PI;
 	  bi = -2.*(sin(2.*bin.xMin())-sin(2.*bin.xMax()))/M_PI;
 	}
-	double Ei = bin.areaErr();
+	double Ei = bin.volumeErr();
 	sum1 += sqr(bi/Ei);
 	sum2 += bi/sqr(Ei)*(Oi-ai);
       }
@@ -380,9 +380,9 @@ namespace Rivet {
       himRho_phi->addPoint(3., rho.first, make_pair(0.5,0.5),
 			   make_pair(rho.second,rho.second) );
       // real diff
-      Scatter1D temp = (*_c_phi_cos_plus-*_c_phi_cos_neg)/(*_c_phi_cos_plus+*_c_phi_cos_neg);
-      Scatter1D temp2 = (*_c_phi_cos_plus2-*_c_phi_cos_neg2)/(*_c_phi_cos_plus2+*_c_phi_cos_neg2);
-      Scatter1D temp3 = (*_c_phi_cos_plus3-*_c_phi_cos_neg3)/(*_c_phi_cos_plus3+*_c_phi_cos_neg3);
+      Scatter1D temp = ((*_c_phi_cos_plus-*_c_phi_cos_neg)/(*_c_phi_cos_plus+*_c_phi_cos_neg)).mkScatter();
+      Scatter1D temp2 = ((*_c_phi_cos_plus2-*_c_phi_cos_neg2)/(*_c_phi_cos_plus2+*_c_phi_cos_neg2)).mkScatter();
+      Scatter1D temp3 = ((*_c_phi_cos_plus3-*_c_phi_cos_neg3)/(*_c_phi_cos_plus3+*_c_phi_cos_neg3)).mkScatter();
       Scatter2DPtr hreDiff_phi;
       book(hreDiff_phi,1,1,4);
       hreDiff_phi->addPoint(1., temp.points()[0].x(), make_pair(0.5,0.5),
@@ -392,9 +392,9 @@ namespace Rivet {
       hreDiff_phi->addPoint(3., temp3.points()[0].x(), make_pair(0.5,0.5),
 			    make_pair(temp3.points()[0].xErrMinus(),temp3.points()[0].xErrPlus()) );
       // im diff
-      temp  = (*_c_phi_sin_plus-*_c_phi_sin_neg)/(*_c_phi_sin_plus+*_c_phi_sin_neg);
-      temp2 = (*_c_phi_sin_plus2-*_c_phi_sin_neg2)/(*_c_phi_sin_plus2+*_c_phi_sin_neg2);
-      temp3 = (*_c_phi_sin_plus3-*_c_phi_sin_neg3)/(*_c_phi_sin_plus3+*_c_phi_sin_neg3);
+      temp  = ((*_c_phi_sin_plus-*_c_phi_sin_neg)/(*_c_phi_sin_plus+*_c_phi_sin_neg)).mkScatter();
+      temp2 = ((*_c_phi_sin_plus2-*_c_phi_sin_neg2)/(*_c_phi_sin_plus2+*_c_phi_sin_neg2)).mkScatter();
+      temp3 = ((*_c_phi_sin_plus3-*_c_phi_sin_neg3)/(*_c_phi_sin_plus3+*_c_phi_sin_neg3)).mkScatter();
       Scatter2DPtr himDiff_phi;
       book(himDiff_phi,1,1,5);
       himDiff_phi->addPoint(1., temp.points()[0].x(), make_pair(0.5,0.5),
