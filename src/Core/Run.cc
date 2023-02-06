@@ -170,8 +170,8 @@ namespace Rivet {
         MSG_ERROR("Empty first event.");
         return false;
       }
-    _evtnumber = _evt->event_number(); // set first event number
-    _evtcount = 1; // first event used for initialisation
+      _evtnumber = _evt->event_number(); // set first event number
+      _evtcount = 1; // first event used for initialisation
 
       // Initialise AnalysisHandler with beam information from first event
       _ah.init(*_evt);
