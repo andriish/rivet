@@ -28,21 +28,17 @@ public:
     cout << "Overflow fill" << endl;
     _h_test->fill(130.);
 
-     cout << "Inf fill" << endl;
-    try {
-      _h_test->fill(numeric_limits<double>::infinity());
-    } catch (YODA::RangeError & e) {
-      cerr << e.what() << '\n';
-      if ( string(e.what()) != string("X is Inf") ) throw;
-    }
+    cout << "-Inf fill" << endl;
+    int res = _h_test->fill(-numeric_limits<double>::infinity());
+    if (res != 0) throw;
+
+    cout << "Inf fill" << endl;
+    res = _h_test->fill(numeric_limits<double>::infinity());
+    if (res != _h_test->numBins(true)) throw;
 
     cout << "NaN fill" << endl;
-    try {
-      _h_test->fill(numeric_limits<double>::quiet_NaN());
-    } catch (YODA::RangeError & e) {
-      cerr << e.what() << '\n';
-      if ( string(e.what()) != string("X is NaN") ) throw;
-    }
+    res = _h_test->fill(numeric_limits<double>::quiet_NaN());
+    if (res != -1) throw;
   }
 
 private:
