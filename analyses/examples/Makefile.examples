@@ -11,3 +11,6 @@ RivetROOT.so: EXAMPLE_NTUPLE_ROOT.cc
 
 RivetHTT.so: EXAMPLE_HTT.cc
 	@+echo && $(RIVETBUILD) $@ $^ -I$(HEPTOPTAGGER_PREFIX)/include
+
+RivetONNX.so: EXAMPLE_ONNX.cc
+	@+echo && $(RIVETBUILD) $@ $^ -I$(top_builddir)/include -I$(ONNX_PREFIX)/include -L$(ONNX_PREFIX)/lib -lonnxruntime

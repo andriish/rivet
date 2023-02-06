@@ -1,3 +1,9 @@
+2023-02-03 Tomek Procter <t.procter.1@research.gla.ac.uk>
+
+	* Add Support for using ONNX neural nets in Tools/RivetONNXrt.hh
+
+	* Add example analysis demonstrating use of an ONNX neural net.
+
 2023-02-02  Andy Buckley  <andy.buckley@cern.ch>
 
 	* Update ParticleIdUtils content to match latest MCUtils. Includes
