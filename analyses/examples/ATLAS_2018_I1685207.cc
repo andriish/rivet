@@ -214,7 +214,7 @@ namespace Rivet {
 	    const FinalState fsj(Cuts::abseta < 4.8);
 	    FastJets Sj(fsj, FastJets::ANTIKT, 0.4, JetAlg::Muons::NONE);
 	    declare("Sjet", Sj);
-	    SmearedJets SSj(Sj, JET_SMEAR_ANGULAR_PT_PRESERVED, JET_BTAG_PERFECT);
+	    SmearedJets SSj(Sj, JET_SMEAR_ANGULAR, JET_BTAG_EFFS(0.77, 1./6.2, 1./134));
       /// @todo Also look into angular smearing? Need a custom smearing function, building on the ATLAS R2
       //SmearedJets SSj(Sj, JET_SMEAR_ANGULAR, JET_BTAG_EFFS(0.77, 1./6.2, 1./134));
     	declare(SSj, "smearedSjet");
