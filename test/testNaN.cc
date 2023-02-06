@@ -34,7 +34,7 @@ public:
 
     cout << "Inf fill" << endl;
     res = _h_test->fill(numeric_limits<double>::infinity());
-    if (res != _h_test->numBins(true)) throw;
+    if (res != (int)_h_test->numBins(true)-1) throw;
 
     cout << "NaN fill" << endl;
     res = _h_test->fill(numeric_limits<double>::quiet_NaN());
