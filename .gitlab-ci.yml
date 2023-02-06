@@ -30,7 +30,7 @@ stages:
     # - export CPPFLAGS="$CPPFLAGS -DNDEBUG"
     #- export PATH=$INSTALL_PREFIX/bin:$PATH
     ## Build YODA
-    - git clone --depth 1 --branch release-1-9-x https://gitlab.com/hepcedar/yoda.git yoda/
+    - git clone --depth 1 --branch main https://gitlab.com/hepcedar/yoda.git yoda/
     - cd yoda/
     - autoreconf -i
     - ./configure --prefix=$INSTALL_PREFIX
@@ -333,28 +333,26 @@ check_plugin_fedora_gcc_hepmc3_py3:
     expire_in: 36 hrs
 
 
-#TEMP
-#make_plots_ubuntu_gcc_hepmc3_py3:
-#  variables:
-#    ARCH: ubuntu-gcc-hepmc3-py3
-#  #only: [schedules]
-#  needs: [check_plugin_ubuntu_gcc_hepmc3_py3]
-#  <<: *make_plots_template
-#
-#make_plots_ubuntu_clang_hepmc3_py3:
-#  variables:
-#    ARCH: ubuntu-clang-hepmc3-py3
-#  only: [schedules]
-#  needs: [check_plugin_ubuntu_clang_hepmc3_py3]
-#  <<: *make_plots_template
-#
-#make_plots_fedora_gcc_hepmc3_py3:
-#  variables:
-#    ARCH: fedora-gcc-hepmc3-py3
-#  #only: [schedules]
-#  needs: [check_plugin_fedora_gcc_hepmc3_py3]
-#  <<: *make_plots_template
-###### TEMP
+make_plots_ubuntu_gcc_hepmc3_py3:
+  variables:
+    ARCH: ubuntu-gcc-hepmc3-py3
+  #only: [schedules]
+  needs: [check_plugin_ubuntu_gcc_hepmc3_py3]
+  <<: *make_plots_template
+
+make_plots_ubuntu_clang_hepmc3_py3:
+  variables:
+    ARCH: ubuntu-clang-hepmc3-py3
+  only: [schedules]
+  needs: [check_plugin_ubuntu_clang_hepmc3_py3]
+  <<: *make_plots_template
+
+make_plots_fedora_gcc_hepmc3_py3:
+  variables:
+    ARCH: fedora-gcc-hepmc3-py3
+  #only: [schedules]
+  needs: [check_plugin_fedora_gcc_hepmc3_py3]
+  <<: *make_plots_template
 
 # make_plots_ubuntu_intel_hepmc3_py3:
 #   tags: [intel-compat]
