@@ -1,6 +1,6 @@
 #!/bin/sh -l
 set -x
-brew install wget coreutils gcc autoconf automake cython
+brew install wget coreutils gcc autoconf automake cython libtool
 brew tap davidchall/hep
 brew install hepmc3 yoda fastjet 
 TOP=$(pwd)
