@@ -1,6 +1,6 @@
 #!/bin/sh -l
 set -x
-brew install wget coreutils gcc autoconf automake cython libtool gnu-which
+brew install wget coreutils gcc autoconf automake python cython libtool gnu-which
 export PATH=/usr/local/opt/cython/bin:$PATH
 cp /usr/local/opt/cython/bin/cython /usr/local/opt/cython/bin/cython2
 cp /usr/local/opt/cython/bin/cython /usr/local/opt/cython/bin/cython-2
@@ -12,6 +12,8 @@ which -a cython2
 which -a cython-2
 which -a Cython-2
 which -a Cython2
+
+#python -m pip install cython
 
 brew tap davidchall/hep
 brew install hepmc3 yoda fastjet 
