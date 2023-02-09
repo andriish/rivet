@@ -1,6 +1,6 @@
 #!/bin/sh -l
 set -x
-brew install wget coreutils gcc autoconf automake python cython libtool gnu-which
+brew install wget coreutils gcc autoconf automake python cython libtool gnu-which git
 export PATH=/usr/local/opt/cython/bin:$PATH
 cp /usr/local/opt/cython/bin/cython /usr/local/opt/cython/bin/cython2
 cp /usr/local/opt/cython/bin/cython /usr/local/opt/cython/bin/cython-2
@@ -31,6 +31,7 @@ make install  > /dev/null
 
 
 cd $TOP
+git branch
 autoreconf --force --install --verbose .
 automake -a --force
 ./configure  --prefix=$TOP/INSTALL  --disable-analyses --disable-doxygen --with-yoda=$(yoda-config --prefix ) --with-hepmc3=$(HepMC3-config --prefix) --with-fjcontrib=$(fastjet-config --prefix) --with-fastjet=$(fastjet-config --prefix)
