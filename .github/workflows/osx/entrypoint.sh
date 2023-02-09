@@ -29,6 +29,9 @@ make fragile-shared-install
 make install
 
 
+export PYTHON=/usr/local/bin/python
+$PYTHON -m pip install cython
+
 cd $TOP
 autoreconf --force --install --verbose .
 automake -a --force
