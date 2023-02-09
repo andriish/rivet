@@ -9,6 +9,7 @@ mkdir FJ
 cd FJ
 wget https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.048.tar.gz
 tar zxfv fjcontrib-1.048.tar.gz
+cd fjcontrib-1.048
 ./configure --prefix=$(fastjet-config --prefix)
 make fragile-shared-install
 make install
