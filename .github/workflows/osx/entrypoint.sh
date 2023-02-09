@@ -7,13 +7,14 @@ cp /usr/local/opt/cython/bin/cython /usr/local/opt/cython/bin/cython-2
 cp /usr/local/opt/cython/bin/cython /usr/local/opt/cython/bin/Cython-2
 cp /usr/local/opt/cython/bin/cython /usr/local/opt/cython/bin/Cython2
 ls -lah /usr/local/opt/cython/bin
+export PYTHON=/usr/local/bin/python
+$PYTHON -m pip install cython
 which -a cython
 which -a cython2
 which -a cython-2
 which -a Cython-2
 which -a Cython2
 
-#python -m pip install cython
 
 brew tap davidchall/hep
 brew install hepmc3 yoda fastjet 
@@ -25,12 +26,9 @@ wget https://fastjet.hepforge.org/contrib/downloads/fjcontrib-1.048.tar.gz
 tar zxfv fjcontrib-1.048.tar.gz
 cd fjcontrib-1.048
 ./configure --prefix=$(fastjet-config --prefix)
-make fragile-shared-install
-make install
+make fragile-shared-install > /dev/null
+make install  > /dev/null
 
-
-export PYTHON=/usr/local/bin/python
-$PYTHON -m pip install cython
 
 cd $TOP
 autoreconf --force --install --verbose .
