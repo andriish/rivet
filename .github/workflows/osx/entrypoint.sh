@@ -1,6 +1,6 @@
 #!/bin/sh -l
 set -x
-brew install wget coreutils gcc autoconf automake cython libtool which
+brew install wget coreutils gcc autoconf automake cython libtool gnu-which
 export PATH=/usr/local/opt/cython/bin:$PATH
 cp /usr/local/opt/cython/bin/cython /usr/local/opt/cython/bin/cython2
 ls -lah /usr/local/opt/cython/bin
